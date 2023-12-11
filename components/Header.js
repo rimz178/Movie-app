@@ -4,8 +4,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../Colors/Colors";
 
-const openMenu = () => {};
-
+const openMenu = () => {
+  //Koodan tähän myöhemmin
+};
+//Header icon
 const Header = (props) => {
   return (
     <View style={styles.header}>
