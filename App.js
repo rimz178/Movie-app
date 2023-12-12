@@ -1,15 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import "react-native-gesture-handler";
 
-import Header from "./components/Header";
+import MainStack from "./stack/MainStack";
 import Colors from "./Colors/Colors";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Header title="Movie App" />
-    </View>
-  );
+  return <MainStack />;
 }
 
 const styles = StyleSheet.create({
