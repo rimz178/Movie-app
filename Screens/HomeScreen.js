@@ -3,9 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../Colors/Colors";
-const openMenu = () => {
-  //Koodan tähän myöhemmin
-};
 
 function HomeScreen(props) {
   const { navigation } = props;
