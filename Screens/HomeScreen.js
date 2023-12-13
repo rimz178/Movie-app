@@ -4,19 +4,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../Colors/Colors";
 
-function HomeScreen(props) {
-  const { navigation } = props;
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>ss</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("Settings")}
-      >
-        <Text style={styles.buttonText}> Go To settings</Text>
-      </TouchableOpacity>
-    </View>
-  );
+function HomeScreen() {
+  return <View style={styles.container}></View>;
 }
 
 const styles = StyleSheet.create({
