@@ -15,7 +15,17 @@ export default function StackHeader({ navigation, route, options, back }) {
   return (
     <Appbar.Header style={styles.content}>
       {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content title={title} color="white" />
+      <Appbar.Content
+        color="white"
+        titleStyle={{
+          alignSelf: "auto",
+          justifyContent: "center",
+          fontWeight: "bold",
+          letterSpacing: 1,
+          fontSize: 23,
+        }}
+        title={title}
+      />
       {!back ? (
         <Menu
           visible={visible}

@@ -1,35 +1,21 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, StatusBar } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-
 import Colors from "../Colors/Colors";
+import SearchBar from "../components/SearchBars";
 
 function HomeScreen() {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <SearchBar />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: Colors.backcolor,
-  },
-  text: {
-    color: Colors.white,
-    fontSize: 23,
-    fontWeight: "bold",
-    letterSpacing: 1,
-  },
-  button: {
-    backgroundColor: Colors.buttonColor,
-    borderRadius: 5,
-    padding: 10,
-    margin: 10,
-  },
-  buttonText: {
-    fontSize: 20,
-    color: Colors.white,
   },
 });
 
