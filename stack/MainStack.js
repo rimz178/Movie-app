@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { PaperProvider } from "react-native-paper";
 import HomeScreen from "../Screens/HomeScreen";
 import Settings from "../Screens/Settings";
-import Colors from "../Colors/Colors";
 import StackHeader from "./StackHeader";
 
 const Stack = createStackNavigator();
