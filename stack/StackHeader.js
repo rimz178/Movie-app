@@ -43,6 +43,7 @@ export default function StackHeader({ navigation, route, options, back }) {
     </Appbar.Header>
   );
 }
+
 const styles = StyleSheet.create({
   content: {
     backgroundColor: Colors.backcolor,
