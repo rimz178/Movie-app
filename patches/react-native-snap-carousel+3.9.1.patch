@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-native-snap-carousel/src/carousel/Carousel.js b/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
-index dae71a3..fad7211 100644
+index dae71a3..ee54ba7 100644
 --- a/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
 +++ b/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
 @@ -1,5 +1,5 @@
@@ -16,7 +16,7 @@ index dae71a3..fad7211 100644
 -        containerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
 -        contentContainerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
 +        containerCustomStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-+        contentContainerCustomStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
++        contentContainerCustomStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
          enableMomentum: PropTypes.bool,
          enableSnap: PropTypes.bool,
          firstItem: PropTypes.number,
@@ -25,10 +25,22 @@ index dae71a3..fad7211 100644
          scrollInterpolator: PropTypes.func,
          slideInterpolatedStyle: PropTypes.func,
 -        slideStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
-+        slideStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
++        slideStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
          shouldOptimizeUpdates: PropTypes.bool,
          swipeThreshold: PropTypes.number,
          useScrollView: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+@@ -151,9 +151,9 @@ export default class Carousel extends Component {
+         this._ignoreNextMomentum = false;
+ 
+         // Warnings
+-        if (!ViewPropTypes) {
++        /* if (!ViewPropTypes) {
+             console.warn('react-native-snap-carousel: It is recommended to use at least version 0.44 of React Native with the plugin');
+-        }
++        } */
+         if (!props.vertical && (!props.sliderWidth || !props.itemWidth)) {
+             console.error('react-native-snap-carousel: You need to specify both `sliderWidth` and `itemWidth` for horizontal carousels');
+         }
 diff --git a/node_modules/react-native-snap-carousel/src/pagination/Pagination.js b/node_modules/react-native-snap-carousel/src/pagination/Pagination.js
 index 5c021cf..305b9da 100644
 --- a/node_modules/react-native-snap-carousel/src/pagination/Pagination.js
@@ -87,3 +99,25 @@ index e59d196..0f8d6a7 100644
          tappable: PropTypes.bool
      };
  
+diff --git a/node_modules/react-native-snap-carousel/src/parallaximage/ParallaxImage.js b/node_modules/react-native-snap-carousel/src/parallaximage/ParallaxImage.js
+index 8bc774a..95b616f 100644
+--- a/node_modules/react-native-snap-carousel/src/parallaximage/ParallaxImage.js
++++ b/node_modules/react-native-snap-carousel/src/parallaximage/ParallaxImage.js
+@@ -1,7 +1,7 @@
+ // Parallax effect inspired by https://github.com/oblador/react-native-parallax/
+ 
+ import React, { Component } from 'react';
+-import { View, ViewPropTypes, Image, Animated, Easing, ActivityIndicator, findNodeHandle } from 'react-native';
++import { View,  Image, Animated, Easing, ActivityIndicator, findNodeHandle } from 'react-native';
+ import PropTypes from 'prop-types';
+ import styles from './ParallaxImage.style';
+ 
+@@ -16,7 +16,7 @@ export default class ParallaxImage extends Component {
+         sliderHeight: PropTypes.number, // passed from <Carousel />
+         sliderWidth: PropTypes.number, // passed from <Carousel />
+         vertical: PropTypes.bool, // passed from <Carousel />
+-        containerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
++        containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+         dimensions: PropTypes.shape({
+             width: PropTypes.number,
+             height: PropTypes.number
