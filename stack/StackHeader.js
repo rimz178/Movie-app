@@ -14,7 +14,9 @@ export default function StackHeader({ navigation, route, options, back }) {
 
   return (
     <Appbar.Header style={styles.content}>
-      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+      {back ? (
+        <Appbar.BackAction onPress={navigation.goBack} color={Colors.white} />
+      ) : null}
       <Appbar.Content
         color="white"
         titleStyle={{
@@ -22,7 +24,7 @@ export default function StackHeader({ navigation, route, options, back }) {
           justifyContent: "center",
           fontWeight: "bold",
           letterSpacing: 1,
-          fontSize: 23,
+          fontSize: 25,
         }}
         title={title}
       />

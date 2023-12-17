@@ -2,15 +2,16 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Icon } from "@rneui/themed";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { PaperProvider } from "react-native-paper";
 import HomeScreen from "../Screens/HomeScreen";
 import Settings from "../Screens/Settings";
 import StackHeader from "./StackHeader";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import Colors from "../Colors/Colors";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
 //this code creates a transition between the possibility setting and the home page
 function MainStack() {
   return (
@@ -26,14 +27,14 @@ function MainStack() {
             name="Home"
             component={HomeTabNavigator}
             options={{
-              title: "Home",
+              title: "Movie-App",
             }}
           />
           <Stack.Screen
             name="Settings"
             component={Settings}
             options={{
-              title: "Settings",
+              title: "Movie-App",
             }}
           />
         </Stack.Navigator>
@@ -44,16 +45,37 @@ function MainStack() {
 //create tabnavigator
 const HomeTabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: Colors.buttonColor,
+        tabBarInactiveTintColor: Colors.white,
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: Colors.bottomColor,
+          position: "absolute",
+        },
+      }}
+    >
       <Tab.Screen
-        name="Hometab"
+        name="HomeS"
         component={HomeScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="home" color={color} size={35} />
+          ),
+        }}
       />
       <Tab.Screen
         name="Settings"
         component={Settings}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="settings" color={color} size={35} />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
