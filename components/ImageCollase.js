@@ -3,23 +3,22 @@ import React, { useRef, useState } from "react";
 import data from "../data";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import Colors from "../Colors/Colors";
-
+// this code create imgaCarusel in homepage
 export default function ImageCollase() {
   const { width: screenWidth } = Dimensions.get("window");
 
   const sliderWidth = screenWidth;
-  const itemWidth = screenWidth * 8;
+  const itemWidth = screenWidth;
   const [activeDotIndex, setActiveDoIndex] = useState(0);
   const _carousel = useRef();
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({ item }) => {
     return (
       <View>
         <Image source={item.imgUrl} style={styles.itemImg} />
       </View>
     );
   };
-
   return (
     <View>
       <Text style={styles.text}>Now Playing Cinemas</Text>
@@ -59,3 +58,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
+/* if (prevProps.item.imgUrl !== nextProps.item.imgUrl) {
+  return false;
+}
+return prevProps.item?.imgUrl === nextProps.item?.imgUrl;
+ */
