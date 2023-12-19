@@ -17,7 +17,7 @@
     "expo": "^49.0.21",
     "expo-status-bar": "~1.6.0",
     "latest-semver": "^4.0.0",
-    "node-fetch": "^2.6.8",
+    "node-fetch": "^3.3.2",
     "patch-package": "^8.0.0",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
