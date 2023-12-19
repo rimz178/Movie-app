@@ -1,7 +1,14 @@
-import { View, StyleSheet, Dimensions, Text, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Text,
+  Image,
+  FlatList,
+} from "react-native";
 import React, { useRef, useState } from "react";
 import data from "../data";
-import Carousel, { Pagination } from "react-native-snap-carousel";
+
 import Colors from "../Colors/Colors";
 // this code create imgaCarusel in homepage
 export default function ImageCollase() {
@@ -22,23 +29,13 @@ export default function ImageCollase() {
   return (
     <View>
       <Text style={styles.text}>Now Playing Cinemas</Text>
-      <Carousel
+      <FlatList
         ref={_carousel}
         layout="default"
         data={data}
         renderItem={renderItem}
-        firstItem={1}
-        sliderWidth={sliderWidth}
-        itemWidth={itemWidth}
-        onSnapToItem={(index) => setActiveDoIndex(index)}
+        horizontal
       />
-      <View>
-        <Pagination
-          carouselRef={_carousel}
-          activeDotIndex={activeDotIndex}
-          dotsLength={3}
-        />
-      </View>
     </View>
   );
 }
@@ -58,8 +55,3 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
-/* if (prevProps.item.imgUrl !== nextProps.item.imgUrl) {
-  return false;
-}
-return prevProps.item?.imgUrl === nextProps.item?.imgUrl;
- */
