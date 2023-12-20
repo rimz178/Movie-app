@@ -12,11 +12,6 @@ import data from "../data";
 import Colors from "../Colors/Colors";
 // this code create imgaCarusel in homepage
 export default function ImageCollase() {
-  const { width: screenWidth } = Dimensions.get("window");
-
-  const sliderWidth = screenWidth;
-  const itemWidth = screenWidth;
-  const [activeDotIndex, setActiveDoIndex] = useState(0);
   const _carousel = useRef();
 
   const renderItem = ({ item }) => {
@@ -35,6 +30,7 @@ export default function ImageCollase() {
         data={data}
         renderItem={renderItem}
         horizontal
+        initialNumToRender={3}
       />
     </View>
   );
