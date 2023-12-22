@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,13 +11,14 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
+import Loading from "../components/Loading";
 var { width, height } = Dimensions.get("window");
 
 export default function MovieScreen() {
   let movieName = "Shotgun Wedding";
   const { params: item } = useRoute();
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {}, [item]);
   return (
     <ScrollView style={styles.scorl}>
@@ -26,14 +27,18 @@ export default function MovieScreen() {
           <MaterialIcons size={28} name="arrow-back" color={Colors.white} />
         </TouchableOpacity>
         <View style={styles.images}>
-          <Image
-            style={{
-              width,
-              height: height * 0.48,
-              borderRadius: 20,
-            }}
-            source={require("../assets/image/image1.jpg")}
-          />
+          {loading ? (
+            <Loading />
+          ) : (
+            <Image
+              style={{
+                width,
+                height: height * 0.48,
+                borderRadius: 20,
+              }}
+              source={require("../assets/image/image1.jpg")}
+            />
+          )}
         </View>
       </View>
       <View style={{ marginTop: 10 }}>

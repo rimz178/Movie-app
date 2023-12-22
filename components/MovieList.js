@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Colors from "../Colors/Colors";
 import { useNavigation } from "@react-navigation/native";
+import { image185 } from "../Api/ApiParsing";
 
 var { width, height } = Dimensions.get("window");
 
@@ -35,12 +36,13 @@ export default function MovieList({ data, title }) {
               <View>
                 <Image
                   style={styles.image}
-                  source={require("../assets/image/image2.jpg")}
+                  source={{ uri: image185(item.poster_path) }}
+                  /*   source={require("../assets/image/image2.jpg")} */
                 />
                 <Text style={styles.text}>
-                  {movieName.length > 14
-                    ? movieName.slice(0, 14) + "..."
-                    : movieName}
+                  {item && item.title && item.title.length > 14
+                    ? item.title.slice(0, 14) + "..."
+                    : item && item.title}
                 </Text>
               </View>
             </TouchableWithoutFeedback>

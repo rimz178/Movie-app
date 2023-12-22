@@ -4,6 +4,15 @@ import { apiKey } from "../constant/apiKey";
 
 const apiBaseUrl = "https://api.themoviedb.org/3/";
 const upcoming = `${apiBaseUrl}movie/upcoming?api_key=${apiKey}`;
+const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
+const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}`;
+
+export const image500 = (posterPath) =>
+  posterPath ? "https://image.tmdb.org/t/p/w500" + posterPath : null;
+export const image342 = (posterPath) =>
+  posterPath ? "https://image.tmdb.org/t/p/w342" + posterPath : null;
+export const image185 = (posterPath) =>
+  posterPath ? "https://image.tmdb.org/t/p/w185" + posterPath : null;
 
 const apiCall = async (endpoint, params) => {
   const options = {
@@ -22,4 +31,10 @@ const apiCall = async (endpoint, params) => {
 };
 export const fetchUpcoming = () => {
   return apiCall(upcoming);
+};
+export const fetchTrending = () => {
+  return apiCall(trendingMovie);
+};
+export const fetchRated = () => {
+  return apiCall(topRated);
 };

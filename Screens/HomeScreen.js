@@ -6,25 +6,54 @@ import UpcomingMovies from "../components/UpcomingMovies";
 import SearchBar from "../components/SearchBars";
 import { ScrollView } from "react-native-gesture-handler";
 import MovieList from "../components/MovieList";
+import { fetchTrending, fetchUpcoming, fetchRated } from "../Api/ApiParsing";
+import Loading from "../components/Loading";
 
 function HomeScreen() {
   const [upcoming, setUpcoming] = useState([1, 2, 3]);
   const [trending, setTrending] = useState([1, 2, 3]);
   const [topRated, setRated] = useState([1, 2, 3]);
-  const [loading, setLoadin] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getUpcomingMovies();
+    getTrendingMovies();
+    getRatedMovies();
+  }, []);
+
+  const getUpcomingMovies = async () => {
+    const data = await fetchUpcoming();
+    /*  console.log("got upcoming", data.results.length); */
+    if (data && data.results) setUpcoming(data.results);
+    setLoading(false);
+  };
+  const getTrendingMovies = async () => {
+    const data = await fetchTrending();
+    /*  console.log("got trending", data.results); */
+    if (data && data.results) setTrending(data.results);
+  };
+  const getRatedMovies = async () => {
+    const data = await fetchRated();
+    /*  console.log("got rated", data.results); */
+    if (data && data.results) setRated(data.results);
+  };
 
   return (
     <View style={styles.container}>
       <View>
         <SearchBar />
       </View>
-      <ScrollView>
-        {/* upcoming movies */}
-        <UpcomingMovies data={upcoming} />
-        {/* trending movies */}
-        <MovieList title="Trending Movies" data={trending} />
-        <MovieList title="Top rated" data={trending} />
-      </ScrollView>
+      {loading ? (
+        <Loading />
+      ) : (
+        <ScrollView>
+          {/* upcoming movies */}
+          {upcoming.length > 0 && <UpcomingMovies data={upcoming} />}
+          {/* trending movies */}
+          <MovieList title="Trending Movies" data={trending} />
+          <MovieList title="Top rated" data={topRated} />
+        </ScrollView>
+      )}
     </View>
   );
 }
