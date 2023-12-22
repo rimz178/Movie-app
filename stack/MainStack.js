@@ -6,6 +6,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { PaperProvider } from "react-native-paper";
 import HomeScreen from "../Screens/HomeScreen";
 import Settings from "../Screens/Settings";
+import MovieScreen from "../Screens/MovieScreen";
 import StackHeader from "./StackHeader";
 import Colors from "../Colors/Colors";
 
@@ -35,6 +36,13 @@ function MainStack() {
             component={Settings}
             options={{
               title: "Movie-App",
+            }}
+          />
+          <Stack.Screen
+            name="Movie"
+            component={MovieScreen}
+            options={{
+              headerShown: false,
             }}
           />
         </Stack.Navigator>
