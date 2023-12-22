@@ -4,4 +4,5 @@ export default {
   white: "#FFFFFF",
   buttonColor: "#E60505",
   bottomColor: "#595959",
+  status: "#CCCCCC",
 };
