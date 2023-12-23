@@ -24,7 +24,11 @@ export default function MovieScreen() {
     <ScrollView style={styles.scorl}>
       <View style={styles.container}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons size={28} name="arrow-back" color={Colors.white} />
+          <MaterialIcons
+            size={38}
+            name="navigate-before"
+            color={Colors.white}
+          />
         </TouchableOpacity>
         <View style={styles.images}>
           {loading ? (
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
   },
   container: {},
   images: {
-    marginTop: 25,
+    marginTop: 30,
   },
   titletext: {
     fontSize: 25,

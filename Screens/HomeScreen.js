@@ -40,13 +40,13 @@ function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <View>
-        <SearchBar />
-      </View>
       {loading ? (
         <Loading />
       ) : (
         <ScrollView>
+          <View>
+            <SearchBar />
+          </View>
           {/* upcoming movies */}
           {upcoming.length > 0 && <UpcomingMovies data={upcoming} />}
           {/* trending movies */}

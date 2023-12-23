@@ -42,7 +42,7 @@ export default function UpcomingMovies({ data }) {
   );
 }
 const Movie = ({ item, handleClick }) => {
-  console.log("item.poster.path", item.poster_path);
+  /*   console.log("item.poster.path", item.poster_path); */
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image

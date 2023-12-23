@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -26,7 +27,7 @@ function MainStack() {
         >
           <Stack.Screen
             name="Home"
-            component={HomeTabNavigator}
+            component={HomeScreen}
             options={{
               title: "Movie-App",
             }}
@@ -51,7 +52,7 @@ function MainStack() {
   );
 }
 //create tabnavigator
-const HomeTabNavigator = () => {
+/* const HomeTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -61,6 +62,8 @@ const HomeTabNavigator = () => {
         tabBarStyle: {
           backgroundColor: Colors.bottomColor,
           position: "absolute",
+          borderRadius: 15,
+          opacity: 0.8,
         },
       }}
     >
@@ -88,5 +91,5 @@ const HomeTabNavigator = () => {
     </Tab.Navigator>
   );
 };
-
+ */
 export default MainStack;

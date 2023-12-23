@@ -15,7 +15,6 @@ import { image185 } from "../Api/ApiParsing";
 var { width, height } = Dimensions.get("window");
 
 export default function MovieList({ data, title }) {
-  let movieName = "Tenet";
   const navigation = useNavigation();
   return (
     <View>
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     color: Colors.white,
-    padding: 20,
+    padding: 15,
   },
   text: {
     color: Colors.white,
