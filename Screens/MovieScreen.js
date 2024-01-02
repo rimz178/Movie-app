@@ -12,6 +12,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Loading from "../components/Loading";
+import { fetchMovieDetails, image500 } from "../Api/ApiParsing";
 var { width, height } = Dimensions.get("window");
 
 export default function MovieScreen() {
@@ -19,16 +20,24 @@ export default function MovieScreen() {
   const { params: item } = useRoute();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  useEffect(() => {}, [item]);
+  const [movie, setMovie] = useState({});
+
+  useEffect(() => {
+    setLoading(true);
+    getMovieDetails(item.id);
+  }, [item]);
+
+  const getMovieDetails = async (id) => {
+    const data = await fetchMovieDetails(id);
+    if (data) setMovie(data);
+    setLoading(false);
+  };
+
   return (
     <ScrollView style={styles.scorl}>
       <View style={styles.container}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons
-            size={38}
-            name="navigate-before"
-            color={Colors.white}
-          />
+          <MaterialIcons size={38} name="arrow-back" color={Colors.white} />
         </TouchableOpacity>
         <View style={styles.images}>
           {loading ? (
@@ -40,30 +49,40 @@ export default function MovieScreen() {
                 height: height * 0.48,
                 borderRadius: 20,
               }}
-              source={require("../assets/image/image1.jpg")}
+              source={{
+                uri: image500(movie?.poster_path),
+              }}
             />
           )}
         </View>
       </View>
       <View style={{ marginTop: 10 }}>
-        <Text style={styles.titletext}>{movieName}</Text>
+        {/* Title */}
+        <Text style={styles.titletext}>{movie?.title}</Text>
+
         {/* status, release , runtime */}
-        <Text style={styles.textStatus}>Released • 2022 • 120 min</Text>
+        {movie?.id ? (
+          <Text style={styles.textStatus}>
+            {movie?.status} • {movie?.release_date?.split("-")[0]} •
+            {movie?.runtime} min
+          </Text>
+        ) : null}
       </View>
+
       {/* genres  */}
       <View style={styles.genre}>
-        <Text style={styles.textStatus}>Action •</Text>
-        <Text style={styles.textStatus}>Comedy • </Text>
-        <Text style={styles.textStatus}>Romance </Text>
+        {movie?.genres?.map((genre, index) => {
+          let dot = index + 1 != movie.genres.length;
+          return (
+            <Text key={index} style={styles.textStatus}>
+              {genre?.name} {dot ? "•" : null}
+            </Text>
+          );
+        })}
       </View>
       {/* decription text */}
       <View style={styles.decsription}>
-        <Text style={styles.descriptionText}>
-          Darcy and Tom gather their families for the ultimate destination
-          wedding but when the entire wedding party is taken hostage the bride
-          and groom must save their loved ones--if they don't kill each other
-          first.
-        </Text>
+        <Text style={styles.descriptionText}>{movie?.overview}</Text>
       </View>
     </ScrollView>
   );
@@ -100,7 +119,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
-  decsription: {},
+
   descriptionText: {
     margin: 3,
     fontSize: 15,

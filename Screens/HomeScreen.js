@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TextInput, StatusBar } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
 
 import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
-import SearchBar from "../components/SearchBars";
 import { ScrollView } from "react-native-gesture-handler";
 import MovieList from "../components/MovieList";
 import { fetchTrending, fetchUpcoming, fetchRated } from "../Api/ApiParsing";
 import Loading from "../components/Loading";
+import { useNavigation } from "@react-navigation/native";
 
 function HomeScreen() {
   const [upcoming, setUpcoming] = useState([1, 2, 3]);
   const [trending, setTrending] = useState([1, 2, 3]);
   const [topRated, setRated] = useState([1, 2, 3]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     getUpcomingMovies();
@@ -44,13 +52,11 @@ function HomeScreen() {
         <Loading />
       ) : (
         <ScrollView>
-          <View>
-            <SearchBar />
-          </View>
           {/* upcoming movies */}
           {upcoming.length > 0 && <UpcomingMovies data={upcoming} />}
           {/* trending movies */}
           <MovieList title="Trending Movies" data={trending} />
+          {/* Top rated movies */}
           <MovieList title="Top rated" data={topRated} />
         </ScrollView>
       )}

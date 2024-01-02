@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,6 +9,7 @@ import Settings from "../Screens/Settings";
 import MovieScreen from "../Screens/MovieScreen";
 import StackHeader from "./StackHeader";
 import Colors from "../Colors/Colors";
+import SearchBars from "../components/SearchBars";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,6 +42,13 @@ function MainStack() {
           <Stack.Screen
             name="Movie"
             component={MovieScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Search"
+            component={SearchBars}
             options={{
               headerShown: false,
             }}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   View,
   Text,
@@ -16,10 +16,16 @@ var { width, height } = Dimensions.get("window");
 
 export default function MovieList({ data, title }) {
   const navigation = useNavigation();
+  const handleClick = useCallback(
+    (item) => {
+      navigation.navigate("Movie", item);
+    },
+    [navigation]
+  );
   return (
     <View>
       <View>
-        <Text style={styles.Titletext}>{title}</Text>
+        <Text style={styles.titletext}>{title}</Text>
       </View>
       <ScrollView
         horizontal
@@ -30,13 +36,12 @@ export default function MovieList({ data, title }) {
           return (
             <TouchableWithoutFeedback
               key={index}
-              onPress={() => navigation.navigate("movie", item)}
+              onPress={() => handleClick(item)}
             >
               <View>
                 <Image
                   style={styles.image}
                   source={{ uri: image185(item.poster_path) }}
-                  /*   source={require("../assets/image/image2.jpg")} */
                 />
                 <Text style={styles.text}>
                   {item && item.title && item.title.length > 14
@@ -52,7 +57,7 @@ export default function MovieList({ data, title }) {
   );
 }
 const styles = StyleSheet.create({
-  Titletext: {
+  titletext: {
     fontWeight: "bold",
     fontSize: 20,
     color: Colors.white,

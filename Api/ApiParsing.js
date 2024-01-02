@@ -7,6 +7,13 @@ const upcoming = `${apiBaseUrl}movie/upcoming?api_key=${apiKey}`;
 const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
 const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}`;
 
+//Search endpoint
+const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
+
+//moviedetails endpoints
+const movieDetailsEndpoint = (id) =>
+  `${apiBaseUrl}/movie/${id}?api_key=${apiKey}`;
+
 export const image500 = (posterPath) =>
   posterPath ? "https://image.tmdb.org/t/p/w500" + posterPath : null;
 export const image342 = (posterPath) =>
@@ -37,4 +44,11 @@ export const fetchTrending = () => {
 };
 export const fetchRated = () => {
   return apiCall(topRated);
+};
+
+export const fetchMovieDetails = (id) => {
+  return apiCall(movieDetailsEndpoint(id));
+};
+export const searchMovies = (params) => {
+  return apiCall(searchMoviesEndpoint, params);
 };

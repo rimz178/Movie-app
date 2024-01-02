@@ -2,7 +2,8 @@ import React from "react";
 import { Appbar, Menu } from "react-native-paper";
 import { getHeaderTitle } from "@react-navigation/elements";
 import Colors from "../Colors/Colors";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 //this code creates a menu on the left side of the header from where you can go to the settings site and home page
 export default function StackHeader({ navigation, route, options, back }) {
@@ -17,6 +18,12 @@ export default function StackHeader({ navigation, route, options, back }) {
       {back ? (
         <Appbar.BackAction onPress={navigation.goBack} color={Colors.white} />
       ) : null}
+      <TouchableOpacity
+        style={styles.search}
+        onPress={() => navigation.navigate("Search")}
+      >
+        <MaterialIcons size={25} name="search" color="white" />
+      </TouchableOpacity>
       <Appbar.Content
         color="white"
         titleStyle={{
@@ -51,5 +58,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backcolor,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  search: {
+    marginLeft: 5,
   },
 });
