@@ -10,6 +10,7 @@ import MovieScreen from "../Screens/MovieScreen";
 import StackHeader from "./StackHeader";
 import Colors from "../Colors/Colors";
 import SearchBars from "../components/SearchBars";
+import PersonScreen from "../Screens/PersonScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -49,6 +50,13 @@ function MainStack() {
           <Stack.Screen
             name="Search"
             component={SearchBars}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Person"
+            component={PersonScreen}
             options={{
               headerShown: false,
             }}

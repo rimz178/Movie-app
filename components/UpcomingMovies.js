@@ -10,7 +10,7 @@ import {
 import React, { useCallback } from "react";
 import Colors from "../Colors/Colors";
 import { useNavigation } from "@react-navigation/native";
-import { image500 } from "../Api/ApiParsing";
+import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 
 var { width, height } = Dimensions.get("window");
 
@@ -34,7 +34,7 @@ export default function UpcomingMovies({ data }) {
           <Movie item={item} handleClick={handleClick} />
         )}
         horizontal
-        initialNumToRender={1}
+        initialNumToRender={2}
         keyExtractor={(item) => item.id.toString()}
       />
     </View>
@@ -45,7 +45,7 @@ const Movie = ({ item, handleClick }) => {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image
-        source={{ uri: image500(item.poster_path) }}
+        source={{ uri: image500(item.poster_path) || fallbackMoviePoster }}
         style={styles.itemImg}
       />
     </TouchableWithoutFeedback>

@@ -12,19 +12,28 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Loading from "../components/Loading";
-import { fetchMovieDetails, image500 } from "../Api/ApiParsing";
+import {
+  fetchMovieCredits,
+  fetchMovieDetails,
+  image500,
+} from "../Api/ApiParsing";
+import Cast from "../components/Cast";
+
 var { width, height } = Dimensions.get("window");
 
+//Movie details screens
 export default function MovieScreen() {
-  let movieName = "Shotgun Wedding";
+  /*  let movieName = "Shotgun Wedding"; */
   const { params: item } = useRoute();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({});
+  const [cast, setCast] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     getMovieDetails(item.id);
+    getMovieCredits(item.id);
   }, [item]);
 
   const getMovieDetails = async (id) => {
@@ -33,6 +42,12 @@ export default function MovieScreen() {
     setLoading(false);
   };
 
+  const getMovieCredits = async (id) => {
+    const data = await fetchMovieCredits(id);
+    /*     console.log("got credist ", data); */
+    if (data && data.cast) setCast(data.cast);
+  };
+  //returns details info
   return (
     <ScrollView style={styles.scorl}>
       <View style={styles.container}>
@@ -84,6 +99,8 @@ export default function MovieScreen() {
       <View style={styles.decsription}>
         <Text style={styles.descriptionText}>{movie?.overview}</Text>
       </View>
+      {/* cast */}
+      <Cast navigation={navigation} cast={cast} />
     </ScrollView>
   );
 }
@@ -97,7 +114,7 @@ const styles = StyleSheet.create({
     marginLeft: -40,
     marginRight: -40,
   },
-  container: {},
+
   images: {
     marginTop: 30,
   },

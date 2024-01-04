@@ -17,9 +17,9 @@ import Loading from "../components/Loading";
 import { useNavigation } from "@react-navigation/native";
 
 function HomeScreen() {
-  const [upcoming, setUpcoming] = useState([1, 2, 3]);
-  const [trending, setTrending] = useState([1, 2, 3]);
-  const [topRated, setRated] = useState([1, 2, 3]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [trending, setTrending] = useState([]);
+  const [topRated, setRated] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
@@ -29,23 +29,26 @@ function HomeScreen() {
     getRatedMovies();
   }, []);
 
+  /*  fetches upcoming movies from the website, 
+if the information is found, setload is set to false and imports the information. */
   const getUpcomingMovies = async () => {
     const data = await fetchUpcoming();
     /*  console.log("got upcoming", data.results.length); */
     if (data && data.results) setUpcoming(data.results);
     setLoading(false);
   };
+  //same as above, but only searches for trending movies
   const getTrendingMovies = async () => {
     const data = await fetchTrending();
     /*  console.log("got trending", data.results); */
     if (data && data.results) setTrending(data.results);
   };
+  //same as above, but only searches for get rated movies
   const getRatedMovies = async () => {
     const data = await fetchRated();
-    /*  console.log("got rated", data.results); */
     if (data && data.results) setRated(data.results);
   };
-
+  // returns homescreen all data.
   return (
     <View style={styles.container}>
       {loading ? (

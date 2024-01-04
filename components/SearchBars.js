@@ -13,7 +13,7 @@ import {
 
 import { debounce } from "lodash";
 import Loading from "./Loading";
-import { image185, searchMovies } from "../Api/ApiParsing";
+import { image185, searchMovies, fallbackMoviePoster } from "../Api/ApiParsing";
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
@@ -21,7 +21,6 @@ import Colors from "../Colors/Colors";
 var { width, height } = Dimensions.get("window");
 
 export default function SearchBars() {
-  let movieName = "Tenet";
   const navigation = useNavigation();
   const [results, setResult] = useState([1, 2, 3, 4]);
   const [loading, setLoading] = useState(false);
@@ -49,6 +48,7 @@ export default function SearchBars() {
   return (
     <View style={styles.container}>
       <View style={styles.search}>
+        {/* search input */}
         <TextInput
           style={styles.textinput}
           placeholder="Search"
@@ -59,36 +59,43 @@ export default function SearchBars() {
           <MaterialIcons style={styles.icon} size={38} name="close" />
         </TouchableOpacity>
       </View>
-
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 15 }}
-        style={styles.scorll}
-      >
-        <Text style={styles.resultText}>Result ({results.length})</Text>
-        <View style={styles.searchImage}>
-          {results.map((item, index) => {
-            return (
-              <TouchableWithoutFeedback
-                key={index}
-                onPress={() => navigation.push("Movie", item)}
-              >
-                <View>
-                  <Image
-                    style={styles.image}
-                    source={{ uri: image185(item?.poster_path) }}
-                  />
-                  <Text style={styles.otherText}>
-                    {item && item.title && item.title.length > 22
-                      ? item.title.slice(0, 22) + "..."
-                      : item && item.title}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-            );
-          })}
-        </View>
-      </ScrollView>
+      {/* search results */}
+      {loading ? (
+        <Loading />
+      ) : (
+        <ScrollView
+          removeClippedSubviews
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 15 }}
+          style={styles.scorll}
+        >
+          <Text style={styles.resultText}>Result ({results.length})</Text>
+          <View style={styles.searchImage}>
+            {results.map((item, index) => {
+              return (
+                <TouchableWithoutFeedback
+                  key={index}
+                  onPress={() => navigation.push("Movie", item)}
+                >
+                  <View>
+                    <Image
+                      style={styles.image}
+                      source={{
+                        uri: image185(item?.poster_path) || fallbackMoviePoster,
+                      }}
+                    />
+                    <Text style={styles.otherText}>
+                      {item && item.title && item.title.length > 22
+                        ? item.title.slice(0, 22) + "..."
+                        : item && item.title}
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              );
+            })}
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 }

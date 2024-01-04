@@ -10,11 +10,11 @@ import {
 } from "react-native";
 import Colors from "../Colors/Colors";
 import { useNavigation } from "@react-navigation/native";
-import { image185 } from "../Api/ApiParsing";
+import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 
 var { width, height } = Dimensions.get("window");
-
-export default function MovieList({ data, title }) {
+// show  movies
+export default function MovieList({ title, data }) {
   const navigation = useNavigation();
   const handleClick = useCallback(
     (item) => {
@@ -28,6 +28,7 @@ export default function MovieList({ data, title }) {
         <Text style={styles.titletext}>{title}</Text>
       </View>
       <ScrollView
+        removeClippedSubviews
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
@@ -41,7 +42,9 @@ export default function MovieList({ data, title }) {
               <View>
                 <Image
                   style={styles.image}
-                  source={{ uri: image185(item.poster_path) }}
+                  source={{
+                    uri: image185(item.poster_path) || fallbackMoviePoster,
+                  }}
                 />
                 <Text style={styles.text}>
                   {item && item.title && item.title.length > 14
