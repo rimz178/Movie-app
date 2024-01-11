@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  FlatList,
   TouchableWithoutFeedback,
   Image,
   Dimensions,
@@ -16,50 +17,50 @@ var { width, height } = Dimensions.get("window");
 // show  movies
 export default function MovieList({ title, data }) {
   const navigation = useNavigation();
+
   const handleClick = useCallback(
     (item) => {
       navigation.navigate("Movie", item);
     },
     [navigation]
   );
+
+  const renderItem = ({ item }) => (
+    <TouchableWithoutFeedback onPress={() => handleClick(item)}>
+      <View>
+        <Image
+          style={styles.image}
+          source={{
+            uri: image185(item.poster_path) || fallbackMoviePoster,
+            loading: "lazy",
+          }}
+        />
+        <Text style={styles.text}>
+          {item && item.title && item.title.length > 14
+            ? item.title.slice(0, 14) + "..."
+            : item && item.title}
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+
   return (
     <View>
       <View>
         <Text style={styles.titletext}>{title}</Text>
       </View>
-      <ScrollView
-        removeClippedSubviews
+      <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={renderItem}
         contentContainerStyle={{ paddingHorizontal: 15 }}
-      >
-        {data.map((item, index) => {
-          return (
-            <TouchableWithoutFeedback
-              key={index}
-              onPress={() => handleClick(item)}
-            >
-              <View>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: image185(item.poster_path) || fallbackMoviePoster,
-                    loading: "lazy",
-                  }}
-                />
-                <Text style={styles.text}>
-                  {item && item.title && item.title.length > 14
-                    ? item.title.slice(0, 14) + "..."
-                    : item && item.title}
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        })}
-      </ScrollView>
+      />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   titletext: {
     fontWeight: "bold",
