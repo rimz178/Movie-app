@@ -66,6 +66,7 @@ export default function MovieScreen() {
               }}
               source={{
                 uri: image500(movie?.poster_path),
+                loading: "lazy",
               }}
             />
           )}

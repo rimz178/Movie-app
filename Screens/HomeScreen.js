@@ -33,14 +33,14 @@ function HomeScreen() {
 if the information is found, setload is set to false and imports the information. */
   const getUpcomingMovies = async () => {
     const data = await fetchUpcoming();
-    /*  console.log("got upcoming", data.results.length); */
+
     if (data && data.results) setUpcoming(data.results);
     setLoading(false);
   };
   //same as above, but only searches for trending movies
   const getTrendingMovies = async () => {
     const data = await fetchTrending();
-    /*  console.log("got trending", data.results); */
+
     if (data && data.results) setTrending(data.results);
   };
   //same as above, but only searches for get rated movies
