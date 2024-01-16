@@ -4,6 +4,7 @@ import {
   TextInput,
   View,
   ScrollView,
+  FlatList,
   TouchableOpacity,
   Text,
   TouchableWithoutFeedback,
@@ -63,38 +64,34 @@ export default function SearchBars() {
       {loading ? (
         <Loading />
       ) : (
-        <ScrollView
-          removeClippedSubviews
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 15 }}
-          style={styles.scorll}
-        >
-          <Text style={styles.resultText}>Result ({results.length})</Text>
-          <View style={styles.searchImage}>
-            {results.map((item, index) => {
-              return (
-                <TouchableWithoutFeedback
-                  key={index}
-                  onPress={() => navigation.push("Movie", item)}
-                >
-                  <View>
-                    <Image
-                      style={styles.image}
-                      source={{
-                        uri: image185(item?.poster_path) || fallbackMoviePoster,
-                      }}
-                    />
-                    <Text style={styles.otherText}>
-                      {item && item.title && item.title.length > 22
-                        ? item.title.slice(0, 22) + "..."
-                        : item && item.title}
-                    </Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              );
-            })}
-          </View>
-        </ScrollView>
+        <FlatList
+          data={results}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <TouchableWithoutFeedback
+              onPress={() => navigation.push("Movie", item)}
+            >
+              <View>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: image185(item?.poster_path) || fallbackMoviePoster,
+                  }}
+                />
+                <Text style={styles.otherText}>
+                  {item && item.title && item.title.length > 22
+                    ? item.title.slice(0, 22) + "..."
+                    : item && item.title}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+          )}
+          ListHeaderComponent={() => (
+            <Text style={styles.resultText}>Result ({results.length})</Text>
+          )}
+          contentContainerStyle={styles.searchImage}
+          numColumns={2}
+        />
       )}
     </View>
   );
@@ -149,9 +146,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   searchImage: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    padding: 10,
+    paddingHorizontal: 10,
   },
 });

@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  StatusBar,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
 import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
@@ -54,14 +47,29 @@ if the information is found, setload is set to false and imports the information
       {loading ? (
         <Loading />
       ) : (
-        <ScrollView>
-          {/* upcoming movies */}
-          {upcoming.length > 0 && <UpcomingMovies data={upcoming} />}
-          {/* trending movies */}
-          <MovieList title="Trending Movies" data={trending} />
-          {/* Top rated movies */}
-          <MovieList title="Top rated" data={topRated} />
-        </ScrollView>
+        <FlatList
+          data={[
+            {
+              /* upcoming movies */
+            },
+            { key: "upcoming", data: upcoming },
+            {
+              /* trending movies */
+            },
+            { key: "trending", title: "Trending Movies", data: trending },
+            {
+              /* Top rated movies */
+            },
+            { key: "topRated", title: "Top rated", data: topRated },
+          ]}
+          renderItem={({ item }) =>
+            item.key === "upcoming" ? (
+              <UpcomingMovies data={item.data} />
+            ) : (
+              <MovieList title={item.title} data={item.data} />
+            )
+          }
+        />
       )}
     </View>
   );
