@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   FlatList,
   TouchableWithoutFeedback,
   Image,
@@ -55,6 +54,7 @@ export default function MovieList({ title, data }) {
         data={data}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderItem}
+        initialNumToRender={2}
         contentContainerStyle={{ paddingHorizontal: 15 }}
       />
     </View>

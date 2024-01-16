@@ -66,6 +66,7 @@ export default function SearchBars() {
       ) : (
         <FlatList
           data={results}
+          initialNumToRender={2}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <TouchableWithoutFeedback

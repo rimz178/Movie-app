@@ -45,7 +45,10 @@ const Movie = ({ item, handleClick }) => {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image
-        source={{ uri: image500(item.poster_path) || fallbackMoviePoster }}
+        source={{
+          uri: image500(item.poster_path) || fallbackMoviePoster,
+          loading: "lazy",
+        }}
         style={styles.itemImg}
       />
     </TouchableWithoutFeedback>

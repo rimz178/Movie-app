@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  FlatList,
 } from "react-native";
 import React from "react";
 import Colors from "../Colors/Colors";
@@ -14,48 +15,42 @@ import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 var { width, height } = Dimensions.get("window");
 
 export default function Cast({ cast, navigation }) {
-  let personName = "Keanu Reeves";
-  let characterName = "John Wick";
-
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Top Cast</Text>
 
-      <ScrollView
-        removeClippedSubviews
+      <FlatList
+        data={cast}
+        keyExtractor={(item, index) => index.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
-      >
-        {cast &&
-          cast.map((person, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                style={styles.items}
-                onPress={() => navigation.navigate("Person", person)}
-              >
-                <Image
-                  style={styles.image}
-                  /* source={require("../assets/image/keaunu.jpg")} */
-                  source={{
-                    uri: image185(person?.profile_path) || fallbackPersonImage,
-                  }}
-                />
-                <Text style={styles.text}>
-                  {person?.character.length > 10
-                    ? person?.character.slice(0, 10) + "..."
-                    : person?.character}
-                </Text>
-                <Text style={styles.text}>
-                  {person?.original_name.length > 10
-                    ? person?.original_name.slice(0, 10) + "..."
-                    : person?.original_name}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-      </ScrollView>
+        initialNumToRender={2}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            style={styles.items}
+            onPress={() => navigation.navigate("Person", item)}
+          >
+            <Image
+              style={styles.image}
+              source={{
+                uri: image185(item?.profile_path) || fallbackPersonImage,
+                loading: "lazy",
+              }}
+            />
+            <Text style={styles.text}>
+              {item?.character.length > 10
+                ? item?.character.slice(0, 10) + "..."
+                : item?.character}
+            </Text>
+            <Text style={styles.text}>
+              {item?.original_name.length > 10
+                ? item?.original_name.slice(0, 10) + "..."
+                : item?.original_name}
+            </Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 }

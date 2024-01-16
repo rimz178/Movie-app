@@ -48,6 +48,7 @@ if the information is found, setload is set to false and imports the information
         <Loading />
       ) : (
         <FlatList
+          initialNumToRender={2}
           data={[
             {
               /* upcoming movies */

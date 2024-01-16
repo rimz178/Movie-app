@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  FlatList,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
@@ -48,21 +50,22 @@ export default function PersonScreen() {
   };
 
   return (
-    <ScrollView style={styles.container} removeClippedSubviews>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <MaterialIcons size={38} name="arrow-back" color={Colors.white} />
-      </TouchableOpacity>
-      {/* person info */}
-      {loading ? (
-        <Loading />
-      ) : (
-        <View>
+    <FlatList
+      data={[0]}
+      keyExtractor={(item) => item.toString()}
+      initialNumToRender={2}
+      renderItem={() => (
+        <View style={styles.container}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <MaterialIcons size={38} name="arrow-back" color={Colors.white} />
+          </TouchableOpacity>
           <View style={styles.person}>
             <View style={styles.imageCircle}>
               <Image
                 style={styles.image}
                 source={{
                   uri: image342(person?.profile_path) || fallbackPersonImage,
+                  loading: "lazy",
                 }}
               />
             </View>
@@ -111,9 +114,10 @@ export default function PersonScreen() {
           {<MovieList title={"Movies"} data={personMovies} />}
         </View>
       )}
-    </ScrollView>
+    />
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

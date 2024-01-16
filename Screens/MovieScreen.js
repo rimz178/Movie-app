@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   Image,
+  FlatList,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
@@ -23,7 +24,6 @@ var { width, height } = Dimensions.get("window");
 
 //Movie details screens
 export default function MovieScreen() {
-  /*  let movieName = "Shotgun Wedding"; */
   const { params: item } = useRoute();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
@@ -44,65 +44,70 @@ export default function MovieScreen() {
 
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
-    /*     console.log("got credist ", data); */
     if (data && data.cast) setCast(data.cast);
   };
   //returns details info
   return (
-    <ScrollView style={styles.scorl}>
-      <View style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons size={38} name="arrow-back" color={Colors.white} />
-        </TouchableOpacity>
-        <View style={styles.images}>
-          {loading ? (
-            <Loading />
-          ) : (
-            <Image
-              style={{
-                width,
-                height: height * 0.48,
-                borderRadius: 20,
-              }}
-              source={{
-                uri: image500(movie?.poster_path),
-                loading: "lazy",
-              }}
-            />
-          )}
+    <FlatList
+      data={[0]}
+      keyExtractor={(item) => item.toString()}
+      renderItem={() => (
+        <View style={styles.scorl}>
+          <View style={styles.container}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <MaterialIcons size={38} name="arrow-back" color={Colors.white} />
+            </TouchableOpacity>
+            <View style={styles.images}>
+              {loading ? (
+                <Loading />
+              ) : (
+                <Image
+                  style={{
+                    width,
+                    height: height * 0.48,
+                    borderRadius: 20,
+                  }}
+                  source={{
+                    uri: image500(movie?.poster_path),
+                    loading: "lazy",
+                  }}
+                />
+              )}
+            </View>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            {/* Title */}
+            <Text style={styles.titletext}>{movie?.title}</Text>
+
+            {/* status, release , runtime */}
+            {movie?.id ? (
+              <Text style={styles.textStatus}>
+                {movie?.status} • {movie?.release_date?.split("-")[0]} •
+                {movie?.runtime} min
+              </Text>
+            ) : null}
+          </View>
+
+          {/* genres  */}
+          <View style={styles.genre}>
+            {movie?.genres?.map((genre, index) => {
+              let dot = index + 1 !== movie.genres.length;
+              return (
+                <Text key={index} style={styles.textStatus}>
+                  {genre?.name} {dot ? "•" : null}
+                </Text>
+              );
+            })}
+          </View>
+          {/* decription text */}
+          <View style={styles.decsription}>
+            <Text style={styles.descriptionText}>{movie?.overview}</Text>
+          </View>
+          {/* cast */}
+          <Cast navigation={navigation} cast={cast} />
         </View>
-      </View>
-      <View style={{ marginTop: 10 }}>
-        {/* Title */}
-        <Text style={styles.titletext}>{movie?.title}</Text>
-
-        {/* status, release , runtime */}
-        {movie?.id ? (
-          <Text style={styles.textStatus}>
-            {movie?.status} • {movie?.release_date?.split("-")[0]} •
-            {movie?.runtime} min
-          </Text>
-        ) : null}
-      </View>
-
-      {/* genres  */}
-      <View style={styles.genre}>
-        {movie?.genres?.map((genre, index) => {
-          let dot = index + 1 != movie.genres.length;
-          return (
-            <Text key={index} style={styles.textStatus}>
-              {genre?.name} {dot ? "•" : null}
-            </Text>
-          );
-        })}
-      </View>
-      {/* decription text */}
-      <View style={styles.decsription}>
-        <Text style={styles.descriptionText}>{movie?.overview}</Text>
-      </View>
-      {/* cast */}
-      <Cast navigation={navigation} cast={cast} />
-    </ScrollView>
+      )}
+    />
   );
 }
 
