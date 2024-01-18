@@ -4,9 +4,9 @@
 @rimz178/ Riku Mikkonen
 
 # Topic
-Sovellus on vielä kesken, mutta ideana on ohjelmoida sovellus joka näyttää tulevat elokuvat!
+Movie-app sovellus näyttää etusivulla tulevat, suosituimmat ja parhaiksi arvioituja elokuvia. Sovelluksessa pystyy hakemaan eri elokuvia ja katsomaan elokuvan tietoja.
 # Video 
-https://www.youtube.com/shorts/cimZqTyZMKE
+https://youtube.com/shorts/S47AQkW6iMY?feature=share
 # Restfull api
 https://www.themoviedb.org/
 
