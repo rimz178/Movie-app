@@ -16,7 +16,7 @@
     "axios": "^1.6.2",
     "deprecated-react-native-prop-types": "^2.2.0",
     "dotenv": "^16.3.1",
-    "expo": "^49.0.21",
+    "expo": "^50.0.0",
     "expo-status-bar": "~1.6.0",
     "expo-updates": "~0.18.19",
     "latest-semver": "^4.0.0",
