@@ -49,6 +49,8 @@ if the information is found, setload is set to false and imports the information
       ) : (
         <FlatList
           initialNumToRender={2}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
           data={[
             {
               /* upcoming movies */

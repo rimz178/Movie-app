@@ -14,7 +14,7 @@ import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 
 var { width, height } = Dimensions.get("window");
 
-//this code create upcominmovies carousel
+//this code create upcomingmovies carousel
 export default function UpcomingMovies({ data }) {
   const navigation = useNavigation();
   const handleClick = useCallback(
@@ -26,10 +26,12 @@ export default function UpcomingMovies({ data }) {
 
   return (
     <View>
-      <Text style={styles.text}>Now Playing Cinemas</Text>
+      <Text style={styles.text}>Upcoming Movies</Text>
       <FlatList
         layout="default"
         data={data}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <Movie item={item} handleClick={handleClick} />
         )}

@@ -50,71 +50,87 @@ export default function PersonScreen() {
   };
 
   return (
-    <FlatList
-      data={[0]}
-      keyExtractor={(item) => item.toString()}
-      initialNumToRender={2}
-      renderItem={() => (
-        <View style={styles.container}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MaterialIcons size={38} name="arrow-back" color={Colors.white} />
-          </TouchableOpacity>
-          <View style={styles.person}>
-            <View style={styles.imageCircle}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: image342(person?.profile_path) || fallbackPersonImage,
-                  loading: "lazy",
-                }}
-              />
+    <View style={styles.container}>
+      {loading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={[0]}
+          keyExtractor={(item) => item.toString()}
+          initialNumToRender={2}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          renderItem={() => (
+            <View>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <MaterialIcons
+                  size={38}
+                  name="arrow-back"
+                  color={Colors.white}
+                />
+              </TouchableOpacity>
+
+              <View style={styles.person}>
+                <View style={styles.imageCircle}>
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri:
+                        image342(person?.profile_path) || fallbackPersonImage,
+                      loading: "lazy",
+                    }}
+                  />
+                </View>
+              </View>
+              <View style={styles.titleContainer}>
+                <Text style={styles.title}>{person?.name}</Text>
+                <Text style={styles.textStatus}>{person?.place_of_birth}</Text>
+              </View>
+              <View style={styles.cenderContainer}>
+                {/* Cender  */}
+                <View style={styles.textContainer}>
+                  <Text style={styles.cendreText}>Gender</Text>
+                  <Text style={styles.cendres}>
+                    {person?.gender == 1 ? "female" : "Male"}
+                  </Text>
+                </View>
+                {/* Birthday */}
+                <Divider style={styles.divider} />
+                <View style={styles.textContainer}>
+                  <Text style={styles.cendreText}>Birthday</Text>
+                  <Text style={styles.cendres}>{person?.birthday}</Text>
+                </View>
+                {/*Know for*/}
+                <Divider style={styles.divider} />
+                <View style={styles.textContainer}>
+                  <Text style={styles.cendreText}>Known for</Text>
+                  <Text style={styles.cendres}>
+                    {person?.known_for_department}
+                  </Text>
+                </View>
+                {/* Popularity */}
+                <Divider style={styles.divider} />
+                <View style={styles.textContainer}>
+                  <Text style={styles.cendreText}>Popularity</Text>
+                  <Text style={styles.cendres}>
+                    {person?.popularity?.toFixed(2)}%
+                  </Text>
+                </View>
+                <Divider style={styles.divider} />
+              </View>
+              <View style={styles.bioGraphyContainter}>
+                <Text style={styles.bioGraphyTitle}>Biography</Text>
+                <Text style={styles.bioGraphyText}>
+                  {person?.biography || "N/A"}
+                </Text>
+              </View>
+              {/* Person movies */}
+              {<MovieList title={"Movies"} data={personMovies} />}
             </View>
-          </View>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>{person?.name}</Text>
-            <Text style={styles.textStatus}>{person?.place_of_birth}</Text>
-          </View>
-          <View style={styles.cenderContainer}>
-            {/* Cender  */}
-            <View style={styles.textContainer}>
-              <Text style={styles.cendreText}>Gender</Text>
-              <Text style={styles.cendres}>
-                {person?.gender == 1 ? "female" : "Male"}
-              </Text>
-            </View>
-            {/* Birthday */}
-            <Divider style={styles.divider} />
-            <View style={styles.textContainer}>
-              <Text style={styles.cendreText}>Birthday</Text>
-              <Text style={styles.cendres}>{person?.birthday}</Text>
-            </View>
-            {/*Know for*/}
-            <Divider style={styles.divider} />
-            <View style={styles.textContainer}>
-              <Text style={styles.cendreText}>Known for</Text>
-              <Text style={styles.cendres}>{person?.known_for_department}</Text>
-            </View>
-            {/* Popularity */}
-            <Divider style={styles.divider} />
-            <View style={styles.textContainer}>
-              <Text style={styles.cendreText}>Popularity</Text>
-              <Text style={styles.cendres}>
-                {person?.popularity?.toFixed(2)}%
-              </Text>
-            </View>
-            <Divider style={styles.divider} />
-          </View>
-          <View style={styles.bioGraphyContainter}>
-            <Text style={styles.bioGraphyTitle}>Biography</Text>
-            <Text style={styles.bioGraphyText}>
-              {person?.biography || "N/A"}
-            </Text>
-          </View>
-          {/* Person movies */}
-          {<MovieList title={"Movies"} data={personMovies} />}
-        </View>
+          )}
+        />
       )}
-    />
+    </View>
   );
 }
 

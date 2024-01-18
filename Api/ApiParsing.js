@@ -19,7 +19,7 @@ const movieCreditsEndpoint = (id) =>
 // Person details endpoints
 const personDetailsEndpoints = (id) =>
   `${apiBaseUrl}/person/${id}?api_key=${apiKey}`;
-
+// Person movie endpoints
 const personMoviesEndpoint = (id) =>
   `${apiBaseUrl}/person/${id}/movie_credits?api_key=${apiKey}`;
 
@@ -74,9 +74,11 @@ export const fetchMovieCredits = (id) => {
 export const fetchPersonDetails = (id) => {
   return apiCall(personDetailsEndpoints(id));
 };
+//returns person movies from the website
 export const fetchPersonMovies = (personId) => {
   return apiCall(personMoviesEndpoint(personId));
 };
+
 // fallback endpoints
 export const fallbackMoviePoster =
   "https://img.myloview.com/stickers/white-laptop-screen-with-hd-video-technology-icon-isolated-on-grey-background-abstract-circle-random-dots-vector-illustration-400-176057922.jpg";

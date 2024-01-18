@@ -17,6 +17,8 @@ import {
   fetchMovieCredits,
   fetchMovieDetails,
   image500,
+  fallbackMoviePoster,
+  fetchProviders,
 } from "../Api/ApiParsing";
 import Cast from "../components/Cast";
 
@@ -38,76 +40,88 @@ export default function MovieScreen() {
 
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
+    /*  console.log("got movie details", data); */
     if (data) setMovie(data);
     setLoading(false);
   };
 
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
+    /* console.log("got movie cred", data) */
     if (data && data.cast) setCast(data.cast);
   };
+
   //returns details info
   return (
-    <FlatList
-      data={[0]}
-      keyExtractor={(item) => item.toString()}
-      renderItem={() => (
-        <View style={styles.scorl}>
-          <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <MaterialIcons size={38} name="arrow-back" color={Colors.white} />
-            </TouchableOpacity>
-            <View style={styles.images}>
-              {loading ? (
-                <Loading />
-              ) : (
-                <Image
-                  style={{
-                    width,
-                    height: height * 0.48,
-                    borderRadius: 20,
-                  }}
-                  source={{
-                    uri: image500(movie?.poster_path),
-                    loading: "lazy",
-                  }}
-                />
-              )}
+    <View>
+      {loading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={[0]}
+          keyExtractor={(item) => item.toString()}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          renderItem={() => (
+            <View style={styles.scorl}>
+              <View style={styles.container}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <MaterialIcons
+                    size={38}
+                    name="arrow-back"
+                    color={Colors.white}
+                  />
+                </TouchableOpacity>
+
+                <View style={styles.images}>
+                  <Image
+                    style={{
+                      width,
+                      height: height * 0.48,
+                      borderRadius: 20,
+                    }}
+                    source={{
+                      uri: image500(movie?.poster_path) || fallbackMoviePoster,
+                      loading: "lazy",
+                    }}
+                  />
+                </View>
+              </View>
+              <View style={{ marginTop: 10 }}>
+                {/* Title */}
+                <Text style={styles.titletext}>{movie?.title}</Text>
+
+                {/* status, release , runtime */}
+                {movie?.id ? (
+                  <Text style={styles.textStatus}>
+                    {movie?.status} • {movie?.release_date?.split("-")[0]} •
+                    {movie?.runtime} min
+                  </Text>
+                ) : null}
+              </View>
+
+              {/* genres  */}
+              <View style={styles.genre}>
+                {movie?.genres?.map((genre, index) => {
+                  let dot = index + 1 !== movie.genres.length;
+                  return (
+                    <Text key={index} style={styles.textStatus}>
+                      {genre?.name} {dot ? "•" : null}
+                    </Text>
+                  );
+                })}
+              </View>
+              {/* decription text */}
+              <View style={styles.decsription}>
+                <Text style={styles.descriptionText}>{movie?.overview}</Text>
+              </View>
+              {/* cast */}
+              <Cast navigation={navigation} cast={cast} />
             </View>
-          </View>
-          <View style={{ marginTop: 10 }}>
-            {/* Title */}
-            <Text style={styles.titletext}>{movie?.title}</Text>
-
-            {/* status, release , runtime */}
-            {movie?.id ? (
-              <Text style={styles.textStatus}>
-                {movie?.status} • {movie?.release_date?.split("-")[0]} •
-                {movie?.runtime} min
-              </Text>
-            ) : null}
-          </View>
-
-          {/* genres  */}
-          <View style={styles.genre}>
-            {movie?.genres?.map((genre, index) => {
-              let dot = index + 1 !== movie.genres.length;
-              return (
-                <Text key={index} style={styles.textStatus}>
-                  {genre?.name} {dot ? "•" : null}
-                </Text>
-              );
-            })}
-          </View>
-          {/* decription text */}
-          <View style={styles.decsription}>
-            <Text style={styles.descriptionText}>{movie?.overview}</Text>
-          </View>
-          {/* cast */}
-          <Cast navigation={navigation} cast={cast} />
-        </View>
+          )}
+        />
       )}
-    />
+    </View>
   );
 }
 

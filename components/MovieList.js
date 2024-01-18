@@ -50,6 +50,7 @@ export default function MovieList({ title, data }) {
       </View>
       <FlatList
         horizontal
+        showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         data={data}
         keyExtractor={(item, index) => index.toString()}

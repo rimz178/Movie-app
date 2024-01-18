@@ -18,11 +18,11 @@ export default function Cast({ cast, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Top Cast</Text>
-
       <FlatList
         data={cast}
         keyExtractor={(item, index) => index.toString()}
         horizontal
+        showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
         initialNumToRender={2}
@@ -31,13 +31,15 @@ export default function Cast({ cast, navigation }) {
             style={styles.items}
             onPress={() => navigation.navigate("Person", item)}
           >
-            <Image
-              style={styles.image}
-              source={{
-                uri: image185(item?.profile_path) || fallbackPersonImage,
-                loading: "lazy",
-              }}
-            />
+            <View style={styles.imageCircle}>
+              <Image
+                style={styles.image}
+                source={{
+                  uri: image185(item?.profile_path) || fallbackPersonImage,
+                  loading: "lazy",
+                }}
+              />
+            </View>
             <Text style={styles.text}>
               {item?.character.length > 10
                 ? item?.character.slice(0, 10) + "..."
@@ -77,11 +79,18 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 15,
   },
+  imageCircle: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: (height * 0.3) / 2,
+    overflow: "hidden",
+  },
   image: {
     width: width * 0.2,
     height: height * 0.1,
     borderRadius: 20,
-    alignItems: "center",
+    resizeMode: "cover",
+    borderRadius: (height * 0.3) / 2,
     padding: 5,
     margin: 2,
   },
