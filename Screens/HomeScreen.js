@@ -5,7 +5,12 @@ import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
 import { ScrollView } from "react-native-gesture-handler";
 import MovieList from "../components/MovieList";
-import { fetchTrending, fetchUpcoming, fetchRated } from "../Api/ApiParsing";
+import {
+  fetchTrending,
+  fetchUpcoming,
+  fetchRated,
+  fetchNowPlaying,
+} from "../Api/ApiParsing";
 import Loading from "../components/Loading";
 import { useNavigation } from "@react-navigation/native";
 
@@ -13,6 +18,7 @@ function HomeScreen() {
   const [upcoming, setUpcoming] = useState([]);
   const [trending, setTrending] = useState([]);
   const [topRated, setRated] = useState([]);
+  const [nowPlaying, setPlaying] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
@@ -20,10 +26,11 @@ function HomeScreen() {
     getUpcomingMovies();
     getTrendingMovies();
     getRatedMovies();
+    getNowPlaying();
   }, []);
 
   /*  fetches upcoming movies from the website, 
-if the information is found, setload is set to false and imports the information. */
+  if the information is found, setload is set to false and imports the information. */
   const getUpcomingMovies = async () => {
     const data = await fetchUpcoming();
 
@@ -41,6 +48,13 @@ if the information is found, setload is set to false and imports the information
     const data = await fetchRated();
     if (data && data.results) setRated(data.results);
   };
+
+  const getNowPlaying = async () => {
+    const data = await fetchNowPlaying();
+    /*     console.log("nowPlaying", data); */
+    if (data && data.results) setPlaying(data.results);
+  };
+
   // returns homescreen all data.
   return (
     <View style={styles.container}>
@@ -56,6 +70,14 @@ if the information is found, setload is set to false and imports the information
               /* upcoming movies */
             },
             { key: "upcoming", data: upcoming },
+            {
+              /* now playing cinemas */
+            },
+            {
+              key: "Now Playing cinemas",
+              title: "Now playing cinemas",
+              data: nowPlaying,
+            },
             {
               /* trending movies */
             },

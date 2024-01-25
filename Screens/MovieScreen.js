@@ -12,13 +12,13 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
+
 import Loading from "../components/Loading";
 import {
   fetchMovieCredits,
   fetchMovieDetails,
   image500,
   fallbackMoviePoster,
-  fetchProviders,
 } from "../Api/ApiParsing";
 import Cast from "../components/Cast";
 
@@ -47,7 +47,7 @@ export default function MovieScreen() {
 
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
-    /* console.log("got movie cred", data) */
+    /*   */
     if (data && data.cast) setCast(data.cast);
   };
 

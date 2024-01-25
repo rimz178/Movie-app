@@ -2,9 +2,15 @@ import axios from "axios";
 import { apiKey } from "../constant/apiKey";
 
 const apiBaseUrl = "https://api.themoviedb.org/3/";
-const upcoming = `${apiBaseUrl}movie/upcoming?api_key=${apiKey}`;
-const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
-const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}`;
+const language = "&language=fi-FI";
+//upcoming endpoints
+const upcoming = `${apiBaseUrl}movie/upcoming?api_key=${apiKey}&region=FI`;
+//trendinMovie endpoints
+const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}&region=FI`;
+//toprated endpoints
+const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&region=FI`;
+//nowplaying endpoints
+const nowPlaying = `${apiBaseUrl}movie/now_playing?api_key=${apiKey}&region=FI`;
 
 //Search endpoint
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
@@ -46,6 +52,7 @@ const apiCall = async (endpoint, params) => {
     return {};
   }
 };
+
 //returns upcoming movies from the website
 export const fetchUpcoming = () => {
   return apiCall(upcoming);
@@ -57,6 +64,10 @@ export const fetchTrending = () => {
 //returns rated movies from the website
 export const fetchRated = () => {
   return apiCall(topRated);
+};
+//returns now playing movies from the website
+export const fetchNowPlaying = () => {
+  return apiCall(nowPlaying);
 };
 //returns details movies from the website
 export const fetchMovieDetails = (id) => {
