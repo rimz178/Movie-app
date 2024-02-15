@@ -8,6 +8,7 @@ import {
   Dimensions,
   Image,
   FlatList,
+  SafeAreaView,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
@@ -21,6 +22,7 @@ import {
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
 import Cast from "../components/Cast";
+import { symbol } from "prop-types";
 
 var { width, height } = Dimensions.get("window");
 
@@ -75,11 +77,7 @@ export default function MovieScreen() {
 
                 <View style={styles.images}>
                   <Image
-                    style={{
-                      width,
-                      height: height * 0.48,
-                      borderRadius: 20,
-                    }}
+                    style={styles.insideImage}
                     source={{
                       uri: image500(movie?.poster_path) || fallbackMoviePoster,
                       loading: "lazy",
@@ -137,6 +135,13 @@ const styles = StyleSheet.create({
 
   images: {
     marginTop: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  insideImage: {
+    width: width * 0.97,
+    height: height * 0.48,
+    borderRadius: 20,
   },
   titletext: {
     fontSize: 25,

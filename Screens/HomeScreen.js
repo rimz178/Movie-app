@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 
 import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
-import { ScrollView } from "react-native-gesture-handler";
 import MovieList from "../components/MovieList";
 import {
   fetchTrending,

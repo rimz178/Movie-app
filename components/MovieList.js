@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Image,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import Colors from "../Colors/Colors";
 import { useNavigation } from "@react-navigation/native";
