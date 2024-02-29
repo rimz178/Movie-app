@@ -2,13 +2,11 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { PaperProvider } from "react-native-paper";
 import HomeScreen from "../Screens/HomeScreen";
 import Settings from "../Screens/Settings";
 import MovieScreen from "../Screens/MovieScreen";
 import StackHeader from "./StackHeader";
-import Colors from "../Colors/Colors";
 import SearchBars from "../components/SearchBars";
 import PersonScreen from "../Screens/PersonScreen";
 
