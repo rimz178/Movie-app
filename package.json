@@ -19,7 +19,7 @@
     "expo": "^49.0.21",
     "expo-status-bar": "~1.6.0",
     "expo-updates": "~0.18.19",
-    "firebase": "^10.8.0",
+    "firebase": "^10.8.1",
     "latest-semver": "^4.0.0",
     "node-fetch": "^3.3.2",
     "patch-package": "^8.0.0",
