@@ -6,7 +6,6 @@ import {
   Dimensions,
   Image,
   FlatList,
-  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 

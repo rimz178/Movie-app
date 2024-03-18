@@ -64,45 +64,4 @@ function MainStack() {
     </PaperProvider>
   );
 }
-//create tabnavigator
-/* const HomeTabNavigator = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: Colors.buttonColor,
-        tabBarInactiveTintColor: Colors.white,
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: Colors.bottomColor,
-          position: "absolute",
-          borderRadius: 15,
-          opacity: 0.8,
-        },
-      }}
-    >
-      <Tab.Screen
-        name="HomeS"
-        component={HomeScreen}
-        options={{
-          headerShown: false,
-
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" color={color} size={35} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={Settings}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="settings" color={color} size={35} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-};
- */
 export default MainStack;
