@@ -1,16 +1,16 @@
 import axios from "axios";
 import { apiKey } from "../constant/apiKey";
 
-const apiBaseUrl = "https://api.themoviedb.org/3/";
-const language = "&language=fi-FI";
+const apiBaseUrl = "https://api.themoviedb.org/3";
+
 //upcoming endpoints
-const upcoming = `${apiBaseUrl}movie/upcoming?api_key=${apiKey}&region=FI`;
+const upcoming = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}&region=FI`;
 //trendinMovie endpoints
 const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}&region=FI`;
 //toprated endpoints
 const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&region=FI`;
 //nowplaying endpoints
-const nowPlaying = `${apiBaseUrl}movie/now_playing?api_key=${apiKey}&region=FI`;
+const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&region=FI`;
 
 //Search endpoint
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;

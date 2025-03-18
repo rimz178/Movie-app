@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Movie-App",
-    "slug": "Movie-App",
+    "slug": "movie-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -30,8 +30,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "879f434e-1663-4100-a53e-d012d1b45c59"
+        "projectId": "2407b058-f8ba-4eca-9ae8-bd740eb04039"
       }
-    }
+    },
+    "owner": "edie17"
   }
 }

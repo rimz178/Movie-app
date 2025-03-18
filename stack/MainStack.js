@@ -13,7 +13,7 @@ import PersonScreen from "../Screens/PersonScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-//this code creates a transition between the possibility setting and the home page
+//this code creates a transition between the possibility settings and the home page
 function MainStack() {
   return (
     <PaperProvider>
