@@ -2,7 +2,6 @@ import axios from "axios";
 import { TMDB_API_KEY } from "@env";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 
-console.log("TMDB_API_KEY", TMDB_API_KEY);
 const apiKey = TMDB_API_KEY;
 
 //upcoming endpoints
@@ -12,7 +11,7 @@ const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}&region
 //toprated endpoints
 const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&region=FI`;
 //nowplaying endpoints
-const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&region=FI`;
+const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&locale=FI`;
 
 //Search endpoint
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
@@ -31,6 +30,8 @@ const personDetailsEndpoints = (id) =>
 const personMoviesEndpoint = (id) =>
   `${apiBaseUrl}/person/${id}/movie_credits?api_key=${apiKey}`;
 
+const watchProvidersEndpoint = (id) =>
+  `${apiBaseUrl}/movie/${id}/watch/providers?api_key=${apiKey}&region=FI`;
 //image endpoints
 export const image500 = (posterPath) =>
   posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : null;
@@ -91,6 +92,10 @@ export const fetchPersonDetails = (id) => {
 export const fetchPersonMovies = (personId) => {
   return apiCall(personMoviesEndpoint(personId));
 };
+//returns watch providers for a movie
+export const fetchWatchProviders = (id) => {
+  return apiCall(watchProvidersEndpoint(id));
+};
 
 // fallback endpoints
 export const fallbackMoviePoster =
@@ -98,3 +103,5 @@ export const fallbackMoviePoster =
 
 export const fallbackPersonImage =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmUiF-YGjavA63_Au8jQj7zxnFxS_Ay9xc6pxleMqCxH92SzeNSjBTwZ0l61E4B3KTS7o&usqp=CAU";
+export const fallbackProviderLogo =
+  "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";

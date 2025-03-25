@@ -44,7 +44,7 @@ export default function PersonScreen() {
 
   const getPersonMovies = async (id) => {
     const data = await fetchPersonMovies(id);
-    if (data && data.cast) setPersonMovies(data.cast);
+    if (data?.cast) setPersonMovies(data.cast);
   };
 
   return (

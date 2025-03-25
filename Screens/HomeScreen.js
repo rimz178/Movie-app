@@ -12,7 +12,11 @@ import {
 } from "../Api/ApiParsing";
 import Loading from "../components/Loading";
 import { useNavigation } from "@react-navigation/native";
-
+/**
+ * show the homescreen with all the data.
+ * 
+ * @returns HomeScreen
+ */
 function HomeScreen() {
   const [upcoming, setUpcoming] = useState([]);
   const [trending, setTrending] = useState([]);
@@ -49,7 +53,6 @@ function HomeScreen() {
 
   const getNowPlaying = async () => {
     const data = await fetchNowPlaying();
-    /*     console.log("nowPlaying", data); */
     if (data?.results) setPlaying(data.results);
   };
 

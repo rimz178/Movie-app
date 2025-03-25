@@ -12,7 +12,7 @@ import Colors from "../Colors/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 
-var { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 //this code create upcomingmovies carousel
 export default function UpcomingMovies({ data }) {

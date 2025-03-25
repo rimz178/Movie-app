@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-    color: Colors.white,
     color: Colors.searchColor,
   },
   scorll: {

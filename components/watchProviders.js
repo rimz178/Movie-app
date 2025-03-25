@@ -9,45 +9,36 @@ import {
 } from "react-native";
 import React from "react";
 import Colors from "../Colors/Colors";
-import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
-
+import { image185 } from "../Api/ApiParsing";
 const { width, height } = Dimensions.get("window");
 
-export default function Cast({ cast, navigation }) {
+export default function WatchProviders({ providers }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Top Cast</Text>
+      <Text style={styles.titleText}>Watch Providers</Text>
       <FlatList
-        data={cast}
-        keyExtractor={(item, index) => index.toString()}
+        data={providers}
+        keyExtractor={(_item, index) => index.toString()}
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
         initialNumToRender={2}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity
-            style={styles.items}
-            onPress={() => navigation.navigate("Person", item)}
-          >
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.items}>
             <View style={styles.imageCircle}>
               <Image
                 style={styles.image}
                 source={{
-                  uri: image185(item?.profile_path) || fallbackPersonImage,
+                  uri: image185(item?.logo_path),
                   loading: "lazy",
                 }}
               />
             </View>
             <Text style={styles.text}>
-              {item?.character.length > 10
-                ? `${item?.character.slice(0, 10)}...`
-                : item?.character}
-            </Text>
-            <Text style={styles.text}>
-              {item?.original_name.length > 10
-                ? `${item?.original_name.slice(0, 10)}...`
-                : item?.original_name}
+              {item?.provider_name.length > 10
+                ? `${item?.provider_name.slice(0, 10)}...`
+                : item?.provider_name}
             </Text>
           </TouchableOpacity>
         )}
@@ -55,6 +46,7 @@ export default function Cast({ cast, navigation }) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     padding: 10,
@@ -66,7 +58,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
   },
-
   items: {
     marginStart: -10,
     padding: 10,
