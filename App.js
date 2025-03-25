@@ -1,10 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { registerRootComponent } from "expo"; // Lisää tämä import
 import "react-native-gesture-handler";
+import "react-native-url-polyfill/auto";
 
 import MainStack from "./stack/MainStack";
 
-export default function App() {
+function App() {
   return <MainStack />;
 }
+
+export default registerRootComponent(App);
 
 const styles = StyleSheet.create({});
