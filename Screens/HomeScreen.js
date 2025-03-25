@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 
 import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
@@ -19,7 +19,6 @@ function HomeScreen() {
   const [topRated, setRated] = useState([]);
   const [nowPlaying, setPlaying] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigation = useNavigation();
 
   useEffect(() => {
     getUpcomingMovies();
@@ -33,25 +32,25 @@ function HomeScreen() {
   const getUpcomingMovies = async () => {
     const data = await fetchUpcoming();
 
-    if (data && data.results) setUpcoming(data.results);
+    if (data?.results) setUpcoming(data.results);
     setLoading(false);
   };
   //same as above, but only searches for trending movies
   const getTrendingMovies = async () => {
     const data = await fetchTrending();
 
-    if (data && data.results) setTrending(data.results);
+    if (data?.results) setTrending(data.results);
   };
   //same as above, but only searches for get rated movies
   const getRatedMovies = async () => {
     const data = await fetchRated();
-    if (data && data.results) setRated(data.results);
+    if (data?.results) setRated(data.results);
   };
 
   const getNowPlaying = async () => {
     const data = await fetchNowPlaying();
     /*     console.log("nowPlaying", data); */
-    if (data && data.results) setPlaying(data.results);
+    if (data?.results) setPlaying(data.results);
   };
 
   // returns homescreen all data.

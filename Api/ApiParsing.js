@@ -1,7 +1,9 @@
 import axios from "axios";
-import { apiKey } from "../constant/apiKey";
-
+import { TMDB_API_KEY } from "@env";
 const apiBaseUrl = "https://api.themoviedb.org/3";
+
+console.log("TMDB_API_KEY", TMDB_API_KEY);
+const apiKey = TMDB_API_KEY;
 
 //upcoming endpoints
 const upcoming = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}&region=FI`;
@@ -31,11 +33,11 @@ const personMoviesEndpoint = (id) =>
 
 //image endpoints
 export const image500 = (posterPath) =>
-  posterPath ? "https://image.tmdb.org/t/p/w500" + posterPath : null;
+  posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : null;
 export const image342 = (posterPath) =>
-  posterPath ? "https://image.tmdb.org/t/p/w342" + posterPath : null;
+  posterPath ? `https://image.tmdb.org/t/p/w342${posterPath}` : null;
 export const image185 = (posterPath) =>
-  posterPath ? "https://image.tmdb.org/t/p/w185" + posterPath : null;
+  posterPath ? `https://image.tmdb.org/t/p/w185${posterPath}` : null;
 
 const apiCall = async (endpoint, params) => {
   const options = {

@@ -19,7 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 
-var { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default function SearchBars() {
   const navigation = useNavigation();
@@ -28,7 +28,7 @@ export default function SearchBars() {
 
   const handleSearch = (value) => {
     if (value && value.length > 2) {
-      setLoading(true),
+      setLoading(true)
         searchMovies({
           query: value,
           include_adult: "false",
@@ -37,7 +37,7 @@ export default function SearchBars() {
         }).then((data) => {
           setLoading(false);
           /* console.log("gota movies ", data); */
-          if (data && data.results) setResult(data.results);
+          if (data?.results) setResult(data.results);
         });
     } else {
       setLoading(false);
@@ -80,9 +80,9 @@ export default function SearchBars() {
                   }}
                 />
                 <Text style={styles.otherText}>
-                  {item && item.title && item.title.length > 22
-                    ? item.title.slice(0, 22) + "..."
-                    : item && item.title}
+                  {item?.title && item.title.length > 22
+                    ? `${item.title.slice(0, 22)}...`
+                    : item?.title}
                 </Text>
               </View>
             </TouchableWithoutFeedback>

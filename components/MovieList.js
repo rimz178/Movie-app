@@ -13,7 +13,7 @@ import Colors from "../Colors/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 
-var { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 // show  movies
 export default function MovieList({ title, data }) {
   const navigation = useNavigation();
@@ -36,9 +36,9 @@ export default function MovieList({ title, data }) {
           }}
         />
         <Text style={styles.text}>
-          {item && item.title && item.title.length > 14
-            ? item.title.slice(0, 14) + "..."
-            : item && item.title}
+          {item?.title && item.title.length > 14
+            ? `${item.title.slice(0, 14)}...`
+            : item?.title}
         </Text>
       </View>
     </TouchableWithoutFeedback>
