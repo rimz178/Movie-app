@@ -31,7 +31,7 @@ const personMoviesEndpoint = (id) =>
   `${apiBaseUrl}/person/${id}/movie_credits?api_key=${apiKey}`;
 
 const watchProvidersEndpoint = (id) =>
-  `${apiBaseUrl}/movie/${id}/watch/providers?api_key=${apiKey}&region=FI`;
+  `${apiBaseUrl}/movie/${id}/watch/providers?api_key=${apiKey}`;
 //image endpoints
 export const image500 = (posterPath) =>
   posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : null;

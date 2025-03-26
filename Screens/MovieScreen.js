@@ -58,8 +58,16 @@ export default function MovieScreen() {
     const data = await fetchWatchProviders(id);
 
     if (data?.results) {
-      setWatchProviders(data.results);
-      console.log(data.results);
+      const countryCode = "FI"; 
+      const providersForCountry = data.results[countryCode] || {};
+
+      const providersArray = [
+        ...(providersForCountry.flatrate || []),
+        ...(providersForCountry.buy || []),
+        ...(providersForCountry.rent || []),
+      ];
+
+      setWatchProviders(providersArray);
     }
   };
 

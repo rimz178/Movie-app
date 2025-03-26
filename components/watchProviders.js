@@ -10,15 +10,28 @@ import {
 import React from "react";
 import Colors from "../Colors/Colors";
 import { image185 } from "../Api/ApiParsing";
+
 const { width, height } = Dimensions.get("window");
 
 export default function WatchProviders({ providers }) {
+  if (!providers || providers.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titleText}>No Providers Available</Text>
+      </View>
+    );
+  }
+  const uniqueProviders = providers?.filter(
+    (v, i, a) => a.findIndex((t) => t.provider_id === v.provider_id) === i
+  );
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Watch Providers</Text>
       <FlatList
-        data={providers}
-        keyExtractor={(_item, index) => index.toString()}
+        data={uniqueProviders}
+        keyExtractor={(item, index) =>
+          item?.provider_id ? `provider_${item.provider_id}` : `index_${index}`
+        }
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -30,13 +43,14 @@ export default function WatchProviders({ providers }) {
               <Image
                 style={styles.image}
                 source={{
-                  uri: image185(item?.logo_path),
-                  loading: "lazy",
+                  uri: item?.logo_path
+                    ? image185(item.logo_path)
+                    : fallbackProviderLogo,
                 }}
               />
             </View>
             <Text style={styles.text}>
-              {item?.provider_name.length > 10
+              {item?.provider_name?.length > 10
                 ? `${item?.provider_name.slice(0, 10)}...`
                 : item?.provider_name}
             </Text>
@@ -72,15 +86,14 @@ const styles = StyleSheet.create({
   imageCircle: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: (height * 0.3) / 2,
+    borderRadius: 50, // Pyöristetty ympyrä
     overflow: "hidden",
+    width: width * 0.2,
+    height: width * 0.2,
   },
   image: {
-    width: width * 0.2,
-    height: height * 0.1,
+    width: "100%",
+    height: "100%",
     resizeMode: "cover",
-    borderRadius: (height * 0.3) / 2,
-    padding: 5,
-    margin: 2,
   },
 });
