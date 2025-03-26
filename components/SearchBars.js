@@ -28,17 +28,17 @@ export default function SearchBars() {
 
   const handleSearch = (value) => {
     if (value && value.length > 2) {
-      setLoading(true)
-        searchMovies({
-          query: value,
-          include_adult: "false",
-          language: "en-US",
-          page: "1",
-        }).then((data) => {
-          setLoading(false);
-          /* console.log("gota movies ", data); */
-          if (data?.results) setResult(data.results);
-        });
+      setLoading(true);
+      searchMovies({
+        query: value,
+        include_adult: "false",
+        language: "en-US",
+        page: "1",
+      }).then((data) => {
+        setLoading(false);
+        /* console.log("gota movies ", data); */
+        if (data?.results) setResult(data.results);
+      });
     } else {
       setLoading(false);
       setResult([]);
@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-    color: Colors.white,
     color: Colors.searchColor,
   },
   scorll: {

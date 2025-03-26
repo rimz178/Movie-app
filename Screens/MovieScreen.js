@@ -4,11 +4,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   Dimensions,
   Image,
   FlatList,
-  SafeAreaView,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
@@ -18,42 +16,63 @@ import Loading from "../components/Loading";
 import {
   fetchMovieCredits,
   fetchMovieDetails,
+  fetchWatchProviders,
   image500,
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
 import Cast from "../components/Cast";
-import { symbol } from "prop-types";
+import WatchProviders from "../components/WatchProviders";
 
-var { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
-//Movie details screens
+/**
+ * show the movie screen with all the data.
+ *
+ * @returns MovieScreen
+ */
 export default function MovieScreen() {
   const { params: item } = useRoute();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({});
   const [cast, setCast] = useState([]);
+  const [watchProviders, setWatchProviders] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     getMovieDetails(item.id);
     getMovieCredits(item.id);
+    getWatchProviders(item.id);
   }, [item]);
 
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
-    /*  console.log("got movie details", data); */
     if (data) setMovie(data);
     setLoading(false);
   };
 
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
-    /*   */
-    if (data && data.cast) setCast(data.cast);
+    if (data?.cast) setCast(data.cast);
   };
 
-  //returns details info
+  const getWatchProviders = async (id) => {
+    const data = await fetchWatchProviders(id);
+
+    if (data?.results) {
+      const countryCode = "FI";
+      const providersForCountry = data.results[countryCode] || {};
+
+      const providersArray = [
+        ...(providersForCountry.flatrate || []),
+        ...(providersForCountry.buy || []),
+        ...(providersForCountry.rent || []),
+      ];
+
+      setWatchProviders(providersArray);
+    }
+  };
+
   return (
     <View>
       {loading ? (
@@ -86,10 +105,7 @@ export default function MovieScreen() {
                 </View>
               </View>
               <View style={{ marginTop: 10 }}>
-                {/* Title */}
                 <Text style={styles.titletext}>{movie?.title}</Text>
-
-                {/* status, release , runtime */}
                 {movie?.id ? (
                   <Text style={styles.textStatus}>
                     {movie?.status} • {movie?.release_date?.split("-")[0]} •
@@ -101,9 +117,9 @@ export default function MovieScreen() {
               {/* genres  */}
               <View style={styles.genre}>
                 {movie?.genres?.map((genre, index) => {
-                  let dot = index + 1 !== movie.genres.length;
+                  const dot = index + 1 !== movie.genres.length;
                   return (
-                    <Text key={index} style={styles.textStatus}>
+                    <Text key={genre.id} style={styles.textStatus}>
                       {genre?.name} {dot ? "•" : null}
                     </Text>
                   );
@@ -115,6 +131,8 @@ export default function MovieScreen() {
               </View>
               {/* cast */}
               <Cast navigation={navigation} cast={cast} />
+              {/* watch providers */}
+              <WatchProviders providers={watchProviders} />
             </View>
           )}
         />

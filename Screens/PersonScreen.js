@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
-var { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 import Colors from "../Colors/Colors";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
@@ -44,7 +44,7 @@ export default function PersonScreen() {
 
   const getPersonMovies = async (id) => {
     const data = await fetchPersonMovies(id);
-    if (data && data.cast) setPersonMovies(data.cast);
+    if (data?.cast) setPersonMovies(data.cast);
   };
 
   return (
@@ -89,7 +89,7 @@ export default function PersonScreen() {
                 <View style={styles.textContainer}>
                   <Text style={styles.cendreText}>Gender</Text>
                   <Text style={styles.cendres}>
-                    {person?.gender == 1 ? "female" : "Male"}
+                    {person?.gender === 1 ? "female" : "Male"}
                   </Text>
                 </View>
                 {/* Birthday */}

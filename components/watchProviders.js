@@ -9,53 +9,50 @@ import {
 } from "react-native";
 import React from "react";
 import Colors from "../Colors/Colors";
-import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
+import { image185 } from "../Api/ApiParsing";
 
 const { width, height } = Dimensions.get("window");
 
-export default function Cast({ cast, navigation }) {
-
-  if (!cast || cast.length === 0) {
+export default function WatchProviders({ providers }) {
+  if (!providers || providers.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={styles.titleText}>No Cast Available</Text>
+        <Text style={styles.titleText}>No Providers Available</Text>
       </View>
     );
   }
+  const uniqueProviders = providers?.filter(
+    (v, i, a) => a.findIndex((t) => t.provider_id === v.provider_id) === i,
+  );
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Top Cast</Text>
+      <Text style={styles.titleText}>Watch Providers</Text>
       <FlatList
-        data={cast}
-        keyExtractor={(item, index) => index.toString()}
+        data={uniqueProviders}
+        keyExtractor={(item, index) =>
+          item?.provider_id ? `provider_${item.provider_id}` : `index_${index}`
+        }
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
         initialNumToRender={2}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity
-            style={styles.items}
-            onPress={() => navigation.navigate("Person", item)}
-          >
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.items}>
             <View style={styles.imageCircle}>
               <Image
                 style={styles.image}
                 source={{
-                  uri: image185(item?.profile_path) || fallbackPersonImage,
-                  loading: "lazy",
+                  uri: item?.logo_path
+                    ? image185(item.logo_path)
+                    : fallbackProviderLogo,
                 }}
               />
             </View>
             <Text style={styles.text}>
-              {item?.character.length > 10
-                ? `${item?.character.slice(0, 10)}...`
-                : item?.character}
-            </Text>
-            <Text style={styles.text}>
-              {item?.original_name.length > 10
-                ? `${item?.original_name.slice(0, 10)}...`
-                : item?.original_name}
+              {item?.provider_name?.length > 10
+                ? `${item?.provider_name.slice(0, 10)}...`
+                : item?.provider_name}
             </Text>
           </TouchableOpacity>
         )}
@@ -63,6 +60,7 @@ export default function Cast({ cast, navigation }) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     padding: 10,
@@ -74,7 +72,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
   },
-
   items: {
     marginStart: -10,
     padding: 10,
@@ -84,20 +81,19 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.white,
-    fontSize: 15,
+    fontSize: 12,
   },
   imageCircle: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: (height * 0.3) / 2,
+    borderRadius: 20,
     overflow: "hidden",
+    width: width * 0.14,
+    height: width * 0.14,
   },
   image: {
-    width: width * 0.2,
-    height: height * 0.1,
+    width: "100%",
+    height: "100%",
     resizeMode: "cover",
-    borderRadius: (height * 0.3) / 2,
-    padding: 5,
-    margin: 2,
   },
 });

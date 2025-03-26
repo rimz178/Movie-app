@@ -25,5 +25,8 @@
     "react-native-progress": "^5.0.1",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^10.2.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4"
   }
 }

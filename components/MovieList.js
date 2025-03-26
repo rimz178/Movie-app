@@ -7,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   Image,
   Dimensions,
-  SafeAreaView,
 } from "react-native";
 import Colors from "../Colors/Colors";
 import { useNavigation } from "@react-navigation/native";
@@ -22,7 +21,7 @@ export default function MovieList({ title, data }) {
     (item) => {
       navigation.navigate("Movie", item);
     },
-    [navigation]
+    [navigation],
   );
 
   const renderItem = ({ item }) => (

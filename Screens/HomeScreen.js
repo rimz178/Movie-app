@@ -11,8 +11,11 @@ import {
   fetchNowPlaying,
 } from "../Api/ApiParsing";
 import Loading from "../components/Loading";
-import { useNavigation } from "@react-navigation/native";
-
+/**
+ * show the homescreen with all the data.
+ *
+ * @returns HomeScreen
+ */
 function HomeScreen() {
   const [upcoming, setUpcoming] = useState([]);
   const [trending, setTrending] = useState([]);
@@ -27,21 +30,19 @@ function HomeScreen() {
     getNowPlaying();
   }, []);
 
-  /*  fetches upcoming movies from the website, 
-  if the information is found, setload is set to false and imports the information. */
   const getUpcomingMovies = async () => {
     const data = await fetchUpcoming();
 
     if (data?.results) setUpcoming(data.results);
     setLoading(false);
   };
-  //same as above, but only searches for trending movies
+
   const getTrendingMovies = async () => {
     const data = await fetchTrending();
 
     if (data?.results) setTrending(data.results);
   };
-  //same as above, but only searches for get rated movies
+
   const getRatedMovies = async () => {
     const data = await fetchRated();
     if (data?.results) setRated(data.results);
@@ -49,7 +50,6 @@ function HomeScreen() {
 
   const getNowPlaying = async () => {
     const data = await fetchNowPlaying();
-    /*     console.log("nowPlaying", data); */
     if (data?.results) setPlaying(data.results);
   };
 
