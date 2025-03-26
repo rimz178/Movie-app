@@ -9,54 +9,74 @@ import MovieScreen from "../Screens/MovieScreen";
 import StackHeader from "./StackHeader";
 import SearchBars from "../components/SearchBars";
 import PersonScreen from "../Screens/PersonScreen";
+import LoginScreen from "../Screens/LoginScreens"; // Lisätty LoginScreen
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-//this code creates a transition between the possibility settings and the home page
+
+/**
+ * show the main stack with all the screens.
+ * 
+ * @returns 
+ * 
+ */
 function MainStack() {
   return (
     <PaperProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator
-          initialRouteName="Home"
+          initialRouteName="Login" 
           screenOptions={{
             header: (props) => <StackHeader {...props} />,
           }}
         >
+       
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{
+              headerShown: false, 
+            }}
+          />
+   
           <Stack.Screen
             name="Home"
             component={HomeScreen}
             options={{
-              title: "Movie-App",
+              title: "Etusivu", // Otsikon nimi
             }}
           />
-          <Stack.Screen
-            name="Settings"
-            component={Settings}
-            options={{
-              title: "Movie-App",
-            }}
-          />
-          <Stack.Screen
-            name="Movie"
-            component={MovieScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
+          {/* Search-näyttö */}
           <Stack.Screen
             name="Search"
             component={SearchBars}
             options={{
-              headerShown: false,
+              title: "Haku", // Otsikon nimi
             }}
           />
+          {/* Settings-näyttö */}
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={{
+              title: "Asetukset", // Otsikon nimi
+            }}
+          />
+          {/* Movie-näyttö */}
+          <Stack.Screen
+            name="Movie"
+            component={MovieScreen}
+            options={{
+              headerShown: false, // Piilotetaan otsikko
+            }}
+          />
+          {/* Person-näyttö */}
           <Stack.Screen
             name="Person"
             component={PersonScreen}
             options={{
-              headerShown: false,
+              headerShown: false, // Piilotetaan otsikko
             }}
           />
         </Stack.Navigator>
@@ -64,4 +84,5 @@ function MainStack() {
     </PaperProvider>
   );
 }
+
 export default MainStack;

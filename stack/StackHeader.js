@@ -5,7 +5,12 @@ import Colors from "../Colors/Colors";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
-//this code creates a menu on the left side of the header from where you can go to the settings site and home page
+/**
+ * show the stack header
+ * 
+ * @param {*} navigation
+ * @returns stack header
+ */
 export default function StackHeader({ navigation, route, options, back }) {
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
@@ -18,16 +23,11 @@ export default function StackHeader({ navigation, route, options, back }) {
       {back ? (
         <Appbar.BackAction onPress={navigation.goBack} color={Colors.white} />
       ) : null}
-      <TouchableOpacity
-        style={styles.search}
-        onPress={() => navigation.navigate("Search")}
-      >
-        <MaterialIcons size={25} name="search" color="white" />
-      </TouchableOpacity>
+
       <Appbar.Content
         color="white"
         titleStyle={{
-          alignSelf: "auto",
+          alignSelf: "center",
           justifyContent: "center",
           fontWeight: "bold",
           letterSpacing: 1,
@@ -35,6 +35,13 @@ export default function StackHeader({ navigation, route, options, back }) {
         }}
         title={title}
       />
+      <TouchableOpacity
+        style={styles.search}
+        onPress={() => navigation.navigate("Search")}
+      >
+        <MaterialIcons size={25} name="search" color="white" />
+      </TouchableOpacity>
+
       {!back ? (
         <Menu
           visible={visible}
@@ -61,6 +68,9 @@ const styles = StyleSheet.create({
   },
 
   search: {
-    marginLeft: 5,
+    position: "absolute", 
+    right: 10, 
+    top: "50%", 
+    transform: [{ translateY: -12.5 }], 
   },
 });
