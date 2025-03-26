@@ -12,9 +12,9 @@ import {
 } from "../Api/ApiParsing";
 import Loading from "../components/Loading";
 /**
- * show the homescreen with all the data.
+ * HomeScreen component that displays movie data.
  *
- * @returns HomeScreen
+ * @returns {JSX.Element} - The home screen.
  */
 function HomeScreen() {
   const [upcoming, setUpcoming] = useState([]);
@@ -53,7 +53,6 @@ function HomeScreen() {
     if (data?.results) setPlaying(data.results);
   };
 
-  // returns homescreen all data.
   return (
     <View style={styles.container}>
       {loading ? (

@@ -1,30 +1,57 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PaperProvider } from "react-native-paper";
 import HomeScreen from "../Screens/HomeScreen";
 import MovieScreen from "../Screens/MovieScreen";
 import StackHeader from "./StackHeader";
 import SearchBars from "../components/SearchBars";
 import PersonScreen from "../Screens/PersonScreen";
-import LoginScreen from "../Screens/LoginScreens"; // Lisätty LoginScreen
+import LoginScreen from "../Screens/LoginScreens";
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
 /**
- * show the main stack with all the screens.
+ * MainStack component for managing the app's navigation.
  *
- * @returns
+ * Handles:
+ * - Checking login status via AsyncStorage.
+ * - Setting the initial screen (Login or Home).
+ * - Navigating between screens like Home, Search, Movie, and Person.
  *
+ * @returns {JSX.Element} - The main navigation stack.
  */
 function MainStack() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const sessionId = await AsyncStorage.getItem("session_id");
+        if (sessionId) {
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkSession();
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <PaperProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName={isLoggedIn ? "Home" : "Login"}
           screenOptions={{
             header: (props) => <StackHeader {...props} />,
           }}
@@ -61,7 +88,7 @@ function MainStack() {
               headerShown: true,
             }}
           />
-          {/* Person-näyttö */}
+
           <Stack.Screen
             name="Person"
             component={PersonScreen}

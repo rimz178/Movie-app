@@ -13,6 +13,12 @@ import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 
 const { width, height } = Dimensions.get("window");
 
+/**
+ * Cast component that displays a list of cast members.
+ *
+ * @param {Array} cast - List of cast members.
+ * @param {object} navigation - Navigation object for navigating to the Person screen.
+ */
 export default function Cast({ cast, navigation }) {
   if (!cast || cast.length === 0) {
     return (

@@ -23,6 +23,11 @@ import {
   image342,
 } from "../Api/ApiParsing";
 
+/**
+ * PersonScreen component that displays details about a person, including their biography and movies.
+ *
+ * @returns {JSX.Element} - The person details screen.
+ */
 export default function PersonScreen() {
   const { params: item } = useRoute();
   const navigation = useNavigation();

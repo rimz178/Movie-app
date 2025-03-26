@@ -26,9 +26,11 @@ import WatchProviders from "../components/WatchProviders";
 const { width, height } = Dimensions.get("window");
 
 /**
- * show the movie screen with all the data.
+ * Displays detailed information about a movie, including its cast, genres, and watch providers.
  *
- * @returns MovieScreen
+ * @param {object} route - Contains the parameters passed to this screen, such as the movie ID.
+ * @param {object} navigation - Navigation object for navigating between screens.
+ * @returns {JSX.Element} - The movie details screen.
  */
 export default function MovieScreen() {
   const { params: item } = useRoute();

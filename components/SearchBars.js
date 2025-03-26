@@ -20,7 +20,11 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 
 const { width, height } = Dimensions.get("window");
-
+/**
+ * SearchBars component for searching movies.
+ *
+ * @returns {JSX.Element} - The search bar and results list.
+ */
 export default function SearchBars() {
   const navigation = useNavigation();
   const [results, setResult] = useState([1, 2, 3, 4]);
@@ -36,7 +40,6 @@ export default function SearchBars() {
         page: "1",
       }).then((data) => {
         setLoading(false);
-        /* console.log("gota movies ", data); */
         if (data?.results) setResult(data.results);
       });
     } else {
@@ -60,7 +63,7 @@ export default function SearchBars() {
           <MaterialIcons style={styles.icon} size={38} name="close" />
         </TouchableOpacity>
       </View>
-      {/* search results */}
+
       {loading ? (
         <Loading />
       ) : (

@@ -14,7 +14,12 @@ import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 
 const { width, height } = Dimensions.get("window");
 
-//this code create upcomingmovies carousel
+/**
+ * UpcomingMovies component that displays a horizontal list of upcoming movies.
+ *
+ * @param {Array} data - Array of upcoming movie objects.
+ * @returns {JSX.Element} - The upcoming movies list.
+ */
 export default function UpcomingMovies({ data }) {
   const navigation = useNavigation();
   const handleClick = useCallback(

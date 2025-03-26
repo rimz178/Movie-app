@@ -3,19 +3,59 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   Linking,
 } from "react-native";
 import Colors from "../Colors/Colors";
+import {
+  fetchRequestToken,
+  validateWithLogin,
+  createSession,
+} from "../Api/ApiParsing";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+/**
+ * LoginScreen component for user authentication.
+ *
+ * @param {object} navigation - Navigation object for screen transitions.
+ * @returns {JSX.Element} - The login screen.
+ */
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    navigation.navigate("Home");
+  const handleLogin = async () => {
+    try {
+      const tokenData = await fetchRequestToken();
+      if (!tokenData.success) {
+        alert("Failed to get request token");
+        return;
+      }
+
+      const loginData = await validateWithLogin(
+        username,
+        password,
+        tokenData.request_token,
+      );
+      if (!loginData.success) {
+        alert("Invalid username or password");
+        return;
+      }
+
+      const sessionData = await createSession(tokenData.request_token);
+      if (!sessionData.success) {
+        alert("Failed to create session");
+        return;
+      }
+      await AsyncStorage.setItem("session_id", sessionData.session_id);
+
+      console.log("Session ID:", sessionData.session_id);
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("An error occurred during login");
+    }
   };
 
   const handleGoToRegister = () => {
@@ -39,12 +79,12 @@ export default function LoginScreen({ navigation }) {
         value={password}
         onChangeText={setPassword}
       />
-    <TouchableOpacity style={styles.button} onPress={handleLogin}>
-       <Text style={styles.buttonText}>Log in</Text>
-    </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Log in</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={handleGoToRegister}>
-        <Text style={styles.registerText}>No account ? create new account</Text>
+        <Text style={styles.registerText}>No account? Create new account</Text>
       </TouchableOpacity>
     </View>
   );
@@ -86,9 +126,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
-    color: "#ffffff", 
+    color: "#ffffff",
     fontSize: 16,
     fontWeight: "bold",
   },
-
 });
