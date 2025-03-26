@@ -127,9 +127,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonRow: {
-    flexDirection: "row", // Asettaa painikkeet vierekkäin
-    justifyContent: "space-between", // Jakaa painikkeet tasaisesti
-    width: "100%", // Vie koko säiliön leveys
+    flexDirection: "row", 
+    justifyContent: "space-between", 
     marginTop: 10,
   },
   button: {
@@ -137,8 +136,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    flex: 1, // Jaa tila tasaisesti
-    marginHorizontal: 5, // Lisää väliä painikkeiden väliin
+    flex: 1, 
+    marginHorizontal: 5, 
   },
   buttonText: {
     color: "#ffffff",
