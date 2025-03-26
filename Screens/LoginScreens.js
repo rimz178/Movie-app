@@ -81,16 +81,17 @@ export default function LoginScreen({ navigation }) {
         value={password}
         onChangeText={setPassword}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Log in</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.skipButton} onPress={handleSkipLogin}>
-        <Text style={styles.skipButtonText}>Guest user</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Log in</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSkipLogin}>
+          <Text style={styles.buttonText}>Guest user</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity onPress={handleGoToRegister}>
         <Text style={styles.registerText}>No account? Create new account</Text>
       </TouchableOpacity>
-     
     </View>
   );
 }
@@ -125,8 +126,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 5,
   },
-  registerText: {
-    color: "white",
+  buttonRow: {
+    flexDirection: "row", // Asettaa painikkeet vierekkäin
+    justifyContent: "space-between", // Jakaa painikkeet tasaisesti
+    width: "100%", // Vie koko säiliön leveys
     marginTop: 10,
   },
   button: {
@@ -134,22 +137,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    marginTop: 10,
+    flex: 1, // Jaa tila tasaisesti
+    marginHorizontal: 5, // Lisää väliä painikkeiden väliin
   },
   buttonText: {
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "bold",
   },
-  skipButton: {
-    marginTop: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: Colors.loginButton,
-  },
-  skipButtonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "bold",
+  registerText: {
+    color: "white",
+    marginTop: 10,
   },
 });
