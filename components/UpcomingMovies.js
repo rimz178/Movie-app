@@ -1,11 +1,11 @@
 import {
-  View,
-  StyleSheet,
-  Dimensions,
-  Text,
-  Image,
-  FlatList,
-  TouchableWithoutFeedback,
+	View,
+	StyleSheet,
+	Dimensions,
+	Text,
+	Image,
+	FlatList,
+	TouchableWithoutFeedback,
 } from "react-native";
 import React, { useCallback } from "react";
 import Colors from "../Colors/Colors";
@@ -16,59 +16,59 @@ const { width, height } = Dimensions.get("window");
 
 //this code create upcomingmovies carousel
 export default function UpcomingMovies({ data }) {
-  const navigation = useNavigation();
-  const handleClick = useCallback(
-    (item) => {
-      navigation.navigate("Movie", item);
-    },
-    [navigation]
-  );
+	const navigation = useNavigation();
+	const handleClick = useCallback(
+		(item) => {
+			navigation.navigate("Movie", item);
+		},
+		[navigation],
+	);
 
-  return (
-    <View>
-      <Text style={styles.text}>Upcoming Movies</Text>
-      <FlatList
-        layout="default"
-        data={data}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <Movie item={item} handleClick={handleClick} />
-        )}
-        horizontal
-        initialNumToRender={2}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </View>
-  );
+	return (
+		<View>
+			<Text style={styles.text}>Upcoming Movies</Text>
+			<FlatList
+				layout="default"
+				data={data}
+				showsVerticalScrollIndicator={false}
+				showsHorizontalScrollIndicator={false}
+				renderItem={({ item }) => (
+					<Movie item={item} handleClick={handleClick} />
+				)}
+				horizontal
+				initialNumToRender={2}
+				keyExtractor={(item) => item.id.toString()}
+			/>
+		</View>
+	);
 }
 
 const Movie = ({ item, handleClick }) => {
-  return (
-    <TouchableWithoutFeedback onPress={() => handleClick(item)}>
-      <Image
-        source={{
-          uri: image500(item.poster_path) || fallbackMoviePoster,
-          loading: "lazy",
-        }}
-        style={styles.itemImg}
-      />
-    </TouchableWithoutFeedback>
-  );
+	return (
+		<TouchableWithoutFeedback onPress={() => handleClick(item)}>
+			<Image
+				source={{
+					uri: image500(item.poster_path) || fallbackMoviePoster,
+					loading: "lazy",
+				}}
+				style={styles.itemImg}
+			/>
+		</TouchableWithoutFeedback>
+	);
 };
 const styles = StyleSheet.create({
-  itemImg: {
-    margin: 10,
-    padding: 20,
-    width: width * 0.6,
-    height: height * 0.4,
-    borderRadius: 20,
-    alignItems: "center",
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: Colors.white,
-    padding: 20,
-  },
+	itemImg: {
+		margin: 10,
+		padding: 20,
+		width: width * 0.6,
+		height: height * 0.4,
+		borderRadius: 20,
+		alignItems: "center",
+	},
+	text: {
+		fontWeight: "bold",
+		fontSize: 20,
+		color: Colors.white,
+		padding: 20,
+	},
 });

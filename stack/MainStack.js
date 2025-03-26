@@ -15,53 +15,53 @@ const Tab = createBottomTabNavigator();
 
 //this code creates a transition between the possibility settings and the home page
 function MainStack() {
-  return (
-    <PaperProvider>
-      <NavigationContainer independent={true}>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            header: (props) => <StackHeader {...props} />,
-          }}
-        >
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              title: "Movie-App",
-            }}
-          />
-          <Stack.Screen
-            name="Settings"
-            component={Settings}
-            options={{
-              title: "Movie-App",
-            }}
-          />
-          <Stack.Screen
-            name="Movie"
-            component={MovieScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Search"
-            component={SearchBars}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Person"
-            component={PersonScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
-  );
+	return (
+		<PaperProvider>
+			<NavigationContainer independent={true}>
+				<Stack.Navigator
+					initialRouteName="Home"
+					screenOptions={{
+						header: (props) => <StackHeader {...props} />,
+					}}
+				>
+					<Stack.Screen
+						name="Home"
+						component={HomeScreen}
+						options={{
+							title: "Movie-App",
+						}}
+					/>
+					<Stack.Screen
+						name="Settings"
+						component={Settings}
+						options={{
+							title: "Movie-App",
+						}}
+					/>
+					<Stack.Screen
+						name="Movie"
+						component={MovieScreen}
+						options={{
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen
+						name="Search"
+						component={SearchBars}
+						options={{
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen
+						name="Person"
+						component={PersonScreen}
+						options={{
+							headerShown: false,
+						}}
+					/>
+				</Stack.Navigator>
+			</NavigationContainer>
+		</PaperProvider>
+	);
 }
 export default MainStack;
