@@ -1,62 +1,106 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PaperProvider } from "react-native-paper";
 import HomeScreen from "../Screens/HomeScreen";
-import Settings from "../Screens/Settings";
 import MovieScreen from "../Screens/MovieScreen";
 import StackHeader from "./StackHeader";
 import SearchBars from "../components/SearchBars";
 import PersonScreen from "../Screens/PersonScreen";
-
+import LoginScreen from "../Screens/LoginScreens";
+import GuestHome from "../Screens/GuestHome";
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
-//this code creates a transition between the possibility settings and the home page
+/**
+ * MainStack component for managing the app's navigation.
+ *
+ * Handles:
+ * - Checking login status via AsyncStorage.
+ * - Setting the initial screen (Login or Home).
+ * - Navigating between screens like Home, Search, Movie, and Person.
+ *
+ * @returns {JSX.Element} - The main navigation stack.
+ */
 function MainStack() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const sessionId = await AsyncStorage.getItem("session_id");
+        if (sessionId) {
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkSession();
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <PaperProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator
-          initialRouteName="Home"
+          initialRouteName={isLoggedIn ? "Home" : "Login"}
           screenOptions={{
             header: (props) => <StackHeader {...props} />,
           }}
         >
           <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              title: "Movie-App",
-            }}
-          />
-          <Stack.Screen
-            name="Settings"
-            component={Settings}
-            options={{
-              title: "Movie-App",
-            }}
-          />
-          <Stack.Screen
-            name="Movie"
-            component={MovieScreen}
+            name="Login"
+            component={LoginScreen}
             options={{
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name="GuestHome"
+            component={GuestHome}
+            options={{
+              title: "Guest Home",
+            }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              title: "Home",
+            }}
+          />
+
           <Stack.Screen
             name="Search"
             component={SearchBars}
             options={{
-              headerShown: false,
+              title: "Search",
             }}
           />
+
+          <Stack.Screen
+            name="Movie"
+            component={MovieScreen}
+            options={{
+              title: "Movie",
+              headerShown: true,
+            }}
+          />
+
           <Stack.Screen
             name="Person"
             component={PersonScreen}
             options={{
-              headerShown: false,
+              title: "Person",
+              headerShown: true,
             }}
           />
         </Stack.Navigator>
@@ -64,4 +108,5 @@ function MainStack() {
     </PaperProvider>
   );
 }
+
 export default MainStack;

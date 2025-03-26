@@ -1,66 +1,64 @@
 import React from "react";
-import { Appbar, Menu } from "react-native-paper";
+import { Appbar } from "react-native-paper";
 import { getHeaderTitle } from "@react-navigation/elements";
-import Colors from "../Colors/Colors";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StyleSheet } from "react-native";
 
-//this code creates a menu on the left side of the header from where you can go to the settings site and home page
+/**
+ * Custom header component for the navigation stack.
+ *
+ * @param {object} navigation - Navigation object for navigation actions.
+ * @param {object} route - Current route object with screen info.
+ * @param {object} options - Header options like title and styles.
+ * @param {boolean} back - Indicates if the back button should be shown.
+ * @returns {JSX.Element} - The custom header component.
+ */
 export default function StackHeader({ navigation, route, options, back }) {
-  const [visible, setVisible] = React.useState(false);
-  const openMenu = () => setVisible(true);
-  const closeMenu = () => setVisible(false);
-
   const title = getHeaderTitle(options, route.name);
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem("session_id");
+    navigation.navigate("Login");
+  };
+
+  const isLoginScreen = route.name === "Login";
+  const isHomeScreen = route.name === "Home";
 
   return (
     <Appbar.Header style={styles.content}>
-      {back ? (
-        <Appbar.BackAction onPress={navigation.goBack} color={Colors.white} />
+      {back && !isLoginScreen && !isHomeScreen ? (
+        <Appbar.BackAction onPress={navigation.goBack} color="white" />
       ) : null}
-      <TouchableOpacity
-        style={styles.search}
-        onPress={() => navigation.navigate("Search")}
-      >
-        <MaterialIcons size={25} name="search" color="white" />
-      </TouchableOpacity>
+
       <Appbar.Content
-        color="white"
-        titleStyle={{
-          alignSelf: "auto",
-          justifyContent: "center",
-          fontWeight: "bold",
-          letterSpacing: 1,
-          fontSize: 25,
-        }}
         title={title}
+        titleStyle={{
+          textAlign: "center",
+          fontWeight: "bold",
+          fontSize: 20,
+          color: "white",
+        }}
       />
-      {!back ? (
-        <Menu
-          visible={visible}
-          onDismiss={closeMenu}
-          anchor={
-            <Appbar.Action icon="menu" color="white" onPress={openMenu} />
-          }
-        >
-          <Menu.Item
-            onPress={() => navigation.navigate("Settings")}
-            title="Settings"
-          />
-        </Menu>
-      ) : null}
+      {!isLoginScreen && (
+        <Appbar.Action
+          icon="magnify"
+          color="white"
+          onPress={() => navigation.navigate("Search")}
+        />
+      )}
+
+      {isHomeScreen && (
+        <Appbar.Action icon="logout" color="white" onPress={handleLogout} />
+      )}
     </Appbar.Header>
   );
 }
 
 const styles = StyleSheet.create({
   content: {
-    backgroundColor: Colors.backcolor,
+    backgroundColor: "#121212",
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-  },
-
-  search: {
-    marginLeft: 5,
+    justifyContent: "space-between",
   },
 });

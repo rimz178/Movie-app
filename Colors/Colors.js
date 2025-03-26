@@ -5,4 +5,5 @@ export default {
   buttonColor: "#E60505",
   bottomColor: "#595959",
   status: "#CCCCCC",
+  loginButton: "#28a745",
 };

@@ -13,6 +13,12 @@ import { image185 } from "../Api/ApiParsing";
 
 const { width, height } = Dimensions.get("window");
 
+/**
+ * WatchProviders component that displays a list of watch providers.
+ *
+ * @param {Array} providers - Array of watch provider objects.
+ * @returns {JSX.Element} - The watch providers list.
+ */
 export default function WatchProviders({ providers }) {
   if (!providers || providers.length === 0) {
     return (

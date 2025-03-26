@@ -32,6 +32,12 @@ const personMoviesEndpoint = (id) =>
 
 const watchProvidersEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}/watch/providers?api_key=${apiKey}`;
+
+// Authentication endpoints
+const requestTokenEndpoint = `${apiBaseUrl}/authentication/token/new?api_key=${apiKey}`;
+const validateLoginEndpoint = `${apiBaseUrl}/authentication/token/validate_with_login?api_key=${apiKey}`;
+const createSessionEndpoint = `${apiBaseUrl}/authentication/session/new?api_key=${apiKey}`;
+
 //image endpoints
 export const image500 = (posterPath) =>
   posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : null;
@@ -52,6 +58,43 @@ const apiCall = async (endpoint, params) => {
     return response.data;
   } catch (error) {
     console.log("error", error);
+    return {};
+  }
+};
+
+// Authentication API calls
+export const fetchRequestToken = async () => {
+  try {
+    const response = await axios.get(requestTokenEndpoint);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching request token:", error);
+    return {};
+  }
+};
+
+export const validateWithLogin = async (username, password, requestToken) => {
+  try {
+    const response = await axios.post(validateLoginEndpoint, {
+      username,
+      password,
+      request_token: requestToken,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error validating login:", error);
+    return {};
+  }
+};
+
+export const createSession = async (requestToken) => {
+  try {
+    const response = await axios.post(createSessionEndpoint, {
+      request_token: requestToken,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating session:", error);
     return {};
   }
 };

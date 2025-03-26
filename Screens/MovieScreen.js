@@ -26,9 +26,11 @@ import WatchProviders from "../components/WatchProviders";
 const { width, height } = Dimensions.get("window");
 
 /**
- * show the movie screen with all the data.
+ * Displays detailed information about a movie, including its cast, genres, and watch providers.
  *
- * @returns MovieScreen
+ * @param {object} route - Contains the parameters passed to this screen, such as the movie ID.
+ * @param {object} navigation - Navigation object for navigating between screens.
+ * @returns {JSX.Element} - The movie details screen.
  */
 export default function MovieScreen() {
   const { params: item } = useRoute();
@@ -86,14 +88,6 @@ export default function MovieScreen() {
           renderItem={() => (
             <View style={styles.scorl}>
               <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <MaterialIcons
-                    size={38}
-                    name="arrow-back"
-                    color={Colors.white}
-                  />
-                </TouchableOpacity>
-
                 <View style={styles.images}>
                   <Image
                     style={styles.insideImage}
@@ -114,7 +108,6 @@ export default function MovieScreen() {
                 ) : null}
               </View>
 
-              {/* genres  */}
               <View style={styles.genre}>
                 {movie?.genres?.map((genre, index) => {
                   const dot = index + 1 !== movie.genres.length;
@@ -125,13 +118,13 @@ export default function MovieScreen() {
                   );
                 })}
               </View>
-              {/* decription text */}
+
               <View style={styles.decsription}>
                 <Text style={styles.descriptionText}>{movie?.overview}</Text>
               </View>
-              {/* cast */}
+
               <Cast navigation={navigation} cast={cast} />
-              {/* watch providers */}
+
               <WatchProviders providers={watchProviders} />
             </View>
           )}

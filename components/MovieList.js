@@ -13,7 +13,12 @@ import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 
 const { width, height } = Dimensions.get("window");
-// show  movies
+/**
+ * MovieList component that displays a horizontal list of movies.
+ *
+ * @param {string} title - The title of the movie list.
+ * @param {Array} data - Array of movie objects to display.
+ */
 export default function MovieList({ title, data }) {
   const navigation = useNavigation();
 

@@ -3,6 +3,11 @@ import React from "react";
 import * as Progress from "react-native-progress";
 import Colors from "../Colors/Colors";
 
+/**
+ * Loading component that displays a loading spinner.
+ *
+ * @returns {JSX.Element} - The loading spinner.
+ */
 export default function Loading() {
   return (
     <View style={styles.container}>
