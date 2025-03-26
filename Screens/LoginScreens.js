@@ -84,13 +84,13 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Log in</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleGoToRegister}>
-        <Text style={styles.registerText}>No account? Create new account</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.skipButton} onPress={handleSkipLogin}>
         <Text style={styles.skipButtonText}>Guest user</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={handleGoToRegister}>
+        <Text style={styles.registerText}>No account? Create new account</Text>
+      </TouchableOpacity>
+     
     </View>
   );
 }
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 10,
     borderRadius: 5,
-    backgroundColor: Colors.skipButton,
+    backgroundColor: Colors.loginButton,
   },
   skipButtonText: {
     color: "#ffffff",
