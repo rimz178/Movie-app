@@ -14,7 +14,6 @@ import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 const { width, height } = Dimensions.get("window");
 
 export default function Cast({ cast, navigation }) {
-
   if (!cast || cast.length === 0) {
     return (
       <View style={styles.container}>
