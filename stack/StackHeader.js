@@ -48,7 +48,7 @@ export default function StackHeader({ navigation, route, options, back }) {
           anchor={
             <Appbar.Action icon="menu" color="white" onPress={openMenu} />
           }
-        ></Menu>
+        />
       ) : null}
     </Appbar.Header>
   );
