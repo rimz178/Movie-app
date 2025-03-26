@@ -1,45 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Text } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MovieList from "../components/MovieList";
+import Loading from "../components/Loading";
 import {
   fetchTrending,
   fetchUpcoming,
   fetchRated,
   fetchNowPlaying,
 } from "../Api/ApiParsing";
-import Loading from "../components/Loading";
+
 /**
  * HomeScreen component that displays movie data.
  *
+ * @param {object} route - Contains parameters passed to this screen.
  * @returns {JSX.Element} - The home screen.
  */
-function HomeScreen() {
+function HomeScreen({ route }) {
   const [upcoming, setUpcoming] = useState([]);
   const [trending, setTrending] = useState([]);
   const [topRated, setRated] = useState([]);
   const [nowPlaying, setPlaying] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isGuest, setIsGuest] = useState(false);
 
   useEffect(() => {
+    if (route?.params?.isGuest) {
+      setIsGuest(true);
+    } else {
+      AsyncStorage.getItem("session_id").then((sessionId) => {
+        if (!sessionId) {
+          setIsGuest(true);
+        }
+      });
+    }
     getUpcomingMovies();
     getTrendingMovies();
     getRatedMovies();
     getNowPlaying();
-  }, []);
+  }, [route]);
 
   const getUpcomingMovies = async () => {
     const data = await fetchUpcoming();
-
     if (data?.results) setUpcoming(data.results);
     setLoading(false);
   };
 
   const getTrendingMovies = async () => {
     const data = await fetchTrending();
-
     if (data?.results) setTrending(data.results);
   };
 
@@ -58,40 +69,35 @@ function HomeScreen() {
       {loading ? (
         <Loading />
       ) : (
-        <FlatList
-          initialNumToRender={2}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          data={[
-            {
-              /* upcoming movies */
-            },
-            { key: "upcoming", data: upcoming },
-            {
-              /* now playing cinemas */
-            },
-            {
-              key: "Now Playing cinemas",
-              title: "Now playing cinemas",
-              data: nowPlaying,
-            },
-            {
-              /* trending movies */
-            },
-            { key: "trending", title: "Trending Movies", data: trending },
-            {
-              /* Top rated movies */
-            },
-            { key: "topRated", title: "Top rated", data: topRated },
-          ]}
-          renderItem={({ item }) =>
-            item.key === "upcoming" ? (
-              <UpcomingMovies data={item.data} />
-            ) : (
-              <MovieList title={item.title} data={item.data} />
-            )
-          }
-        />
+        <>
+          {isGuest && (
+            <Text style={styles.guestText}>
+              Welcome, Guest! Log in to access more features like favorites.
+            </Text>
+          )}
+          <FlatList
+            initialNumToRender={2}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            data={[
+              { key: "upcoming", data: upcoming },
+              {
+                key: "Now Playing cinemas",
+                title: "Now playing cinemas",
+                data: nowPlaying,
+              },
+              { key: "trending", title: "Trending Movies", data: trending },
+              { key: "topRated", title: "Top rated", data: topRated },
+            ]}
+            renderItem={({ item }) =>
+              item.key === "upcoming" ? (
+                <UpcomingMovies data={item.data} />
+              ) : (
+                <MovieList title={item.title} data={item.data} />
+              )
+            }
+          />
+        </>
       )}
     </View>
   );
@@ -101,6 +107,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backcolor,
+  },
+  guestText: {
+    color: "white",
+    fontSize: 16,
+    textAlign: "center",
+    marginVertical: 10,
   },
 });
 

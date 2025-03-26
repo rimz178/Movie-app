@@ -10,7 +10,7 @@ import StackHeader from "./StackHeader";
 import SearchBars from "../components/SearchBars";
 import PersonScreen from "../Screens/PersonScreen";
 import LoginScreen from "../Screens/LoginScreens";
-
+import GuestHome from "../Screens/GuestHome";
 const Stack = createStackNavigator();
 
 /**
@@ -63,7 +63,13 @@ function MainStack() {
               headerShown: false,
             }}
           />
-
+          <Stack.Screen
+            name="GuestHome"
+            component={GuestHome}
+            options={{
+              title: "Guest Home",
+            }}
+          />
           <Stack.Screen
             name="Home"
             component={HomeScreen}

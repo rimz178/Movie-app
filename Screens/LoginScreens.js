@@ -50,7 +50,6 @@ export default function LoginScreen({ navigation }) {
       }
       await AsyncStorage.setItem("session_id", sessionData.session_id);
 
-      console.log("Session ID:", sessionData.session_id);
       navigation.navigate("Home");
     } catch (error) {
       console.error("Login error:", error);
@@ -61,11 +60,14 @@ export default function LoginScreen({ navigation }) {
   const handleGoToRegister = () => {
     Linking.openURL("https://www.themoviedb.org/signup");
   };
+  const handleSkipLogin = () => {
+    navigation.navigate("GuestHome");
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Log in</Text>
-
+      <Text style={styles.title}> Welcome </Text>
+      <Text style={styles.login}>Log in</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -86,6 +88,9 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity onPress={handleGoToRegister}>
         <Text style={styles.registerText}>No account? Create new account</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.skipButton} onPress={handleSkipLogin}>
+        <Text style={styles.skipButtonText}>Guest user</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -99,9 +104,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backcolor,
   },
   title: {
+    fontSize: 30,
+    color: Colors.white,
+    fontWeight: "bold",
+    marginBottom: 30,
+  },
+  login: {
     fontSize: 24,
     marginBottom: 20,
-    color: "white",
+    color: Colors.white,
   },
   input: {
     width: "100%",
@@ -126,6 +137,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  skipButton: {
+    marginTop: 20,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: Colors.skipButton,
+  },
+  skipButtonText: {
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "bold",
