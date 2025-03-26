@@ -7,7 +7,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 /**
  * show the stack header
- * 
+ *
  * @param {*} navigation
  * @returns stack header
  */
@@ -27,8 +27,7 @@ export default function StackHeader({ navigation, route, options, back }) {
       <Appbar.Content
         color="white"
         titleStyle={{
-          alignSelf: "center",
-          justifyContent: "center",
+          textAlign: "center",
           fontWeight: "bold",
           letterSpacing: 1,
           fontSize: 25,
@@ -49,12 +48,7 @@ export default function StackHeader({ navigation, route, options, back }) {
           anchor={
             <Appbar.Action icon="menu" color="white" onPress={openMenu} />
           }
-        >
-          <Menu.Item
-            onPress={() => navigation.navigate("Settings")}
-            title="Settings"
-          />
-        </Menu>
+        ></Menu>
       ) : null}
     </Appbar.Header>
   );
@@ -63,14 +57,12 @@ export default function StackHeader({ navigation, route, options, back }) {
 const styles = StyleSheet.create({
   content: {
     backgroundColor: Colors.backcolor,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
 
   search: {
-    position: "absolute", 
-    right: 10, 
-    top: "50%", 
-    transform: [{ translateY: -12.5 }], 
+    marginRight: 10,
   },
 });

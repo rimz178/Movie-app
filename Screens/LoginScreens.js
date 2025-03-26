@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 
 export default function LoginScreen({ navigation }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    navigation.navigate('Home');
+    navigation.navigate("Home");
   };
 
   const handleGoToRegister = () => {
-    // Avaa TMDP:n rekisteröitymissivu
-    Linking.openURL('https://www.tmdp.com/register'); 
+    Linking.openURL("https://www.tmdp.com/register");
   };
 
   return (
@@ -43,8 +50,8 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   title: {
@@ -52,15 +59,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    width: '100%',
+    width: "100%",
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 20,
     paddingLeft: 10,
   },
   registerText: {
-    color: 'blue',
+    color: "blue",
     marginTop: 10,
   },
 });
