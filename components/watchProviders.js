@@ -81,15 +81,15 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.white,
-    fontSize: 15,
+    fontSize: 12,
   },
   imageCircle: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 50,
+    borderRadius: 20,
     overflow: "hidden",
-    width: width * 0.2,
-    height: width * 0.2,
+    width: width * 0.14,
+    height: width * 0.14,
   },
   image: {
     width: "100%",
