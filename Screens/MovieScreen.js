@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Tumma tausta
+    backgroundColor: Colors.black, 
     padding: 5,
     borderRadius: 15,
   },
