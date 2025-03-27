@@ -65,7 +65,7 @@ export default function PersonScreen() {
           showsHorizontalScrollIndicator={false}
           renderItem={() => (
             <View>
-            <View style={styles.person}>
+              <View style={styles.person}>
                 <View style={styles.imageCircle}>
                   <Image
                     style={styles.image}

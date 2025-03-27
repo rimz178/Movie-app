@@ -1,4 +1,4 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList, Text, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backcolor,
-    paddingBottom: 60, 
+    paddingBottom: 60,
   },
   guestText: {
     color: "white",

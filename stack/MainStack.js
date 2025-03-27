@@ -71,10 +71,10 @@ function MainStack() {
               title: "Guest Home",
             }}
           />
-        <Stack.Screen
+          <Stack.Screen
             name="Home"
-            component={BottomTabs} 
-            options={{ title: "Home", headerShown: true }} 
+            component={BottomTabs}
+            options={{ title: "Home", headerShown: true }}
           />
 
           <Stack.Screen

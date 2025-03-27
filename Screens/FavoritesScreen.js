@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { fetchFavorites } from "../Api/Favorites";
 
-
 const FavoritesScreen = () => {
   const [favorites, setFavorites] = useState([]);
   const [error, setError] = useState(null);
@@ -37,7 +36,6 @@ const FavoritesScreen = () => {
         renderItem={({ item }) => (
           <View style={styles.movieItem}>
             <Text style={styles.movieTitle}>{item.title}</Text>
-          
           </View>
         )}
       />

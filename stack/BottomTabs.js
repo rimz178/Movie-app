@@ -23,22 +23,21 @@ export default function BottomTabs() {
         },
         tabBarActiveTintColor: "tomato",
         tabBarInactiveTintColor: "gray",
-        headerShown: false, // Piilottaa headerin
-        tabBarStyle: styles.tabBar, // Käyttää tyylitiedostoa
+        headerShown: false,
+        tabBarStyle: styles.tabBar,
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Favorites" component={FavoriteScreen} />
-      
     </Tab.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: "#222", // Tumma tausta
+    backgroundColor: "#222", 
     borderTopWidth: 0,
-    height: 60, // Lisää vähän korkeutta
+    height: 60, 
     paddingBottom: 10,
   },
 });
