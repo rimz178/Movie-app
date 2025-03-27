@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import React, { useEffect, useState, } from "react";
+import { View, StyleSheet, FlatList, Text, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Colors from "../Colors/Colors";
@@ -65,7 +65,7 @@ function HomeScreen({ route }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -99,7 +99,7 @@ function HomeScreen({ route }) {
           />
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backcolor,
+    paddingBottom: 60, 
   },
   guestText: {
     color: "white",

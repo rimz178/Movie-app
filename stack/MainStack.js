@@ -11,6 +11,7 @@ import SearchBars from "../components/SearchBars";
 import PersonScreen from "../Screens/PersonScreen";
 import LoginScreen from "../Screens/LoginScreens";
 import GuestHome from "../Screens/GuestHome";
+import BottomTabs from "./BottomTabs";
 const Stack = createStackNavigator();
 
 /**
@@ -70,12 +71,10 @@ function MainStack() {
               title: "Guest Home",
             }}
           />
-          <Stack.Screen
+        <Stack.Screen
             name="Home"
-            component={HomeScreen}
-            options={{
-              title: "Home",
-            }}
+            component={BottomTabs} 
+            options={{ title: "Home", headerShown: true }} 
           />
 
           <Stack.Screen
