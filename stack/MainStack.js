@@ -4,13 +4,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PaperProvider } from "react-native-paper";
-import HomeScreen from "../Screens/HomeScreen";
 import MovieScreen from "../Screens/MovieScreen";
 import StackHeader from "./StackHeader";
 import SearchBars from "../components/SearchBars";
 import PersonScreen from "../Screens/PersonScreen";
 import LoginScreen from "../Screens/LoginScreens";
 import GuestHome from "../Screens/GuestHome";
+import BottomTabs from "./BottomTabs";
+
 const Stack = createStackNavigator();
 
 /**
@@ -72,10 +73,8 @@ function MainStack() {
           />
           <Stack.Screen
             name="Home"
-            component={HomeScreen}
-            options={{
-              title: "Home",
-            }}
+            component={BottomTabs}
+            options={{ title: "Home", headerShown: true }}
           />
 
           <Stack.Screen
@@ -103,6 +102,7 @@ function MainStack() {
               headerShown: true,
             }}
           />
+    
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

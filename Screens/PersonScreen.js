@@ -65,14 +65,6 @@ export default function PersonScreen() {
           showsHorizontalScrollIndicator={false}
           renderItem={() => (
             <View>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <MaterialIcons
-                  size={38}
-                  name="arrow-back"
-                  color={Colors.white}
-                />
-              </TouchableOpacity>
-
               <View style={styles.person}>
                 <View style={styles.imageCircle}>
                   <Image

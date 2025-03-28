@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Linking,
+  Alert,
 } from "react-native";
 import Colors from "../Colors/Colors";
 import {
@@ -39,21 +40,20 @@ export default function LoginScreen({ navigation }) {
         tokenData.request_token,
       );
       if (!loginData.success) {
-        alert("Invalid username or password");
+        Alert.alert("Invalid username or password");
         return;
       }
 
       const sessionData = await createSession(tokenData.request_token);
       if (!sessionData.success) {
-        alert("Failed to create session");
+        Alert("Failed to create session");
         return;
       }
       await AsyncStorage.setItem("session_id", sessionData.session_id);
 
       navigation.navigate("Home");
     } catch (error) {
-      console.error("Login error:", error);
-      alert("An error occurred during login");
+      Alert.alert("An error occurred during login");
     }
   };
 
@@ -127,9 +127,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonRow: {
-    flexDirection: "row", // Asettaa painikkeet vierekkäin
-    justifyContent: "space-between", // Jakaa painikkeet tasaisesti
-    width: "100%", // Vie koko säiliön leveys
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 10,
   },
   button: {
@@ -137,8 +136,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    flex: 1, // Jaa tila tasaisesti
-    marginHorizontal: 5, // Lisää väliä painikkeiden väliin
+    flex: 1,
+    marginHorizontal: 5,
   },
   buttonText: {
     color: "#ffffff",

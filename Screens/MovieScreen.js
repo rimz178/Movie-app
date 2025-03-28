@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   FlatList,
+  Alert,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
@@ -22,6 +23,7 @@ import {
 } from "../Api/ApiParsing";
 import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
+import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 
 const { width, height } = Dimensions.get("window");
 
@@ -39,12 +41,13 @@ export default function MovieScreen() {
   const [movie, setMovie] = useState({});
   const [cast, setCast] = useState([]);
   const [watchProviders, setWatchProviders] = useState([]);
-
+  const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
     setLoading(true);
     getMovieDetails(item.id);
     getMovieCredits(item.id);
     getWatchProviders(item.id);
+    fetchFavoriteStatus(item.id);
   }, [item]);
 
   const getMovieDetails = async (id) => {
@@ -75,6 +78,36 @@ export default function MovieScreen() {
     }
   };
 
+  const fetchFavoriteStatus = async (movieId) => {
+    try {
+      const favorites = await fetchFavorites();
+      const isMovieFavorite = favorites.results.some(
+        (favorite) => favorite.id === movieId,
+      );
+      setIsFavorite(isMovieFavorite);
+    } catch (error) {
+      console.error("Error fetching favorite status:", error);
+    }
+  };
+  const handleToggleFavorite = async () => {
+    try {
+      const newFavoriteStatus = !isFavorite;
+      const response = await toggleFavorite(movie.id, newFavoriteStatus);
+      Alert.alert(
+        "Favorites",
+        newFavoriteStatus
+          ? `${movie.title} has been added to your favorites!`
+          : `${movie.title} has been removed from your favorites!`,
+      );
+      if (response.success) {
+        setIsFavorite(newFavoriteStatus);
+      } else {
+        console.error("Failed to toggle favorite:", response);
+      }
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
+  };
   return (
     <View>
       {loading ? (
@@ -96,6 +129,16 @@ export default function MovieScreen() {
                       loading: "lazy",
                     }}
                   />
+                  <TouchableOpacity
+                    onPress={handleToggleFavorite}
+                    style={styles.favoriteButton}
+                  >
+                    <MaterialIcons
+                      name={isFavorite ? "favorite" : "favorite-border"}
+                      size={30}
+                      color={isFavorite ? "red" : "white"}
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
               <View style={{ marginTop: 10 }}>
@@ -178,5 +221,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: Colors.status,
     textAlign: "left",
+  },
+  favoriteButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: Colors.black,
+    padding: 5,
+    borderRadius: 15,
   },
 });
