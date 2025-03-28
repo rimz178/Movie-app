@@ -23,7 +23,7 @@ export default function StackHeader({ navigation, route, options, back }) {
 
   const isLoginScreen = route.name === "Login";
   const isHomeScreen = route.name === "Home";
-
+  const isGuestHome = route.name === "GuestHome";
   return (
     <Appbar.Header style={styles.content}>
       {back && !isLoginScreen && !isHomeScreen ? (
@@ -47,9 +47,15 @@ export default function StackHeader({ navigation, route, options, back }) {
         />
       )}
 
-      {isHomeScreen && (
+      {isHomeScreen ? (
         <Appbar.Action icon="logout" color="white" onPress={handleLogout} />
-      )}
+      ) : isGuestHome ? (
+        <Appbar.Action
+          icon="login"
+          color="white"
+          onPress={() => navigation.navigate("Login")}
+        />
+      ) : null}
     </Appbar.Header>
   );
 }

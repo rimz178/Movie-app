@@ -13,9 +13,9 @@ export default function BottomTabs() {
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === "Home") {
+          if (route.name === "HomeTab") {
             iconName = "home";
-          } else if (route.name === "Favorites") {
+          } else if (route.name === "FavoritesTab") {
             iconName = "heart";
           }
 
@@ -27,17 +27,17 @@ export default function BottomTabs() {
         tabBarStyle: styles.tabBar,
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Favorites" component={FavoriteScreen} />
+      <Tab.Screen name="HomeTab" component={HomeScreen} />
+      <Tab.Screen name="FavoritesTab" component={FavoriteScreen} />
     </Tab.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: "#222", 
+    backgroundColor: "#222",
     borderTopWidth: 0,
-    height: 60, 
+    height: 60,
     paddingBottom: 10,
   },
 });
