@@ -8,6 +8,11 @@ import SettingsScreen from "../Screens/SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 
+/**
+ * BottomTabs component that creates a tab navigator for the app.
+ *
+ * @returns {JSX.Element} - The bottom tab navigator.
+ */
 export default function BottomTabs() {
   return (
     <Tab.Navigator

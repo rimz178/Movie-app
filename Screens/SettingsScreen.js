@@ -3,6 +3,11 @@ import { View, Button, Alert, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
+/**
+ * SettingsScreen component for managing user settings.
+ *
+ * @returns {JSX.Element} - The settings screen with a logout button.
+ */
 export default function SettingsScreen() {
   const navigation = useNavigation();
 
