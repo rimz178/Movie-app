@@ -49,11 +49,9 @@ export default function LoginScreen({ navigation }) {
         Alert.alert("Failed to create session");
         return;
       }
-      await AsyncStorage.setItem("isLoggedIn", "true"); // Kirjautumistila
+      
     await AsyncStorage.setItem("session_id", sessionData.session_id);
 
-    console.log("User logged in successfully!");
-    console.log("Session ID:", sessionData.session_id);
 
       navigation.replace("Home");
     } catch (error) {

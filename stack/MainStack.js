@@ -23,25 +23,26 @@ const Stack = createStackNavigator();
  */
 function MainStack() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const checkLoginStatus = async () => {
-      const isLoggedInStored = await AsyncStorage.getItem("isLoggedIn");
-      const sessionId = await AsyncStorage.getItem("session_id");
-
-      console.log("isLoggedIn fetched:", isLoggedInStored); // Debug
-      console.log("Session ID fetched:", sessionId); // Debug
-
-      if (isLoggedInStored === "true" && sessionId) {
-        setIsLoggedIn(true); // User is logged in
-      } else {
-        setIsLoggedIn(false); // User is not logged in
+    const checkSession = async () => {
+      try {
+        const sessionId = await AsyncStorage.getItem("session_id");
+        if (sessionId) {
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
+    checkSession();
+  }, []);
 
-    checkLoginStatus();
-  }, []); // This effect runs only once on component mount
-
+  if (isLoading) {
+    return null;
+  }
   return (
     <PaperProvider>
       <NavigationContainer independent={false}>
