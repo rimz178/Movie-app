@@ -8,6 +8,7 @@ export default function SettingsScreen() {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("session_id");
+    
     Alert.alert("Logged out", "You have been logged out.");
     navigation.reset({
       index: 0,
