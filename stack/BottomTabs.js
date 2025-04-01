@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import HomeScreen from "../Screens/HomeScreen";
 import FavoriteScreen from "../Screens/FavoritesScreen";
+import SearchBars from "../components/SearchBars";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,6 +18,8 @@ export default function BottomTabs() {
             iconName = "home";
           } else if (route.name === "FavoritesTab") {
             iconName = "heart";
+          } else if (route.name === "SearchTab") {
+            iconName = "search";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -29,6 +32,7 @@ export default function BottomTabs() {
     >
       <Tab.Screen name="HomeTab" component={HomeScreen} />
       <Tab.Screen name="FavoritesTab" component={FavoriteScreen} />
+      <Tab.Screen name="SearchTab" component={SearchBars} />
     </Tab.Navigator>
   );
 }
