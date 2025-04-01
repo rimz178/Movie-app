@@ -8,7 +8,7 @@ export default function SettingsScreen() {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("session_id");
-    
+
     Alert.alert("Logged out", "You have been logged out.");
     navigation.reset({
       index: 0,
@@ -18,9 +18,9 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView>
-    <View>
-      <Button title="Logout" onPress={handleLogout} />
-    </View>
+      <View>
+        <Button title="Logout" onPress={handleLogout} />
+      </View>
     </SafeAreaView>
   );
 }

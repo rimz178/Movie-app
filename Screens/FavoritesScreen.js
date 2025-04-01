@@ -15,9 +15,9 @@ const FavoritesScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <View >
-      <FavoritesList key={refresh} />
-    </View>
+      <View>
+        <FavoritesList key={refresh} />
+      </View>
     </SafeAreaView>
   );
 };
