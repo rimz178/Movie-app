@@ -46,12 +46,13 @@ export default function LoginScreen({ navigation }) {
 
       const sessionData = await createSession(tokenData.request_token);
       if (!sessionData.success) {
-        Alert("Failed to create session");
+        Alert.alert("Failed to create session");
         return;
       }
+
       await AsyncStorage.setItem("session_id", sessionData.session_id);
 
-      navigation.navigate("Home");
+      navigation.replace("Home");
     } catch (error) {
       Alert.alert("An error occurred during login");
     }

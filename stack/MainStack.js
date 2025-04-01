@@ -1,17 +1,14 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PaperProvider } from "react-native-paper";
 import MovieScreen from "../Screens/MovieScreen";
-import StackHeader from "./StackHeader";
-import SearchBars from "../components/SearchBars";
 import PersonScreen from "../Screens/PersonScreen";
 import LoginScreen from "../Screens/LoginScreens";
 import GuestHome from "../Screens/GuestHome";
 import BottomTabs from "./BottomTabs";
-
+import Colors from "../Colors/Colors";
 const Stack = createStackNavigator();
 
 /**
@@ -25,9 +22,8 @@ const Stack = createStackNavigator();
  * @returns {JSX.Element} - The main navigation stack.
  */
 function MainStack() {
-  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const checkSession = async () => {
       try {
@@ -47,14 +43,16 @@ function MainStack() {
   if (isLoading) {
     return null;
   }
-
   return (
     <PaperProvider>
-      <NavigationContainer independent={true}>
+      <NavigationContainer independent={false}>
         <Stack.Navigator
           initialRouteName={isLoggedIn ? "Home" : "Login"}
           screenOptions={{
-            header: (props) => <StackHeader {...props} />,
+            headerStyle: {
+              backgroundColor: "#222",
+            },
+            headerTintColor: Colors.white,
           }}
         >
           <Stack.Screen
@@ -64,6 +62,7 @@ function MainStack() {
               headerShown: false,
             }}
           />
+
           <Stack.Screen
             name="GuestHome"
             component={GuestHome}
@@ -76,15 +75,6 @@ function MainStack() {
             component={BottomTabs}
             options={{ title: "Home", headerShown: true }}
           />
-
-          <Stack.Screen
-            name="Search"
-            component={SearchBars}
-            options={{
-              title: "Search",
-            }}
-          />
-
           <Stack.Screen
             name="Movie"
             component={MovieScreen}
@@ -102,7 +92,6 @@ function MainStack() {
               headerShown: true,
             }}
           />
-    
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

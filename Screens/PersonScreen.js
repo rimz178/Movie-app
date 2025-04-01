@@ -8,8 +8,6 @@ import {
   FlatList,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
 const { width, height } = Dimensions.get("window");
