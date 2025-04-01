@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import HomeScreen from "../Screens/HomeScreen";
 import FavoriteScreen from "../Screens/FavoritesScreen";
 import SearchBars from "../components/SearchBars";
+import SettingsScreen from "../Screens/SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,6 +21,8 @@ export default function BottomTabs() {
             iconName = "heart";
           } else if (route.name === "SearchTab") {
             iconName = "search";
+          } else if (route.name === "SettingsTab") {
+            iconName = "settings";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -33,6 +36,7 @@ export default function BottomTabs() {
       <Tab.Screen name="HomeTab" component={HomeScreen} />
       <Tab.Screen name="FavoritesTab" component={FavoriteScreen} />
       <Tab.Screen name="SearchTab" component={SearchBars} />
+      <Tab.Screen name="SettingsTab" component={SettingsScreen} />
     </Tab.Navigator>
   );
 }

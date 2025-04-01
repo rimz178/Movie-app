@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import FavoritesList from "../components/FavoriteList";
 import Colors from "../Colors/Colors";
 import { useFocusEffect } from "@react-navigation/native";
@@ -14,9 +14,11 @@ const FavoritesScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+    <View >
       <FavoritesList key={refresh} />
     </View>
+    </SafeAreaView>
   );
 };
 
