@@ -29,6 +29,12 @@ export default function MovieRating({ movieId, sessionId }) {
       if (response.success) {
         setRating(value);
         Alert.alert("Success", "Rating submitted successfully!");
+      } else {
+        Alert.alert(
+          "Error",
+          response.status_message || "Failed to submit rating",
+        );
+        console.error("Rating submission failed:", response);
       }
     } catch (error) {
       Alert.alert("Error", "Failed to submit rating.");
