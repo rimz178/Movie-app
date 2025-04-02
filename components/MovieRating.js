@@ -1,63 +1,94 @@
-import React, { useState } from "react";
-import { View, Text, Button, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Button, Alert, StyleSheet } from "react-native";
 import { Rating } from "react-native-ratings";
-import { submitRating, deleteRating } from "../Api/RatingApi"; // Muista lisätä deleteRating API:si
+import { submitRating, deleteRating, getRating } from "../Api/RatingApi";
+import Colors from "../Colors/Colors";
 
 export default function MovieRating({ movieId, sessionId }) {
   const [rating, setRating] = useState(0);
 
-  const handleRating = async (value) => {
-    const scaledRating = value;
+  useEffect(() => {
+    const fetchRating = async () => {
+      if (sessionId && movieId) {
+        const savedRating = await getRating(movieId, sessionId);
+        setRating(savedRating / 2);
+      }
+    };
+    fetchRating();
+  }, [movieId, sessionId]);
 
+  const handleRating = async (value) => {
     if (!sessionId) {
-      alert("You need to be logged in to rate movies.");
+      Alert.alert("Error", "You need to be logged in to rate movies.");
       return;
     }
 
     try {
-      const response = await submitRating(movieId, scaledRating, sessionId); 
-      alert("Rating submitted successfully!");
+      const scaledRating = value * 2;
+      const response = await submitRating(movieId, scaledRating, sessionId);
+      if (response.success) {
+        setRating(value);
+        Alert.alert("Success", "Rating submitted successfully!");
+      }
     } catch (error) {
-      alert("Failed to submit rating.");
+      Alert.alert("Error", "Failed to submit rating.");
       console.error("Error:", error);
     }
   };
 
   const handleRemoveRating = async () => {
     if (!sessionId) {
-      alert("You need to be logged in to remove your rating.");
+      Alert.alert("Error", "You need to be logged in to remove your rating.");
       return;
     }
 
     try {
-      const response = await deleteRating(movieId, sessionId); 
+      const response = await deleteRating(movieId, sessionId);
       if (response.success) {
         setRating(0);
-        alert("Rating removed successfully!");
+        Alert.alert("Success", "Rating removed successfully!");
       } else {
-        alert("Failed to remove rating1.");
+        Alert.alert("Error", "Failed to remove rating.");
       }
     } catch (error) {
-      alert("Failed to remove rating2.");
+      Alert.alert("Error", "Failed to remove rating.");
+      console.error("Error:", error);
     }
   };
 
   return (
     <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 20, marginBottom: 10 }}>Rate this Movie</Text>
-      
-
+      <Text style={styles.text}>Rate this Movie</Text>
       <Rating
         type="star"
-        ratingCount={5} 
-        imageSize={30} 
-        startingValue={rating} 
-        onFinishRating={(value) => handleRating(value * 2)}
+        ratingCount={5}
+        imageSize={30}
+        startingValue={rating}
+        onFinishRating={handleRating}
       />
-
-      <Text style={{ fontSize: 18, marginTop: 10 }}>Current Rating: {rating}</Text>
-
-      <Button title="Remove Rating" onPress={handleRemoveRating} color="#E74C3C" />
+      <Text style={styles.text}>
+        Current Rating: {rating ? rating * 2 : 0}/10
+      </Text>
+      {rating > 0 && (
+        <Button
+          style={styles.button}
+          title="Remove Rating"
+          onPress={handleRemoveRating}
+        />
+      )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    color: Colors.white,
+    fontSize: 20,
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: Colors.buttonColor,
+    padding: 10,
+    borderRadius: 5,
+  },
+});

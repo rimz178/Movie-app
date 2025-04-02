@@ -44,7 +44,7 @@ export default function MovieScreen() {
   const [watchProviders, setWatchProviders] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [userSessionId, setUserSessionId] = useState(null);
-  
+
   useEffect(() => {
     setLoading(true);
     getMovieDetails(item.id);
