@@ -13,7 +13,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import MovieRating from "../components/MovieRating";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
 import {
   fetchMovieCredits,
@@ -44,6 +44,7 @@ export default function MovieScreen() {
   const [watchProviders, setWatchProviders] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [userSessionId, setUserSessionId] = useState(null);
+  
   useEffect(() => {
     setLoading(true);
     getMovieDetails(item.id);
@@ -53,16 +54,23 @@ export default function MovieScreen() {
     fetchUserSessionId();
   }, [item]);
 
+  const fetchUserSessionId = async () => {
+    try {
+      const sessionId = await AsyncStorage.getItem("session_id");
+      console.log("Fetched Session ID:", sessionId);
+      if (sessionId) {
+        setUserSessionId(sessionId);
+      }
+    } catch (error) {
+      console.error("Error fetching session ID:", error);
+    }
+  };
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
     if (data) setMovie(data);
     setLoading(false);
   };
-  const fetchUserSessionId = async () => {
-    const sessionId = await getSessionId(); 
-    console.log("Session ID:", sessionId);
-    setUserSessionId(sessionId);
-  };
+
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
     if (data?.cast) setCast(data.cast);
