@@ -12,6 +12,7 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import MovieRating from "../components/MovieRating";
 
 import Loading from "../components/Loading";
 import {
@@ -42,12 +43,14 @@ export default function MovieScreen() {
   const [cast, setCast] = useState([]);
   const [watchProviders, setWatchProviders] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [userSessionId, setUserSessionId] = useState(null);
   useEffect(() => {
     setLoading(true);
     getMovieDetails(item.id);
     getMovieCredits(item.id);
     getWatchProviders(item.id);
     fetchFavoriteStatus(item.id);
+    fetchUserSessionId();
   }, [item]);
 
   const getMovieDetails = async (id) => {
@@ -55,7 +58,11 @@ export default function MovieScreen() {
     if (data) setMovie(data);
     setLoading(false);
   };
-
+  const fetchUserSessionId = async () => {
+    const sessionId = await getSessionId(); 
+    console.log("Session ID:", sessionId);
+    setUserSessionId(sessionId);
+  };
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
     if (data?.cast) setCast(data.cast);
@@ -167,6 +174,7 @@ export default function MovieScreen() {
               </View>
 
               <Cast navigation={navigation} cast={cast} />
+              <MovieRating movieId={movie.id} sessionId={userSessionId} />
 
               <WatchProviders providers={watchProviders} />
             </View>
