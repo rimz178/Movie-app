@@ -23,7 +23,6 @@ export default function MovieRating({ movieId, sessionId }) {
     }
   };
 
-  // Poistaa arvostelun
   const handleRemoveRating = async () => {
     if (!sessionId) {
       alert("You need to be logged in to remove your rating.");
@@ -36,10 +35,10 @@ export default function MovieRating({ movieId, sessionId }) {
         setRating(0);
         alert("Rating removed successfully!");
       } else {
-        alert("Failed to remove rating.");
+        alert("Failed to remove rating1.");
       }
     } catch (error) {
-      alert("Failed to remove rating.");
+      alert("Failed to remove rating2.");
     }
   };
 
@@ -47,18 +46,17 @@ export default function MovieRating({ movieId, sessionId }) {
     <View style={{ padding: 20 }}>
       <Text style={{ fontSize: 20, marginBottom: 10 }}>Rate this Movie</Text>
       
-      {/* Rating - Tähtiarvostelu */}
+
       <Rating
         type="star"
-        ratingCount={5} // Aseta arviointitähdet 1–10
-        imageSize={30} // Tähden koko
+        ratingCount={5} 
+        imageSize={30} 
         startingValue={rating} 
         onFinishRating={(value) => handleRating(value * 2)}
       />
 
       <Text style={{ fontSize: 18, marginTop: 10 }}>Current Rating: {rating}</Text>
 
-      {/* Nollausnappi */}
       <Button title="Remove Rating" onPress={handleRemoveRating} color="#E74C3C" />
     </View>
   );

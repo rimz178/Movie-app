@@ -57,7 +57,6 @@ export default function MovieScreen() {
   const fetchUserSessionId = async () => {
     try {
       const sessionId = await AsyncStorage.getItem("session_id");
-      console.log("Fetched Session ID:", sessionId);
       if (sessionId) {
         setUserSessionId(sessionId);
       }

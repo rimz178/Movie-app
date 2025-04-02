@@ -34,15 +34,25 @@ export const submitRating = async (movieId, rating, sessionId, isGuest = false) 
   }
 };
 
-export const deleteRating = async (movieId, sessionId) => {
+export const deleteRating = async (movieId, sessionId, isGuest = false) => {
   try {
-    const response = await fetch(`${apiBaseUrl}/movie/${movieId}/rating?api_key=${apiKey}&guest_session_id=${sessionId}`, {
+    const sessionParam = isGuest ? `guest_session_id=${sessionId}` : `session_id=${sessionId}`;
+    const url = `${apiBaseUrl}/movie/${movieId}/rating?api_key=${apiKey}&${sessionParam}`;
+
+    const response = await fetch(url, {
       method: 'DELETE',
+      headers: { 
+        'Content-Type': 'application/json;charset=utf-8'
+      }
     });
-    const json = await response.json();
-    return json;  
+
+    if (!response.ok) {
+      throw new Error("Failed to remove rating");
+    }
+
+    return await response.json();
   } catch (error) {
-    console.error("Error deleting rating:", error);
-    throw error;
+    console.error("Error removing rating:", error);
+    return { success: false };
   }
 };
