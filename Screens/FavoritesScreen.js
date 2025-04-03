@@ -4,7 +4,6 @@ import FavoritesList from "../components/FavoriteList";
 import Colors from "../Colors/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 
-
 /**
  * FavoritesScreen component that displays a list of favorite movies.
  *

@@ -12,7 +12,8 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
+import MovieRating from "../components/MovieRating";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
 import {
   fetchMovieCredits,
@@ -42,14 +43,27 @@ export default function MovieScreen() {
   const [cast, setCast] = useState([]);
   const [watchProviders, setWatchProviders] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [userSessionId, setUserSessionId] = useState(null);
+
   useEffect(() => {
     setLoading(true);
     getMovieDetails(item.id);
     getMovieCredits(item.id);
     getWatchProviders(item.id);
     fetchFavoriteStatus(item.id);
+    fetchUserSessionId();
   }, [item]);
 
+  const fetchUserSessionId = async () => {
+    try {
+      const sessionId = await AsyncStorage.getItem("session_id");
+      if (sessionId) {
+        setUserSessionId(sessionId);
+      }
+    } catch (error) {
+      console.error("Error fetching session ID:", error);
+    }
+  };
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
     if (data) setMovie(data);
@@ -142,6 +156,7 @@ export default function MovieScreen() {
                 </View>
               </View>
               <View style={{ marginTop: 10 }}>
+                <MovieRating movieId={movie.id} sessionId={userSessionId} />
                 <Text style={styles.titletext}>{movie?.title}</Text>
                 {movie?.id ? (
                   <Text style={styles.textStatus}>
