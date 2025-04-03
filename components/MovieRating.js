@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Alert, StyleSheet } from "react-native";
+import { View, Text, Button, Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { Rating } from "react-native-ratings";
 import { submitRating, deleteRating, getRating } from "../Api/RatingApi";
 import Colors from "../Colors/Colors";
@@ -76,11 +76,12 @@ export default function MovieRating({ movieId, sessionId }) {
         Current Rating: {rating ? rating * 2 : 0}/10
       </Text>
       {rating > 0 && (
-        <Button
-          style={styles.button}
-          title="Remove Rating"
-          onPress={handleRemoveRating}
-        />
+        <TouchableOpacity
+        style={styles.button}
+        onPress={handleRemoveRating}
+      >
+        <Text style={styles.buttonText}>Remove Rating</Text>
+      </TouchableOpacity>
       )}
     </View>
   );
