@@ -156,6 +156,7 @@ export default function MovieScreen() {
                 </View>
               </View>
               <View style={{ marginTop: 10 }}>
+                <MovieRating movieId={movie.id} sessionId={userSessionId} />
                 <Text style={styles.titletext}>{movie?.title}</Text>
                 {movie?.id ? (
                   <Text style={styles.textStatus}>
@@ -181,7 +182,6 @@ export default function MovieScreen() {
               </View>
 
               <Cast navigation={navigation} cast={cast} />
-              <MovieRating movieId={movie.id} sessionId={userSessionId} />
 
               <WatchProviders providers={watchProviders} />
             </View>
