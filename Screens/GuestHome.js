@@ -25,7 +25,7 @@ export default function GuestHome({ navigation }) {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Home", { isGuest: true })}
+        onPress={() => navigation.navigate("MainTabs", { isGuest: true })}
       >
         <Text style={styles.buttonText}>Go to Home</Text>
       </TouchableOpacity>

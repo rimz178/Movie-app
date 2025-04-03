@@ -52,7 +52,7 @@ export default function LoginScreen({ navigation }) {
 
       await AsyncStorage.setItem("session_id", sessionData.session_id);
 
-      navigation.replace("Home");
+      navigation.replace("MainTabs");
     } catch (error) {
       Alert.alert("An error occurred during login");
     }

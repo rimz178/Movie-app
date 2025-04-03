@@ -5,6 +5,7 @@ import HomeScreen from "../Screens/HomeScreen";
 import FavoriteScreen from "../Screens/FavoritesScreen";
 import SearchBars from "../components/SearchBars";
 import SettingsScreen from "../Screens/SettingsScreen";
+import Colors from "../Colors/Colors";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,28 +21,63 @@ export default function BottomTabs() {
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === "HomeTab") {
+          if (route.name === "Home") {
             iconName = "home";
-          } else if (route.name === "FavoritesTab") {
+          } else if (route.name === "Favorites") {
             iconName = "heart";
-          } else if (route.name === "SearchTab") {
+          } else if (route.name === "Search") {
             iconName = "search";
-          } else if (route.name === "SettingsTab") {
+          } else if (route.name === "Settings") {
             iconName = "settings";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "gray",
-        headerShown: false,
-        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: Colors.buttonColor,
+        tabBarInactiveTintColor: Colors.status,
+        headerShown: true,
+        tabBarStyle: {
+          backgroundColor: Colors.backcolor,
+          borderTopWidth: 0,
+          height: 60,
+          paddingBottom: 10,
+          elevation: 0, 
+          borderTopColor: 'transparent', 
+        },
+        headerStyle: {
+          backgroundColor: Colors.backcolor,
+        },
+        headerTintColor: Colors.white,
       })}
     >
-      <Tab.Screen name="HomeTab" component={HomeScreen} />
-      <Tab.Screen name="FavoritesTab" component={FavoriteScreen} />
-      <Tab.Screen name="SearchTab" component={SearchBars} />
-      <Tab.Screen name="SettingsTab" component={SettingsScreen} />
+     <Tab.Screen 
+        name="Home" 
+        component={HomeScreen}
+        options={{
+          title: "Movie home"
+        }}
+      />
+      <Tab.Screen 
+        name="Favorites" 
+        component={FavoriteScreen}
+        options={{
+          title: "My Favorites"
+        }}
+      />
+      <Tab.Screen 
+        name="Search" 
+        component={SearchBars}
+        options={{
+          title: "Search Movies"
+        }}
+      />
+      <Tab.Screen 
+        name="Settings" 
+        component={SettingsScreen}
+        options={{
+          title: "Settings"
+        }}
+      />
     </Tab.Navigator>
   );
 }

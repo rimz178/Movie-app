@@ -47,7 +47,7 @@ function MainStack() {
     <PaperProvider>
       <NavigationContainer independent={false}>
         <Stack.Navigator
-          initialRouteName={isLoggedIn ? "Home" : "Login"}
+          initialRouteName={isLoggedIn ? "MainTabs" : "Login"}
           screenOptions={{
             headerStyle: {
               backgroundColor: "#222",
@@ -71,14 +71,15 @@ function MainStack() {
             }}
           />
           <Stack.Screen
-            name="Home"
+            name="MainTabs"
             component={BottomTabs}
-            options={{ title: "Home", headerShown: true }}
+            options={{  headerShown: false }}
           />
           <Stack.Screen
             name="Movie"
             component={MovieScreen}
             options={{
+              headerBackTitle: "Back",
               title: "Movie",
               headerShown: true,
             }}
@@ -88,6 +89,7 @@ function MainStack() {
             name="Person"
             component={PersonScreen}
             options={{
+              headerBackTitle: "Back",
               title: "Person",
               headerShown: true,
             }}
