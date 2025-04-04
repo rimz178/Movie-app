@@ -155,15 +155,15 @@ export const fetchTrendingSeries = () => {
 };
 
 export const fetchSeriesDetails = async (id) => {
-  const response = await fetch(seriesDetailsEndpoint(id));
+  return apiCall (seriesDetailsEndpoint(id));
 };
 
 export const fetchSeriesCredits = async (id) => {
-  const response = await fetch(seriesCreditsEndpoint(id));
+  return apiCall(seriesCreditsEndpoint(id));
 };
 
 export const fetchSeriesWatchProviders = async (id) => {
-  const response = await fetch(seriesWatchProvidersEndpoint(id));
+  return apiCall(seriesWatchProvidersEndpoint(id));
 };
 
 
