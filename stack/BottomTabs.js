@@ -24,11 +24,16 @@ export default function BottomTabs(route) {
     if (route?.params?.isGuest) {
       setIsGuest(true);
     } else {
-      AsyncStorage.getItem("session_id").then((sessionId) => {
-        if (!sessionId) {
+      AsyncStorage.getItem("session_id")
+        .then((sessionId) => {
+          if (!sessionId) {
+            setIsGuest(true);
+          }
+        })
+        .catch((error) => {
+          console.error("Failed to retrieve session_id:", error);
           setIsGuest(true);
-        }
-      });
+        });
     }
   }, [route]);
 
