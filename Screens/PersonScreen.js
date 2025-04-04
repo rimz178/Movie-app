@@ -2,7 +2,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  SafeAreaView,
   Dimensions,
   Image,
   FlatList,
@@ -51,7 +51,7 @@ export default function PersonScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -123,7 +123,7 @@ export default function PersonScreen() {
           )}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

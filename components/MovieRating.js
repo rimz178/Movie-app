@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Button,
-  Alert,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { Rating } from "react-native-ratings";
 import { submitRating, deleteRating, getRating } from "../Api/RatingApi";
 import Colors from "../Colors/Colors";
