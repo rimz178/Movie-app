@@ -24,6 +24,7 @@ const Stack = createStackNavigator();
 function MainStack() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const checkSession = async () => {
       try {
@@ -73,7 +74,7 @@ function MainStack() {
           <Stack.Screen
             name="MainTabs"
             component={BottomTabs}
-            options={{  headerShown: false }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Movie"

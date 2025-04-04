@@ -6,6 +6,9 @@ import FavoriteScreen from "../Screens/FavoritesScreen";
 import SearchBars from "../components/SearchBars";
 import SettingsScreen from "../Screens/SettingsScreen";
 import Colors from "../Colors/Colors";
+import LoginScreen from "../Screens/LoginScreens";
+import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +17,21 @@ const Tab = createBottomTabNavigator();
  *
  * @returns {JSX.Element} - The bottom tab navigator.
  */
-export default function BottomTabs() {
+export default function BottomTabs(route) {
+  const [isGuest, setIsGuest] = useState(false);
+
+  useEffect(() => {
+    if (route?.params?.isGuest) {
+      setIsGuest(true);
+    } else {
+      AsyncStorage.getItem("session_id").then((sessionId) => {
+        if (!sessionId) {
+          setIsGuest(true);
+        }
+      });
+    }
+  }, [route]);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -27,8 +44,8 @@ export default function BottomTabs() {
             iconName = "heart";
           } else if (route.name === "Search") {
             iconName = "search";
-          } else if (route.name === "Settings") {
-            iconName = "settings";
+          } else if (route.name === "Settings" || route.name === "Login") {
+            iconName = isGuest ? "log-in" : "settings";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -41,8 +58,8 @@ export default function BottomTabs() {
           borderTopWidth: 0,
           height: 60,
           paddingBottom: 10,
-          elevation: 0, 
-          borderTopColor: 'transparent', 
+          elevation: 0,
+          borderTopColor: "transparent",
         },
         headerStyle: {
           backgroundColor: Colors.backcolor,
@@ -50,32 +67,36 @@ export default function BottomTabs() {
         headerTintColor: Colors.white,
       })}
     >
-     <Tab.Screen 
-        name="Home" 
+      <Tab.Screen
+        name="Home"
         component={HomeScreen}
+        initialParams={{ isGuest }}
         options={{
-          title: "Movie home"
+          title: "Movie Home",
         }}
       />
-      <Tab.Screen 
-        name="Favorites" 
-        component={FavoriteScreen}
-        options={{
-          title: "My Favorites"
-        }}
-      />
-      <Tab.Screen 
-        name="Search" 
+      <Tab.Screen
+        name="Search"
         component={SearchBars}
         options={{
-          title: "Search Movies"
+          title: "Search Movies",
         }}
       />
-      <Tab.Screen 
-        name="Settings" 
-        component={SettingsScreen}
+      {!isGuest && (
+        <Tab.Screen
+          name="Favorites"
+          component={FavoriteScreen}
+          options={{
+            title: "My Favorites",
+          }}
+        />
+      )}
+      <Tab.Screen
+        name={isGuest ? "Login" : "Settings"}
+        component={isGuest ? LoginScreen : SettingsScreen}
         options={{
-          title: "Settings"
+          title: isGuest ? "Login" : "Settings",
+          headerShown: !isGuest,
         }}
       />
     </Tab.Navigator>
