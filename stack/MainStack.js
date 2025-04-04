@@ -8,7 +8,9 @@ import PersonScreen from "../Screens/PersonScreen";
 import LoginScreen from "../Screens/LoginScreens";
 import GuestHome from "../Screens/GuestHome";
 import BottomTabs from "./BottomTabs";
+import SeriesHomeScreen from "../Screens/SeriesHomeScreen";
 import Colors from "../Colors/Colors";
+import SeriesDetailScreen from "../Screens/SeriesDetailScreen";
 const Stack = createStackNavigator();
 
 /**
@@ -92,6 +94,24 @@ function MainStack() {
             options={{
               headerBackTitle: "Back",
               title: "Person",
+              headerShown: true,
+            }}
+          />
+          <Stack.Screen
+            name="Series"
+            component={SeriesHomeScreen}
+            options={{
+              headerBackTitle: "Back",
+              title: "TV Series",
+              headerShown: true,
+            }}
+          />
+          <Stack.Screen
+            name="SeriesDetails"
+            component={SeriesDetailScreen}
+            options={{
+              headerBackTitle: "Back",
+              title: "TV Series Details",
               headerShown: true,
             }}
           />

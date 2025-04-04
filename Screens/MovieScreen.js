@@ -178,7 +178,7 @@ export default function MovieScreen() {
                 })}
               </View>
 
-              <View style={styles.decsription}>
+              <View >
                 <Text style={styles.descriptionText}>{movie?.overview}</Text>
               </View>
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text, SafeAreaView } from "react-native";
+import { StyleSheet, FlatList, Text, SafeAreaView, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import SegmentedTabs from "../stack/SegmentedTabs";
 import {
   fetchTrending,
   fetchUpcoming,
@@ -20,12 +21,26 @@ import {
  * @returns {JSX.Element} - The home screen.
  */
 function HomeScreen({ route }) {
+  const navigation = useNavigation();
   const [upcoming, setUpcoming] = useState([]);
   const [trending, setTrending] = useState([]);
   const [topRated, setRated] = useState([]);
   const [nowPlaying, setPlaying] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
+  const [selectedTab, setSelectedTab] = useState("movies");
+
+  const handleTabChange = (newValue) => {
+    setSelectedTab(newValue);
+    if (newValue === "series") {
+      navigation.navigate("Series");
+    }
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      setSelectedTab("movies");
+    }, []),
+  );
 
   useEffect(() => {
     if (route?.params?.isGuest) {
@@ -75,6 +90,10 @@ function HomeScreen({ route }) {
               Welcome, Guest! Log in to access more features like favorites.
             </Text>
           )}
+          <SegmentedTabs
+            selectedTab={selectedTab}
+            onTabChange={handleTabChange}
+          />
           <FlatList
             initialNumToRender={2}
             showsVerticalScrollIndicator={false}

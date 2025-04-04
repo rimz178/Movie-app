@@ -13,6 +13,8 @@ const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&region=FI`;
 //nowplaying endpoints
 const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&locale=FI`;
 
+const trendingSeries = `${apiBaseUrl}/trending/tv/day?api_key=${apiKey}&region=FI`;
+
 //Search endpoint
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
@@ -32,6 +34,13 @@ const personMoviesEndpoint = (id) =>
 
 const watchProvidersEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}/watch/providers?api_key=${apiKey}`;
+
+const seriesDetailsEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}?api_key=${apiKey}`;
+const seriesCreditsEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}/credits?api_key=${apiKey}`;
+const seriesWatchProvidersEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}/watch/providers?api_key=${apiKey}`;
 
 // Authentication endpoints
 const requestTokenEndpoint = `${apiBaseUrl}/authentication/token/new?api_key=${apiKey}`;
@@ -119,6 +128,7 @@ export const fetchNowPlaying = () => {
 export const fetchMovieDetails = (id) => {
   return apiCall(movieDetailsEndpoint(id));
 };
+
 //search movies
 export const searchMovies = (params) => {
   return apiCall(searchMoviesEndpoint, params);
@@ -135,12 +145,27 @@ export const fetchPersonDetails = (id) => {
 export const fetchPersonMovies = (personId) => {
   return apiCall(personMoviesEndpoint(personId));
 };
-//returns watch providers for a movie
+
 export const fetchWatchProviders = (id) => {
   return apiCall(watchProvidersEndpoint(id));
 };
 
-// fallback endpoints
+export const fetchTrendingSeries = () => {
+  return apiCall(trendingSeries);
+};
+
+export const fetchSeriesDetails = async (id) => {
+  return apiCall(seriesDetailsEndpoint(id));
+};
+
+export const fetchSeriesCredits = async (id) => {
+  return apiCall(seriesCreditsEndpoint(id));
+};
+
+export const fetchSeriesWatchProviders = async (id) => {
+  return apiCall(seriesWatchProvidersEndpoint(id));
+};
+
 export const fallbackMoviePoster =
   "https://img.myloview.com/stickers/white-laptop-screen-with-hd-video-technology-icon-isolated-on-grey-background-abstract-circle-random-dots-vector-illustration-400-176057922.jpg";
 
