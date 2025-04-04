@@ -30,22 +30,24 @@ export default function MovieList({ title, data }) {
   );
 
   const renderItem = ({ item }) => (
-    <TouchableWithoutFeedback onPress={() => handleClick(item)}>
-      <View>
-        <Image
-          style={styles.image}
-          source={{
-            uri: image185(item.poster_path) || fallbackMoviePoster,
-            loading: "lazy",
-          }}
-        />
-        <Text style={styles.text}>
-          {item?.title && item.title.length > 14
-            ? `${item.title.slice(0, 14)}...`
-            : item?.title}
-        </Text>
-      </View>
-    </TouchableWithoutFeedback>
+    <View>
+      <TouchableWithoutFeedback onPress={() => handleClick(item)}>
+        <View>
+          <Image
+            style={styles.image}
+            source={{
+              uri: image185(item.poster_path) || fallbackMoviePoster,
+              loading: "lazy",
+            }}
+          />
+          <Text style={styles.text}>
+            {item?.title && item.title.length > 14
+              ? `${item.title.slice(0, 14)}...`
+              : item?.title}
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 
   return (

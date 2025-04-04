@@ -63,8 +63,8 @@ const Movie = ({ item, handleClick }) => {
 };
 const styles = StyleSheet.create({
   itemImg: {
-    margin: 10,
-    padding: 20,
+    margin: 5,
+    padding: 5,
     width: width * 0.6,
     height: height * 0.4,
     borderRadius: 20,

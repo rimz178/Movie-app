@@ -8,6 +8,7 @@ import {
   Image,
   FlatList,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
@@ -123,7 +124,7 @@ export default function MovieScreen() {
     }
   };
   return (
-    <View>
+    <SafeAreaView>
       {loading ? (
         <Loading />
       ) : (
@@ -188,7 +189,7 @@ export default function MovieScreen() {
           )}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
