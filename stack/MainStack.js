@@ -8,6 +8,7 @@ import PersonScreen from "../Screens/PersonScreen";
 import LoginScreen from "../Screens/LoginScreens";
 import GuestHome from "../Screens/GuestHome";
 import BottomTabs from "./BottomTabs";
+import SeriesScreen from '../Screens/SeriesScreen';
 import Colors from "../Colors/Colors";
 const Stack = createStackNavigator();
 
@@ -95,6 +96,15 @@ function MainStack() {
               headerShown: true,
             }}
           />
+          <Stack.Screen
+            name="Series"
+            component={SeriesScreen}
+            options={{
+              headerBackTitle: "Back",
+              title: "TV Series",
+              headerShown: true,
+        }}  
+          />  
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

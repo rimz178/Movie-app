@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text, SafeAreaView } from "react-native";
+import {  StyleSheet, FlatList, Text, SafeAreaView, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
+import { SegmentedButtons } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import {
   fetchTrending,
   fetchUpcoming,
   fetchRated,
   fetchNowPlaying,
 } from "../Api/ApiParsing";
+
 
 /**
  * HomeScreen component that displays movie data.
@@ -20,13 +22,21 @@ import {
  * @returns {JSX.Element} - The home screen.
  */
 function HomeScreen({ route }) {
+  const navigation = useNavigation();
   const [upcoming, setUpcoming] = useState([]);
   const [trending, setTrending] = useState([]);
   const [topRated, setRated] = useState([]);
   const [nowPlaying, setPlaying] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
-
+  const [selectedTab, setSelectedTab] = useState("movies");
+  
+  const handleTabChange = (newValue) => {
+    setSelectedTab(newValue);
+    if (newValue === "series") {
+      navigation.navigate("Series");
+    }
+  };
   useEffect(() => {
     if (route?.params?.isGuest) {
       setIsGuest(true);
@@ -75,6 +85,24 @@ function HomeScreen({ route }) {
               Welcome, Guest! Log in to access more features like favorites.
             </Text>
           )}
+         <View style={styles.segmentContainer}>
+            <SegmentedButtons
+              value={selectedTab}
+              onValueChange={handleTabChange}
+              buttons={[
+                {
+                  value: "movies",
+                  label: "Movies",
+                  icon: "movie",
+                },
+                {
+                  value: "series",
+                  label: "Series",
+                  icon: "television-classic",
+                },
+              ]}
+            />
+          </View>
           <FlatList
             initialNumToRender={2}
             showsVerticalScrollIndicator={false}
@@ -114,6 +142,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginVertical: 10,
+  },
+  segmentContainer: {
+    padding: 10,
   },
 });
 
