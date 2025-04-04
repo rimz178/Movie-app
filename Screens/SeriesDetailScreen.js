@@ -105,7 +105,7 @@ export default function SeriesDetailScreen() {
                   </Text>
                 ))}
               </View>
-              <View style={styles.decsription}>
+              <View>
                 <Text style={styles.descriptionText}>
                   {seriesDetails?.overview}
                 </Text>

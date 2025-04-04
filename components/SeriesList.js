@@ -40,9 +40,9 @@ export default function SeriesList({ title, data }) {
             }}
           />
           <Text style={styles.text}>
-            {item?.title && item.title.length > 14
-              ? `${item.title.slice(0, 14)}...`
-              : item?.title}
+            {item?.name && item.name.length > 14
+              ? `${item.name.slice(0, 14)}...`
+              : item?.name}
           </Text>
         </View>
       </TouchableWithoutFeedback>
@@ -59,7 +59,7 @@ export default function SeriesList({ title, data }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         data={data}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         initialNumToRender={2}
         contentContainerStyle={{ paddingHorizontal: 15 }}
