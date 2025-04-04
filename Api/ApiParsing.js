@@ -155,7 +155,7 @@ export const fetchTrendingSeries = () => {
 };
 
 export const fetchSeriesDetails = async (id) => {
-  return apiCall (seriesDetailsEndpoint(id));
+  return apiCall(seriesDetailsEndpoint(id));
 };
 
 export const fetchSeriesCredits = async (id) => {
@@ -165,7 +165,6 @@ export const fetchSeriesCredits = async (id) => {
 export const fetchSeriesWatchProviders = async (id) => {
   return apiCall(seriesWatchProvidersEndpoint(id));
 };
-
 
 export const fallbackMoviePoster =
   "https://img.myloview.com/stickers/white-laptop-screen-with-hd-video-technology-icon-isolated-on-grey-background-abstract-circle-random-dots-vector-illustration-400-176057922.jpg";

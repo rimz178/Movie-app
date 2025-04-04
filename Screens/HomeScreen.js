@@ -5,8 +5,8 @@ import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
-import { SegmentedButtons } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import SegmentedTabs from "../stack/SegmentedTabs";
 import {
   fetchTrending,
   fetchUpcoming,
@@ -36,6 +36,12 @@ function HomeScreen({ route }) {
       navigation.navigate("Series");
     }
   };
+  useFocusEffect(
+    React.useCallback(() => {
+      setSelectedTab("movies");
+    }, []),
+  );
+
   useEffect(() => {
     if (route?.params?.isGuest) {
       setIsGuest(true);
@@ -84,24 +90,10 @@ function HomeScreen({ route }) {
               Welcome, Guest! Log in to access more features like favorites.
             </Text>
           )}
-          <View style={styles.segmentContainer}>
-            <SegmentedButtons
-              value={selectedTab}
-              onValueChange={handleTabChange}
-              buttons={[
-                {
-                  value: "movies",
-                  label: "Movies",
-                  icon: "movie",
-                },
-                {
-                  value: "series",
-                  label: "Series",
-                  icon: "television-classic",
-                },
-              ]}
-            />
-          </View>
+          <SegmentedTabs
+            selectedTab={selectedTab}
+            onTabChange={handleTabChange}
+          />
           <FlatList
             initialNumToRender={2}
             showsVerticalScrollIndicator={false}
@@ -141,9 +133,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginVertical: 10,
-  },
-  segmentContainer: {
-    padding: 10,
   },
 });
 

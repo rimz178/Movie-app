@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Colors from "../Colors/Colors";
 import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
-import { SegmentedButtons } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
-
+import SegmentedTabs from "../stack/SegmentedTabs";
 import { fetchTrendingSeries } from "../Api/ApiParsing";
 
 /**
@@ -19,7 +18,7 @@ function SeriesHomeScreen({ route }) {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [trending, setTrending] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("Series");
+  const [selectedTab, setSelectedTab] = useState("series");
   const [isGuest, setIsGuest] = useState(false);
 
   const handleTabChange = (newValue) => {
@@ -28,7 +27,11 @@ function SeriesHomeScreen({ route }) {
       navigation.navigate("MainTabs");
     }
   };
-
+  useFocusEffect(
+    React.useCallback(() => {
+      setSelectedTab("series");
+    }, []),
+  );
   useEffect(() => {
     if (route?.params?.isGuest) {
       setIsGuest(true);
@@ -59,24 +62,10 @@ function SeriesHomeScreen({ route }) {
               Welcome, Guest! Log in to access more features like favorites.
             </Text>
           )}
-          <View style={styles.segmentContainer}>
-            <SegmentedButtons
-              value={selectedTab}
-              onValueChange={handleTabChange}
-              buttons={[
-                {
-                  value: "movies",
-                  label: "Movies",
-                  icon: "movie",
-                },
-                {
-                  value: "series",
-                  label: "Series",
-                  icon: "television-classic",
-                },
-              ]}
-            />
-          </View>
+          <SegmentedTabs
+            selectedTab={selectedTab}
+            onTabChange={handleTabChange}
+          />
           <FlatList
             initialNumToRender={2}
             showsHorizontalScrollIndicator={false}
@@ -109,9 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginVertical: 10,
-  },
-  segmentContainer: {
-    padding: 10,
   },
 });
 export default SeriesHomeScreen;
