@@ -9,6 +9,12 @@ import Loading from "../components/Loading";
 
 import { fetchTrendingSeries } from "../Api/ApiParsing";
 
+/**
+ * SeriesHomeScreen component that displays a list of trending series.
+ *
+ * @param {object} route - Contains parameters passed to this screen.
+ * @returns {JSX.Element} - The series home screen.
+ */
 function SeriesHomeScreen({ route }) {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);

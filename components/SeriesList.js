@@ -37,7 +37,6 @@ export default function SeriesList({ title, data }) {
             style={styles.image}
             source={{
               uri: image185(item.poster_path) || fallbackMoviePoster,
-              loading: "lazy",
             }}
           />
           <Text style={styles.text}>

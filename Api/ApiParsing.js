@@ -156,17 +156,14 @@ export const fetchTrendingSeries = () => {
 
 export const fetchSeriesDetails = async (id) => {
   const response = await fetch(seriesDetailsEndpoint(id));
-  return response.json();
 };
 
 export const fetchSeriesCredits = async (id) => {
   const response = await fetch(seriesCreditsEndpoint(id));
-  return response.json();
 };
 
 export const fetchSeriesWatchProviders = async (id) => {
   const response = await fetch(seriesWatchProvidersEndpoint(id));
-  return response.json();
 };
 
 
