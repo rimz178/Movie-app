@@ -12,6 +12,7 @@ import {
   fetchSeriesCredits,
   fetchSeriesWatchProviders,
   image500,
+  fallbackMoviePoster,
 } from "../Api/ApiParsing";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -19,6 +20,11 @@ import Loading from "../components/Loading";
 import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 
+/**
+ * Displays detailed information about a series, including its cast, genres, and watch providers.
+ *
+ * @returns {JSX.Element} - The series details screen.
+ */
 export default function SeriesDetailScreen() {
   const { params: series } = useRoute();
   const navigation = useNavigation();
@@ -28,6 +34,7 @@ export default function SeriesDetailScreen() {
   const [watchProviders, setWatchProviders] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     getSeriesDetails(series.id);
     getSeriesCredits(series.id);
     getSeriesWatchProviders(series.id);
@@ -47,7 +54,7 @@ export default function SeriesDetailScreen() {
   const getSeriesWatchProviders = async (id) => {
     const data = await fetchSeriesWatchProviders(id);
     if (data?.results) {
-      const countryCode = "FI"; 
+      const countryCode = "FI";
       const providersForCountry = data.results[countryCode] || {};
 
       const providersArray = [
@@ -60,33 +67,55 @@ export default function SeriesDetailScreen() {
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={[0]}
-        keyExtractor={(item) => item.toString()}
-        showsVerticalScrollIndicator={false}
-        renderItem={() => (
-          <View style={styles.content}>
-            <Image
-              style={styles.image}
-              source={{
-                uri: image500(seriesDetails?.poster_path),
-                loading: "lazy",
-              }}
-            />
-            <Text style={styles.title}>{seriesDetails?.name}</Text>
-            <Text style={styles.overview}>{seriesDetails?.overview}</Text>
-
-            <Cast navigation={navigation} cast={cast}/>
-            <WatchProviders providers={watchProviders} />
-          </View>
-        )}
-      />
+      {loading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={[0]}
+          keyExtractor={(item) => item.toString()}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          renderItem={() => (
+            <View style={styles.content}>
+              <Image
+                style={styles.image}
+                source={{
+                  uri:
+                    image500(seriesDetails?.poster_path) || fallbackMoviePoster,
+                  loading: "lazy",
+                }}
+              />
+              <View style={{ marginTop: 10 }}>
+                <Text style={styles.title}>{seriesDetails?.name}</Text>
+                {series?.id ? (
+                  <Text style={styles.textStatus}>
+                    {seriesDetails?.status} •{" "}
+                    {seriesDetails?.first_air_date?.split("-")[0]} •
+                    {seriesDetails?.number_of_seasons} Seasons •{" "}
+                    {seriesDetails?.number_of_episodes} Episodes
+                  </Text>
+                ) : null}
+              </View>
+              <View style={styles.genre}>
+                {seriesDetails?.genres?.map((genre) => (
+                  <Text key={genre.id} style={styles.textStatus}>
+                    {genre?.name}
+                  </Text>
+                ))}
+              </View>
+              <View style={styles.decsription}>
+                <Text style={styles.descriptionText}>
+                  {seriesDetails?.overview}
+                </Text>
+                <Cast navigation={navigation} cast={cast} />
+                <WatchProviders providers={watchProviders} />
+              </View>
+            </View>
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -104,6 +133,13 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 20,
   },
+  textStatus: {
+    margin: 3,
+    marginTop: 5,
+    fontSize: 15,
+    color: Colors.status,
+    textAlign: "center",
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
@@ -111,10 +147,15 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     textAlign: "center",
   },
-  overview: {
-    fontSize: 16,
+  descriptionText: {
+    margin: 3,
+    fontSize: 15,
     color: Colors.status,
-    lineHeight: 24,
-    marginBottom: 15,
+    textAlign: "left",
+  },
+  genre: {
+    marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });

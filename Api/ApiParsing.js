@@ -13,7 +13,7 @@ const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&region=FI`;
 //nowplaying endpoints
 const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&locale=FI`;
 
-const trendingSeries  = `${apiBaseUrl}/trending/tv/day?api_key=${apiKey}&region=FI`;
+const trendingSeries = `${apiBaseUrl}/trending/tv/day?api_key=${apiKey}&region=FI`;
 
 //Search endpoint
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
@@ -41,8 +41,6 @@ const seriesCreditsEndpoint = (id) =>
   `${apiBaseUrl}/tv/${id}/credits?api_key=${apiKey}`;
 const seriesWatchProvidersEndpoint = (id) =>
   `${apiBaseUrl}/tv/${id}/watch/providers?api_key=${apiKey}`;
-
-
 
 // Authentication endpoints
 const requestTokenEndpoint = `${apiBaseUrl}/authentication/token/new?api_key=${apiKey}`;
@@ -147,14 +145,14 @@ export const fetchPersonDetails = (id) => {
 export const fetchPersonMovies = (personId) => {
   return apiCall(personMoviesEndpoint(personId));
 };
-//returns watch providers for a movie
+
 export const fetchWatchProviders = (id) => {
   return apiCall(watchProvidersEndpoint(id));
 };
 
 export const fetchTrendingSeries = () => {
   return apiCall(trendingSeries);
-}
+};
 
 export const fetchSeriesDetails = async (id) => {
   const response = await fetch(seriesDetailsEndpoint(id));
@@ -171,7 +169,7 @@ export const fetchSeriesWatchProviders = async (id) => {
   return response.json();
 };
 
-// fallback endpoints
+
 export const fallbackMoviePoster =
   "https://img.myloview.com/stickers/white-laptop-screen-with-hd-video-technology-icon-isolated-on-grey-background-abstract-circle-random-dots-vector-illustration-400-176057922.jpg";
 

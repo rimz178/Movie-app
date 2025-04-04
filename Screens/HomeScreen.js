@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import {  StyleSheet, FlatList, Text, SafeAreaView, View } from "react-native";
+import { StyleSheet, FlatList, Text, SafeAreaView, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Colors from "../Colors/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
-import { SegmentedButtons } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { SegmentedButtons } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import {
   fetchTrending,
   fetchUpcoming,
   fetchRated,
   fetchNowPlaying,
 } from "../Api/ApiParsing";
-
 
 /**
  * HomeScreen component that displays movie data.
@@ -30,7 +29,7 @@ function HomeScreen({ route }) {
   const [loading, setLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
   const [selectedTab, setSelectedTab] = useState("movies");
-  
+
   const handleTabChange = (newValue) => {
     setSelectedTab(newValue);
     if (newValue === "series") {
@@ -85,7 +84,7 @@ function HomeScreen({ route }) {
               Welcome, Guest! Log in to access more features like favorites.
             </Text>
           )}
-         <View style={styles.segmentContainer}>
+          <View style={styles.segmentContainer}>
             <SegmentedButtons
               value={selectedTab}
               onValueChange={handleTabChange}

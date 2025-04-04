@@ -117,7 +117,7 @@ export default function PersonScreen() {
                   {person?.biography || "N/A"}
                 </Text>
               </View>
-          
+
               {<MovieList title={"Movies"} data={personMovies} />}
             </View>
           )}
