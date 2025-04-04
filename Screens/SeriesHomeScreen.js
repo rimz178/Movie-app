@@ -88,7 +88,7 @@ function SeriesHomeScreen( {route}) {
           <SeriesList 
             title={item.title} 
             data={item.data} 
-            handleClick={(series) => navigation.navigate("Series", series)} 
+            handleClick={(series) } 
           />
         )}
         />
