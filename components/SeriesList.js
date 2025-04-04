@@ -24,7 +24,7 @@ export default function SeriesList({ title, data }) {
 
   const handleClick = useCallback(
     (item) => {
-      navigation.navigate("Series", item);
+      navigation.navigate("SeriesDetails", item);
     },
     [navigation],
   );

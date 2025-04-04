@@ -35,6 +35,12 @@ const personMoviesEndpoint = (id) =>
 const watchProvidersEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}/watch/providers?api_key=${apiKey}`;
 
+const seriesDetailsEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}?api_key=${apiKey}`;
+const seriesCreditsEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}/credits?api_key=${apiKey}`;
+const seriesWatchProvidersEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}/watch/providers?api_key=${apiKey}`;
 
 
 
@@ -124,9 +130,7 @@ export const fetchNowPlaying = () => {
 export const fetchMovieDetails = (id) => {
   return apiCall(movieDetailsEndpoint(id));
 };
-export const fetchTrendingSeries = () => {
-  return apiCall(trendingSeries);
-}
+
 //search movies
 export const searchMovies = (params) => {
   return apiCall(searchMoviesEndpoint, params);
@@ -146,6 +150,25 @@ export const fetchPersonMovies = (personId) => {
 //returns watch providers for a movie
 export const fetchWatchProviders = (id) => {
   return apiCall(watchProvidersEndpoint(id));
+};
+
+export const fetchTrendingSeries = () => {
+  return apiCall(trendingSeries);
+}
+
+export const fetchSeriesDetails = async (id) => {
+  const response = await fetch(seriesDetailsEndpoint(id));
+  return response.json();
+};
+
+export const fetchSeriesCredits = async (id) => {
+  const response = await fetch(seriesCreditsEndpoint(id));
+  return response.json();
+};
+
+export const fetchSeriesWatchProviders = async (id) => {
+  const response = await fetch(seriesWatchProvidersEndpoint(id));
+  return response.json();
 };
 
 // fallback endpoints

@@ -10,6 +10,7 @@ import GuestHome from "../Screens/GuestHome";
 import BottomTabs from "./BottomTabs";
 import SeriesHomeScreen from '../Screens/SeriesHomeScreen';
 import Colors from "../Colors/Colors";
+import SeriesDetailScreen from '../Screens/SeriesDetailScreen';
 const Stack = createStackNavigator();
 
 /**
@@ -104,7 +105,16 @@ function MainStack() {
               title: "TV Series",
               headerShown: true,
         }}  
-          />  
+          /> 
+          <Stack.Screen
+            name="SeriesDetails"
+            component={SeriesDetailScreen}
+            options={{
+              headerBackTitle: "Back",
+              title: "TV Series Details",
+              headerShown: true,
+            }}
+          /> 
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

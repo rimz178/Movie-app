@@ -51,7 +51,7 @@ export default function PersonScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -117,13 +117,13 @@ export default function PersonScreen() {
                   {person?.biography || "N/A"}
                 </Text>
               </View>
-              {/* Person movies */}
+          
               {<MovieList title={"Movies"} data={personMovies} />}
             </View>
           )}
         />
       )}
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -13,7 +13,7 @@ function SeriesHomeScreen( {route}) {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [trending, setTrending] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("series");
+  const [selectedTab, setSelectedTab] = useState("Series");
   const [isGuest, setIsGuest] = useState(false);
 
    const handleTabChange = (newValue) => {
@@ -82,14 +82,11 @@ function SeriesHomeScreen( {route}) {
           { 
             key: "Trending Series", 
             title: "Trending Series", 
-            data: trending },
+            data: trending 
+          },
         ]}
         renderItem={({ item }) => (
-          <SeriesList 
-            title={item.title} 
-            data={item.data} 
-            handleClick={(series) } 
-          />
+          <SeriesList title={item.title} data={item.data} />
         )}
         />
         </>
