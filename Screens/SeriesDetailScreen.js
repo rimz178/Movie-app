@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
+  Dimensions,
   StyleSheet,
   Image,
   FlatList,
@@ -19,7 +20,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import Loading from "../components/Loading";
 import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
-
+const { width, height } = Dimensions.get("window");
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *
@@ -79,14 +80,16 @@ export default function SeriesDetailScreen() {
           showsHorizontalScrollIndicator={false}
           renderItem={() => (
             <View style={styles.content}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri:
-                    image500(seriesDetails?.poster_path) || fallbackMoviePoster,
-                  loading: "lazy",
-                }}
-              />
+              <View style={styles.images}>
+                <Image
+                  style={styles.insideImage}
+                  source={{
+                    uri:
+                      image500(seriesDetails?.backdrop_path) ||
+                      fallbackMoviePoster,
+                  }}
+                />
+              </View>
               <View style={{ marginTop: 10 }}>
                 <Text style={styles.title}>{seriesDetails?.name}</Text>
                 {series?.id ? (
@@ -128,11 +131,6 @@ const styles = StyleSheet.create({
   content: {
     padding: 15,
   },
-  image: {
-    width: "100%",
-    height: 300,
-    borderRadius: 20,
-  },
   textStatus: {
     margin: 3,
     marginTop: 5,
@@ -157,5 +155,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flexDirection: "row",
     justifyContent: "center",
+  },
+  images: {
+    marginTop: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  insideImage: {
+    width: width * 0.97,
+    height: height * 0.48,
+    borderRadius: 20,
   },
 });
