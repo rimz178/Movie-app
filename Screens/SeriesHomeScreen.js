@@ -6,7 +6,12 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
 import SegmentedTabs from "../stack/SegmentedTabs";
-import { fetchTopRatedSeries, fetchTrendingSeries } from "../Api/ApiParsing";
+import {
+  fetchPopularSeries,
+  fetchTopRatedSeries,
+  fetchTrendingSeries,
+  fetchAiringTodaySeries,
+} from "../Api/ApiParsing";
 
 /**
  * SeriesHomeScreen component that displays a list of trending series.
@@ -19,6 +24,9 @@ function SeriesHomeScreen({ route }) {
   const [loading, setLoading] = useState(true);
   const [trending, setTrending] = useState([]);
   const [topRated, setTopRated] = useState([]);
+
+  const [onTheAir, setOnTheAir] = useState([]);
+  const [popular, setPopular] = useState([]);
   const [selectedTab, setSelectedTab] = useState("series");
   const [isGuest, setIsGuest] = useState(false);
 
@@ -45,6 +53,8 @@ function SeriesHomeScreen({ route }) {
     }
     getTrendingSeries();
     getTopRatedSeries();
+    getOnTheAirSeries();
+    getPopularSeries();
   }, [route]);
 
   const getTrendingSeries = async () => {
@@ -56,7 +66,15 @@ function SeriesHomeScreen({ route }) {
   const getTopRatedSeries = async () => {
     const data = await fetchTopRatedSeries();
     if (data?.results) setTopRated(data.results);
-  }
+  };
+  const getOnTheAirSeries = async () => {
+    const data = await fetchAiringTodaySeries();
+    if (data?.results) setOnTheAir(data.results);
+  };
+  const getPopularSeries = async () => {
+    const data = await fetchPopularSeries();
+    if (data?.results) setPopular(data.results);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -87,6 +105,16 @@ function SeriesHomeScreen({ route }) {
                 key: "Top Rated Series",
                 title: "Top Rated Series",
                 data: topRated,
+              },
+              {
+                key: "On The Air Series",
+                title: "On The Air Series",
+                data: onTheAir,
+              },
+              {
+                key: "Popular Series",
+                title: "Popular Series",
+                data: popular,
               },
             ]}
             renderItem={({ item }) => (

@@ -4,7 +4,6 @@ const apiBaseUrl = "https://api.themoviedb.org/3";
 
 const apiKey = TMDB_API_KEY;
 
-
 const upcoming = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}&region=FI`;
 
 const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}&region=FI`;
@@ -13,20 +12,21 @@ const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&region=FI`;
 
 const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&locale=FI`;
 
-const trendingSeries = `${apiBaseUrl}/trending/tv/day?api_key=${apiKey}&region=FI`;
+const trendingSeries = `${apiBaseUrl}/trending/tv/day?api_key=${apiKey}`;
 
-const topRatedSeries = `${apiBaseUrl}/tv/top_rated?api_key=${apiKey}&region=FI`;
+const topRatedSeries = `${apiBaseUrl}/tv/top_rated?api_key=${apiKey}`;
 
+const airingTodaySeries = `${apiBaseUrl}/tv/on_the_air?api_key=${apiKey}&locale=FI`;
 
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
+const popularSeriesEndpoint = `${apiBaseUrl}/tv/popular?api_key=${apiKey}`;
 
 const movieDetailsEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}?api_key=${apiKey}`;
 
 const movieCreditsEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}/credits?api_key=${apiKey}`;
-
 
 const personDetailsEndpoints = (id) =>
   `${apiBaseUrl}/person/${id}?api_key=${apiKey}`;
@@ -39,16 +39,16 @@ const watchProvidersEndpoint = (id) =>
 
 const seriesDetailsEndpoint = (id) =>
   `${apiBaseUrl}/tv/${id}?api_key=${apiKey}`;
+
 const seriesCreditsEndpoint = (id) =>
   `${apiBaseUrl}/tv/${id}/credits?api_key=${apiKey}`;
+
 const seriesWatchProvidersEndpoint = (id) =>
   `${apiBaseUrl}/tv/${id}/watch/providers?api_key=${apiKey}`;
-
 
 const requestTokenEndpoint = `${apiBaseUrl}/authentication/token/new?api_key=${apiKey}`;
 const validateLoginEndpoint = `${apiBaseUrl}/authentication/token/validate_with_login?api_key=${apiKey}`;
 const createSessionEndpoint = `${apiBaseUrl}/authentication/session/new?api_key=${apiKey}`;
-
 
 export const image500 = (posterPath) =>
   posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : null;
@@ -63,7 +63,7 @@ const apiCall = async (endpoint, params) => {
     url: endpoint,
     params: params ? params : {},
   };
- 
+
   try {
     const response = await axios.request(options);
     return response.data;
@@ -72,7 +72,6 @@ const apiCall = async (endpoint, params) => {
     return {};
   }
 };
-
 
 export const fetchRequestToken = async () => {
   try {
@@ -110,7 +109,6 @@ export const createSession = async (requestToken) => {
   }
 };
 
-
 export const fetchUpcoming = () => {
   return apiCall(upcoming);
 };
@@ -130,7 +128,6 @@ export const fetchNowPlaying = () => {
 export const fetchMovieDetails = (id) => {
   return apiCall(movieDetailsEndpoint(id));
 };
-
 
 export const searchMovies = (params) => {
   return apiCall(searchMoviesEndpoint, params);
@@ -171,7 +168,12 @@ export const fetchSeriesCredits = async (id) => {
 export const fetchSeriesWatchProviders = async (id) => {
   return apiCall(seriesWatchProvidersEndpoint(id));
 };
-
+export const fetchPopularSeries = () => {
+  return apiCall(popularSeriesEndpoint);
+};
+export const fetchAiringTodaySeries = () => {
+  return apiCall(airingTodaySeries);
+};
 export const fallbackMoviePoster =
   "https://img.myloview.com/stickers/white-laptop-screen-with-hd-video-technology-icon-isolated-on-grey-background-abstract-circle-random-dots-vector-illustration-400-176057922.jpg";
 
