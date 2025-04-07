@@ -124,7 +124,7 @@ export default function MovieScreen() {
     }
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -134,27 +134,25 @@ export default function MovieScreen() {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           renderItem={() => (
-            <View style={styles.scorl}>
-              <View style={styles.container}>
-                <View style={styles.images}>
-                  <Image
-                    style={styles.insideImage}
-                    source={{
-                      uri: image500(movie?.poster_path) || fallbackMoviePoster,
-                      loading: "lazy",
-                    }}
+            <View style={styles.content}>
+              <View style={styles.images}>
+                <Image
+                  style={styles.insideImage}
+                  source={{
+                    uri: image500(movie?.poster_path) || fallbackMoviePoster,
+                    loading: "lazy",
+                  }}
+                />
+                <TouchableOpacity
+                  onPress={handleToggleFavorite}
+                  style={styles.favoriteButton}
+                >
+                  <MaterialIcons
+                    name={isFavorite ? "favorite" : "favorite-border"}
+                    size={30}
+                    color={isFavorite ? "red" : "white"}
                   />
-                  <TouchableOpacity
-                    onPress={handleToggleFavorite}
-                    style={styles.favoriteButton}
-                  >
-                    <MaterialIcons
-                      name={isFavorite ? "favorite" : "favorite-border"}
-                      size={30}
-                      color={isFavorite ? "red" : "white"}
-                    />
-                  </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
               </View>
               <View style={{ marginTop: 10 }}>
                 <MovieRating movieId={movie.id} sessionId={userSessionId} />
@@ -178,12 +176,9 @@ export default function MovieScreen() {
                 })}
               </View>
 
-              <View style={styles.decsription}>
-                <Text style={styles.descriptionText}>{movie?.overview}</Text>
-              </View>
+              <Text style={styles.descriptionText}>{movie?.overview}</Text>
 
               <Cast navigation={navigation} cast={cast} />
-
               <WatchProviders providers={watchProviders} />
             </View>
           )}
@@ -194,13 +189,13 @@ export default function MovieScreen() {
 }
 
 const styles = StyleSheet.create({
-  scorl: {
+  container: {
     flex: 1,
-    padding: 50,
-    paddingTop: 30,
     backgroundColor: Colors.backcolor,
-    marginLeft: -40,
-    marginRight: -40,
+  },
+  content: {
+    padding: 15,
+    paddingHorizontal: 20,
   },
 
   images: {

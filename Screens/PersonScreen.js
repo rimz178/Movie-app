@@ -28,7 +28,6 @@ import {
  */
 export default function PersonScreen() {
   const { params: item } = useRoute();
-  const navigation = useNavigation();
   const [personMovies, setPersonMovies] = useState([]);
   const [person, setPerson] = useState({});
   const [loading, setLoading] = useState(false);
@@ -117,7 +116,7 @@ export default function PersonScreen() {
                   {person?.biography || "N/A"}
                 </Text>
               </View>
-              {/* Person movies */}
+
               {<MovieList title={"Movies"} data={personMovies} />}
             </View>
           )}
@@ -132,9 +131,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 50,
     paddingTop: 30,
+    paddingHorizontal: 20,
     backgroundColor: Colors.backcolor,
-    marginLeft: -40,
-    marginRight: -40,
   },
   person: {
     flexDirection: "row",

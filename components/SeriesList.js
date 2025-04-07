@@ -19,12 +19,12 @@ const { width, height } = Dimensions.get("window");
  * @param {string} title - The title of the movie list.
  * @param {Array} data - Array of movie objects to display.
  */
-export default function MovieList({ title, data }) {
+export default function SeriesList({ title, data }) {
   const navigation = useNavigation();
 
   const handleClick = useCallback(
     (item) => {
-      navigation.navigate("Movie", item);
+      navigation.navigate("SeriesDetails", item);
     },
     [navigation],
   );
@@ -37,13 +37,12 @@ export default function MovieList({ title, data }) {
             style={styles.image}
             source={{
               uri: image185(item.poster_path) || fallbackMoviePoster,
-              loading: "lazy",
             }}
           />
           <Text style={styles.text}>
-            {item?.title && item.title.length > 14
-              ? `${item.title.slice(0, 14)}...`
-              : item?.title}
+            {item?.name && item.name.length > 14
+              ? `${item.name.slice(0, 14)}...`
+              : item?.name}
           </Text>
         </View>
       </TouchableWithoutFeedback>

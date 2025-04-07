@@ -4,41 +4,52 @@ const apiBaseUrl = "https://api.themoviedb.org/3";
 
 const apiKey = TMDB_API_KEY;
 
-//upcoming endpoints
 const upcoming = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}&region=FI`;
-//trendinMovie endpoints
+
 const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}&region=FI`;
-//toprated endpoints
+
 const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&region=FI`;
-//nowplaying endpoints
+
 const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&locale=FI`;
 
-//Search endpoint
+const trendingSeries = `${apiBaseUrl}/trending/tv/day?api_key=${apiKey}`;
+
+const topRatedSeries = `${apiBaseUrl}/tv/top_rated?api_key=${apiKey}`;
+
+const airingTodaySeries = `${apiBaseUrl}/tv/on_the_air?api_key=${apiKey}&locale=FI`;
+
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
-//moviedetails endpoints
+const popularSeriesEndpoint = `${apiBaseUrl}/tv/popular?api_key=${apiKey}`;
+
 const movieDetailsEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}?api_key=${apiKey}`;
-//movieCredits endpoints
+
 const movieCreditsEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}/credits?api_key=${apiKey}`;
 
-// Person details endpoints
 const personDetailsEndpoints = (id) =>
   `${apiBaseUrl}/person/${id}?api_key=${apiKey}`;
-// Person movie endpoints
+
 const personMoviesEndpoint = (id) =>
   `${apiBaseUrl}/person/${id}/movie_credits?api_key=${apiKey}`;
 
 const watchProvidersEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}/watch/providers?api_key=${apiKey}`;
 
-// Authentication endpoints
+const seriesDetailsEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}?api_key=${apiKey}`;
+
+const seriesCreditsEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}/credits?api_key=${apiKey}`;
+
+const seriesWatchProvidersEndpoint = (id) =>
+  `${apiBaseUrl}/tv/${id}/watch/providers?api_key=${apiKey}`;
+
 const requestTokenEndpoint = `${apiBaseUrl}/authentication/token/new?api_key=${apiKey}`;
 const validateLoginEndpoint = `${apiBaseUrl}/authentication/token/validate_with_login?api_key=${apiKey}`;
 const createSessionEndpoint = `${apiBaseUrl}/authentication/session/new?api_key=${apiKey}`;
 
-//image endpoints
 export const image500 = (posterPath) =>
   posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : null;
 export const image342 = (posterPath) =>
@@ -52,7 +63,7 @@ const apiCall = async (endpoint, params) => {
     url: endpoint,
     params: params ? params : {},
   };
-  //check errors when get api from internet
+
   try {
     const response = await axios.request(options);
     return response.data;
@@ -62,7 +73,6 @@ const apiCall = async (endpoint, params) => {
   }
 };
 
-// Authentication API calls
 export const fetchRequestToken = async () => {
   try {
     const response = await axios.get(requestTokenEndpoint);
@@ -99,48 +109,71 @@ export const createSession = async (requestToken) => {
   }
 };
 
-//returns upcoming movies from the website
 export const fetchUpcoming = () => {
   return apiCall(upcoming);
 };
-//returns trending movies from the website
+
 export const fetchTrending = () => {
   return apiCall(trendingMovie);
 };
-//returns rated movies from the website
+
 export const fetchRated = () => {
   return apiCall(topRated);
 };
-//returns now playing movies from the website
+
 export const fetchNowPlaying = () => {
   return apiCall(nowPlaying);
 };
-//returns details movies from the website
+
 export const fetchMovieDetails = (id) => {
   return apiCall(movieDetailsEndpoint(id));
 };
-//search movies
+
 export const searchMovies = (params) => {
   return apiCall(searchMoviesEndpoint, params);
 };
-//returns credits movies from the website
+
 export const fetchMovieCredits = (id) => {
   return apiCall(movieCreditsEndpoint(id));
 };
-//returns person details movies from the website
+
 export const fetchPersonDetails = (id) => {
   return apiCall(personDetailsEndpoints(id));
 };
-//returns person movies from the website
+
 export const fetchPersonMovies = (personId) => {
   return apiCall(personMoviesEndpoint(personId));
 };
-//returns watch providers for a movie
+
 export const fetchWatchProviders = (id) => {
   return apiCall(watchProvidersEndpoint(id));
 };
 
-// fallback endpoints
+export const fetchTrendingSeries = () => {
+  return apiCall(trendingSeries);
+};
+
+export const fetchTopRatedSeries = () => {
+  return apiCall(topRatedSeries);
+};
+
+export const fetchSeriesDetails = async (id) => {
+  return apiCall(seriesDetailsEndpoint(id));
+};
+
+export const fetchSeriesCredits = async (id) => {
+  return apiCall(seriesCreditsEndpoint(id));
+};
+
+export const fetchSeriesWatchProviders = async (id) => {
+  return apiCall(seriesWatchProvidersEndpoint(id));
+};
+export const fetchPopularSeries = () => {
+  return apiCall(popularSeriesEndpoint);
+};
+export const fetchAiringTodaySeries = () => {
+  return apiCall(airingTodaySeries);
+};
 export const fallbackMoviePoster =
   "https://img.myloview.com/stickers/white-laptop-screen-with-hd-video-technology-icon-isolated-on-grey-background-abstract-circle-random-dots-vector-illustration-400-176057922.jpg";
 
