@@ -6,7 +6,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
 import SegmentedTabs from "../stack/SegmentedTabs";
-import { fetchTrendingSeries } from "../Api/ApiParsing";
+import { fetchTopRatedSeries, fetchTrendingSeries } from "../Api/ApiParsing";
 
 /**
  * SeriesHomeScreen component that displays a list of trending series.
@@ -18,6 +18,7 @@ function SeriesHomeScreen({ route }) {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [trending, setTrending] = useState([]);
+  const [topRated, setTopRated] = useState([]);
   const [selectedTab, setSelectedTab] = useState("series");
   const [isGuest, setIsGuest] = useState(false);
 
@@ -43,6 +44,7 @@ function SeriesHomeScreen({ route }) {
       });
     }
     getTrendingSeries();
+    getTopRatedSeries();
   }, [route]);
 
   const getTrendingSeries = async () => {
@@ -50,6 +52,11 @@ function SeriesHomeScreen({ route }) {
     if (data?.results) setTrending(data.results);
     setLoading(false);
   };
+
+  const getTopRatedSeries = async () => {
+    const data = await fetchTopRatedSeries();
+    if (data?.results) setTopRated(data.results);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -75,6 +82,11 @@ function SeriesHomeScreen({ route }) {
                 key: "Trending Series",
                 title: "Trending Series",
                 data: trending,
+              },
+              {
+                key: "Top Rated Series",
+                title: "Top Rated Series",
+                data: topRated,
               },
             ]}
             renderItem={({ item }) => (

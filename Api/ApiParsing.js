@@ -15,6 +15,8 @@ const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&locale=FI`
 
 const trendingSeries = `${apiBaseUrl}/trending/tv/day?api_key=${apiKey}&region=FI`;
 
+const topRatedSeries = `${apiBaseUrl}/tv/top_rated?api_key=${apiKey}&region=FI`;
+
 
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
@@ -152,6 +154,10 @@ export const fetchWatchProviders = (id) => {
 
 export const fetchTrendingSeries = () => {
   return apiCall(trendingSeries);
+};
+
+export const fetchTopRatedSeries = () => {
+  return apiCall(topRatedSeries);
 };
 
 export const fetchSeriesDetails = async (id) => {
