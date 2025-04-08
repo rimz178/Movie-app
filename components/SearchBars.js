@@ -25,7 +25,7 @@ import Colors from "../Colors/Colors";
 
 const { width, height } = Dimensions.get("window");
 /**
- * SearchBars component for searching movies.
+ * SearchBars component for searching movies and series.
  *
  * @returns {JSX.Element} - The search bar and results list.
  */
@@ -119,9 +119,11 @@ export default function SearchBars() {
                   }}
                 />
                 <Text style={styles.otherText}>
-                  {item?.title && item.title.length > 22
-                    ? `${item.title.slice(0, 22)}...`
-                    : item?.title}
+                  {item?.title || item?.name
+                    ? (item.title || item.name).length > 22
+                      ? `${(item.title || item.name).slice(0, 22)}...`
+                      : item.title || item.name
+                    : "No Title"}
                 </Text>
               </View>
             </TouchableWithoutFeedback>
@@ -183,6 +185,7 @@ const styles = StyleSheet.create({
     margin: 2,
     borderRadius: 10,
     overflow: "hidden",
+    padding: 5,
   },
   searchImage: {
     paddingHorizontal: 10,
