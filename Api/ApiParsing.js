@@ -20,6 +20,8 @@ const airingTodaySeries = `${apiBaseUrl}/tv/on_the_air?api_key=${apiKey}&locale=
 
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
+const searchSeriesEndpoint = `${apiBaseUrl}/search/tv?api_key=${apiKey}`;
+
 const popularSeriesEndpoint = `${apiBaseUrl}/tv/popular?api_key=${apiKey}`;
 
 const movieDetailsEndpoint = (id) =>
@@ -131,6 +133,9 @@ export const fetchMovieDetails = (id) => {
 
 export const searchMovies = (params) => {
   return apiCall(searchMoviesEndpoint, params);
+};
+export const searchSeries = (params) => {
+  return apiCall(searchSeriesEndpoint, params);
 };
 
 export const fetchMovieCredits = (id) => {

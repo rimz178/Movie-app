@@ -13,7 +13,12 @@ import {
 
 import { debounce } from "lodash";
 import Loading from "./Loading";
-import { image185, searchMovies, fallbackMoviePoster } from "../Api/ApiParsing";
+import {
+  image185,
+  searchMovies,
+  searchSeries,
+  fallbackMoviePoster,
+} from "../Api/ApiParsing";
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
@@ -29,18 +34,43 @@ export default function SearchBars() {
   const [results, setResult] = useState([1, 2, 3, 4]);
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = (value) => {
+  const handleSearch = async (value) => {
     if (value && value.length > 2) {
       setLoading(true);
-      searchMovies({
-        query: value,
-        include_adult: "false",
-        language: "en-US",
-        page: "1",
-      }).then((data) => {
+
+      try {
+        const [moviesData, seriesData] = await Promise.all([
+          searchMovies({
+            query: value,
+            include_adult: "false",
+            language: "en-US",
+            page: "1",
+          }),
+          searchSeries({
+            query: value,
+            include_adult: "false",
+            language: "en-US",
+            page: "1",
+          }),
+        ]);
+
+        const results = [
+          ...(moviesData?.results || []).map((item) => ({
+            ...item,
+            media_type: "movie",
+          })),
+          ...(seriesData?.results || []).map((item) => ({
+            ...item,
+            media_type: "tv",
+          })),
+        ];
+        setResult(results);
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+        setResult([]);
+      } finally {
         setLoading(false);
-        if (data?.results) setResult(data.results);
-      });
+      }
     } else {
       setLoading(false);
       setResult([]);
@@ -51,7 +81,6 @@ export default function SearchBars() {
   return (
     <View style={styles.container}>
       <View style={styles.search}>
-        {/* search input */}
         <TextInput
           style={styles.textinput}
           placeholder="Search"
@@ -69,10 +98,18 @@ export default function SearchBars() {
         <FlatList
           data={results}
           initialNumToRender={2}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
+          keyExtractor={(item, index) =>
+            `${item.media_type || "unknown"}-${item.id || index}`
+          }
+          renderItem={({ item }) => (
             <TouchableWithoutFeedback
-              onPress={() => navigation.push("Movie", item)}
+              onPress={() => {
+                if (item.media_type === "movie") {
+                  navigation.push("Movie", item);
+                } else if (item.media_type === "tv") {
+                  navigation.push("SeriesDetails", item);
+                }
+              }}
             >
               <View>
                 <Image
