@@ -64,7 +64,29 @@ export default function SearchBars() {
             media_type: "tv",
           })),
         ];
-        setResult(results);
+
+        const sortedResults = results.sort((a, b) => {
+          const aTitle = (a.title || a.name || "").toLowerCase();
+          const bTitle = (b.title || b.name || "").toLowerCase();
+          const searchValue = value.toLowerCase();
+
+          const aExactMatch = aTitle === searchValue ? 1 : 0;
+          const bExactMatch = bTitle === searchValue ? 1 : 0;
+
+          if (aExactMatch !== bExactMatch) {
+            return bExactMatch - aExactMatch;
+          }
+
+          const aIncludes = aTitle.includes(searchValue) ? 1 : 0;
+          const bIncludes = bTitle.includes(searchValue) ? 1 : 0;
+
+          if (aIncludes !== bIncludes) {
+            return bIncludes - aIncludes;
+          }
+          return (b.popularity || 0) - (a.popularity || 0);
+        });
+
+        setResult(sortedResults);
       } catch (error) {
         console.error("Error fetching search results:", error);
         setResult([]);
