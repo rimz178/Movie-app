@@ -22,6 +22,8 @@ const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
 const searchSeriesEndpoint = `${apiBaseUrl}/search/tv?api_key=${apiKey}`;
 
+const searchPeopleEndpoint = `${apiBaseUrl}/search/person?api_key=${apiKey}`;
+
 const popularSeriesEndpoint = `${apiBaseUrl}/tv/popular?api_key=${apiKey}`;
 
 const movieDetailsEndpoint = (id) =>
@@ -134,8 +136,13 @@ export const fetchMovieDetails = (id) => {
 export const searchMovies = (params) => {
   return apiCall(searchMoviesEndpoint, params);
 };
+
 export const searchSeries = (params) => {
   return apiCall(searchSeriesEndpoint, params);
+};
+
+export const searchPeople = (params) => {
+  return apiCall(searchPeopleEndpoint, params);
 };
 
 export const fetchMovieCredits = (id) => {

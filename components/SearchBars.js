@@ -17,6 +17,7 @@ import {
   image185,
   searchMovies,
   searchSeries,
+  searchPeople,
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
 import { useNavigation } from "@react-navigation/native";
@@ -25,7 +26,7 @@ import Colors from "../Colors/Colors";
 
 const { width, height } = Dimensions.get("window");
 /**
- * SearchBars component for searching movies and series.
+ * SearchBars component for searching movies, series and actors.
  *
  * @returns {JSX.Element} - The search bar and results list.
  */
@@ -39,7 +40,7 @@ export default function SearchBars() {
       setLoading(true);
 
       try {
-        const [moviesData, seriesData] = await Promise.all([
+        const [moviesData, seriesData, peopleData] = await Promise.all([
           searchMovies({
             query: value,
             include_adult: "false",
@@ -47,6 +48,12 @@ export default function SearchBars() {
             page: "1",
           }),
           searchSeries({
+            query: value,
+            include_adult: "false",
+            language: "en-US",
+            page: "1",
+          }),
+          searchPeople({
             query: value,
             include_adult: "false",
             language: "en-US",
@@ -62,6 +69,10 @@ export default function SearchBars() {
           ...(seriesData?.results || []).map((item) => ({
             ...item,
             media_type: "tv",
+          })),
+          ...(peopleData?.results || []).map((item) => ({
+            ...item,
+            media_type: "person",
           })),
         ];
 
@@ -130,6 +141,8 @@ export default function SearchBars() {
                   navigation.push("Movie", item);
                 } else if (item.media_type === "tv") {
                   navigation.push("SeriesDetails", item);
+                } else if (item.media_type === "person") {
+                  navigation.push("Person", item);
                 }
               }}
             >
@@ -137,7 +150,10 @@ export default function SearchBars() {
                 <Image
                   style={styles.image}
                   source={{
-                    uri: image185(item?.poster_path) || fallbackMoviePoster,
+                    uri:
+                      item.media_type === "person"
+                        ? image185(item?.profile_path) || fallbackMoviePoster
+                        : image185(item?.poster_path) || fallbackMoviePoster,
                   }}
                 />
                 <Text style={styles.otherText}>
