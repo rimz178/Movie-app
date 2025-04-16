@@ -13,6 +13,11 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Colors from "../Colors/Colors";
 
+/**
+ * MovieRatingList component fetches and displays a list of rated movies.
+ *
+ * @returns {JSX.Element} A component that displays a list of rated movies.
+ */
 const MovieRatingList = () => {
   const [ratedMovies, setRatedMovies] = useState([]);
   const [error, setError] = useState(null);

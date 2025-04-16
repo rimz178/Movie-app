@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import HomeScreen from "../Screens/HomeScreen";
-import FavoriteScreen from "../Screens/FavoritesScreen";
+import ListScreens from "../Screens/ListScreens";
 import SearchBars from "../components/SearchBars";
 import SettingsScreen from "../Screens/SettingsScreen";
 import Colors from "../Colors/Colors";
@@ -90,7 +90,7 @@ export default function BottomTabs(route) {
       {!isGuest && (
         <Tab.Screen
           name="MyLists"
-          component={FavoriteScreen}
+          component={ListScreens}
           options={{
             title: "Favorites & Rated",
           }}

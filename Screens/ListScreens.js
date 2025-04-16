@@ -8,11 +8,11 @@ import TvRatingList from "../components/TvRatingList";
 import Loading from "../components/Loading"; // Importoidaan Loading-komponentti
 
 /**
- * FavoritesScreen component that displays a list of favorite movies.
- *
+ *  FavoritesScreen component displays the user's favorite movies and TV shows,
+ *  as well as their rated movies and TV shows.
  * @returns {JSX.Element} - The favorites screen.
  */
-const FavoritesScreen = ({ sessionId }) => {
+const ListScreens = ({ sessionId }) => {
   const [refresh, setRefresh] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FavoritesScreen;
+export default ListScreens;

@@ -12,6 +12,15 @@ import {
 import Colors from "../Colors/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 
+/**
+ * CustomRating component allows users to rate movies or TV shows.
+ * It fetches the current rating from the API and allows users to submit or remove their rating.
+ *
+ * @param {string} id - The ID of the movie or TV show.
+ * @param {string} sessionId - The session ID of the user.
+ * @param {string} type - The type of content ("movie" or "tv"). Defaults to "movie".
+ * @returns {JSX.Element} A component that displays the rating stars and the current rating.
+ */
 export default function CustomRating({ id, sessionId, type = "movie" }) {
   const [rating, setRating] = useState(0);
 

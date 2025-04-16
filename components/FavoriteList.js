@@ -15,7 +15,11 @@ import Colors from "../Colors/Colors";
 
 const { width, height } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.33;
-
+/**
+ * This component fetches and displays a list of favorite movies and TV shows.
+ *
+ * @returns  {JSX.Element} A component that displays a list of favorite movies and TV shows.
+ */
 const FavoritesList = () => {
   const [favorites, setFavorites] = useState({ movies: [], tvShows: [] });
   const [isLoading, setIsLoading] = useState(true);
@@ -101,7 +105,6 @@ const FavoritesList = () => {
         </>
       )}
 
-      {/* TV Show Favorites */}
       {favorites.tvShows.length > 0 && (
         <>
           <Text style={styles.titleText}>TV Show Favorites</Text>
