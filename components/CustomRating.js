@@ -1,26 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { Rating } from "react-native-ratings";
-import { submitRating, deleteRating, getRating } from "../Api/RatingApi";
+import {
+  submitRating,
+  deleteRating,
+  getRating,
+  submitTvRating,
+  deleteTvRating,
+  getTvRating,
+} from "../Api/RatingApi";
 import Colors from "../Colors/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function MovieRating({ movieId, sessionId }) {
+/**
+ * CustomRating component allows users to rate movies or TV shows.
+ * It fetches the current rating from the API and allows users to submit or remove their rating.
+ *
+ * @param {string} id - The ID of the movie or TV show.
+ * @param {string} sessionId - The session ID of the user.
+ * @param {string} type - The type of content ("movie" or "tv"). Defaults to "movie".
+ * @returns {JSX.Element} A component that displays the rating stars and the current rating.
+ */
+export default function CustomRating({ id, sessionId, type = "movie" }) {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
+    if (!id) {
+      console.error("Error: ID is missing!");
+      return;
+    }
+
     const fetchRating = async () => {
-      if (sessionId && movieId) {
-        const savedRating = await getRating(movieId, sessionId);
+      if (sessionId && id) {
+        const savedRating =
+          type === "movie"
+            ? await getRating(id, sessionId)
+            : await getTvRating(id, sessionId);
         setRating(savedRating / 2);
       }
     };
+
     fetchRating();
-  }, [movieId, sessionId]);
+  }, [id, sessionId, type]);
 
   const handleRating = async (value) => {
     if (!sessionId) {
-      Alert.alert("Error", "You need to be logged in to rate movies.");
+      Alert.alert("Error", "You need to be logged in to rate.");
       return;
     }
 
@@ -31,7 +56,11 @@ export default function MovieRating({ movieId, sessionId }) {
         return;
       }
 
-      const response = await submitRating(movieId, scaledRating, sessionId);
+      const response =
+        type === "movie"
+          ? await submitRating(id, scaledRating, sessionId)
+          : await submitTvRating(id, scaledRating, sessionId);
+
       if (response.success) {
         setRating(value);
       }
@@ -44,7 +73,11 @@ export default function MovieRating({ movieId, sessionId }) {
     if (!sessionId) return;
 
     try {
-      const response = await deleteRating(movieId, sessionId);
+      const response =
+        type === "movie"
+          ? await deleteRating(id, sessionId)
+          : await deleteTvRating(id, sessionId);
+
       if (response.success) {
         setRating(0);
       }

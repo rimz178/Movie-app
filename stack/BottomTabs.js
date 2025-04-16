@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import HomeScreen from "../Screens/HomeScreen";
-import FavoriteScreen from "../Screens/FavoritesScreen";
+import ListScreens from "../Screens/ListScreens";
 import SearchBars from "../components/SearchBars";
 import SettingsScreen from "../Screens/SettingsScreen";
 import Colors from "../Colors/Colors";
@@ -45,8 +45,8 @@ export default function BottomTabs(route) {
 
           if (route.name === "Home") {
             iconName = "home";
-          } else if (route.name === "Favorites") {
-            iconName = "heart";
+          } else if (route.name === "MyLists") {
+            iconName = "list";
           } else if (route.name === "Search") {
             iconName = "search";
           } else if (route.name === "Settings" || route.name === "Login") {
@@ -89,10 +89,10 @@ export default function BottomTabs(route) {
       />
       {!isGuest && (
         <Tab.Screen
-          name="Favorites"
-          component={FavoriteScreen}
+          name="MyLists"
+          component={ListScreens}
           options={{
-            title: "My Favorites",
+            title: "Favorites & Rated",
           }}
         />
       )}

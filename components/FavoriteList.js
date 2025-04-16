@@ -15,9 +15,13 @@ import Colors from "../Colors/Colors";
 
 const { width, height } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.33;
-
+/**
+ * This component fetches and displays a list of favorite movies and TV shows.
+ *
+ * @returns  {JSX.Element} A component that displays a list of favorite movies and TV shows.
+ */
 const FavoritesList = () => {
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState({ movies: [], tvShows: [] });
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
 
@@ -25,7 +29,10 @@ const FavoritesList = () => {
     const loadFavorites = async () => {
       try {
         const response = await fetchFavorites();
-        setFavorites(response.results);
+        setFavorites({
+          movies: response.movies,
+          tvShows: response.tvShows,
+        });
         setIsLoading(false);
       } catch (error) {
         console.error("Error loading favorites:", error);
@@ -40,6 +47,10 @@ const FavoritesList = () => {
     navigation.navigate("Movie", movie);
   };
 
+  const handleTVPress = (SeriesDetails) => {
+    navigation.navigate("SeriesDetails", SeriesDetails);
+  };
+
   if (isLoading) {
     return (
       <View style={styles.emptyContainer}>
@@ -48,42 +59,84 @@ const FavoritesList = () => {
     );
   }
 
-  if (!favorites || favorites.length === 0) {
+  if (
+    (!favorites.movies || favorites.movies.length === 0) &&
+    (!favorites.tvShows || favorites.tvShows.length === 0)
+  ) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>No favorite movies yet</Text>
+        <Text style={styles.emptyText}>No favorites yet</Text>
       </View>
     );
   }
 
   return (
     <View>
-      <Text style={styles.titleText}>Movie Favorites</Text>
-      <FlatList
-        data={favorites}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableWithoutFeedback onPress={() => handleMoviePress(item)}>
-            <View style={styles.movieCard}>
-              <Image
-                source={{ uri: image185(item.poster_path) }}
-                style={styles.poster}
-                resizeMode="cover"
-              />
-              <View style={styles.infoContainer}>
-                <Text style={styles.title} numberOfLines={2}>
-                  {item?.title && item.title.length > 14
-                    ? `${item.title.slice(0, 14)}...`
-                    : item?.title}
-                </Text>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-        )}
-        contentContainerStyle={{ paddingHorizontal: 15 }}
-      />
+      {favorites.movies.length > 0 && (
+        <>
+          <Text style={styles.titleText}>Movie Favorites</Text>
+          <FlatList
+            data={favorites.movies}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <TouchableWithoutFeedback onPress={() => handleMoviePress(item)}>
+                <View style={styles.movieCard}>
+                  <Image
+                    source={{
+                      uri: image185(item.poster_path) || fallbackMoviePoster,
+                    }}
+                    style={styles.poster}
+                    resizeMode="cover"
+                  />
+                  <View style={styles.infoContainer}>
+                    <Text style={styles.title} numberOfLines={2}>
+                      {item?.title && item.title.length > 14
+                        ? `${item.title.slice(0, 14)}...`
+                        : item?.title}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+            )}
+            contentContainerStyle={{ paddingHorizontal: 15 }}
+          />
+        </>
+      )}
+
+      {favorites.tvShows.length > 0 && (
+        <>
+          <Text style={styles.titleText}>TV Show Favorites</Text>
+          <FlatList
+            data={favorites.tvShows}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <TouchableWithoutFeedback onPress={() => handleTVPress(item)}>
+                <View style={styles.movieCard}>
+                  <Image
+                    source={{
+                      uri: image185(item.poster_path) || fallbackMoviePoster,
+                    }}
+                    style={styles.poster}
+                    resizeMode="cover"
+                  />
+                  <View style={styles.infoContainer}>
+                    <Text style={styles.title} numberOfLines={2}>
+                      {item?.name && item.name.length > 14
+                        ? `${item.name.slice(0, 14)}...`
+                        : item?.name}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+            )}
+            contentContainerStyle={{ paddingHorizontal: 15 }}
+          />
+        </>
+      )}
     </View>
   );
 };

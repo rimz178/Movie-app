@@ -13,7 +13,7 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import MovieRating from "../components/MovieRating";
+import CustomRating from "../components/CustomRating";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
 import {
@@ -67,7 +67,9 @@ export default function MovieScreen() {
   };
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
-    if (data) setMovie(data);
+    if (data) {
+      setMovie(data);
+    }
     setLoading(false);
   };
 
@@ -96,9 +98,8 @@ export default function MovieScreen() {
   const fetchFavoriteStatus = async (movieId) => {
     try {
       const favorites = await fetchFavorites();
-      const isMovieFavorite = favorites.results.some(
-        (favorite) => favorite.id === movieId,
-      );
+      const isMovieFavorite =
+        favorites.movies?.some((favorite) => favorite.id === movieId) || false;
       setIsFavorite(isMovieFavorite);
     } catch (error) {
       console.error("Error fetching favorite status:", error);
@@ -107,7 +108,11 @@ export default function MovieScreen() {
   const handleToggleFavorite = async () => {
     try {
       const newFavoriteStatus = !isFavorite;
-      const response = await toggleFavorite(movie.id, newFavoriteStatus);
+      const response = await toggleFavorite(
+        movie.id,
+        newFavoriteStatus,
+        "movie",
+      );
       Alert.alert(
         "Favorites",
         newFavoriteStatus
@@ -155,7 +160,13 @@ export default function MovieScreen() {
                 </TouchableOpacity>
               </View>
               <View style={{ marginTop: 10 }}>
-                <MovieRating movieId={movie.id} sessionId={userSessionId} />
+                {movie?.id && (
+                  <CustomRating
+                    id={movie.id}
+                    sessionId={userSessionId}
+                    type="movie"
+                  />
+                )}
                 <Text style={styles.titletext}>{movie?.title}</Text>
                 {movie?.id ? (
                   <Text style={styles.textStatus}>
