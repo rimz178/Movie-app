@@ -67,7 +67,9 @@ export default function MovieScreen() {
   };
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
-    if (data) setMovie(data);
+    if (data) {
+      setMovie(data);
+    }
     setLoading(false);
   };
 
@@ -158,11 +160,13 @@ export default function MovieScreen() {
                 </TouchableOpacity>
               </View>
               <View style={{ marginTop: 10 }}>
-                <CustomRating
-                  movieId={movie.id}
-                  sessionId={userSessionId}
-                  type="movie"
-                />
+                {movie?.id && (
+                  <CustomRating
+                    id={movie.id}
+                    sessionId={userSessionId}
+                    type="movie"
+                  />
+                )}
                 <Text style={styles.titletext}>{movie?.title}</Text>
                 {movie?.id ? (
                   <Text style={styles.textStatus}>

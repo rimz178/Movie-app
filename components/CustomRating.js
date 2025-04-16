@@ -16,6 +16,11 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
+    if (!id) {
+      console.error("Error: ID is missing!");
+      return;
+    }
+
     const fetchRating = async () => {
       if (sessionId && id) {
         const savedRating =
@@ -25,6 +30,7 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
         setRating(savedRating / 2);
       }
     };
+
     fetchRating();
   }, [id, sessionId, type]);
 
