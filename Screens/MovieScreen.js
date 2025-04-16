@@ -13,7 +13,7 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import MovieRating from "../components/MovieRating";
+import CustomRating from "../components/CustomRating";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
 import {
@@ -97,7 +97,7 @@ export default function MovieScreen() {
     try {
       const favorites = await fetchFavorites();
       const isMovieFavorite =
-        favorites.movies?.some((favorite) => favorite.id === movieId) || false; // Tarkista oikea kenttä
+        favorites.movies?.some((favorite) => favorite.id === movieId) || false;
       setIsFavorite(isMovieFavorite);
     } catch (error) {
       console.error("Error fetching favorite status:", error);
@@ -158,7 +158,11 @@ export default function MovieScreen() {
                 </TouchableOpacity>
               </View>
               <View style={{ marginTop: 10 }}>
-                <MovieRating movieId={movie.id} sessionId={userSessionId} />
+                <CustomRating
+                  movieId={movie.id}
+                  sessionId={userSessionId}
+                  type="movie"
+                />
                 <Text style={styles.titletext}>{movie?.title}</Text>
                 {movie?.id ? (
                   <Text style={styles.textStatus}>

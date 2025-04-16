@@ -20,10 +20,12 @@ import {
 } from "../Api/ApiParsing";
 import Colors from "../Colors/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
 import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
+import CustomRating from "../components/CustomRating";
 const { width, height } = Dimensions.get("window");
 
 /**
@@ -39,6 +41,7 @@ export default function SeriesDetailScreen() {
   const [cast, setCast] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [watchProviders, setWatchProviders] = useState([]);
+  const [userSessionId, setUserSessionId] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -46,7 +49,19 @@ export default function SeriesDetailScreen() {
     getSeriesCredits(series.id);
     getSeriesWatchProviders(series.id);
     fetchFavoriteStatus(series.id);
+    fetchUserSessionId();
   }, [series.id]);
+
+  const fetchUserSessionId = async () => {
+    try {
+      const sessionId = await AsyncStorage.getItem("session_id");
+      if (sessionId) {
+        setUserSessionId(sessionId);
+      }
+    } catch (error) {
+      console.error("Error fetching session ID:", error);
+    }
+  };
 
   const getSeriesDetails = async (id) => {
     const data = await fetchSeriesDetails(id);
@@ -140,6 +155,11 @@ export default function SeriesDetailScreen() {
                 </TouchableOpacity>
               </View>
               <View style={{ marginTop: 10 }}>
+                <CustomRating
+                  id={seriesDetails.id}
+                  sessionId={userSessionId}
+                  type="tv"
+                />
                 <Text style={styles.title}>{seriesDetails?.name}</Text>
                 {series?.id ? (
                   <Text style={styles.textStatus}>
