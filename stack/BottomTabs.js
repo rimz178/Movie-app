@@ -45,8 +45,8 @@ export default function BottomTabs(route) {
 
           if (route.name === "Home") {
             iconName = "home";
-          } else if (route.name === "Favorites") {
-            iconName = "heart";
+          } else if (route.name === "MyLists") {
+            iconName = "list";
           } else if (route.name === "Search") {
             iconName = "search";
           } else if (route.name === "Settings" || route.name === "Login") {
@@ -89,10 +89,10 @@ export default function BottomTabs(route) {
       />
       {!isGuest && (
         <Tab.Screen
-          name="Favorites"
+          name="MyLists"
           component={FavoriteScreen}
           options={{
-            title: "My Favorites",
+            title: "Favorites & Rated",
           }}
         />
       )}
