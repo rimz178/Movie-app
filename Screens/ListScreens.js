@@ -5,7 +5,7 @@ import Colors from "../Colors/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import MovieRatingList from "../components/MovieRatingList";
 import TvRatingList from "../components/TvRatingList";
-import Loading from "../components/Loading"; // Importoidaan Loading-komponentti
+import Loading from "../components/Loading"; 
 
 /**
  *  FavoritesScreen component displays the user's favorite movies and TV shows,
