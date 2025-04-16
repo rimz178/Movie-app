@@ -23,4 +23,9 @@ Katso lyhyt esittely sovelluksesta:
 ## API
 Sovellus hyödyntää [The Movie Database (TMDb)](https://www.themoviedb.org/) -rajapintaa elokuvien tietojen hakemiseen.
 
+## Teknologiat
+- **React Native**: Sovelluksen kehitysalusta.
+- **Expo**: Sovelluksen kehitys- ja testausympäristö.
+- **AsyncStorage**: Käyttäjätietojen tallentamiseen paikallisesti.
+- **Ionicons**: Kuvakkeiden näyttämiseen käyttöliittymässä.
 
