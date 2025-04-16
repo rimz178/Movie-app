@@ -91,19 +91,33 @@ export async function fetchFavorites() {
     const accountData = await accountResponse.json();
     const accountId = accountData.id;
 
-    const response = await fetch(
+    const moviesResponse = await fetch(
       `${BASE_URL}/account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`,
     );
 
-    if (!response.ok) {
+    if (!moviesResponse.ok) {
       throw new Error("Failed to fetch favorites.");
     }
+    const moviesData = await moviesResponse.json();
+    const tvResponse = await fetch(
+      `${BASE_URL}/account/${accountId}/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}`,
+    );
 
-    return await response.json();
+    if (!tvResponse.ok) {
+      throw new Error("Failed to fetch favorite TV shows.");
+    }
+
+    const tvData = await tvResponse.json();
+
+    // Return both movies and TV shows
+    return {
+      movies: moviesData.results || [],
+      tvShows: tvData.results || [],
+    };
   } catch (error) {
     if (error.message !== "User is not logged in.") {
       console.error("Error fetching favorites:", error);
     }
-    return { results: [] };
+    return { movies: [], tvShows: [] };
   }
 }
