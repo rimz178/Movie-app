@@ -20,13 +20,14 @@ async function getSessionId() {
 }
 
 /**
- * Toggles a movie as a favorite on TMDb.
+ * Toggles a media item as a favorite on TMDb.
  *
- * @param {number} movieId - The ID of the movie.
- * @param {boolean} favorite - Whether to add or remove the movie from favorites.
+ * @param {number} mediaId - The ID of the media item.
+ * @param {boolean} favorite - Whether to add or remove the media item from favorites.
+ * @param {string} mediaType - The type of media ("movie" or "tv").
  * @returns {Promise<object>} - The response from the TMDb API.
  */
-export async function toggleFavorite(movieId, favorite) {
+export async function toggleFavorite(mediaId, favorite, mediaType = "movie") {
   try {
     const sessionId = await getSessionId();
 
@@ -49,8 +50,8 @@ export async function toggleFavorite(movieId, favorite) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          media_type: "movie",
-          media_id: movieId,
+          media_type: mediaType,
+          media_id: mediaId,
           favorite: favorite,
         }),
       },
@@ -109,7 +110,6 @@ export async function fetchFavorites() {
 
     const tvData = await tvResponse.json();
 
-    // Return both movies and TV shows
     return {
       movies: moviesData.results || [],
       tvShows: tvData.results || [],

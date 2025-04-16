@@ -7,7 +7,10 @@ import {
   Image,
   FlatList,
   SafeAreaView,
+  Alert,
+  TouchableOpacity,
 } from "react-native";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {
   fetchSeriesDetails,
   fetchSeriesCredits,
@@ -20,7 +23,9 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import Loading from "../components/Loading";
 import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
+import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 const { width, height } = Dimensions.get("window");
+
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *
@@ -32,6 +37,7 @@ export default function SeriesDetailScreen() {
   const [loading, setLoading] = useState(true);
   const [seriesDetails, setSeriesDetails] = useState({});
   const [cast, setCast] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [watchProviders, setWatchProviders] = useState([]);
 
   useEffect(() => {
@@ -39,6 +45,7 @@ export default function SeriesDetailScreen() {
     getSeriesDetails(series.id);
     getSeriesCredits(series.id);
     getSeriesWatchProviders(series.id);
+    fetchFavoriteStatus(series.id);
   }, [series.id]);
 
   const getSeriesDetails = async (id) => {
@@ -68,6 +75,38 @@ export default function SeriesDetailScreen() {
     }
   };
 
+  const fetchFavoriteStatus = async (seriesId) => {
+    try {
+      const favorites = await fetchFavorites();
+      const isSeriesFavorite =
+        favorites.tvShows?.some((favorite) => favorite.id === seriesId) ||
+        false;
+      setIsFavorite(isSeriesFavorite);
+    } catch (error) {
+      console.error("Error fetching favorite status:", error);
+    }
+  };
+
+  const handleToggleFavorite = async () => {
+    try {
+      const newFavoriteStatus = !isFavorite;
+      const response = await toggleFavorite(series.id, newFavoriteStatus, "tv");
+      Alert.alert(
+        "Favorites",
+        newFavoriteStatus
+          ? `${seriesDetails.name} has been added to your favorites!`
+          : `${seriesDetails.name} has been removed from your favorites!`,
+      );
+      if (response.success) {
+        setIsFavorite(newFavoriteStatus);
+      } else {
+        console.error("Failed to toggle favorite:", response);
+      }
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {loading ? (
@@ -89,6 +128,16 @@ export default function SeriesDetailScreen() {
                       fallbackMoviePoster,
                   }}
                 />
+                <TouchableOpacity
+                  onPress={handleToggleFavorite}
+                  style={styles.favoriteButton}
+                >
+                  <MaterialIcons
+                    name={isFavorite ? "favorite" : "favorite-border"}
+                    size={30}
+                    color={isFavorite ? "red" : "white"}
+                  />
+                </TouchableOpacity>
               </View>
               <View style={{ marginTop: 10 }}>
                 <Text style={styles.title}>{seriesDetails?.name}</Text>
@@ -165,5 +214,13 @@ const styles = StyleSheet.create({
     width: width * 0.97,
     height: height * 0.48,
     borderRadius: 20,
+  },
+  favoriteButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: Colors.black,
+    padding: 5,
+    borderRadius: 15,
   },
 });

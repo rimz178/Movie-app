@@ -96,9 +96,8 @@ export default function MovieScreen() {
   const fetchFavoriteStatus = async (movieId) => {
     try {
       const favorites = await fetchFavorites();
-      const isMovieFavorite = favorites.results.some(
-        (favorite) => favorite.id === movieId,
-      );
+      const isMovieFavorite =
+        favorites.movies?.some((favorite) => favorite.id === movieId) || false; // Tarkista oikea kenttä
       setIsFavorite(isMovieFavorite);
     } catch (error) {
       console.error("Error fetching favorite status:", error);
@@ -107,7 +106,11 @@ export default function MovieScreen() {
   const handleToggleFavorite = async () => {
     try {
       const newFavoriteStatus = !isFavorite;
-      const response = await toggleFavorite(movie.id, newFavoriteStatus);
+      const response = await toggleFavorite(
+        movie.id,
+        newFavoriteStatus,
+        "movie",
+      );
       Alert.alert(
         "Favorites",
         newFavoriteStatus
