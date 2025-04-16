@@ -8,8 +8,8 @@ import TvRatingList from "../components/TvRatingList";
 import Loading from "../components/Loading"; 
 
 /**
- *  FavoritesScreen component displays the user's favorite movies and TV shows,
- *  as well as their rated movies and TV shows.
+ * ListScreens component displays the user's favorite movies and TV shows,
+ * as well as their rated movies and TV shows.
  * @returns {JSX.Element} - The favorites screen.
  */
 const ListScreens = ({ sessionId }) => {
