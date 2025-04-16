@@ -68,7 +68,6 @@ const FavoritesList = () => {
 
   return (
     <View>
-      {/* Movie Favorites */}
       {favorites.movies.length > 0 && (
         <>
           <Text style={styles.titleText}>Movie Favorites</Text>
