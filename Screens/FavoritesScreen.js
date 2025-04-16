@@ -14,7 +14,7 @@ import Loading from "../components/Loading"; // Importoidaan Loading-komponentti
  */
 const FavoritesScreen = ({ sessionId }) => {
   const [refresh, setRefresh] = useState(false);
-  const [loading, setLoading] = useState(true); // Lisätään loading-tila
+  const [loading, setLoading] = useState(true); 
 
   useFocusEffect(
     useCallback(() => {
