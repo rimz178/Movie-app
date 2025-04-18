@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 
 /**
  * GuestHome component for non-logged-in users.

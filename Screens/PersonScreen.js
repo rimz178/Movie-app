@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
 const { width, height } = Dimensions.get("window");
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
 import {

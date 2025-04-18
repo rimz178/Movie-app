@@ -9,7 +9,7 @@ import LoginScreen from "../Screens/LoginScreens";
 import GuestHome from "../Screens/GuestHome";
 import BottomTabs from "./BottomTabs";
 import SeriesHomeScreen from "../Screens/SeriesHomeScreen";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import SeriesDetailScreen from "../Screens/SeriesDetailScreen";
 const Stack = createStackNavigator();
 

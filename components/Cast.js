@@ -8,7 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import React from "react";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 
 const { width, height } = Dimensions.get("window");

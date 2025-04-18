@@ -11,7 +11,7 @@ import {
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { fetchFavorites } from "../Api/Favorites";
 import { useNavigation } from "@react-navigation/native";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 
 const { width, height } = Dimensions.get("window");
 const ITEM_WIDTH = width * 0.33;

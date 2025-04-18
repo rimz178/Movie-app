@@ -11,7 +11,7 @@ import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { getRatedTvShows } from "../Api/RatingApi";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 
 /**
  * TvRatingList component fetches and displays a list of rated TV shows.

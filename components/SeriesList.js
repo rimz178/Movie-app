@@ -8,7 +8,7 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import FavoritesList from "../components/FavoriteList";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import MovieRatingList from "../components/MovieRatingList";
 import TvRatingList from "../components/TvRatingList";

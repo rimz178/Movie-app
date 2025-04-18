@@ -1,7 +1,7 @@
 import { View, Text, Dimension, StyleSheet } from "react-native";
 import React from "react";
 import * as Progress from "react-native-progress";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 
 /**
  * Loading component that displays a loading spinner.

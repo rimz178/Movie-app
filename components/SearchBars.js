@@ -22,7 +22,7 @@ import {
 } from "../Api/ApiParsing";
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 
 const { width, height } = Dimensions.get("window");
 /**

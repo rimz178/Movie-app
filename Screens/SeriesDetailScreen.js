@@ -18,7 +18,7 @@ import {
   image500,
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, FlatList, Text, SafeAreaView, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";

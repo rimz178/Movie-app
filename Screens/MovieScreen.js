@@ -11,7 +11,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomRating from "../components/CustomRating";
 import AsyncStorage from "@react-native-async-storage/async-storage";

@@ -5,7 +5,7 @@ import HomeScreen from "../Screens/HomeScreen";
 import ListScreens from "../Screens/ListScreens";
 import SearchBars from "../components/SearchBars";
 import SettingsScreen from "../Screens/SettingsScreen";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import LoginScreen from "../Screens/LoginScreens";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";

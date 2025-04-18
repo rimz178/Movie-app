@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import React, { useCallback } from "react";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 

@@ -9,7 +9,7 @@ import {
   deleteTvRating,
   getTvRating,
 } from "../Api/RatingApi";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 
 /**

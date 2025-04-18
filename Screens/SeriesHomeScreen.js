@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";

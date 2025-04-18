@@ -8,7 +8,7 @@ import {
   Linking,
   Alert,
 } from "react-native";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import {
   fetchRequestToken,
   validateWithLogin,
