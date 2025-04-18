@@ -6,4 +6,6 @@ export default {
   bottomColor: "#595959",
   status: "#CCCCCC",
   loginButton: "#28a745",
+  red : "#FF0000",
+  segmentedBackground: "#333",
 };
