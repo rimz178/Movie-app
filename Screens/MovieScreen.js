@@ -2,16 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
-  Dimensions,
   Image,
   FlatList,
   Alert,
   SafeAreaView,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Colors from "../Styles/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomRating from "../components/CustomRating";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -26,8 +23,7 @@ import {
 import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
-
-const { width, height } = Dimensions.get("window");
+import { SharedStyles } from "../Styles/SharedStyles";
 
 /**
  * Displays detailed information about a movie, including its cast, genres, and watch providers.
@@ -129,7 +125,7 @@ export default function MovieScreen() {
     }
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={SharedStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -139,10 +135,10 @@ export default function MovieScreen() {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           renderItem={() => (
-            <View style={styles.content}>
-              <View style={styles.images}>
+            <View style={SharedStyles.content}>
+              <View style={SharedStyles.images}>
                 <Image
-                  style={styles.insideImage}
+                  style={SharedStyles.insideImage}
                   source={{
                     uri: image500(movie?.poster_path) || fallbackMoviePoster,
                     loading: "lazy",
@@ -150,7 +146,7 @@ export default function MovieScreen() {
                 />
                 <TouchableOpacity
                   onPress={handleToggleFavorite}
-                  style={styles.favoriteButton}
+                  style={SharedStyles.favoriteButton}
                 >
                   <MaterialIcons
                     name={isFavorite ? "favorite" : "favorite-border"}
@@ -167,27 +163,29 @@ export default function MovieScreen() {
                     type="movie"
                   />
                 )}
-                <Text style={styles.titletext}>{movie?.title}</Text>
+                <Text style={SharedStyles.titletext}>{movie?.title}</Text>
                 {movie?.id ? (
-                  <Text style={styles.textStatus}>
+                  <Text style={SharedStyles.textStatus}>
                     {movie?.status} • {movie?.release_date?.split("-")[0]} •
                     {movie?.runtime} min
                   </Text>
                 ) : null}
               </View>
 
-              <View style={styles.genre}>
+              <View style={SharedStyles.genre}>
                 {movie?.genres?.map((genre, index) => {
                   const dot = index + 1 !== movie.genres.length;
                   return (
-                    <Text key={genre.id} style={styles.textStatus}>
+                    <Text key={genre.id} style={SharedStyles.textStatus}>
                       {genre?.name} {dot ? "•" : null}
                     </Text>
                   );
                 })}
               </View>
 
-              <Text style={styles.descriptionText}>{movie?.overview}</Text>
+              <Text style={SharedStyles.descriptionText}>
+                {movie?.overview}
+              </Text>
 
               <Cast navigation={navigation} cast={cast} />
               <WatchProviders providers={watchProviders} />
@@ -198,58 +196,3 @@ export default function MovieScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backcolor,
-  },
-  content: {
-    padding: 15,
-    paddingHorizontal: 20,
-  },
-
-  images: {
-    marginTop: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  insideImage: {
-    width: width * 0.97,
-    height: height * 0.48,
-    borderRadius: 20,
-  },
-  titletext: {
-    fontSize: 25,
-    color: Colors.white,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  textStatus: {
-    margin: 3,
-    marginTop: 5,
-    fontSize: 15,
-    color: Colors.status,
-    textAlign: "center",
-  },
-  genre: {
-    marginTop: 5,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-
-  descriptionText: {
-    margin: 3,
-    fontSize: 15,
-    color: Colors.status,
-    textAlign: "left",
-  },
-  favoriteButton: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    backgroundColor: Colors.black,
-    padding: 5,
-    borderRadius: 15,
-  },
-});

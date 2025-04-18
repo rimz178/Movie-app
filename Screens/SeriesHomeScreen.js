@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Colors from "../Styles/Colors";
-import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
+import { SafeAreaView, Text, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
 import SegmentedTabs from "../stack/SegmentedTabs";
+import { GlobalStyles } from "../Styles/GlobalStyles";
 import {
   fetchPopularSeries,
   fetchTopRatedSeries,
@@ -77,13 +77,13 @@ function SeriesHomeScreen({ route }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={GlobalStyles.container}>
       {loading ? (
         <Loading />
       ) : (
         <>
           {isGuest && (
-            <Text style={styles.guestText}>
+            <Text style={GlobalStyles.guestText}>
               Welcome, Guest! Log in to access more features like favorites.
             </Text>
           )}
@@ -127,17 +127,4 @@ function SeriesHomeScreen({ route }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backcolor,
-    paddingBottom: 60,
-  },
-  guestText: {
-    color: "white",
-    fontSize: 16,
-    textAlign: "center",
-    marginVertical: 10,
-  },
-});
 export default SeriesHomeScreen;
