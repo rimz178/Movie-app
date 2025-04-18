@@ -1,6 +1,6 @@
 import React from "react";
-import { View,  } from "react-native";
-import { SegmentedButtons } from "react-native-paper"; 
+import { View } from "react-native";
+import { SegmentedButtons } from "react-native-paper";
 import { GlobalStyles } from "../Styles/GlobalStyles";
 
 export default function SegmentedTabs({ selectedTab, onTabChange }) {
@@ -25,4 +25,3 @@ export default function SegmentedTabs({ selectedTab, onTabChange }) {
     </View>
   );
 }
-

@@ -4,8 +4,8 @@ import Colors from "../Styles/Colors";
 export const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.backcolor,  
-    paddingBottom: 60
+    backgroundColor: Colors.backcolor,
+    paddingBottom: 60,
   },
   titleText: {
     fontSize: 20,
