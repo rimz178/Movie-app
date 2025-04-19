@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Alert, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Alert, TouchableOpacity } from "react-native";
 import { Rating } from "react-native-ratings";
 import {
   submitRating,
@@ -9,9 +9,9 @@ import {
   deleteTvRating,
   getTvRating,
 } from "../Api/RatingApi";
-import Colors from "../Colors/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import { RatingStyles } from "../Styles/RatingStyles";
+import Colors from "../Styles/Colors";
 /**
  * CustomRating component allows users to rate movies or TV shows.
  * It fetches the current rating from the API and allows users to submit or remove their rating.
@@ -87,12 +87,12 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.ratingContainer}>
+    <View style={RatingStyles.container}>
+      <View style={RatingStyles.ratingContainer}>
         {rating > 0 && (
           <TouchableOpacity
             onPress={handleRemoveRating}
-            style={styles.removeButton}
+            style={RatingStyles.removeButton}
           >
             <MaterialIcons
               name="remove-circle"
@@ -107,34 +107,13 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
           imageSize={24}
           startingValue={rating}
           onFinishRating={handleRating}
-          style={styles.rating}
+          style={RatingStyles.rating}
           tintColor={Colors.backcolor}
         />
       </View>
-      {rating > 0 && <Text style={styles.ratingText}>{rating * 2}/10</Text>}
+      {rating > 0 && (
+        <Text style={RatingStyles.ratingText}>{rating * 2}/10</Text>
+      )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    marginVertical: 5,
-  },
-  ratingContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  rating: {
-    backgroundColor: "transparent",
-  },
-  ratingText: {
-    color: Colors.white,
-    fontSize: 14,
-    marginTop: 5,
-  },
-  removeButton: {
-    marginLeft: 10,
-    padding: 5,
-  },
-});

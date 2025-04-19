@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  Dimensions,
   StyleSheet,
   Image,
   FlatList,
@@ -18,7 +17,7 @@ import {
   image500,
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
@@ -26,8 +25,7 @@ import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
-const { width, height } = Dimensions.get("window");
-
+import { SharedStyles } from "../Styles/SharedStyles";
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *
@@ -123,7 +121,7 @@ export default function SeriesDetailScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={SharedStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -133,10 +131,10 @@ export default function SeriesDetailScreen() {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           renderItem={() => (
-            <View style={styles.content}>
-              <View style={styles.images}>
+            <View style={SharedStyles.content}>
+              <View style={SharedStyles.images}>
                 <Image
-                  style={styles.insideImage}
+                  style={SharedStyles.insideImage}
                   source={{
                     uri:
                       image500(seriesDetails?.backdrop_path) ||
@@ -145,7 +143,7 @@ export default function SeriesDetailScreen() {
                 />
                 <TouchableOpacity
                   onPress={handleToggleFavorite}
-                  style={styles.favoriteButton}
+                  style={SharedStyles.favoriteButton}
                 >
                   <MaterialIcons
                     name={isFavorite ? "favorite" : "favorite-border"}
@@ -160,9 +158,9 @@ export default function SeriesDetailScreen() {
                   sessionId={userSessionId}
                   type="tv"
                 />
-                <Text style={styles.title}>{seriesDetails?.name}</Text>
+                <Text style={SharedStyles.title}>{seriesDetails?.name}</Text>
                 {series?.id ? (
-                  <Text style={styles.textStatus}>
+                  <Text style={SharedStyles.textStatus}>
                     {seriesDetails?.status} •{" "}
                     {seriesDetails?.first_air_date?.split("-")[0]} •
                     {seriesDetails?.number_of_seasons} Seasons •{" "}
@@ -170,15 +168,15 @@ export default function SeriesDetailScreen() {
                   </Text>
                 ) : null}
               </View>
-              <View style={styles.genre}>
+              <View style={SharedStyles.genre}>
                 {seriesDetails?.genres?.map((genre) => (
-                  <Text key={genre.id} style={styles.textStatus}>
+                  <Text key={genre.id} style={SharedStyles.textStatus}>
                     {genre?.name}
                   </Text>
                 ))}
               </View>
               <View>
-                <Text style={styles.descriptionText}>
+                <Text style={SharedStyles.descriptionText}>
                   {seriesDetails?.overview}
                 </Text>
                 <Cast navigation={navigation} cast={cast} />
@@ -191,56 +189,3 @@ export default function SeriesDetailScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backcolor,
-  },
-  content: {
-    padding: 15,
-  },
-  textStatus: {
-    margin: 3,
-    marginTop: 5,
-    fontSize: 15,
-    color: Colors.status,
-    textAlign: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: Colors.white,
-    marginVertical: 10,
-    textAlign: "center",
-  },
-  descriptionText: {
-    margin: 3,
-    fontSize: 15,
-    color: Colors.status,
-    textAlign: "left",
-  },
-  genre: {
-    marginTop: 5,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  images: {
-    marginTop: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  insideImage: {
-    width: width * 0.97,
-    height: height * 0.48,
-    borderRadius: 20,
-  },
-  favoriteButton: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    backgroundColor: Colors.black,
-    padding: 5,
-    borderRadius: 15,
-  },
-});
