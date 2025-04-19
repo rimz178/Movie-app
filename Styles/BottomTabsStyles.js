@@ -5,7 +5,7 @@ export const BottomTabsStyles = StyleSheet.create({
   tabBar: {
     backgroundColor: Colors.backcolor,
     borderTopWidth: 0,
-    height: 60,
+    height: 65,
     paddingBottom: 20,
     elevation: 0,
     borderTopColor: "transparent",
