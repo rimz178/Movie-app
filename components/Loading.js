@@ -1,8 +1,8 @@
-import { View, Text, Dimension, StyleSheet } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import * as Progress from "react-native-progress";
 import Colors from "../Styles/Colors";
-
+import { GlobalStyles } from "../Styles/GlobalStyles";
 /**
  * Loading component that displays a loading spinner.
  *
@@ -10,16 +10,8 @@ import Colors from "../Styles/Colors";
  */
 export default function Loading() {
   return (
-    <View style={styles.container}>
+    <View style={GlobalStyles.loadingContainer}>
       <Progress.CircleSnail thickness={12} size={160} color={Colors.white} />
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

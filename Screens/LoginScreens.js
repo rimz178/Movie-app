@@ -3,12 +3,10 @@ import {
   View,
   Text,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
   Linking,
   Alert,
 } from "react-native";
-import Colors from "../Styles/Colors";
 import {
   fetchRequestToken,
   validateWithLogin,
@@ -91,9 +89,10 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={handleGoToRegister}>
-        <Text style={LoginStyles.registerText}>No account? Create new account</Text>
+        <Text style={LoginStyles.registerText}>
+          No account? Create new account
+        </Text>
       </TouchableOpacity>
     </View>
   );
 }
-

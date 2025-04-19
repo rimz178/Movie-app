@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import Colors from "./Colors";
 
- export const LoginStyles = StyleSheet.create({
+export const LoginStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
@@ -23,9 +23,9 @@ import Colors from "./Colors";
   input: {
     width: "100%",
     height: 40,
-    backgroundColor: "#f0f0f0",
-    color: "#333333",
-    borderColor: "gray",
+    backgroundColor: Colors.status,
+    color: Colors.red,
+    borderColor: Colors.bottomColor,
     borderWidth: 1,
     marginBottom: 20,
     paddingLeft: 10,
@@ -45,12 +45,12 @@ import Colors from "./Colors";
     marginHorizontal: 5,
   },
   buttonText: {
-    color: "#ffffff",
+    color: Colors.white,
     fontSize: 16,
     fontWeight: "bold",
   },
   registerText: {
-    color: "white",
+    color: Colors.white,
     marginTop: 10,
   },
 });

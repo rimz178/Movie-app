@@ -32,4 +32,3 @@ export default function GuestHome({ navigation }) {
     </View>
   );
 }
-

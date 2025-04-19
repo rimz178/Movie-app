@@ -5,13 +5,12 @@ import {
   FlatList,
   Image,
   TouchableWithoutFeedback,
-  StyleSheet,
 } from "react-native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { getRatedTvShows } from "../Api/RatingApi";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Colors from "../Styles/Colors";
+import { RatingListStyles } from "../Styles/RatingListStyles";
 
 /**
  * TvRatingList component fetches and displays a list of rated TV shows.
@@ -65,40 +64,40 @@ const TvRatingList = () => {
 
   if (error) {
     return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>{error}</Text>
+      <View style={RatingListStyles.errorContainer}>
+        <Text style={RatingListStyles.errorText}>{error}</Text>
       </View>
     );
   }
 
   if (ratedTvShows.length === 0) {
     return (
-      <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>No rated TV shows</Text>
+      <View style={RatingListStyles.emptyContainer}>
+        <Text style={RatingListStyles.emptyText}>No rated TV shows</Text>
       </View>
     );
   }
 
   return (
     <View>
-      <Text style={styles.titleText}>Rated Tv-series</Text>
+      <Text style={RatingListStyles.titleText}>Rated Tv-series</Text>
       <FlatList
         data={ratedTvShows}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={RatingListStyles.listContainer}
         renderItem={({ item }) => (
           <TouchableWithoutFeedback onPress={() => handleTvPress(item)}>
-            <View style={styles.card}>
+            <View style={RatingListStyles.card}>
               <Image
                 source={{
                   uri: image185(item.poster_path) || fallbackMoviePoster,
                 }}
-                style={styles.poster}
+                style={RatingListStyles.poster}
                 resizeMode="cover"
               />
-              <Text style={styles.title} numberOfLines={1}>
+              <Text style={RatingListStyles.title} numberOfLines={1}>
                 {item.name}
               </Text>
             </View>
@@ -108,58 +107,5 @@ const TvRatingList = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  errorContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#000",
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: Colors.white,
-    padding: 15,
-  },
-  errorText: {
-    color: "red",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#000",
-  },
-  emptyText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  listContainer: {
-    paddingHorizontal: 10,
-  },
-  card: {
-    width: 120,
-    marginHorizontal: 5,
-    backgroundColor: "#1c1c1c",
-    borderRadius: 8,
-    overflow: "hidden",
-    elevation: 5,
-  },
-  poster: {
-    width: "100%",
-    height: 180,
-  },
-  title: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    padding: 5,
-  },
-});
 
 export default TvRatingList;

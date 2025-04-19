@@ -36,4 +36,10 @@ export const GlobalStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  loadingContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
