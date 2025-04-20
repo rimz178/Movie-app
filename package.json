@@ -4,6 +4,12 @@
   "description": "@rimz178/ Riku Mikkonen",
   "main": "App.js",
   "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "build-android": "eas build --platform android",
+    "build-ios": "eas build --platform ios",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
