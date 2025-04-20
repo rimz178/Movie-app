@@ -38,7 +38,8 @@ export const SearchStyles = StyleSheet.create({
   resultText: {
     fontSize: 20,
     color: Colors.white,
-    marginLeft: 20,
+    marginLeft: 2,
+    padding: 2,
   },
   otherText: {
     color: Colors.white,
@@ -47,6 +48,7 @@ export const SearchStyles = StyleSheet.create({
     width: (width - 60) / 2,
     height: ((width - 60) / 2) * 1.5,
     margin: 2,
+    marginLeft: 5,
     borderRadius: 10,
     overflow: "hidden",
     padding: 5,
