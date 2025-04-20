@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.edie17.MovieApp",
@@ -30,11 +32,17 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "owner": "edie17",
     "extra": {
       "eas": {
-        "projectId": "2407b058-f8ba-4eca-9ae8-bd740eb04039"
+        "projectId": "714a627c-2519-4b13-acaf-3dfc48f8158a"
       }
     },
-    "owner": "edie17"
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/714a627c-2519-4b13-acaf-3dfc48f8158a"
+    }
   }
 }
