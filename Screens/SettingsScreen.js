@@ -1,20 +1,19 @@
 import React from "react";
-import { View, Button, Alert, SafeAreaView } from "react-native";
+import { TouchableOpacity, SafeAreaView, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { SettingsStyles } from "../Styles/SettingsStyles";
 
 /**
  * SettingsScreen component for managing user settings.
  *
- * @returns {JSX.Element} - The settings screen with a logout button.
+ * @returns {JSX.Element} - The settings screen with a logout button and text.
  */
 export default function SettingsScreen() {
   const navigation = useNavigation();
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("session_id");
-
-    Alert.alert("Logged out", "You have been logged out.");
     navigation.reset({
       index: 0,
       routes: [{ name: "Login" }],
@@ -22,9 +21,11 @@ export default function SettingsScreen() {
   };
 
   return (
-    <SafeAreaView>
-      <View>
-        <Button title="Logout" onPress={handleLogout} />
+    <SafeAreaView style={SettingsStyles.container}>
+      <View style={SettingsStyles.row}>
+        <TouchableOpacity style={SettingsStyles.button} onPress={handleLogout}>
+          <Text style={SettingsStyles.buttonText}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

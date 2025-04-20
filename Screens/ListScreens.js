@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from "react";
-import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { View, SafeAreaView, FlatList } from "react-native";
 import FavoritesList from "../components/FavoriteList";
-import Colors from "../Colors/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import MovieRatingList from "../components/MovieRatingList";
 import TvRatingList from "../components/TvRatingList";
-import Loading from "../components/Loading"; 
-
+import Loading from "../components/Loading";
+import { GlobalStyles } from "../Styles/GlobalStyles";
 /**
  * ListScreens component displays the user's favorite movies and TV shows,
  * as well as their rated movies and TV shows.
@@ -24,7 +23,7 @@ const ListScreens = ({ sessionId }) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={GlobalStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -49,12 +48,5 @@ const ListScreens = ({ sessionId }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backcolor,
-  },
-});
 
 export default ListScreens;

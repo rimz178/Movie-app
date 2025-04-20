@@ -8,11 +8,10 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import React, { useCallback } from "react";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
-
-const { width, height } = Dimensions.get("window");
+import { UpcomingStyles } from "../Styles/UpcomingStyles";
 
 /**
  * UpcomingMovies component that displays a horizontal list of upcoming movies.
@@ -31,7 +30,7 @@ export default function UpcomingMovies({ data }) {
 
   return (
     <View>
-      <Text style={styles.text}>Upcoming Movies</Text>
+      <Text style={UpcomingStyles.text}>Upcoming Movies</Text>
       <FlatList
         layout="default"
         data={data}
@@ -56,24 +55,8 @@ const Movie = ({ item, handleClick }) => {
           uri: image500(item.poster_path) || fallbackMoviePoster,
           loading: "lazy",
         }}
-        style={styles.itemImg}
+        style={UpcomingStyles.itemImg}
       />
     </TouchableWithoutFeedback>
   );
 };
-const styles = StyleSheet.create({
-  itemImg: {
-    margin: 5,
-    padding: 5,
-    width: width * 0.6,
-    height: height * 0.4,
-    borderRadius: 20,
-    alignItems: "center",
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: Colors.white,
-    padding: 20,
-  },
-});

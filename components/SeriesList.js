@@ -2,17 +2,14 @@ import React, { useCallback } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   FlatList,
   TouchableWithoutFeedback,
   Image,
-  Dimensions,
 } from "react-native";
-import Colors from "../Colors/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
+import { ListStyles } from "../Styles/ListStyles";
 
-const { width, height } = Dimensions.get("window");
 /**
  * MovieList component that displays a horizontal list of movies.
  *
@@ -34,12 +31,12 @@ export default function SeriesList({ title, data }) {
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <View>
           <Image
-            style={styles.image}
+            style={ListStyles.image}
             source={{
               uri: image185(item.poster_path) || fallbackMoviePoster,
             }}
           />
-          <Text style={styles.text}>
+          <Text style={ListStyles.text}>
             {item?.name && item.name.length > 14
               ? `${item.name.slice(0, 14)}...`
               : item?.name}
@@ -52,7 +49,7 @@ export default function SeriesList({ title, data }) {
   return (
     <View>
       <View>
-        <Text style={styles.titletext}>{title}</Text>
+        <Text style={ListStyles.titleText}>{title}</Text>
       </View>
       <FlatList
         horizontal
@@ -67,23 +64,3 @@ export default function SeriesList({ title, data }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titletext: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: Colors.white,
-    padding: 15,
-  },
-  text: {
-    color: Colors.white,
-    fontSize: 15,
-    padding: 10,
-  },
-  image: {
-    width: width * 0.33,
-    height: height * 0.22,
-    margin: 10,
-    borderRadius: 10,
-  },
-});

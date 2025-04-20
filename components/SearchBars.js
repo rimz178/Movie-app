@@ -22,9 +22,7 @@ import {
 } from "../Api/ApiParsing";
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Colors from "../Colors/Colors";
-
-const { width, height } = Dimensions.get("window");
+import { SearchStyles } from "../Styles/SearchStyles";
 /**
  * SearchBars component for searching movies, series and actors.
  *
@@ -112,16 +110,16 @@ export default function SearchBars() {
 
   const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
   return (
-    <View style={styles.container}>
-      <View style={styles.search}>
+    <View style={SearchStyles.container}>
+      <View style={SearchStyles.search}>
         <TextInput
-          style={styles.textinput}
+          style={SearchStyles.textinput}
           placeholder="Search"
           onChangeText={handleTextDebounce}
           placeholderTextColor="white"
         />
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <MaterialIcons style={styles.icon} size={38} name="close" />
+          <MaterialIcons style={SearchStyles.icon} size={38} name="close" />
         </TouchableOpacity>
       </View>
 
@@ -148,7 +146,7 @@ export default function SearchBars() {
             >
               <View>
                 <Image
-                  style={styles.image}
+                  style={SearchStyles.image}
                   source={{
                     uri:
                       item.media_type === "person"
@@ -156,7 +154,7 @@ export default function SearchBars() {
                         : image185(item?.poster_path) || fallbackMoviePoster,
                   }}
                 />
-                <Text style={styles.otherText}>
+                <Text style={SearchStyles.otherText}>
                   {item?.title || item?.name
                     ? (item.title || item.name).length > 22
                       ? `${(item.title || item.name).slice(0, 22)}...`
@@ -167,65 +165,14 @@ export default function SearchBars() {
             </TouchableWithoutFeedback>
           )}
           ListHeaderComponent={() => (
-            <Text style={styles.resultText}>Result ({results.length})</Text>
+            <Text style={SearchStyles.resultText}>
+              Result ({results.length})
+            </Text>
           )}
-          contentContainerStyle={styles.searchImage}
+          contentContainerStyle={SearchStyles.searchImage}
           numColumns={2}
         />
       )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backcolor,
-  },
-  search: {
-    backgroundColor: Colors.backcolor,
-    marginHorizontal: 40,
-    marginVertical: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: Colors.searchColor,
-    width: "80%",
-  },
-
-  textinput: {
-    fontSize: 20,
-    padding: 10,
-    marginLeft: 5,
-    width: "90%",
-    color: "white",
-  },
-  icon: {
-    marginRight: 10,
-    color: Colors.searchColor,
-  },
-  scorll: {
-    flex: 1,
-  },
-  resultText: {
-    fontSize: 20,
-    color: Colors.white,
-    marginLeft: 20,
-  },
-  otherText: {
-    color: Colors.white,
-  },
-  image: {
-    width: (width - 60) / 2,
-    height: ((width - 60) / 2) * 1.5,
-    margin: 2,
-    borderRadius: 10,
-    overflow: "hidden",
-    padding: 5,
-  },
-  searchImage: {
-    paddingHorizontal: 10,
-  },
-});

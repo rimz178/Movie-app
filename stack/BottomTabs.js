@@ -1,14 +1,14 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
 import HomeScreen from "../Screens/HomeScreen";
 import ListScreens from "../Screens/ListScreens";
 import SearchBars from "../components/SearchBars";
 import SettingsScreen from "../Screens/SettingsScreen";
-import Colors from "../Colors/Colors";
+import Colors from "../Styles/Colors";
 import LoginScreen from "../Screens/LoginScreens";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BottomTabsStyles } from "../Styles/BottomTabsStyles";
 
 const Tab = createBottomTabNavigator();
 
@@ -58,17 +58,8 @@ export default function BottomTabs(route) {
         tabBarActiveTintColor: Colors.buttonColor,
         tabBarInactiveTintColor: Colors.status,
         headerShown: true,
-        tabBarStyle: {
-          backgroundColor: Colors.backcolor,
-          borderTopWidth: 0,
-          height: 60,
-          paddingBottom: 10,
-          elevation: 0,
-          borderTopColor: "transparent",
-        },
-        headerStyle: {
-          backgroundColor: Colors.backcolor,
-        },
+        tabBarStyle: BottomTabsStyles.tabBar,
+        headerStyle: BottomTabsStyles.header,
         headerTintColor: Colors.white,
       })}
     >
@@ -107,12 +98,3 @@ export default function BottomTabs(route) {
     </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: "#222",
-    borderTopWidth: 0,
-    height: 60,
-    paddingBottom: 10,
-  },
-});

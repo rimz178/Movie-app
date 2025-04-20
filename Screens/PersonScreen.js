@@ -1,17 +1,7 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  Dimensions,
-  Image,
-  FlatList,
-} from "react-native";
+import { View, Text, SafeAreaView, Image, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
-const { width, height } = Dimensions.get("window");
-import Colors from "../Colors/Colors";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
 import {
@@ -20,7 +10,7 @@ import {
   fetchPersonMovies,
   image342,
 } from "../Api/ApiParsing";
-
+import { PersonStyles } from "../Styles/PersonStyles";
 /**
  * PersonScreen component that displays details about a person, including their biography and movies.
  *
@@ -50,7 +40,7 @@ export default function PersonScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={PersonStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -62,10 +52,10 @@ export default function PersonScreen() {
           showsHorizontalScrollIndicator={false}
           renderItem={() => (
             <View>
-              <View style={styles.person}>
-                <View style={styles.imageCircle}>
+              <View style={PersonStyles.person}>
+                <View style={PersonStyles.imageCircle}>
                   <Image
-                    style={styles.image}
+                    style={PersonStyles.image}
                     source={{
                       uri:
                         image342(person?.profile_path) || fallbackPersonImage,
@@ -74,45 +64,47 @@ export default function PersonScreen() {
                   />
                 </View>
               </View>
-              <View style={styles.titleContainer}>
-                <Text style={styles.title}>{person?.name}</Text>
-                <Text style={styles.textStatus}>{person?.place_of_birth}</Text>
+              <View style={PersonStyles.titleContainer}>
+                <Text style={PersonStyles.title}>{person?.name}</Text>
+                <Text style={PersonStyles.textStatus}>
+                  {person?.place_of_birth}
+                </Text>
               </View>
-              <View style={styles.cenderContainer}>
+              <View style={PersonStyles.centerContainer}>
                 {/* Cender  */}
-                <View style={styles.textContainer}>
-                  <Text style={styles.cendreText}>Gender</Text>
-                  <Text style={styles.cendres}>
+                <View style={PersonStyles.textContainer}>
+                  <Text style={PersonStyles.centreText}>Gender</Text>
+                  <Text style={PersonStyles.centres}>
                     {person?.gender === 1 ? "female" : "Male"}
                   </Text>
                 </View>
                 {/* Birthday */}
-                <Divider style={styles.divider} />
-                <View style={styles.textContainer}>
-                  <Text style={styles.cendreText}>Birthday</Text>
-                  <Text style={styles.cendres}>{person?.birthday}</Text>
+                <Divider style={PersonStyles.divider} />
+                <View style={PersonStyles.textContainer}>
+                  <Text style={PersonStyles.centreText}>Birthday</Text>
+                  <Text style={PersonStyles.centres}>{person?.birthday}</Text>
                 </View>
                 {/*Know for*/}
-                <Divider style={styles.divider} />
-                <View style={styles.textContainer}>
-                  <Text style={styles.cendreText}>Known for</Text>
-                  <Text style={styles.cendres}>
+                <Divider style={PersonStyles.divider} />
+                <View style={PersonStyles.textContainer}>
+                  <Text style={PersonStyles.centreText}>Known for</Text>
+                  <Text style={PersonStyles.centres}>
                     {person?.known_for_department}
                   </Text>
                 </View>
                 {/* Popularity */}
-                <Divider style={styles.divider} />
-                <View style={styles.textContainer}>
-                  <Text style={styles.cendreText}>Popularity</Text>
-                  <Text style={styles.cendres}>
+                <Divider style={PersonStyles.divider} />
+                <View style={PersonStyles.textContainer}>
+                  <Text style={PersonStyles.centreText}>Popularity</Text>
+                  <Text style={PersonStyles.centres}>
                     {person?.popularity?.toFixed(2)}%
                   </Text>
                 </View>
-                <Divider style={styles.divider} />
+                <Divider style={PersonStyles.divider} />
               </View>
-              <View style={styles.bioGraphyContainter}>
-                <Text style={styles.bioGraphyTitle}>Biography</Text>
-                <Text style={styles.bioGraphyText}>
+              <View style={PersonStyles.bioGraphyContainter}>
+                <Text style={PersonStyles.bioGraphyTitle}>Biography</Text>
+                <Text style={PersonStyles.bioGraphyText}>
                   {person?.biography || "N/A"}
                 </Text>
               </View>
@@ -125,98 +117,3 @@ export default function PersonScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 50,
-    paddingTop: 30,
-    paddingHorizontal: 20,
-    backgroundColor: Colors.backcolor,
-  },
-  person: {
-    flexDirection: "row",
-    justifyContent: "center",
-    padding: 15,
-  },
-
-  imageCircle: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: (height * 0.3) / 2,
-    overflow: "hidden",
-  },
-
-  image: {
-    height: height * 0.3,
-    width: width * 0.63,
-    resizeMode: "cover",
-    borderRadius: (height * 0.3) / 2,
-  },
-  titleContainer: {
-    alignItems: "center",
-    padding: 10,
-  },
-
-  title: {
-    fontSize: 25,
-    color: Colors.white,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  textStatus: {
-    margin: 3,
-    marginTop: 5,
-    fontSize: 15,
-    color: Colors.status,
-    textAlign: "center",
-  },
-  cenderContainer: {
-    flexDirection: "row",
-    overflow: "hidden",
-    backgroundColor: Colors.searchColor,
-    borderRadius: 25,
-    padding: 20,
-  },
-
-  divider: {
-    height: "100%",
-    width: 1,
-    marginRight: 10,
-  },
-  textContainer: {
-    marginRight: 5,
-  },
-  cendreText: {
-    marginRight: 10,
-    marginStart: 5,
-    fontSize: 15,
-    textAlign: "justify",
-    color: Colors.white,
-    fontWeight: "600",
-  },
-
-  cendres: {
-    marginStart: 5,
-    fontSize: 13,
-    color: Colors.status,
-  },
-  bioGraphyContainter: {
-    flexDirection: "column",
-    fontWeight: "600",
-    marginStart: 5,
-    marginTop: 30,
-  },
-  bioGraphyTitle: {
-    fontSize: 17,
-    color: Colors.white,
-    fontWeight: "bold",
-  },
-  bioGraphyText: {
-    fontSize: 15,
-    margin: 3,
-    color: Colors.white,
-    fontWeight: "200",
-    marginTop: 10,
-  },
-});
