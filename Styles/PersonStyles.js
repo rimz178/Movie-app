@@ -87,6 +87,7 @@ export const PersonStyles = StyleSheet.create({
     fontSize: 17,
     color: Colors.white,
     fontWeight: "bold",
+    paddingHorizontal: 15,
   },
   bioGraphyText: {
     fontSize: 15,
@@ -94,5 +95,6 @@ export const PersonStyles = StyleSheet.create({
     color: Colors.white,
     fontWeight: "200",
     marginTop: 10,
+    paddingHorizontal: 15,
   },
 });
