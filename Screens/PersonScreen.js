@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
 import MovieList from "../components/MovieList";
+import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
 import {
   fallbackPersonImage,
   fetchPersonDetails,
   fetchPersonMovies,
+  fetchPersonSeries,
   image342,
 } from "../Api/ApiParsing";
 import { PersonStyles } from "../Styles/PersonStyles";
@@ -19,6 +21,7 @@ import { PersonStyles } from "../Styles/PersonStyles";
 export default function PersonScreen() {
   const { params: item } = useRoute();
   const [personMovies, setPersonMovies] = useState([]);
+  const [personSeries, setPersonSeries] = useState([]);
   const [person, setPerson] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +29,7 @@ export default function PersonScreen() {
     setLoading(true);
     getPersonDetails(item.id);
     getPersonMovies(item.id);
+    getPersonSeries(item.id);
   }, [item]);
 
   const getPersonDetails = async (id) => {
@@ -37,6 +41,10 @@ export default function PersonScreen() {
   const getPersonMovies = async (id) => {
     const data = await fetchPersonMovies(id);
     if (data?.cast) setPersonMovies(data.cast);
+  };
+  const getPersonSeries = async (id) => {
+    const data = await fetchPersonSeries(id);
+    if (data?.cast) setPersonSeries(data.cast);
   };
 
   return (
@@ -110,6 +118,9 @@ export default function PersonScreen() {
               </View>
 
               {<MovieList title={"Movies"} data={personMovies} />}
+              {personSeries.length > 0 && (
+                <SeriesList title={"TV Shows"} data={personSeries} />
+              )}
             </View>
           )}
         />
