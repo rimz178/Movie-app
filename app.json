@@ -19,7 +19,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.edie17.MovieApp",
       "jsEngine": "hermes",
-      "newArchEnabled": true
+      "newArchEnabled": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "newArchEnabled": true,
