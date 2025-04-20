@@ -70,33 +70,33 @@ export default function PersonScreen() {
                   {person?.place_of_birth}
                 </Text>
               </View>
-              <View style={PersonStyles.cenderContainer}>
+              <View style={PersonStyles.centerContainer}>
                 {/* Cender  */}
                 <View style={PersonStyles.textContainer}>
-                  <Text style={PersonStyles.cendreText}>Gender</Text>
-                  <Text style={PersonStyles.cendres}>
+                  <Text style={PersonStyles.centreText}>Gender</Text>
+                  <Text style={PersonStyles.centres}>
                     {person?.gender === 1 ? "female" : "Male"}
                   </Text>
                 </View>
                 {/* Birthday */}
                 <Divider style={PersonStyles.divider} />
                 <View style={PersonStyles.textContainer}>
-                  <Text style={PersonStyles.cendreText}>Birthday</Text>
-                  <Text style={PersonStyles.cendres}>{person?.birthday}</Text>
+                  <Text style={PersonStyles.centreText}>Birthday</Text>
+                  <Text style={PersonStyles.centres}>{person?.birthday}</Text>
                 </View>
                 {/*Know for*/}
                 <Divider style={PersonStyles.divider} />
                 <View style={PersonStyles.textContainer}>
-                  <Text style={PersonStyles.cendreText}>Known for</Text>
-                  <Text style={PersonStyles.cendres}>
+                  <Text style={PersonStyles.centreText}>Known for</Text>
+                  <Text style={PersonStyles.centres}>
                     {person?.known_for_department}
                   </Text>
                 </View>
                 {/* Popularity */}
                 <Divider style={PersonStyles.divider} />
                 <View style={PersonStyles.textContainer}>
-                  <Text style={PersonStyles.cendreText}>Popularity</Text>
-                  <Text style={PersonStyles.cendres}>
+                  <Text style={PersonStyles.centreText}>Popularity</Text>
+                  <Text style={PersonStyles.centres}>
                     {person?.popularity?.toFixed(2)}%
                   </Text>
                 </View>

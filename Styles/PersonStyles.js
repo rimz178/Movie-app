@@ -47,7 +47,7 @@ export const PersonStyles = StyleSheet.create({
     color: Colors.status,
     textAlign: "center",
   },
-  cenderContainer: {
+  centerContainer: {
     flexDirection: "row",
     overflow: "hidden",
     backgroundColor: Colors.searchColor,
@@ -63,7 +63,7 @@ export const PersonStyles = StyleSheet.create({
   textContainer: {
     marginRight: 5,
   },
-  cendreText: {
+  centreText: {
     marginRight: 10,
     marginStart: 5,
     fontSize: 15,
@@ -72,7 +72,7 @@ export const PersonStyles = StyleSheet.create({
     fontWeight: "600",
   },
 
-  cendres: {
+  centres: {
     marginStart: 5,
     fontSize: 13,
     color: Colors.status,

@@ -3,7 +3,7 @@ import Colors from "./Colors";
 const { width, height } = Dimensions.get("window");
 
 export const ListStyles = StyleSheet.create({
-  titletext: {
+  titleText: {
     fontWeight: "bold",
     fontSize: 20,
     color: Colors.white,

@@ -50,7 +50,7 @@ export default function MovieList({ title, data }) {
   return (
     <View>
       <View>
-        <Text style={ListStyles.titletext}>{title}</Text>
+        <Text style={ListStyles.titleText}>{title}</Text>
       </View>
       <FlatList
         horizontal
