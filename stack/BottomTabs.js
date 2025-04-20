@@ -98,4 +98,3 @@ export default function BottomTabs(route) {
     </Tab.Navigator>
   );
 }
-
