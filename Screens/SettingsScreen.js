@@ -23,7 +23,6 @@ export default function SettingsScreen() {
   return (
     <SafeAreaView style={SettingsStyles.container}>
       <View style={SettingsStyles.row}>
-        <Text style={SettingsStyles.logoutText}>Log out</Text>
         <TouchableOpacity style={SettingsStyles.button} onPress={handleLogout}>
           <Text style={SettingsStyles.buttonText}>Logout</Text>
         </TouchableOpacity>
