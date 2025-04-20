@@ -53,6 +53,7 @@ export const PersonStyles = StyleSheet.create({
     backgroundColor: Colors.searchColor,
     borderRadius: 25,
     padding: 20,
+    marginHorizontal: 10
   },
 
   divider: {
