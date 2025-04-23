@@ -38,7 +38,7 @@ export default function SettingsScreen() {
           <TouchableOpacity onPress={handleTMDBLink}>
             <Image
               style={SettingsStyles.tmdbLogo}
-              source={require('../assets/image/tmdp.jpg')} 
+              source={require('../assets/image/tmdb.jpg')} 
               resizeMode="contain"
             />
           </TouchableOpacity>
