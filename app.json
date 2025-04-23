@@ -13,9 +13,7 @@
       "backgroundColor": "#ffffff"
     },
 
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.edie17.MovieApp",
