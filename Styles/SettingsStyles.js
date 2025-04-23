@@ -40,5 +40,5 @@ export const SettingsStyles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: 8,
     padding: 10,
-  }
+  },
 });

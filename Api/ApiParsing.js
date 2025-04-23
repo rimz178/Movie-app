@@ -6,7 +6,6 @@ const apiKey =
   Constants.expoConfig?.extra?.TMDB_API_KEY ||
   Constants.manifest?.extra?.TMDB_API_KEY;
 
-
 const upcoming = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}&region=FI`;
 
 const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}&region=FI`;

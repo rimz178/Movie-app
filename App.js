@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { registerRootComponent } from "expo"; 
+import { registerRootComponent } from "expo";
 import "react-native-gesture-handler";
 import "react-native-url-polyfill/auto";
 

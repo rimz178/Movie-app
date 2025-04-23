@@ -2,9 +2,10 @@ import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 
-const API_KEY = Constants.extra?.TMDB_API_KEY ||
-Constants.expoConfig?.extra?.TMDB_API_KEY ||
-Constants.manifest?.extra?.TMDB_API_KEY;
+const API_KEY =
+  Constants.extra?.TMDB_API_KEY ||
+  Constants.expoConfig?.extra?.TMDB_API_KEY ||
+  Constants.manifest?.extra?.TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 /**
