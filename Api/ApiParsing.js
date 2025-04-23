@@ -1,8 +1,11 @@
 import axios from "axios";
-import { TMDB_API_KEY } from "@env";
 const apiBaseUrl = "https://api.themoviedb.org/3";
+import Constants from "expo-constants";
+const apiKey =
+  Constants.extra?.TMDB_API_KEY ||
+  Constants.expoConfig?.extra?.TMDB_API_KEY ||
+  Constants.manifest?.extra?.TMDB_API_KEY;
 
-const apiKey = TMDB_API_KEY;
 
 const upcoming = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}&region=FI`;
 

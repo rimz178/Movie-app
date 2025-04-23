@@ -1,6 +1,8 @@
-import { TMDB_API_KEY } from "@env";
+import Constants from "expo-constants";
 const apiBaseUrl = "https://api.themoviedb.org/3";
-const apiKey = TMDB_API_KEY;
+const apiKey =  Constants.extra?.TMDB_API_KEY ||
+Constants.expoConfig?.extra?.TMDB_API_KEY ||
+Constants.manifest?.extra?.TMDB_API_KEY;
 
 export const submitRating = async (
   movieId,
