@@ -20,8 +20,6 @@ export default function SettingsScreen() {
     });
   };
 
-  const handleTMDBLink = () => {
-    Linking.openURL('https://www.themoviedb.org/');
   const handleTMDBLink = async () => {
     try {
       await Linking.openURL('https://www.themoviedb.org/');
@@ -29,6 +27,7 @@ export default function SettingsScreen() {
       console.error("Failed to open URL: ", error);
       Alert.alert("Error", "Unable to open the link. Please try again later.");
     }
+  }; 
 
   return (
     <SafeAreaView style={SettingsStyles.container}>
