@@ -27,7 +27,7 @@ export default function GuestHome({ navigation }) {
         style={GuestHomeStyles.button}
         onPress={() => navigation.navigate("MainTabs", { isGuest: true })}
       >
-        <Text style={GuestHomeStyles.buttonText}>Go to Home</Text>
+        <Text style={GuestHomeStyles.buttonText}>Go to Guest home screen</Text>
       </TouchableOpacity>
     </View>
   );
