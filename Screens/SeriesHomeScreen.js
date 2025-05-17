@@ -102,14 +102,14 @@ function SeriesHomeScreen({ route }) {
                 data: trending,
               },
               {
-                key: "Top Rated Series",
-                title: "Top Rated Series",
-                data: topRated,
-              },
-              {
                 key: "On The Air Series",
                 title: "On The Air Series",
                 data: onTheAir,
+              },
+              {
+                key: "Top Rated Series",
+                title: "Top Rated Series",
+                data: topRated,
               },
               {
                 key: "Popular Series",
