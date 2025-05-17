@@ -6,19 +6,19 @@ const apiKey =
   Constants.expoConfig?.extra?.TMDB_API_KEY ||
   Constants.manifest?.extra?.TMDB_API_KEY;
 
-const upcoming = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}&region=FI`;
+const upcoming = `${apiBaseUrl}/movie/upcoming?language=en-US&api_key=${apiKey}&region=FI`;
 
-const trendingMovie = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}&region=FI`;
+const trendingMovie = `${apiBaseUrl}/trending/movie/day?language=en-US&api_key=${apiKey}&region=FI`;
 
-const topRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&region=FI`;
+const topRated = `${apiBaseUrl}/movie/top_rated?language=en-US&api_key=${apiKey}&region=FI`;
 
-const nowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&locale=FI`;
+const nowPlaying = `${apiBaseUrl}/movie/now_playing?language=en-US&api_key=${apiKey}&region=FI`;
 
-const trendingSeries = `${apiBaseUrl}/trending/tv/day?api_key=${apiKey}`;
+const trendingSeries = `${apiBaseUrl}/trending/tv/day?language=en-US&api_key=${apiKey}&region=FI`;
 
-const topRatedSeries = `${apiBaseUrl}/tv/top_rated?api_key=${apiKey}`;
+const topRatedSeries = `${apiBaseUrl}/tv/top_rated?language=en-US&api_key=${apiKey}&region=FI`;
 
-const airingTodaySeries = `${apiBaseUrl}/tv/on_the_air?api_key=${apiKey}&locale=FI`;
+const airingTodaySeries = `${apiBaseUrl}/tv/on_the_air?language=en-US&api_key=${apiKey}&region=FI`;
 
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
@@ -26,7 +26,7 @@ const searchSeriesEndpoint = `${apiBaseUrl}/search/tv?api_key=${apiKey}`;
 
 const searchPeopleEndpoint = `${apiBaseUrl}/search/person?api_key=${apiKey}`;
 
-const popularSeriesEndpoint = `${apiBaseUrl}/tv/popular?api_key=${apiKey}`;
+const popularSeriesEndpoint = `${apiBaseUrl}/tv/popular?language=en-US&api_key=${apiKey}&region=FI`;
 
 const movieDetailsEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}?api_key=${apiKey}`;
