@@ -117,8 +117,13 @@ function SeriesHomeScreen({ route }) {
                 data: popular,
               },
             ]}
+            keyExtractor={(item) => item.key}
             renderItem={({ item }) => (
-              <SeriesList title={item.title} data={item.data} />
+              <SeriesList
+                title={item.title}
+                data={item.data}
+                listIndex={index}
+              />
             )}
           />
         </>

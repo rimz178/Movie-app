@@ -54,7 +54,7 @@ export default function PersonScreen() {
       ) : (
         <FlatList
           data={[0]}
-          keyExtractor={(item, index) => `${item}-${index}`} // Lisää index varmistamaan uniikkius
+          keyExtractor={(item, index) => `${item}-${index}`}
           initialNumToRender={2}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}

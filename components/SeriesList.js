@@ -16,7 +16,7 @@ import { ListStyles } from "../Styles/ListStyles";
  * @param {string} title - The title of the movie list.
  * @param {Array} data - Array of movie objects to display.
  */
-export default function SeriesList({ title, data }) {
+export default function SeriesList({ title, data, listIndex }) {
   const navigation = useNavigation();
 
   const handleClick = useCallback(
@@ -56,7 +56,9 @@ export default function SeriesList({ title, data }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         data={data}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) =>
+          `list-${listIndex}-${title}-${item.id}-${index}`
+        }
         renderItem={renderItem}
         initialNumToRender={2}
         contentContainerStyle={{ paddingHorizontal: 15 }}

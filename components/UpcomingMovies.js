@@ -41,7 +41,7 @@ export default function UpcomingMovies({ data }) {
         )}
         horizontal
         initialNumToRender={2}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => `upcoming-${item.id.toString()}`}
       />
     </View>
   );

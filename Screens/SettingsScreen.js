@@ -1,5 +1,12 @@
 import React from "react";
-import { TouchableOpacity, SafeAreaView, Text, View, Image, Linking } from "react-native";
+import {
+  TouchableOpacity,
+  SafeAreaView,
+  Text,
+  View,
+  Image,
+  Linking,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";
@@ -22,12 +29,12 @@ export default function SettingsScreen() {
 
   const handleTMDBLink = async () => {
     try {
-      await Linking.openURL('https://www.themoviedb.org/');
+      await Linking.openURL("https://www.themoviedb.org/");
     } catch (error) {
       console.error("Failed to open URL: ", error);
       Alert.alert("Error", "Unable to open the link. Please try again later.");
     }
-  }; 
+  };
 
   return (
     <SafeAreaView style={SettingsStyles.container}>
@@ -38,12 +45,13 @@ export default function SettingsScreen() {
 
         <View style={SettingsStyles.tmdbContainer}>
           <Text style={SettingsStyles.attribution}>
-            This product uses the TMDB API but is not endorsed or certified by TMDB.
+            This product uses the TMDB API but is not endorsed or certified by
+            TMDB.
           </Text>
           <TouchableOpacity onPress={handleTMDBLink}>
             <Image
               style={SettingsStyles.tmdbLogo}
-              source={require('../assets/image/tmdb.jpg')} 
+              source={require("../assets/image/tmdb.jpg")}
               resizeMode="contain"
             />
           </TouchableOpacity>
