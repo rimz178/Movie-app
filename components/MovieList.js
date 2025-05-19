@@ -57,7 +57,7 @@ export default function MovieList({ title, data }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         data={data}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => `${title}-${item.id.toString()}`}
         renderItem={renderItem}
         initialNumToRender={2}
         contentContainerStyle={{ paddingHorizontal: 15 }}

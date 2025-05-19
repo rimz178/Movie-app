@@ -108,6 +108,7 @@ function HomeScreen({ route }) {
               { key: "trending", title: "Trending Movies", data: trending },
               { key: "topRated", title: "Top rated", data: topRated },
             ]}
+            keyExtractor={(item) => item.key}
             renderItem={({ item }) =>
               item.key === "upcoming" ? (
                 <UpcomingMovies data={item.data} />
