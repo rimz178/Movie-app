@@ -118,7 +118,7 @@ function SeriesHomeScreen({ route }) {
               },
             ]}
             keyExtractor={(item) => item.key}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <SeriesList
                 title={item.title}
                 data={item.data}
