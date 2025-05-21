@@ -1,4 +1,3 @@
-import React from "react";
 import { View } from "react-native";
 import { SegmentedButtons } from "react-native-paper";
 import { GlobalStyles } from "../Styles/GlobalStyles";
