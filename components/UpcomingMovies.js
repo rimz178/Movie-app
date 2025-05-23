@@ -1,14 +1,11 @@
 import {
   View,
-  StyleSheet,
-  Dimensions,
   Text,
   Image,
   FlatList,
   TouchableWithoutFeedback,
 } from "react-native";
-import React, { useCallback } from "react";
-import Colors from "../Styles/Colors";
+import  { useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 import { UpcomingStyles } from "../Styles/UpcomingStyles";
