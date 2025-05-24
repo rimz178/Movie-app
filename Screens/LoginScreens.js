@@ -90,7 +90,7 @@ export default function LoginScreen({ navigation }) {
       </View>
       <TouchableOpacity onPress={handleGoToRegister}>
         <Text style={LoginStyles.registerText}>
-          No account? Create new account
+          No account? Create a new account
         </Text>
       </TouchableOpacity>
     </View>
