@@ -1,13 +1,10 @@
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   Image,
   FlatList,
 } from "react-native";
-import React from "react";
-import Colors from "../Styles/Colors";
 import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 import { CastStyles } from "../Styles/CastStyles";
 
