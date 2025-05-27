@@ -79,20 +79,18 @@ export default function PersonScreen() {
                 </Text>
               </View>
               <View style={PersonStyles.centerContainer}>
-                {/* Cender  */}
                 <View style={PersonStyles.textContainer}>
                   <Text style={PersonStyles.centreText}>Gender</Text>
                   <Text style={PersonStyles.centres}>
                     {person?.gender === 1 ? "female" : "Male"}
                   </Text>
                 </View>
-                {/* Birthday */}
+               
                 <Divider style={PersonStyles.divider} />
                 <View style={PersonStyles.textContainer}>
                   <Text style={PersonStyles.centreText}>Birthday</Text>
                   <Text style={PersonStyles.centres}>{person?.birthday}</Text>
                 </View>
-                {/*Know for*/}
                 <Divider style={PersonStyles.divider} />
                 <View style={PersonStyles.textContainer}>
                   <Text style={PersonStyles.centreText}>Known for</Text>
@@ -100,7 +98,6 @@ export default function PersonScreen() {
                     {person?.known_for_department}
                   </Text>
                 </View>
-                {/* Popularity */}
                 <Divider style={PersonStyles.divider} />
                 <View style={PersonStyles.textContainer}>
                   <Text style={PersonStyles.centreText}>Popularity</Text>
@@ -116,7 +113,6 @@ export default function PersonScreen() {
                   {person?.biography || "N/A"}
                 </Text>
               </View>
-
               {<MovieList title={"Movies"} data={personMovies} />}
               {personSeries.length > 0 && (
                 <SeriesList title={"TV Shows"} data={personSeries} />
