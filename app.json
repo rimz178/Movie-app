@@ -18,13 +18,11 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.edie17.MovieApp",
       "jsEngine": "hermes",
-      "newArchEnabled": true,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "newArchEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -36,7 +34,7 @@
     },
     "owner": "edie17",
     "extra": {
-      "TMDB_API_KEY": "",
+      "TMDB_API_KEY": "963e55843ef8734bc31fab886682226c",
       "eas": {
         "projectId": "714a627c-2519-4b13-acaf-3dfc48f8158a"
       }
