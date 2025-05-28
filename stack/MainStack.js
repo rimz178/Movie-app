@@ -35,7 +35,7 @@ function MainStack() {
           setIsLoggedIn(true);
         }
       } catch (error) {
-        console.error("Error checking session:", error);
+        logger.error("Error checking session:", error);
       } finally {
         setIsLoading(false);
       }

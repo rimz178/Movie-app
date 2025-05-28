@@ -11,7 +11,7 @@ import { getRatedTvShows } from "../Api/RatingApi";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
-
+import { logger } from '../utils/logger';
 /**
  * TvRatingList component fetches and displays a list of rated TV shows.
  *
@@ -34,7 +34,7 @@ const TvRatingList = () => {
           setError("Session ID is missing. Please log in to view ratings.");
         }
       } catch (err) {
-        console.error("Error fetching session ID:", err);
+        logger.error("Error fetching session ID:", err);
         setError("Failed to fetch session ID. Please try again later.");
       }
     };
@@ -50,7 +50,7 @@ const TvRatingList = () => {
         const tvShows = await getRatedTvShows(sessionId);
         setRatedTvShows(tvShows || []);
       } catch (err) {
-        console.error("Error fetching rated TV shows:", err);
+        logger.error("Error fetching rated TV shows:", err);
         setError("Failed to fetch rated TV shows. Please try again later.");
       }
     };

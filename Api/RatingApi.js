@@ -1,5 +1,6 @@
 import Constants from "expo-constants";
 const apiBaseUrl = "https://api.themoviedb.org/3";
+import { logger } from '../utils/logger';
 const apiKey =
   Constants.extra?.TMDB_API_KEY ||
   Constants.expoConfig?.extra?.TMDB_API_KEY ||
@@ -12,7 +13,7 @@ export const submitRating = async (
   isGuest = false,
 ) => {
   if (!sessionId) {
-    console.error("Error: Session ID is missing!");
+    logger.error("Error: Session ID is missing!");
     throw new Error("Session ID is required to submit a rating.");
   }
 
@@ -31,7 +32,7 @@ export const submitRating = async (
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.error("Failed to submit rating:", responseData);
+        logger.error("Failed to submit rating:", responseData);
       throw new Error(
         responseData.status_message || "Failed to submit rating.",
       );
@@ -39,7 +40,7 @@ export const submitRating = async (
 
     return responseData;
   } catch (error) {
-    console.error("Error submitting rating:", error);
+    logger.error("Error submitting rating:", error);
     throw error;
   }
 };
@@ -51,7 +52,7 @@ export const submitTvRating = async (
   isGuest = false,
 ) => {
   if (!sessionId) {
-    console.error("Error: Session ID is missing!");
+    logger.error("Error: Session ID is missing!");
     throw new Error("Session ID is required to submit a rating.");
   }
 
@@ -70,7 +71,7 @@ export const submitTvRating = async (
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.error("Failed to submit TV rating:", responseData);
+      logger.error("Failed to submit TV rating:", responseData);
       throw new Error(
         responseData.status_message || "Failed to submit TV rating.",
       );
@@ -78,7 +79,7 @@ export const submitTvRating = async (
 
     return responseData;
   } catch (error) {
-    console.error("Error submitting TV rating:", error);
+    logger.error("Error submitting TV rating:", error);
     throw error;
   }
 };
@@ -103,7 +104,7 @@ export const deleteRating = async (movieId, sessionId, isGuest = false) => {
 
     return await response.json();
   } catch (error) {
-    console.error("Error removing rating:", error);
+      logger.error("Error removing rating:", error);
     return { success: false };
   }
 };
@@ -128,14 +129,14 @@ export const deleteTvRating = async (tvId, sessionId, isGuest = false) => {
 
     return await response.json();
   } catch (error) {
-    console.error("Error removing TV rating:", error);
+    logger.error("Error removing TV rating:", error);
     return { success: false };
   }
 };
 
 export const getRating = async (movieId, sessionId, isGuest = false) => {
   if (!sessionId) {
-    console.error("Error: Session ID is missing!");
+    logger.error("Error: Session ID is missing!");
     throw new Error("Session ID is required to fetch ratings.");
   }
 
@@ -149,20 +150,20 @@ export const getRating = async (movieId, sessionId, isGuest = false) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Failed to fetch movie rating:", data);
+      logger.error("Failed to fetch movie rating:", data);
       throw new Error(data.status_message || "Failed to fetch movie rating.");
     }
 
     return data.rated ? data.rated.value : 0;
   } catch (error) {
-    console.error("Error fetching movie rating:", error);
+    logger.error("Error fetching movie rating:", error);
     throw error;
   }
 };
 
 export const getTvRating = async (tvId, sessionId, isGuest = false) => {
   if (!sessionId) {
-    console.error("Error: Session ID is missing!");
+    logger.error("Error: Session ID is missing!");
     throw new Error("Session ID is required to fetch TV ratings.");
   }
 
@@ -176,20 +177,20 @@ export const getTvRating = async (tvId, sessionId, isGuest = false) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Failed to fetch TV rating:", data);
+      logger.error("Failed to fetch TV rating:", data);
       throw new Error(data.status_message || "Failed to fetch TV rating.");
     }
 
     return data.rated ? data.rated.value : 0;
   } catch (error) {
-    console.error("Error fetching TV rating:", error);
+    logger.error("Error fetching TV rating:", error);
     throw error;
   }
 };
 
 export const getRatedMovies = async (sessionId, isGuest = false) => {
   if (!sessionId) {
-    console.error("Error: Session ID is missing!");
+    logger.error("Error: Session ID is missing!");
     throw new Error("Session ID is required to fetch rated movies.");
   }
 
@@ -203,19 +204,19 @@ export const getRatedMovies = async (sessionId, isGuest = false) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Failed to fetch rated movies:", data);
+      logger.error("Failed to fetch rated movies:", data);
       throw new Error(data.status_message || "Failed to fetch rated movies.");
     }
 
     return data.results || [];
   } catch (error) {
-    console.error("Error fetching rated movies:", error);
+    logger.error("Error fetching rated movies:", error);
     throw error;
   }
 };
 export const getRatedTvShows = async (sessionId, isGuest = false) => {
   if (!sessionId) {
-    console.error("Error: Session ID is missing!");
+    logger.error("Error: Session ID is missing!");
     throw new Error("Session ID is required to fetch rated TV shows.");
   }
 
@@ -229,13 +230,13 @@ export const getRatedTvShows = async (sessionId, isGuest = false) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Failed to fetch rated TV shows:", data);
+      logger.error("Failed to fetch rated TV shows:", data);
       throw new Error(data.status_message || "Failed to fetch rated TV shows.");
     }
 
     return data.results || [];
   } catch (error) {
-    console.error("Error fetching rated TV shows:", error);
+    logger.error("Error fetching rated TV shows:", error);
     throw error;
   }
 };

@@ -11,7 +11,7 @@ import { getRatedMovies } from "../Api/RatingApi";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
-
+import { logger } from '../utils/logger';
 /**
  * MovieRatingList component fetches and displays a list of rated movies.
  *
@@ -33,7 +33,7 @@ const MovieRatingList = () => {
           setError("Session ID is missing. Please log in to view ratings.");
         }
       } catch (err) {
-        console.error("Error fetching session ID:", err);
+        logger.error("Error fetching session ID:", err);
         setError("Failed to fetch session ID. Please try again later.");
       }
     };
@@ -49,7 +49,7 @@ const MovieRatingList = () => {
         const movies = await getRatedMovies(sessionId);
         setRatedMovies(movies || []);
       } catch (err) {
-        console.error("Error fetching movie ratings:", err);
+        logger.error("Error fetching movie ratings:", err);
         setError("Failed to fetch movie ratings. Please try again later.");
       }
     };

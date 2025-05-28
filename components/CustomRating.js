@@ -12,6 +12,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { RatingStyles } from "../Styles/RatingStyles";
 import Colors from "../Styles/Colors";
+import { logger } from '../utils/logger';
 /**
  * CustomRating component allows users to rate movies or TV shows.
  * It fetches the current rating from the API and allows users to submit or remove their rating.
@@ -26,7 +27,7 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
 
   useEffect(() => {
     if (!id) {
-      console.error("Error: ID is missing!");
+      logger.error("Error: ID is missing!");
       return;
     }
 
@@ -65,7 +66,7 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
         setRating(value);
       }
     } catch (error) {
-      console.error("Error:", error);
+      logger.error("Error:", error);
     }
   };
 
@@ -82,7 +83,7 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
         setRating(0);
       }
     } catch (error) {
-      console.error("Error:", error);
+      logger.error("Error:", error);
     }
   };
 

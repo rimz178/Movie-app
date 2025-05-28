@@ -26,6 +26,7 @@ import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
 import { SharedStyles } from "../Styles/SharedStyles";
+import { logger } from '../utils/logger';
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *
@@ -57,7 +58,7 @@ export default function SeriesDetailScreen() {
         setUserSessionId(sessionId);
       }
     } catch (error) {
-      console.error("Error fetching session ID:", error);
+      logger.error("Error fetching session ID:", error);
     }
   };
 
@@ -96,7 +97,7 @@ export default function SeriesDetailScreen() {
         false;
       setIsFavorite(isSeriesFavorite);
     } catch (error) {
-      console.error("Error fetching favorite status:", error);
+      logger.error("Error fetching favorite status:", error);
     }
   };
 
@@ -113,10 +114,10 @@ export default function SeriesDetailScreen() {
       if (response.success) {
         setIsFavorite(newFavoriteStatus);
       } else {
-        console.error("Failed to toggle favorite:", response);
+        logger.error("Failed to toggle favorite:", response);
       }
     } catch (error) {
-      console.error("Error toggling favorite:", error);
+      logger.error("Error toggling favorite:", error);
     }
   };
 

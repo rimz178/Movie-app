@@ -24,6 +24,7 @@ import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import { SharedStyles } from "../Styles/SharedStyles";
+import { logger } from '../utils/logger';
 
 /**
  * Displays detailed information about a movie, including its cast, genres, and watch providers.
@@ -58,7 +59,7 @@ export default function MovieScreen() {
         setUserSessionId(sessionId);
       }
     } catch (error) {
-      console.error("Error fetching session ID:", error);
+      logger.error("Error fetching session ID:", error);
     }
   };
   const getMovieDetails = async (id) => {
@@ -98,7 +99,7 @@ export default function MovieScreen() {
         favorites.movies?.some((favorite) => favorite.id === movieId) || false;
       setIsFavorite(isMovieFavorite);
     } catch (error) {
-      console.error("Error fetching favorite status:", error);
+      logger.error("Error fetching favorite status:", error);
     }
   };
   const handleToggleFavorite = async () => {
@@ -118,10 +119,10 @@ export default function MovieScreen() {
       if (response.success) {
         setIsFavorite(newFavoriteStatus);
       } else {
-        console.error("Failed to toggle favorite:", response);
+        logger.error("Failed to toggle favorite:", response);
       }
     } catch (error) {
-      console.error("Error toggling favorite:", error);
+      logger.error("Error toggling favorite:", error);
     }
   };
   return (

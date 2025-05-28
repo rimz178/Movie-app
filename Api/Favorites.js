@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
-
+import { logger } from '../utils/logger';
 const API_KEY =
   Constants.extra?.TMDB_API_KEY ||
   Constants.expoConfig?.extra?.TMDB_API_KEY ||
@@ -69,7 +69,7 @@ export async function toggleFavorite(mediaId, favorite, mediaType = "movie") {
     if (error.message === "User is not logged in.") {
       Alert.alert("Error", "You need to log in to add favorites.");
     } else {
-      console.error("Error toggling favorite:", error);
+      logger.error("Error toggling favorite:", error);
     }
     throw error;
   }
@@ -119,7 +119,7 @@ export async function fetchFavorites() {
     };
   } catch (error) {
     if (error.message !== "User is not logged in.") {
-      console.error("Error fetching favorites:", error);
+      logger.error("Error fetching favorites:", error);
     }
     return { movies: [], tvShows: [] };
   }

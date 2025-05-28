@@ -10,7 +10,7 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-
+import { logger } from '../utils/logger';
 import { debounce } from "lodash";
 import Loading from "./Loading";
 import {
@@ -97,7 +97,7 @@ export default function SearchBars() {
 
         setResult(sortedResults);
       } catch (error) {
-        console.error("Error fetching search results:", error);
+        logger.error("Error fetching search results:", error);
         setResult([]);
       } finally {
         setLoading(false);

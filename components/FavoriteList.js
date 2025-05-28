@@ -12,6 +12,7 @@ import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { fetchFavorites } from "../Api/Favorites";
 import { useNavigation } from "@react-navigation/native";
 import { FavoriteStyles } from "../Styles/FavoriteStyles";
+import { logger } from '../utils/logger';
 
 /**
  * This component fetches and displays a list of favorite movies and TV shows.
@@ -33,7 +34,7 @@ const FavoriteList = () => {
         });
         setIsLoading(false);
       } catch (error) {
-        console.error("Error loading favorites:", error);
+        logger.error("Error loading favorites:", error);
         setIsLoading(false);
       }
     };

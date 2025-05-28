@@ -1,6 +1,7 @@
 import axios from "axios";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 import Constants from "expo-constants";
+import { logger } from '../utils/logger';
 const apiKey =
   Constants.extra?.TMDB_API_KEY ||
   Constants.expoConfig?.extra?.TMDB_API_KEY ||
@@ -101,7 +102,7 @@ export const validateWithLogin = async (username, password, requestToken) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error validating login:", error);
+    logger.error("Error validating login:", error);
     return {};
   }
 };
@@ -113,7 +114,7 @@ export const createSession = async (requestToken) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error creating session:", error);
+    logger.error("Error creating session:", error);
     return {};
   }
 };

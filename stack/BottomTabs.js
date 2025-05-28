@@ -9,7 +9,7 @@ import LoginScreen from "../Screens/LoginScreens";
 import  { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BottomTabsStyles } from "../Styles/BottomTabsStyles";
-
+import { logger } from '../utils/logger';
 const Tab = createBottomTabNavigator();
 
 /**
@@ -31,7 +31,7 @@ export default function BottomTabs(route) {
           }
         })
         .catch((error) => {
-          console.error("Failed to retrieve session_id:", error);
+          logger.error("Failed to retrieve session_id:", error);
           setIsGuest(true);
         });
     }

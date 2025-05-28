@@ -10,7 +10,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";
-
+import { logger } from '../utils/logger';
 /**
  * SettingsScreen component for managing user settings.
  *
@@ -31,7 +31,7 @@ export default function SettingsScreen() {
     try {
       await Linking.openURL("https://www.themoviedb.org/");
     } catch (error) {
-      console.error("Failed to open URL: ", error);
+      logger.error("Failed to open URL: ", error);
       Alert.alert("Error", "Unable to open the link. Please try again later.");
     }
   };
