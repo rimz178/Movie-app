@@ -77,7 +77,7 @@ const apiCall = async (endpoint, params) => {
     const response = await axios.request(options);
     return response.data;
   } catch (error) {
-    console.log("error", error);
+    logger.log("error", error);
     return {};
   }
 };
@@ -87,7 +87,7 @@ export const fetchRequestToken = async () => {
     const response = await axios.get(requestTokenEndpoint);
     return response.data;
   } catch (error) {
-    console.error("Error fetching request token:", error);
+    logger.error("Error fetching request token:", error);
     return {};
   }
 };
