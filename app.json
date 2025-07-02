@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.edie17.MovieApp",
-      "jsEngine": "hermes",
+      "jsEngine": "jsc",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -34,7 +34,7 @@
     },
     "owner": "edie17",
     "extra": {
-      "TMDB_API_KEY": "YOUR_TMDB_API_KEY_HERE",
+      "TMDB_API_KEY": "",
       "eas": {
         "projectId": "714a627c-2519-4b13-acaf-3dfc48f8158a"
       }
