@@ -6,10 +6,10 @@ import SearchBars from "../components/SearchBars";
 import SettingsScreen from "../Screens/SettingsScreen";
 import Colors from "../Styles/Colors";
 import LoginScreen from "../Screens/LoginScreens";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BottomTabsStyles } from "../Styles/BottomTabsStyles";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 const Tab = createBottomTabNavigator();
 
 /**

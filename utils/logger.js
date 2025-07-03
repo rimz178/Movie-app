@@ -6,10 +6,10 @@ export const logger = {
       console.log(message, ...optionalParams);
     }
   },
-  
+
   error: (message, ...optionalParams) => {
     if (isDev) {
       console.error(message, ...optionalParams);
     }
-  }
+  },
 };

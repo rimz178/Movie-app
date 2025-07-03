@@ -26,7 +26,7 @@ import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
 import { SharedStyles } from "../Styles/SharedStyles";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *

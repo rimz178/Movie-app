@@ -1,9 +1,8 @@
 import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 import "react-native-url-polyfill/auto";
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { enableScreens } from 'react-native-screens';
-
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { enableScreens } from "react-native-screens";
 
 enableScreens();
 

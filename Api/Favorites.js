@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 
 const API_TOKEN =
   Constants.extra?.TMDB_API_KEY ||
@@ -35,12 +35,15 @@ export async function toggleFavorite(mediaId, favorite, mediaType = "movie") {
   try {
     const sessionId = await getSessionId();
 
-    const accountResponse = await fetch(`${BASE_URL}/account?session_id=${sessionId}`, {
-      headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
-        "Content-Type": "application/json"
-      }
-    });
+    const accountResponse = await fetch(
+      `${BASE_URL}/account?session_id=${sessionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
     if (!accountResponse.ok) {
       throw new Error("Failed to fetch account ID.");
@@ -89,12 +92,15 @@ export async function fetchFavorites() {
   try {
     const sessionId = await getSessionId();
 
-    const accountResponse = await fetch(`${BASE_URL}/account?session_id=${sessionId}`, {
-      headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
-        "Content-Type": "application/json"
-      }
-    });
+    const accountResponse = await fetch(
+      `${BASE_URL}/account?session_id=${sessionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
     if (!accountResponse.ok) {
       throw new Error("Failed to fetch account ID.");
@@ -108,24 +114,24 @@ export async function fetchFavorites() {
       {
         headers: {
           Authorization: `Bearer ${API_TOKEN}`,
-          "Content-Type": "application/json"
-        }
-      }
+          "Content-Type": "application/json",
+        },
+      },
     );
 
     if (!moviesResponse.ok) {
       throw new Error("Failed to fetch favorites.");
     }
     const moviesData = await moviesResponse.json();
-    
+
     const tvResponse = await fetch(
       `${BASE_URL}/account/${accountId}/favorite/tv?session_id=${sessionId}`,
       {
         headers: {
           Authorization: `Bearer ${API_TOKEN}`,
-          "Content-Type": "application/json"
-        }
-      }
+          "Content-Type": "application/json",
+        },
+      },
     );
 
     if (!tvResponse.ok) {

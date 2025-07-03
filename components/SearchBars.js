@@ -10,7 +10,7 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 import { debounce } from "lodash";
 import Loading from "./Loading";
 import {

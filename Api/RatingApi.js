@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 const apiBaseUrl = "https://api.themoviedb.org/3";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 const apiToken =
   Constants.extra?.TMDB_API_KEY ||
   Constants.expoConfig?.extra?.TMDB_API_KEY ||
@@ -25,9 +25,9 @@ export const submitRating = async (
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: { 
+      headers: {
         "Content-Type": "application/json;charset=utf-8",
-        "Authorization": `Bearer ${apiToken}`
+        Authorization: `Bearer ${apiToken}`,
       },
       body: JSON.stringify({ value: rating }),
     });
@@ -35,7 +35,7 @@ export const submitRating = async (
     const responseData = await response.json();
 
     if (!response.ok) {
-        logger.error("Failed to submit rating:", responseData);
+      logger.error("Failed to submit rating:", responseData);
       throw new Error(
         responseData.status_message || "Failed to submit rating.",
       );
@@ -67,9 +67,9 @@ export const submitTvRating = async (
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: { 
+      headers: {
         "Content-Type": "application/json;charset=utf-8",
-        "Authorization": `Bearer ${apiToken}`
+        Authorization: `Bearer ${apiToken}`,
       },
       body: JSON.stringify({ value: rating }),
     });
@@ -101,7 +101,7 @@ export const deleteRating = async (movieId, sessionId, isGuest = false) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        "Authorization": `Bearer ${apiToken}`
+        Authorization: `Bearer ${apiToken}`,
       },
     });
 
@@ -111,7 +111,7 @@ export const deleteRating = async (movieId, sessionId, isGuest = false) => {
 
     return await response.json();
   } catch (error) {
-      logger.error("Error removing rating:", error);
+    logger.error("Error removing rating:", error);
     return { success: false };
   }
 };
@@ -127,7 +127,7 @@ export const deleteTvRating = async (tvId, sessionId, isGuest = false) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        "Authorization": `Bearer ${apiToken}`
+        Authorization: `Bearer ${apiToken}`,
       },
     });
 
@@ -156,8 +156,8 @@ export const getRating = async (movieId, sessionId, isGuest = false) => {
 
     const response = await fetch(url, {
       headers: {
-        "Authorization": `Bearer ${apiToken}`
-      }
+        Authorization: `Bearer ${apiToken}`,
+      },
     });
     const data = await response.json();
 
@@ -187,8 +187,8 @@ export const getTvRating = async (tvId, sessionId, isGuest = false) => {
 
     const response = await fetch(url, {
       headers: {
-        "Authorization": `Bearer ${apiToken}`
-      }
+        Authorization: `Bearer ${apiToken}`,
+      },
     });
     const data = await response.json();
 
@@ -218,8 +218,8 @@ export const getRatedMovies = async (sessionId, isGuest = false) => {
 
     const response = await fetch(url, {
       headers: {
-        "Authorization": `Bearer ${apiToken}`
-      }
+        Authorization: `Bearer ${apiToken}`,
+      },
     });
     const data = await response.json();
 
@@ -249,8 +249,8 @@ export const getRatedTvShows = async (sessionId, isGuest = false) => {
 
     const response = await fetch(url, {
       headers: {
-        "Authorization": `Bearer ${apiToken}`
-      }
+        Authorization: `Bearer ${apiToken}`,
+      },
     });
     const data = await response.json();
 

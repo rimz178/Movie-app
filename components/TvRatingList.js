@@ -11,7 +11,7 @@ import { getRatedTvShows } from "../Api/RatingApi";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 /**
  * TvRatingList component fetches and displays a list of rated TV shows.
  *

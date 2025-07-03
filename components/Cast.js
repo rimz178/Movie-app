@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  FlatList,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
 import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 import { CastStyles } from "../Styles/CastStyles";
 

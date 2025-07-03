@@ -24,7 +24,7 @@ import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import { SharedStyles } from "../Styles/SharedStyles";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 
 /**
  * Displays detailed information about a movie, including its cast, genres, and watch providers.

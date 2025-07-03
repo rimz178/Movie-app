@@ -5,7 +5,7 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from "react-native";
-import  { useCallback } from "react";
+import { useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 import { UpcomingStyles } from "../Styles/UpcomingStyles";

@@ -85,7 +85,7 @@ export default function PersonScreen() {
                     {person?.gender === 1 ? "female" : "Male"}
                   </Text>
                 </View>
-               
+
                 <Divider style={PersonStyles.divider} />
                 <View style={PersonStyles.textContainer}>
                   <Text style={PersonStyles.centreText}>Birthday</Text>

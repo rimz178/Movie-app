@@ -10,7 +10,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 /**
  * SettingsScreen component for managing user settings.
  *

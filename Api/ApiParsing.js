@@ -1,7 +1,7 @@
 import axios from "axios";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 import Constants from "expo-constants";
-import { logger } from '../utils/logger';
+import { logger } from "../utils/logger";
 
 const apiKey =
   Constants.extra?.TMDB_API_KEY ||
@@ -19,7 +19,7 @@ const axiosInstance = axios.create({
 
 // Endpointeista pois api_key-parametri
 const upcoming = "/movie/upcoming?language=en-US&region=FI";
-const trendingMovie = '/trending/movie/day?language=en-US&region=FI';
+const trendingMovie = "/trending/movie/day?language=en-US&region=FI";
 const topRated = "/movie/top_rated?language=en-US&region=FI";
 const nowPlaying = "/movie/now_playing?language=en-US&region=FI";
 const trendingSeries = "/trending/tv/day?language=en-US&region=FI";
@@ -50,7 +50,6 @@ export const image342 = (posterPath) =>
   posterPath ? `https://image.tmdb.org/t/p/w342${posterPath}` : null;
 export const image185 = (posterPath) =>
   posterPath ? `https://image.tmdb.org/t/p/w185${posterPath}` : null;
-
 
 const apiCall = async (endpoint, params) => {
   const options = {
@@ -114,14 +113,17 @@ export const searchSeries = (params) => apiCall(searchSeriesEndpoint, params);
 export const searchPeople = (params) => apiCall(searchPeopleEndpoint, params);
 export const fetchMovieCredits = (id) => apiCall(movieCreditsEndpoint(id));
 export const fetchPersonDetails = (id) => apiCall(personDetailsEndpoints(id));
-export const fetchPersonMovies = (personId) => apiCall(personMoviesEndpoint(personId));
-export const fetchPersonSeries = (personId) => apiCall(personSeriesEndpoint(personId));
+export const fetchPersonMovies = (personId) =>
+  apiCall(personMoviesEndpoint(personId));
+export const fetchPersonSeries = (personId) =>
+  apiCall(personSeriesEndpoint(personId));
 export const fetchWatchProviders = (id) => apiCall(watchProvidersEndpoint(id));
 export const fetchTrendingSeries = () => apiCall(trendingSeries);
 export const fetchTopRatedSeries = () => apiCall(topRatedSeries);
 export const fetchSeriesDetails = (id) => apiCall(seriesDetailsEndpoint(id));
 export const fetchSeriesCredits = (id) => apiCall(seriesCreditsEndpoint(id));
-export const fetchSeriesWatchProviders = (id) => apiCall(seriesWatchProvidersEndpoint(id));
+export const fetchSeriesWatchProviders = (id) =>
+  apiCall(seriesWatchProvidersEndpoint(id));
 export const fetchPopularSeries = () => apiCall(popularSeriesEndpoint);
 export const fetchAiringTodaySeries = () => apiCall(airingTodaySeries);
 
