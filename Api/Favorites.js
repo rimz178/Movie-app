@@ -4,9 +4,9 @@ import { Alert } from "react-native";
 import { logger } from "../utils/logger";
 
 const API_TOKEN =
-  Constants.extra?.TMDB_API_KEY ||
-  Constants.expoConfig?.extra?.TMDB_API_KEY ||
-  Constants.manifest?.extra?.TMDB_API_KEY;
+  Constants.extra?.TMDB_BEARER_TOKEN ||
+  Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
+  Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 /**

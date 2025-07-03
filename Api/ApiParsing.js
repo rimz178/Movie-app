@@ -4,9 +4,9 @@ import Constants from "expo-constants";
 import { logger } from "../utils/logger";
 
 const apiKey =
-  Constants.extra?.TMDB_API_KEY ||
-  Constants.expoConfig?.extra?.TMDB_API_KEY ||
-  Constants.manifest?.extra?.TMDB_API_KEY;
+  Constants.extra?.TMDB_BEARER_TOKEN ||
+  Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
+  Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
 
 // Luo axios-instanssi Bearer-tokenilla
 const axiosInstance = axios.create({

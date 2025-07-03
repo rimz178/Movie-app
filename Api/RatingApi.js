@@ -2,9 +2,9 @@ import Constants from "expo-constants";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 import { logger } from "../utils/logger";
 const apiToken =
-  Constants.extra?.TMDB_API_KEY ||
-  Constants.expoConfig?.extra?.TMDB_API_KEY ||
-  Constants.manifest?.extra?.TMDB_API_KEY;
+  Constants.extra?.TMDB_BEARER_TOKEN ||
+  Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
+  Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
 
 export const submitRating = async (
   movieId,
