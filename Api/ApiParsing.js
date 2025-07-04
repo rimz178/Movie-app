@@ -8,16 +8,16 @@ const apiKey =
   Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
   Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
 
-// Luo axios-instanssi Bearer-tokenilla
+
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,
   headers: {
     Authorization: `Bearer ${apiKey}`,
     "Content-Type": "application/json;charset=utf-8",
   },
+  timeout: 10000, 
 });
 
-// Endpointeista pois api_key-parametri
 const upcoming = "/movie/upcoming?language=en-US&region=FI";
 const trendingMovie = "/trending/movie/day?language=en-US&region=FI";
 const topRated = "/movie/top_rated?language=en-US&region=FI";

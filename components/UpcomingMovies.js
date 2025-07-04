@@ -4,11 +4,13 @@ import {
   Image,
   FlatList,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from "react-native";
-import { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 import { UpcomingStyles } from "../Styles/UpcomingStyles";
+import { CommonStyles } from "../Styles/CommonStyles";
 
 /**
  * UpcomingMovies component that displays a horizontal list of upcoming movies.
@@ -18,6 +20,8 @@ import { UpcomingStyles } from "../Styles/UpcomingStyles";
  */
 export default function UpcomingMovies({ data }) {
   const navigation = useNavigation();
+  const [loadingImages, setLoadingImages] = useState({});
+  
   const handleClick = useCallback(
     (item) => {
       navigation.navigate("Movie", item);
@@ -34,26 +38,46 @@ export default function UpcomingMovies({ data }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <Movie item={item} handleClick={handleClick} />
+          <Movie 
+            item={item} 
+            handleClick={handleClick} 
+            loadingImages={loadingImages}
+            setLoadingImages={setLoadingImages}
+          />
         )}
         horizontal
         initialNumToRender={2}
+        maxToRenderPerBatch={5}
+        updateCellsBatchingPeriod={50}
+        windowSize={5}
+        removeClippedSubviews={true}
         keyExtractor={(item) => `upcoming-${item.id.toString()}`}
       />
     </View>
   );
 }
 
-const Movie = ({ item, handleClick }) => {
+const Movie = ({ item, handleClick, loadingImages, setLoadingImages }) => {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
-      <Image
-        source={{
-          uri: image500(item.poster_path) || fallbackMoviePoster,
-          loading: "lazy",
-        }}
-        style={UpcomingStyles.itemImg}
-      />
+      <View>
+        {loadingImages[item.id] && (
+          <ActivityIndicator
+            style={CommonStyles.loading}
+            size="small"
+            color="#E21818"
+          />
+        )}
+        <Image
+          source={{
+            uri: image500(item.poster_path) || fallbackMoviePoster,
+          }}
+          style={UpcomingStyles.itemImg}
+          onLoadStart={() => setLoadingImages({...loadingImages, [item.id]: true})}
+          onLoadEnd={() => setLoadingImages({...loadingImages, [item.id]: false})}
+          progressiveRenderingEnabled={true}
+        />
+      </View>
     </TouchableWithoutFeedback>
   );
 };

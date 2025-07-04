@@ -7,6 +7,7 @@ import {
   FlatList,
   Alert,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -24,6 +25,7 @@ import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import { SharedStyles } from "../Styles/SharedStyles";
+import { CommonStyles } from "../Styles/CommonStyles";
 import { logger } from "../utils/logger";
 
 /**
@@ -37,6 +39,7 @@ export default function MovieScreen() {
   const { params: item } = useRoute();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
+  const [loadingPoster, setLoadingPoster] = useState(false); 
   const [movie, setMovie] = useState({});
   const [cast, setCast] = useState([]);
   const [watchProviders, setWatchProviders] = useState([]);
@@ -135,15 +138,30 @@ export default function MovieScreen() {
           keyExtractor={(item) => item.toString()}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          initialNumToRender={1}
+          maxToRenderPerBatch={2}
+          updateCellsBatchingPeriod={50}
+          windowSize={3}
+          removeClippedSubviews={true}
           renderItem={() => (
             <View style={SharedStyles.content}>
               <View style={SharedStyles.images}>
+                {/* Lisätty latausanimaatio */}
+                {loadingPoster && (
+                  <ActivityIndicator
+                    style={CommonStyles.loading}
+                    size="large"
+                    color="#E21818"
+                  />
+                )}
                 <Image
                   style={SharedStyles.insideImage}
                   source={{
                     uri: image500(movie?.poster_path) || fallbackMoviePoster,
-                    loading: "lazy",
                   }}
+                  onLoadStart={() => setLoadingPoster(true)}
+                  onLoadEnd={() => setLoadingPoster(false)}
+                  progressiveRenderingEnabled={true}
                 />
                 <TouchableOpacity
                   onPress={handleToggleFavorite}

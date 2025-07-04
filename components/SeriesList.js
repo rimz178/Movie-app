@@ -1,23 +1,27 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
   FlatList,
   TouchableWithoutFeedback,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { ListStyles } from "../Styles/ListStyles";
+import { CommonStyles } from "../Styles/CommonStyles";
 
 /**
- * MovieList component that displays a horizontal list of movies.
+ * SeriesList component that displays a horizontal list of TV series.
  *
- * @param {string} title - The title of the movie list.
- * @param {Array} data - Array of movie objects to display.
+ * @param {string} title - The title of the series list.
+ * @param {Array} data - Array of series objects to display.
+ * @param {number} listIndex - Index to differentiate between multiple lists
  */
 export default function SeriesList({ title, data, listIndex }) {
   const navigation = useNavigation();
+  const [loadingImages, setLoadingImages] = useState({});
 
   const handleClick = useCallback(
     (item) => {
@@ -30,11 +34,25 @@ export default function SeriesList({ title, data, listIndex }) {
     <View>
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <View>
+          {loadingImages[item.id] && (
+            <ActivityIndicator
+              style={CommonStyles.loading}
+              size="small"
+              color="#E21818"
+            />
+          )}
           <Image
             style={ListStyles.image}
             source={{
               uri: image185(item.poster_path) || fallbackMoviePoster,
             }}
+            onLoadStart={() =>
+              setLoadingImages({ ...loadingImages, [item.id]: true })
+            }
+            onLoadEnd={() =>
+              setLoadingImages({ ...loadingImages, [item.id]: false })
+            }
+            progressiveRenderingEnabled={true}
           />
           <Text style={ListStyles.text}>
             {item?.name && item.name.length > 14
@@ -61,6 +79,10 @@ export default function SeriesList({ title, data, listIndex }) {
         }
         renderItem={renderItem}
         initialNumToRender={2}
+        maxToRenderPerBatch={5}
+        updateCellsBatchingPeriod={50}
+        windowSize={5}
+        removeClippedSubviews={true}
         contentContainerStyle={{ paddingHorizontal: 15 }}
       />
     </View>

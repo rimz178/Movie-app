@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import {
   View,
   Text,
   FlatList,
-  StyleSheet,
   Image,
-  Dimensions,
   TouchableWithoutFeedback,
+   ActivityIndicator
 } from "react-native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { fetchFavorites } from "../Api/Favorites";
 import { useNavigation } from "@react-navigation/native";
 import { FavoriteStyles } from "../Styles/FavoriteStyles";
 import { logger } from "../utils/logger";
+import { CommonStyles } from "../Styles/CommonStyles";
 
 /**
  * This component fetches and displays a list of favorite movies and TV shows.
@@ -22,6 +22,7 @@ import { logger } from "../utils/logger";
 const FavoriteList = () => {
   const [favorites, setFavorites] = useState({ movies: [], tvShows: [] });
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -82,7 +83,17 @@ const FavoriteList = () => {
             renderItem={({ item }) => (
               <TouchableWithoutFeedback onPress={() => handleMoviePress(item)}>
                 <View style={FavoriteStyles.movieCard}>
+                   {loadingImages[`movie-${item.id}`] && (
+                    <ActivityIndicator 
+                      style={CommonStyles.loading} 
+                      size="small" 
+                      color="#E21818" 
+                    />
+                  )}
                   <Image
+                    onLoadStart={() => setLoadingImages({...loadingImages, [`movie-${item.id}`]: true})}
+                    onLoadEnd={() => setLoadingImages({...loadingImages, [`movie-${item.id}`]: false})}
+                    progressiveRenderingEnabled={true}
                     source={{
                       uri: image185(item.poster_path) || fallbackMoviePoster,
                     }}
@@ -115,7 +126,17 @@ const FavoriteList = () => {
             renderItem={({ item }) => (
               <TouchableWithoutFeedback onPress={() => handleTVPress(item)}>
                 <View style={FavoriteStyles.movieCard}>
+                 {loadingImages[`tv-${item.id}`] && (
+                    <ActivityIndicator 
+                      style={CommonStyles.loading} 
+                      size="small" 
+                      color="#E21818" 
+                    />
+                  )}
                   <Image
+                    onLoadStart={() => setLoadingImages({...loadingImages, [`tv-${item.id}`]: true})}
+                    onLoadEnd={() => setLoadingImages({...loadingImages, [`tv-${item.id}`]: false})}
+                    progressiveRenderingEnabled={true}
                     source={{
                       uri: image185(item.poster_path) || fallbackMoviePoster,
                     }}

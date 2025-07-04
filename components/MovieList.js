@@ -1,15 +1,17 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
   FlatList,
   TouchableWithoutFeedback,
   Image,
-  Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { ListStyles } from "../Styles/ListStyles";
+import { CommonStyles } from "../Styles/CommonStyles";
+
 /**
  * MovieList component that displays a horizontal list of movies.
  *
@@ -18,6 +20,7 @@ import { ListStyles } from "../Styles/ListStyles";
  */
 export default function MovieList({ title, data }) {
   const navigation = useNavigation();
+  const [loadingImages, setLoadingImages] = useState({});
 
   const handleClick = useCallback(
     (item) => {
@@ -30,11 +33,24 @@ export default function MovieList({ title, data }) {
     <View>
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <View>
+          {loadingImages[item.id] && (
+            <ActivityIndicator
+              style={CommonStyles.loading}
+              size="small"
+              color="#E21818"
+            />
+          )}
           <Image
             style={ListStyles.image}
+            onLoadStart={() =>
+              setLoadingImages({ ...loadingImages, [item.id]: true })
+            }
+            onLoadEnd={() =>
+              setLoadingImages({ ...loadingImages, [item.id]: false })
+            }
+            progressiveRenderingEnabled={true}
             source={{
               uri: image185(item.poster_path) || fallbackMoviePoster,
-              loading: "lazy",
             }}
           />
           <Text style={ListStyles.text}>
@@ -60,6 +76,10 @@ export default function MovieList({ title, data }) {
         keyExtractor={(item) => `${title}-${item.id.toString()}`}
         renderItem={renderItem}
         initialNumToRender={2}
+        maxToRenderPerBatch={5}
+        updateCellsBatchingPeriod={50}
+        windowSize={5}
+        removeClippedSubviews={true}
         contentContainerStyle={{ paddingHorizontal: 15 }}
       />
     </View>
