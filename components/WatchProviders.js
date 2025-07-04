@@ -31,11 +31,11 @@ export default function WatchProviders({ providers }) {
       </View>
     );
   }
-  
+
   const uniqueProviders = providers?.filter(
     (v, i, a) => a.findIndex((t) => t.provider_id === v.provider_id) === i,
   );
-  
+
   return (
     <View style={WatchProviderStyles.container}>
       <Text style={WatchProviderStyles.titleText}>Watch Providers</Text>
@@ -70,8 +70,18 @@ export default function WatchProviders({ providers }) {
                     ? image185(item.logo_path)
                     : fallbackProviderLogo,
                 }}
-                onLoadStart={() => setLoadingImages({...loadingImages, [item?.provider_id]: true})}
-                onLoadEnd={() => setLoadingImages({...loadingImages, [item?.provider_id]: false})}
+                onLoadStart={() =>
+                  setLoadingImages({
+                    ...loadingImages,
+                    [item?.provider_id]: true,
+                  })
+                }
+                onLoadEnd={() =>
+                  setLoadingImages({
+                    ...loadingImages,
+                    [item?.provider_id]: false,
+                  })
+                }
                 progressiveRenderingEnabled={true}
               />
             </View>

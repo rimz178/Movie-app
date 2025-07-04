@@ -12,7 +12,7 @@ import { getRatedMovies } from "../Api/RatingApi";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
-import { CommonStyles } from "../Styles/CommonStyles"; 
+import { CommonStyles } from "../Styles/CommonStyles";
 import { logger } from "../utils/logger";
 /**
  * MovieRatingList component fetches and displays a list of rated movies.
@@ -23,7 +23,7 @@ const MovieRatingList = () => {
   const [ratedMovies, setRatedMovies] = useState([]);
   const [error, setError] = useState(null);
   const [sessionId, setSessionId] = useState(null);
-  const [loadingImages, setLoadingImages] = useState({}); 
+  const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
 
   useEffect(() => {

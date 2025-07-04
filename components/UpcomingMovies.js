@@ -21,7 +21,7 @@ import { CommonStyles } from "../Styles/CommonStyles";
 export default function UpcomingMovies({ data }) {
   const navigation = useNavigation();
   const [loadingImages, setLoadingImages] = useState({});
-  
+
   const handleClick = useCallback(
     (item) => {
       navigation.navigate("Movie", item);
@@ -38,9 +38,9 @@ export default function UpcomingMovies({ data }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <Movie 
-            item={item} 
-            handleClick={handleClick} 
+          <Movie
+            item={item}
+            handleClick={handleClick}
             loadingImages={loadingImages}
             setLoadingImages={setLoadingImages}
           />
@@ -73,8 +73,12 @@ const Movie = ({ item, handleClick, loadingImages, setLoadingImages }) => {
             uri: image500(item.poster_path) || fallbackMoviePoster,
           }}
           style={UpcomingStyles.itemImg}
-          onLoadStart={() => setLoadingImages({...loadingImages, [item.id]: true})}
-          onLoadEnd={() => setLoadingImages({...loadingImages, [item.id]: false})}
+          onLoadStart={() =>
+            setLoadingImages({ ...loadingImages, [item.id]: true })
+          }
+          onLoadEnd={() =>
+            setLoadingImages({ ...loadingImages, [item.id]: false })
+          }
           progressiveRenderingEnabled={true}
         />
       </View>

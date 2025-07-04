@@ -33,70 +33,76 @@ export default function SearchBars() {
   const navigation = useNavigation();
   const [results, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingImages, setLoadingImages] = useState({}); 
+  const [loadingImages, setLoadingImages] = useState({});
 
   const handleSearch = async (value) => {
     if (value && value.length > 2) {
       setLoading(true);
-  
+
       requestAnimationFrame(async () => {
         try {
-   
           const pageSize = "5";
-          
+
           const [moviesData, seriesData, peopleData] = await Promise.all([
             searchMovies({
               query: value,
               include_adult: "false",
               language: "en-US",
               page: "1",
-              per_page: pageSize
+              per_page: pageSize,
             }),
             searchSeries({
               query: value,
-              include_adult: "false", 
+              include_adult: "false",
               language: "en-US",
               page: "1",
-              per_page: pageSize
+              per_page: pageSize,
             }),
             searchPeople({
               query: value,
               include_adult: "false",
               language: "en-US",
               page: "1",
-              per_page: pageSize
-            })
+              per_page: pageSize,
+            }),
           ]);
 
           const results = [
             ...(moviesData?.results || []).map((item) => ({
               ...item,
-              media_type: "movie"
+              media_type: "movie",
             })),
             ...(seriesData?.results || []).map((item) => ({
-              ...item, 
-              media_type: "tv"
+              ...item,
+              media_type: "tv",
             })),
             ...(peopleData?.results || []).map((item) => ({
               ...item,
-              media_type: "person" 
-            }))
+              media_type: "person",
+            })),
           ];
 
-       
           const searchValueLower = value.toLowerCase();
           const sortedResults = results.sort((a, b) => {
             const aTitle = (a.title || a.name || "").toLowerCase();
             const bTitle = (b.title || b.name || "").toLowerCase();
-  
-            if (aTitle === searchValueLower && bTitle !== searchValueLower) return -1;
-            if (bTitle === searchValueLower && aTitle !== searchValueLower) return 1;
-            
-         
-            if (aTitle.includes(searchValueLower) && !bTitle.includes(searchValueLower)) return -1;
-            if (bTitle.includes(searchValueLower) && !aTitle.includes(searchValueLower)) return 1;
-            
-            
+
+            if (aTitle === searchValueLower && bTitle !== searchValueLower)
+              return -1;
+            if (bTitle === searchValueLower && aTitle !== searchValueLower)
+              return 1;
+
+            if (
+              aTitle.includes(searchValueLower) &&
+              !bTitle.includes(searchValueLower)
+            )
+              return -1;
+            if (
+              bTitle.includes(searchValueLower) &&
+              !aTitle.includes(searchValueLower)
+            )
+              return 1;
+
             return (b.popularity || 0) - (a.popularity || 0);
           });
 
@@ -110,7 +116,6 @@ export default function SearchBars() {
         }
       });
     } else if (value.length === 0) {
-  
       setResult([]);
       setLoading(false);
     }
@@ -172,8 +177,12 @@ export default function SearchBars() {
                         ? image185(item?.profile_path) || fallbackMoviePoster
                         : image185(item?.poster_path) || fallbackMoviePoster,
                   }}
-                  onLoadStart={() => setLoadingImages({...loadingImages, [item.id]: true})}
-                  onLoadEnd={() => setLoadingImages({...loadingImages, [item.id]: false})}
+                  onLoadStart={() =>
+                    setLoadingImages({ ...loadingImages, [item.id]: true })
+                  }
+                  onLoadEnd={() =>
+                    setLoadingImages({ ...loadingImages, [item.id]: false })
+                  }
                   progressiveRenderingEnabled={true}
                 />
                 <Text style={SearchStyles.otherText}>

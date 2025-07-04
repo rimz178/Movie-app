@@ -8,14 +8,13 @@ const apiKey =
   Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
   Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
 
-
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,
   headers: {
     Authorization: `Bearer ${apiKey}`,
     "Content-Type": "application/json;charset=utf-8",
   },
-  timeout: 10000, 
+  timeout: 10000,
 });
 
 const upcoming = "/movie/upcoming?language=en-US&region=FI";

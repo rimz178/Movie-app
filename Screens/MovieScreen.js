@@ -39,7 +39,7 @@ export default function MovieScreen() {
   const { params: item } = useRoute();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const [loadingPoster, setLoadingPoster] = useState(false); 
+  const [loadingPoster, setLoadingPoster] = useState(false);
   const [movie, setMovie] = useState({});
   const [cast, setCast] = useState([]);
   const [watchProviders, setWatchProviders] = useState([]);

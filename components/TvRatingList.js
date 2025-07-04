@@ -5,7 +5,7 @@ import {
   FlatList,
   Image,
   TouchableWithoutFeedback,
-  ActivityIndicator, 
+  ActivityIndicator,
 } from "react-native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { getRatedTvShows } from "../Api/RatingApi";
@@ -25,7 +25,7 @@ const TvRatingList = () => {
   const [ratedTvShows, setRatedTvShows] = useState([]);
   const [error, setError] = useState(null);
   const [sessionId, setSessionId] = useState(null);
-  const [loadingImages, setLoadingImages] = useState({}); 
+  const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
 
   useEffect(() => {

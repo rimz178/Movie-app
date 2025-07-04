@@ -1,11 +1,11 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
   FlatList,
   Image,
   TouchableWithoutFeedback,
-   ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { fetchFavorites } from "../Api/Favorites";
@@ -83,16 +83,26 @@ const FavoriteList = () => {
             renderItem={({ item }) => (
               <TouchableWithoutFeedback onPress={() => handleMoviePress(item)}>
                 <View style={FavoriteStyles.movieCard}>
-                   {loadingImages[`movie-${item.id}`] && (
-                    <ActivityIndicator 
-                      style={CommonStyles.loading} 
-                      size="small" 
-                      color="#E21818" 
+                  {loadingImages[`movie-${item.id}`] && (
+                    <ActivityIndicator
+                      style={CommonStyles.loading}
+                      size="small"
+                      color="#E21818"
                     />
                   )}
                   <Image
-                    onLoadStart={() => setLoadingImages({...loadingImages, [`movie-${item.id}`]: true})}
-                    onLoadEnd={() => setLoadingImages({...loadingImages, [`movie-${item.id}`]: false})}
+                    onLoadStart={() =>
+                      setLoadingImages({
+                        ...loadingImages,
+                        [`movie-${item.id}`]: true,
+                      })
+                    }
+                    onLoadEnd={() =>
+                      setLoadingImages({
+                        ...loadingImages,
+                        [`movie-${item.id}`]: false,
+                      })
+                    }
                     progressiveRenderingEnabled={true}
                     source={{
                       uri: image185(item.poster_path) || fallbackMoviePoster,
@@ -126,16 +136,26 @@ const FavoriteList = () => {
             renderItem={({ item }) => (
               <TouchableWithoutFeedback onPress={() => handleTVPress(item)}>
                 <View style={FavoriteStyles.movieCard}>
-                 {loadingImages[`tv-${item.id}`] && (
-                    <ActivityIndicator 
-                      style={CommonStyles.loading} 
-                      size="small" 
-                      color="#E21818" 
+                  {loadingImages[`tv-${item.id}`] && (
+                    <ActivityIndicator
+                      style={CommonStyles.loading}
+                      size="small"
+                      color="#E21818"
                     />
                   )}
                   <Image
-                    onLoadStart={() => setLoadingImages({...loadingImages, [`tv-${item.id}`]: true})}
-                    onLoadEnd={() => setLoadingImages({...loadingImages, [`tv-${item.id}`]: false})}
+                    onLoadStart={() =>
+                      setLoadingImages({
+                        ...loadingImages,
+                        [`tv-${item.id}`]: true,
+                      })
+                    }
+                    onLoadEnd={() =>
+                      setLoadingImages({
+                        ...loadingImages,
+                        [`tv-${item.id}`]: false,
+                      })
+                    }
                     progressiveRenderingEnabled={true}
                     source={{
                       uri: image185(item.poster_path) || fallbackMoviePoster,

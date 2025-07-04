@@ -1,4 +1,11 @@
-import { View, Text, SafeAreaView, Image, FlatList, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
@@ -45,7 +52,7 @@ export default function PersonScreen() {
     const data = await fetchPersonMovies(id);
     if (data?.cast) setPersonMovies(data.cast);
   };
-  
+
   const getPersonSeries = async (id) => {
     const data = await fetchPersonSeries(id);
     if (data?.cast) setPersonSeries(data.cast);
@@ -80,7 +87,8 @@ export default function PersonScreen() {
                   <Image
                     style={PersonStyles.image}
                     source={{
-                      uri: image342(person?.profile_path) || fallbackPersonImage,
+                      uri:
+                        image342(person?.profile_path) || fallbackPersonImage,
                     }}
                     onLoadStart={() => setLoadingProfileImage(true)}
                     onLoadEnd={() => setLoadingProfileImage(false)}
