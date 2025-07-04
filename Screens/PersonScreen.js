@@ -1,4 +1,11 @@
-import { View, Text, SafeAreaView, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
@@ -13,6 +20,8 @@ import {
   image342,
 } from "../Api/ApiParsing";
 import { PersonStyles } from "../Styles/PersonStyles";
+import { CommonStyles } from "../Styles/CommonStyles";
+
 /**
  * PersonScreen component that displays details about a person, including their biography and movies.
  *
@@ -24,6 +33,7 @@ export default function PersonScreen() {
   const [personSeries, setPersonSeries] = useState([]);
   const [person, setPerson] = useState({});
   const [loading, setLoading] = useState(false);
+  const [loadingProfileImage, setLoadingProfileImage] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -42,6 +52,7 @@ export default function PersonScreen() {
     const data = await fetchPersonMovies(id);
     if (data?.cast) setPersonMovies(data.cast);
   };
+
   const getPersonSeries = async (id) => {
     const data = await fetchPersonSeries(id);
     if (data?.cast) setPersonSeries(data.cast);
@@ -55,20 +66,33 @@ export default function PersonScreen() {
         <FlatList
           data={[0]}
           keyExtractor={(item, index) => `${item}-${index}`}
-          initialNumToRender={2}
+          initialNumToRender={1}
+          maxToRenderPerBatch={2}
+          updateCellsBatchingPeriod={50}
+          windowSize={3}
+          removeClippedSubviews={true}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           renderItem={() => (
             <View>
               <View style={PersonStyles.person}>
                 <View style={PersonStyles.imageCircle}>
+                  {loadingProfileImage && (
+                    <ActivityIndicator
+                      style={CommonStyles.loading}
+                      size="large"
+                      color="#E21818"
+                    />
+                  )}
                   <Image
                     style={PersonStyles.image}
                     source={{
                       uri:
                         image342(person?.profile_path) || fallbackPersonImage,
-                      loading: "lazy",
                     }}
+                    onLoadStart={() => setLoadingProfileImage(true)}
+                    onLoadEnd={() => setLoadingProfileImage(false)}
+                    progressiveRenderingEnabled={true}
                   />
                 </View>
               </View>

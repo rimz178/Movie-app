@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import {
-  StyleSheet,
   TextInput,
   View,
   FlatList,
@@ -8,7 +7,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   Image,
-  Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { logger } from "../utils/logger";
 import { debounce } from "lodash";
@@ -23,6 +22,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { SearchStyles } from "../Styles/SearchStyles";
+import { CommonStyles } from "../Styles/CommonStyles";
+
 /**
  * SearchBars component for searching movies, series and actors.
  *
@@ -30,81 +31,93 @@ import { SearchStyles } from "../Styles/SearchStyles";
  */
 export default function SearchBars() {
   const navigation = useNavigation();
-  const [results, setResult] = useState([1, 2, 3, 4]);
+  const [results, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingImages, setLoadingImages] = useState({});
 
   const handleSearch = async (value) => {
     if (value && value.length > 2) {
       setLoading(true);
 
-      try {
-        const [moviesData, seriesData, peopleData] = await Promise.all([
-          searchMovies({
-            query: value,
-            include_adult: "false",
-            language: "en-US",
-            page: "1",
-          }),
-          searchSeries({
-            query: value,
-            include_adult: "false",
-            language: "en-US",
-            page: "1",
-          }),
-          searchPeople({
-            query: value,
-            include_adult: "false",
-            language: "en-US",
-            page: "1",
-          }),
-        ]);
+      requestAnimationFrame(async () => {
+        try {
+          const pageSize = "5";
 
-        const results = [
-          ...(moviesData?.results || []).map((item) => ({
-            ...item,
-            media_type: "movie",
-          })),
-          ...(seriesData?.results || []).map((item) => ({
-            ...item,
-            media_type: "tv",
-          })),
-          ...(peopleData?.results || []).map((item) => ({
-            ...item,
-            media_type: "person",
-          })),
-        ];
+          const [moviesData, seriesData, peopleData] = await Promise.all([
+            searchMovies({
+              query: value,
+              include_adult: "false",
+              language: "en-US",
+              page: "1",
+              per_page: pageSize,
+            }),
+            searchSeries({
+              query: value,
+              include_adult: "false",
+              language: "en-US",
+              page: "1",
+              per_page: pageSize,
+            }),
+            searchPeople({
+              query: value,
+              include_adult: "false",
+              language: "en-US",
+              page: "1",
+              per_page: pageSize,
+            }),
+          ]);
 
-        const sortedResults = results.sort((a, b) => {
-          const aTitle = (a.title || a.name || "").toLowerCase();
-          const bTitle = (b.title || b.name || "").toLowerCase();
-          const searchValue = value.toLowerCase();
+          const results = [
+            ...(moviesData?.results || []).map((item) => ({
+              ...item,
+              media_type: "movie",
+            })),
+            ...(seriesData?.results || []).map((item) => ({
+              ...item,
+              media_type: "tv",
+            })),
+            ...(peopleData?.results || []).map((item) => ({
+              ...item,
+              media_type: "person",
+            })),
+          ];
 
-          const aExactMatch = aTitle === searchValue ? 1 : 0;
-          const bExactMatch = bTitle === searchValue ? 1 : 0;
+          const searchValueLower = value.toLowerCase();
+          const sortedResults = results.sort((a, b) => {
+            const aTitle = (a.title || a.name || "").toLowerCase();
+            const bTitle = (b.title || b.name || "").toLowerCase();
 
-          if (aExactMatch !== bExactMatch) {
-            return bExactMatch - aExactMatch;
-          }
+            if (aTitle === searchValueLower && bTitle !== searchValueLower)
+              return -1;
+            if (bTitle === searchValueLower && aTitle !== searchValueLower)
+              return 1;
 
-          const aIncludes = aTitle.includes(searchValue) ? 1 : 0;
-          const bIncludes = bTitle.includes(searchValue) ? 1 : 0;
+            if (
+              aTitle.includes(searchValueLower) &&
+              !bTitle.includes(searchValueLower)
+            )
+              return -1;
+            if (
+              bTitle.includes(searchValueLower) &&
+              !aTitle.includes(searchValueLower)
+            )
+              return 1;
 
-          if (aIncludes !== bIncludes) {
-            return bIncludes - aIncludes;
-          }
-          return (b.popularity || 0) - (a.popularity || 0);
-        });
+            return (b.popularity || 0) - (a.popularity || 0);
+          });
 
-        setResult(sortedResults);
-      } catch (error) {
-        logger.error("Error fetching search results:", error);
-        setResult([]);
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      setLoading(false);
+          const maxResults = 50;
+          setResult(sortedResults.slice(0, maxResults));
+        } catch (error) {
+          logger.error("Error fetching search results:", error);
+          setResult([]);
+        } finally {
+          setLoading(false);
+        }
+      });
+    } else if (value.length === 0) {
       setResult([]);
+      setLoading(false);
     }
   };
 
@@ -129,6 +142,10 @@ export default function SearchBars() {
         <FlatList
           data={results}
           initialNumToRender={2}
+          maxToRenderPerBatch={5}
+          updateCellsBatchingPeriod={50}
+          windowSize={5}
+          removeClippedSubviews={true}
           keyExtractor={(item, index) =>
             `${item.media_type || "unknown"}-${item.id || index}`
           }
@@ -145,6 +162,13 @@ export default function SearchBars() {
               }}
             >
               <View>
+                {loadingImages[item.id] && (
+                  <ActivityIndicator
+                    style={CommonStyles.loading}
+                    size="small"
+                    color="#E21818"
+                  />
+                )}
                 <Image
                   style={SearchStyles.image}
                   source={{
@@ -153,6 +177,13 @@ export default function SearchBars() {
                         ? image185(item?.profile_path) || fallbackMoviePoster
                         : image185(item?.poster_path) || fallbackMoviePoster,
                   }}
+                  onLoadStart={() =>
+                    setLoadingImages({ ...loadingImages, [item.id]: true })
+                  }
+                  onLoadEnd={() =>
+                    setLoadingImages({ ...loadingImages, [item.id]: false })
+                  }
+                  progressiveRenderingEnabled={true}
                 />
                 <Text style={SearchStyles.otherText}>
                   {item?.title || item?.name

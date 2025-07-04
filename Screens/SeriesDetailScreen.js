@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Alert,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {
@@ -26,6 +27,7 @@ import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
 import { SharedStyles } from "../Styles/SharedStyles";
+import { CommonStyles } from "../Styles/CommonStyles"; // Lisätty
 import { logger } from "../utils/logger";
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
@@ -41,6 +43,7 @@ export default function SeriesDetailScreen() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [watchProviders, setWatchProviders] = useState([]);
   const [userSessionId, setUserSessionId] = useState(null);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -131,9 +134,21 @@ export default function SeriesDetailScreen() {
           keyExtractor={(item) => item.toString()}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          initialNumToRender={1}
+          maxToRenderPerBatch={2}
+          updateCellsBatchingPeriod={50}
+          windowSize={3}
+          removeClippedSubviews={true}
           renderItem={() => (
             <View style={SharedStyles.content}>
               <View style={SharedStyles.images}>
+                {loadingImage && (
+                  <ActivityIndicator
+                    style={CommonStyles.loading}
+                    size="large"
+                    color="#E21818"
+                  />
+                )}
                 <Image
                   style={SharedStyles.insideImage}
                   source={{
@@ -141,6 +156,9 @@ export default function SeriesDetailScreen() {
                       image500(seriesDetails?.backdrop_path) ||
                       fallbackMoviePoster,
                   }}
+                  onLoadStart={() => setLoadingImage(true)}
+                  onLoadEnd={() => setLoadingImage(false)}
+                  progressiveRenderingEnabled={true}
                 />
                 <TouchableOpacity
                   onPress={handleToggleFavorite}

@@ -95,6 +95,10 @@ function SeriesHomeScreen({ route }) {
             initialNumToRender={2}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
+            maxToRenderPerBatch={5}
+            updateCellsBatchingPeriod={50}
+            windowSize={5}
+            removeClippedSubviews={true}
             data={[
               {
                 key: "Trending Series",

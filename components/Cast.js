@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
+import { useState } from "react";
 import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 import { CastStyles } from "../Styles/CastStyles";
-
+import * as FileSystem from "expo-file-system";
 /**
  * Cast component that displays a list of cast members.
  *
@@ -9,6 +10,8 @@ import { CastStyles } from "../Styles/CastStyles";
  * @param {object} navigation - Navigation object for navigating to the Person screen.
  */
 export default function Cast({ cast, navigation }) {
+  const [loadingImages, setLoadingImages] = useState({});
+
   if (!cast || cast.length === 0) {
     return (
       <View style={CastStyles.container}>
@@ -27,6 +30,10 @@ export default function Cast({ cast, navigation }) {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
         initialNumToRender={2}
+        maxToRenderPerBatch={5}
+        updateCellsBatchingPeriod={50}
+        windowSize={5}
+        removeClippedSubviews={true}
         renderItem={({ item, index }) => (
           <TouchableOpacity
             style={CastStyles.items}
@@ -35,6 +42,13 @@ export default function Cast({ cast, navigation }) {
             <View style={CastStyles.imageCircle}>
               <Image
                 style={CastStyles.image}
+                onLoadStart={() =>
+                  setLoadingImages({ ...loadingImages, [index]: true })
+                }
+                onLoadEnd={() =>
+                  setLoadingImages({ ...loadingImages, [index]: false })
+                }
+                progressiveRenderingEnabled={true}
                 source={{
                   uri: image185(item?.profile_path) || fallbackPersonImage,
                   loading: "lazy",
