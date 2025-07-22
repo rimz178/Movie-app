@@ -52,29 +52,30 @@ function HomeScreen({ route }) {
         }
       });
     }
-  const fetchAllData = async () => {
-    try {
-      setLoading(true);
-      const [upcomingData, trendingData, ratedData, nowPlayingData] = await Promise.all([
-        fetchUpcoming(),
-        fetchTrending(),
-        fetchRated(),
-        fetchNowPlaying()
-      ]);
-      
-      if (upcomingData?.results) setUpcoming(upcomingData.results);
-      if (trendingData?.results) setTrending(trendingData.results);
-      if (ratedData?.results) setRated(ratedData.results);
-      if (nowPlayingData?.results) setPlaying(nowPlayingData.results);
-      
-      setLoading(false)
-    } catch (error) {
-      setLoading(false);
-    } 
-  };
-  
-  fetchAllData();
+    const fetchAllData = async () => {
+      try {
+        setLoading(true);
+        const [upcomingData, trendingData, ratedData, nowPlayingData] =
+          await Promise.all([
+            fetchUpcoming(),
+            fetchTrending(),
+            fetchRated(),
+            fetchNowPlaying(),
+          ]);
 
+        if (upcomingData?.results) setUpcoming(upcomingData.results);
+        if (trendingData?.results) setTrending(trendingData.results);
+        if (ratedData?.results) setRated(ratedData.results);
+        if (nowPlayingData?.results) setPlaying(nowPlayingData.results);
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setErrorMessage("Failed to load data. Please try again later.");
+      }
+    };
+
+    fetchAllData();
   }, [route]);
 
   return (

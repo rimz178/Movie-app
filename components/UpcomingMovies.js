@@ -4,13 +4,11 @@ import {
   Image,
   FlatList,
   TouchableWithoutFeedback,
-
 } from "react-native";
 import React, { useCallback, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 import { UpcomingStyles } from "../Styles/UpcomingStyles";
-
 
 /**
  * UpcomingMovies component that displays a horizontal list of upcoming movies.

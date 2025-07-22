@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Text,
   TouchableWithoutFeedback,
-  Image,,
+  Image,
 } from "react-native";
 import { logger } from "../utils/logger";
 import { debounce } from "lodash";
