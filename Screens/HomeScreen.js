@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, SafeAreaView, View } from "react-native";
+import { FlatList, Text, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GlobalStyles } from "../Styles/GlobalStyles";
 import UpcomingMovies from "../components/UpcomingMovies";
@@ -29,7 +29,6 @@ function HomeScreen({ route }) {
   const [isGuest, setIsGuest] = useState(false);
   useFocusEffect(
     React.useCallback(() => {
-      setSelectedTab("movies");
     }, []),
   );
 
