@@ -7,7 +7,6 @@ import {
   FlatList,
   Alert,
   SafeAreaView,
-  ActivityIndicator,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -18,7 +17,7 @@ import {
   fetchMovieCredits,
   fetchMovieDetails,
   fetchWatchProviders,
-  image500,
+  image185,
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
 import Cast from "../components/Cast";
@@ -146,18 +145,10 @@ export default function MovieScreen() {
           renderItem={() => (
             <View style={SharedStyles.content}>
               <View style={SharedStyles.images}>
-                {/* Lisätty latausanimaatio */}
-                {loadingPoster && (
-                  <ActivityIndicator
-                    style={CommonStyles.loading}
-                    size="large"
-                    color="#E21818"
-                  />
-                )}
                 <Image
                   style={SharedStyles.insideImage}
                   source={{
-                    uri: image500(movie?.poster_path) || fallbackMoviePoster,
+                    uri: image185(movie?.poster_path) || fallbackMoviePoster,
                   }}
                   onLoadStart={() => setLoadingPoster(true)}
                   onLoadEnd={() => setLoadingPoster(false)}

@@ -5,12 +5,10 @@ import {
   FlatList,
   TouchableWithoutFeedback,
   Image,
-  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { ListStyles } from "../Styles/ListStyles";
-import { CommonStyles } from "../Styles/CommonStyles";
 
 /**
  * MovieList component that displays a horizontal list of movies.
@@ -33,19 +31,15 @@ export default function MovieList({ title, data }) {
     <View>
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <View>
-          {loadingImages[item.id] && (
-            <ActivityIndicator
-              style={CommonStyles.loading}
-              size="small"
-              color="#E21818"
-            />
-          )}
           <Image
             style={ListStyles.image}
             onLoadStart={() =>
               setLoadingImages({ ...loadingImages, [item.id]: true })
             }
             onLoadEnd={() =>
+              setLoadingImages({ ...loadingImages, [item.id]: false })
+            }
+            onError={() =>
               setLoadingImages({ ...loadingImages, [item.id]: false })
             }
             progressiveRenderingEnabled={true}
@@ -75,8 +69,8 @@ export default function MovieList({ title, data }) {
         data={data}
         keyExtractor={(item) => `${title}-${item.id.toString()}`}
         renderItem={renderItem}
-        initialNumToRender={2}
-        maxToRenderPerBatch={5}
+        initialNumToRender={1}
+        maxToRenderPerBatch={2}
         updateCellsBatchingPeriod={50}
         windowSize={5}
         removeClippedSubviews={true}

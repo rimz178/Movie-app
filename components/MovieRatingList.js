@@ -5,14 +5,12 @@ import {
   FlatList,
   Image,
   TouchableWithoutFeedback,
-  ActivityIndicator, // Lisätty ActivityIndicator
 } from "react-native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { getRatedMovies } from "../Api/RatingApi";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
-import { CommonStyles } from "../Styles/CommonStyles";
 import { logger } from "../utils/logger";
 /**
  * MovieRatingList component fetches and displays a list of rated movies.
@@ -97,13 +95,7 @@ const MovieRatingList = () => {
         renderItem={({ item }) => (
           <TouchableWithoutFeedback onPress={() => handleMoviePress(item)}>
             <View style={RatingListStyles.card}>
-              {loadingImages[item.id] && (
-                <ActivityIndicator
-                  style={CommonStyles.loading}
-                  size="small"
-                  color="#E21818"
-                />
-              )}
+              {/* Poistettu latausanimaatio */}
               <Image
                 source={{
                   uri: image185(item.poster_path) || fallbackMoviePoster,

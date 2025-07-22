@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   Text,
   TouchableWithoutFeedback,
-  Image,
-  ActivityIndicator,
+  Image,,
 } from "react-native";
 import { logger } from "../utils/logger";
 import { debounce } from "lodash";
@@ -22,7 +21,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { SearchStyles } from "../Styles/SearchStyles";
-import { CommonStyles } from "../Styles/CommonStyles";
 
 /**
  * SearchBars component for searching movies, series and actors.
@@ -162,13 +160,6 @@ export default function SearchBars() {
               }}
             >
               <View>
-                {loadingImages[item.id] && (
-                  <ActivityIndicator
-                    style={CommonStyles.loading}
-                    size="small"
-                    color="#E21818"
-                  />
-                )}
                 <Image
                   style={SearchStyles.image}
                   source={{

@@ -34,8 +34,7 @@ export default {
     owner: "edie17",
     extra: {
       TMDB_BEARER_TOKEN:
-        process.env.TMDB_BEARER_TOKEN ||
-        "",
+        process.env.TMDB_BEARER_TOKEN ||"",
       eas: {
         projectId: "714a627c-2519-4b13-acaf-3dfc48f8158a",
       },
