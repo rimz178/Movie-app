@@ -26,7 +26,6 @@ function SeriesHomeScreen({ route }) {
 
   const [onTheAir, setOnTheAir] = useState([]);
   const [popular, setPopular] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("series");
   const [isGuest, setIsGuest] = useState(false);
 
   useFocusEffect(

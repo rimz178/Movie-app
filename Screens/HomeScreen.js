@@ -27,7 +27,6 @@ function HomeScreen({ route }) {
   const [nowPlaying, setPlaying] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("movies");
   useFocusEffect(
     React.useCallback(() => {
       setSelectedTab("movies");
