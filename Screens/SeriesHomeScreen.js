@@ -4,7 +4,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
-import SegmentedTabs from "../stack/SegmentedTabs";
 import { GlobalStyles } from "../Styles/GlobalStyles";
 import {
   fetchPopularSeries,
@@ -30,12 +29,6 @@ function SeriesHomeScreen({ route }) {
   const [selectedTab, setSelectedTab] = useState("series");
   const [isGuest, setIsGuest] = useState(false);
 
-  const handleTabChange = (newValue) => {
-    setSelectedTab(newValue);
-    if (newValue === "movies") {
-      navigation.navigate("MainTabs");
-    }
-  };
   useFocusEffect(
     React.useCallback(() => {
       setSelectedTab("series");
@@ -87,10 +80,7 @@ function SeriesHomeScreen({ route }) {
               Welcome, Guest! Log in to access more features like favorites.
             </Text>
           )}
-          <SegmentedTabs
-            selectedTab={selectedTab}
-            onTabChange={handleTabChange}
-          />
+
           <FlatList
             initialNumToRender={2}
             showsHorizontalScrollIndicator={false}

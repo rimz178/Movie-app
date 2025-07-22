@@ -142,13 +142,6 @@ export default function SeriesDetailScreen() {
           renderItem={() => (
             <View style={SharedStyles.content}>
               <View style={SharedStyles.images}>
-                {loadingImage && (
-                  <ActivityIndicator
-                    style={CommonStyles.loading}
-                    size="large"
-                    color="#E21818"
-                  />
-                )}
                 <Image
                   style={SharedStyles.insideImage}
                   source={{

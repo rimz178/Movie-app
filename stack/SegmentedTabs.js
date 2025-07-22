@@ -1,26 +1,32 @@
 import { View } from "react-native";
-import { SegmentedButtons } from "react-native-paper";
-import { GlobalStyles } from "../Styles/GlobalStyles";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import HomeScreen from "../Screens/HomeScreen";
+import SeriesHomeScreen from "../Screens/SeriesHomeScreen";
 
-export default function SegmentedTabs({ selectedTab, onTabChange }) {
+const TopTab = createMaterialTopTabNavigator();
+
+export default function SegmentedTabs() {
   return (
-    <View style={GlobalStyles.segmentContainer}>
-      <SegmentedButtons
-        value={selectedTab}
-        onValueChange={onTabChange}
-        buttons={[
-          {
-            value: "movies",
-            label: "Movies",
-            icon: "movie",
-          },
-          {
-            value: "series",
-            label: "Series",
-            icon: "television-classic",
-          },
-        ]}
+    <TopTab.Navigator
+      initialRouteName="MoviesTab"
+      screenOptions={{
+        tabBarLabelStyle: { fontSize: 16, fontWeight: "bold" },
+        tabBarStyle: { backgroundColor: "#222" },
+        tabBarIndicatorStyle: { backgroundColor: "#E60505" },
+        tabBarActiveTintColor: "#FFD700",
+        tabBarInactiveTintColor: "#fff",
+      }}
+    >
+      <TopTab.Screen
+        name="MoviesTab"
+        component={HomeScreen}
+        options={{ tabBarLabel: "Movies" }}
       />
-    </View>
+      <TopTab.Screen
+        name="SeriesTab"
+        component={SeriesHomeScreen}
+        options={{ tabBarLabel: "Series" }}
+      />
+    </TopTab.Navigator>
   );
 }
