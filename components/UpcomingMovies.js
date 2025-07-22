@@ -4,13 +4,11 @@ import {
   Image,
   FlatList,
   TouchableWithoutFeedback,
-  ActivityIndicator,
 } from "react-native";
 import React, { useCallback, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 import { UpcomingStyles } from "../Styles/UpcomingStyles";
-import { CommonStyles } from "../Styles/CommonStyles";
 
 /**
  * UpcomingMovies component that displays a horizontal list of upcoming movies.
@@ -61,13 +59,6 @@ const Movie = ({ item, handleClick, loadingImages, setLoadingImages }) => {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <View>
-        {loadingImages[item.id] && (
-          <ActivityIndicator
-            style={CommonStyles.loading}
-            size="small"
-            color="#E21818"
-          />
-        )}
         <Image
           source={{
             uri: image500(item.poster_path) || fallbackMoviePoster,

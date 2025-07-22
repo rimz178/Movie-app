@@ -5,12 +5,10 @@ import {
   FlatList,
   TouchableWithoutFeedback,
   Image,
-  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { ListStyles } from "../Styles/ListStyles";
-import { CommonStyles } from "../Styles/CommonStyles";
 
 /**
  * SeriesList component that displays a horizontal list of TV series.
@@ -34,13 +32,6 @@ export default function SeriesList({ title, data, listIndex }) {
     <View>
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <View>
-          {loadingImages[item.id] && (
-            <ActivityIndicator
-              style={CommonStyles.loading}
-              size="small"
-              color="#E21818"
-            />
-          )}
           <Image
             style={ListStyles.image}
             source={{

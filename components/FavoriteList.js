@@ -5,14 +5,12 @@ import {
   FlatList,
   Image,
   TouchableWithoutFeedback,
-  ActivityIndicator,
 } from "react-native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { fetchFavorites } from "../Api/Favorites";
 import { useNavigation } from "@react-navigation/native";
 import { FavoriteStyles } from "../Styles/FavoriteStyles";
 import { logger } from "../utils/logger";
-import { CommonStyles } from "../Styles/CommonStyles";
 
 /**
  * This component fetches and displays a list of favorite movies and TV shows.
@@ -83,13 +81,6 @@ const FavoriteList = () => {
             renderItem={({ item }) => (
               <TouchableWithoutFeedback onPress={() => handleMoviePress(item)}>
                 <View style={FavoriteStyles.movieCard}>
-                  {loadingImages[`movie-${item.id}`] && (
-                    <ActivityIndicator
-                      style={CommonStyles.loading}
-                      size="small"
-                      color="#E21818"
-                    />
-                  )}
                   <Image
                     onLoadStart={() =>
                       setLoadingImages({
@@ -136,13 +127,6 @@ const FavoriteList = () => {
             renderItem={({ item }) => (
               <TouchableWithoutFeedback onPress={() => handleTVPress(item)}>
                 <View style={FavoriteStyles.movieCard}>
-                  {loadingImages[`tv-${item.id}`] && (
-                    <ActivityIndicator
-                      style={CommonStyles.loading}
-                      size="small"
-                      color="#E21818"
-                    />
-                  )}
                   <Image
                     onLoadStart={() =>
                       setLoadingImages({

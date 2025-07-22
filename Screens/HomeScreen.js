@@ -52,32 +52,31 @@ function HomeScreen({ route }) {
         }
       });
     }
-    getUpcomingMovies();
-    getTrendingMovies();
-    getRatedMovies();
-    getNowPlaying();
+    const fetchAllData = async () => {
+      try {
+        setLoading(true);
+        const [upcomingData, trendingData, ratedData, nowPlayingData] =
+          await Promise.all([
+            fetchUpcoming(),
+            fetchTrending(),
+            fetchRated(),
+            fetchNowPlaying(),
+          ]);
+
+        if (upcomingData?.results) setUpcoming(upcomingData.results);
+        if (trendingData?.results) setTrending(trendingData.results);
+        if (ratedData?.results) setRated(ratedData.results);
+        if (nowPlayingData?.results) setPlaying(nowPlayingData.results);
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setErrorMessage("Failed to load data. Please try again later.");
+      }
+    };
+
+    fetchAllData();
   }, [route]);
-
-  const getUpcomingMovies = async () => {
-    const data = await fetchUpcoming();
-    if (data?.results) setUpcoming(data.results);
-    setLoading(false);
-  };
-
-  const getTrendingMovies = async () => {
-    const data = await fetchTrending();
-    if (data?.results) setTrending(data.results);
-  };
-
-  const getRatedMovies = async () => {
-    const data = await fetchRated();
-    if (data?.results) setRated(data.results);
-  };
-
-  const getNowPlaying = async () => {
-    const data = await fetchNowPlaying();
-    if (data?.results) setPlaying(data.results);
-  };
 
   return (
     <SafeAreaView style={GlobalStyles.container}>

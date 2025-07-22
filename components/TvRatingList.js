@@ -5,14 +5,12 @@ import {
   FlatList,
   Image,
   TouchableWithoutFeedback,
-  ActivityIndicator,
 } from "react-native";
 import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { getRatedTvShows } from "../Api/RatingApi";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
-import { CommonStyles } from "../Styles/CommonStyles"; // Lisätty CommonStyles
 import { logger } from "../utils/logger";
 
 /**
@@ -91,7 +89,6 @@ const TvRatingList = () => {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={RatingListStyles.listContainer}
-        // Lisätyt FlatList-optimoinnit:
         initialNumToRender={2}
         maxToRenderPerBatch={5}
         updateCellsBatchingPeriod={50}
@@ -100,21 +97,12 @@ const TvRatingList = () => {
         renderItem={({ item }) => (
           <TouchableWithoutFeedback onPress={() => handleTvPress(item)}>
             <View style={RatingListStyles.card}>
-              {/* Lisätty latausanimaatio */}
-              {loadingImages[item.id] && (
-                <ActivityIndicator
-                  style={CommonStyles.loading}
-                  size="small"
-                  color="#E21818"
-                />
-              )}
               <Image
                 source={{
                   uri: image185(item.poster_path) || fallbackMoviePoster,
                 }}
                 style={RatingListStyles.poster}
                 resizeMode="cover"
-                // Lisätty kuvan latauksen käsittelijät
                 onLoadStart={() =>
                   setLoadingImages({ ...loadingImages, [item.id]: true })
                 }
