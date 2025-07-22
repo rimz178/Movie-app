@@ -11,7 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BottomTabsStyles } from "../Styles/BottomTabsStyles";
 import { logger } from "../utils/logger";
 const Tab = createBottomTabNavigator();
-
+import SegmentedTabs from "./SegmentedTabs";
 /**
  * BottomTabs component that creates a tab navigator for the app.
  *
@@ -43,13 +43,16 @@ export default function BottomTabs(route) {
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === "Home") {
+          if (route.name === "HomeTab") {
             iconName = "home";
-          } else if (route.name === "MyLists") {
+          } else if (route.name === "MyListsTab") {
             iconName = "list";
-          } else if (route.name === "Search") {
+          } else if (route.name === "SearchTab") {
             iconName = "search";
-          } else if (route.name === "Settings" || route.name === "Login") {
+          } else if (
+            route.name === "SettingsTab" ||
+            route.name === "LoginTab"
+          ) {
             iconName = isGuest ? "log-in" : "settings";
           }
 
@@ -64,23 +67,23 @@ export default function BottomTabs(route) {
       })}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeTab"
+        component={SegmentedTabs}
         initialParams={{ isGuest }}
         options={{
-          title: "Movie Home",
+          title: "Home",
         }}
       />
       <Tab.Screen
-        name="Search"
+        name="SearchTab"
         component={SearchBars}
         options={{
-          title: "Search Movies",
+          title: "Search",
         }}
       />
       {!isGuest && (
         <Tab.Screen
-          name="MyLists"
+          name="MyListsTab"
           component={ListScreens}
           options={{
             title: "Favorites & Rated",
@@ -88,7 +91,7 @@ export default function BottomTabs(route) {
         />
       )}
       <Tab.Screen
-        name={isGuest ? "Login" : "Settings"}
+        name={isGuest ? "LoginTab" : "SettingsTab"}
         component={isGuest ? LoginScreen : SettingsScreen}
         options={{
           title: isGuest ? "Login" : "Settings",
