@@ -1,0 +1,44 @@
+{
+  "Header": {
+    "Welcome": "Tervetuloa",
+    "Home": "Etusivu"
+  },
+  "Auth": {
+    "Log In": "Kirjaudu Sisään",
+    "Login": "Kirjaudu sisään",
+    "Guest User": "Vieras tila",
+    "No account? Create a new account ": "Ei tiliä? Luo uusi tili"
+  },
+  "Navigation": {
+    "Search": "Hae",
+    "Settings": "Asetukset",
+    "Favorites & Rated": "Suosikit & Arvostellut",
+    "Movies": "Elokuvat",
+    "Series": "Sarjat"
+  },
+  "Movies": {
+    "Upcoming Movies": "Tulevat Elokuvat",
+    "Now Playing": "Tällä Hetkella Elokuvateattereissa",
+    "Trending Movies": "Trendaavat Elokuvat",
+    "Top Rated ": "Korkeimmin Arvostellut Elokuvat"
+  },
+  "Series": {
+    "Trending Series": "Trendaavat Sarjat",
+    "On the Air": "Parhaillaan esitettävät sarjat",
+    "Top Rated series": "Korkeimmin Arvostellut Sarjat",
+    "Popular Series": "Suositut Sarjat"
+  },
+  "Favorites and Rated":{
+    "Movie Favorites": "Elokuvien Suosikit",
+    "Series Favorites": "Sarjojen Suosikit",
+    "Rated Movies": "Arvostellut Elokuvat",
+    "Rated Series": "Arvostellut Sarjat"
+  },
+  "Settings":{
+    "Logout": "Kirjaudu ulos",
+    "Change Language": "Vaihda Kieli"
+
+  }
+
+
+}

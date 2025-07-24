@@ -1,0 +1,41 @@
+{
+  "Header": {
+    "Welcome": "Welcome",
+    "Home": "Home"
+  },
+  "Auth": {
+    "Log In": "Log In",
+    "Login": "login",
+    "Guest User": "Guest User",
+    "No account? Create a new account ": "No account? Create a new account "
+  },
+  "Navigation": {
+    "Search": "Search",
+    "Settings": "Settings",
+    "Favorites & Rated": "Favorites & Rated",
+    "Movies": "Movies",
+    "Series": "Series"
+  },
+  "Movies": {
+    "Upcoming Movies": "Upcoming Movies",
+    "Now Playing": "Now Playing Cinemas",
+    "Trending Movies": "Trending Movies",
+    "Top Rated ": "Top Rated Movies"
+  },
+  "Series": {
+    "Trending Series": "Trending Series",
+    "On the Air": "On the Air Series",
+    "Top Rated series": "Top Rated Series",
+    "Popular Series": "Popular Series"
+  },
+  "Favorites and Rated": {
+    "Movie Favorites": "Movie Favorites",
+    "Series Favorites": "Series Favorites",
+    "Rated Movies": "Rated Movies",
+    "Rated Series": "Rated Series"
+  },
+  "Settings": {
+    "Logout": "Logout",
+    "Change Language": "Change Language"
+  }
+}
