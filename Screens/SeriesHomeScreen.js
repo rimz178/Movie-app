@@ -11,7 +11,7 @@ import {
   fetchTrendingSeries,
   fetchAiringTodaySeries,
 } from "../Api/ApiParsing";
-
+import { useLanguage } from "../localication/LanguageContext";
 /**
  * SeriesHomeScreen component that displays a list of trending series.
  *
@@ -23,7 +23,7 @@ function SeriesHomeScreen({ route }) {
   const [loading, setLoading] = useState(true);
   const [trending, setTrending] = useState([]);
   const [topRated, setTopRated] = useState([]);
-
+  const { strings } = useLanguage();
   const [onTheAir, setOnTheAir] = useState([]);
   const [popular, setPopular] = useState([]);
   const [isGuest, setIsGuest] = useState(false);
@@ -72,7 +72,7 @@ function SeriesHomeScreen({ route }) {
         <>
           {isGuest && (
             <Text style={GlobalStyles.guestText}>
-              Welcome, Guest! Log in to access more features like favorites.
+              {strings.Header.WelcomeGuest}
             </Text>
           )}
 
@@ -87,17 +87,17 @@ function SeriesHomeScreen({ route }) {
             data={[
               {
                 key: "Trending Series",
-                title: "Trending Series",
+                title: strings.Series.TrendingSeries,
                 data: trending,
               },
               {
                 key: "On The Air Series",
-                title: "On The Air Series",
+                title: strings.Series.OnTheAir,
                 data: onTheAir,
               },
               {
                 key: "Top Rated Series",
-                title: "Top Rated Series",
+                title: strings.Series.TopRatedSeries,
                 data: topRated,
               },
               {

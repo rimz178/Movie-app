@@ -29,9 +29,9 @@
     "TopRated": "Korkeimmin Arvostellut Elokuvat"
   },
   "Series": {
-    "Trending Series": "Trendaavat Sarjat",
-    "OntheAir": "Parhaillaan esitettävät sarjat",
-    "TopRatedseries": "Korkeimmin Arvostellut Sarjat",
+    "TrendingSeries": "Trendaavat Sarjat",
+    "OnTheAir": "Parhaillaan esitettävät sarjat",
+    "TopRatedSeries": "Korkeimmin Arvostellut Sarjat",
     "PopularSeries": "Suositut Sarjat"
   },
   "Favorites and Rated": {
