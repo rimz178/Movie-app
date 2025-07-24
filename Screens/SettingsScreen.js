@@ -1,16 +1,10 @@
-import React from "react";
-import {
-  TouchableOpacity,
-  SafeAreaView,
-  Text,
-  View,
-  Image,
-  Linking,
-} from "react-native";
+import React, { useState } from "react";
+import { TouchableOpacity, SafeAreaView, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";
-import { logger } from "../utils/logger";
+import { useLanguage } from "../localication/LanguageContext";
+
 /**
  * SettingsScreen component for managing user settings.
  *
@@ -18,6 +12,8 @@ import { logger } from "../utils/logger";
  */
 export default function SettingsScreen() {
   const navigation = useNavigation();
+  const { language, setLanguage, strings } = useLanguage();
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("session_id");
@@ -27,33 +23,67 @@ export default function SettingsScreen() {
     });
   };
 
-  const handleTMDBLink = async () => {
-    try {
-      await Linking.openURL("https://www.themoviedb.org/");
-    } catch (error) {
-      logger.error("Failed to open URL: ", error);
-      Alert.alert("Error", "Unable to open the link. Please try again later.");
-    }
-  };
-
   return (
     <SafeAreaView style={SettingsStyles.container}>
       <View style={SettingsStyles.content}>
-        <TouchableOpacity style={SettingsStyles.button} onPress={handleLogout}>
-          <Text style={SettingsStyles.buttonText}>Logout</Text>
-        </TouchableOpacity>
+        {/* YLEISET */}
 
-        <View style={SettingsStyles.tmdbContainer}>
-          <Text style={SettingsStyles.attribution}>
-            This product uses the TMDB API but is not endorsed or certified by
-            TMDB.
+        {/* KIELI */}
+        <Text style={SettingsStyles.sectionHeader}>
+          {strings.Settings.Language}
+        </Text>
+        <TouchableOpacity
+          style={SettingsStyles.row}
+          onPress={() => setLanguageMenuOpen(!languageMenuOpen)}
+        >
+          <Text style={SettingsStyles.rowText}>
+            {strings.Settings.ChangeLanguage}
           </Text>
-          <TouchableOpacity onPress={handleTMDBLink}>
-            <Image
-              style={SettingsStyles.tmdbLogo}
-              source={require("../assets/image/tmdb.jpg")}
-              resizeMode="contain"
-            />
+          <Text style={{ color: "#fff", fontSize: 18 }}>
+            {languageMenuOpen ? "▲" : "▼"}
+          </Text>
+        </TouchableOpacity>
+        {languageMenuOpen && (
+          <View style={{ backgroundColor: "#232228", borderRadius: 8 }}>
+            <TouchableOpacity
+              style={{ padding: 12 }}
+              onPress={() => {
+                setLanguage("fi");
+                setLanguageMenuOpen(false);
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 16 }}>
+                {strings.Settings.Finnish}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ padding: 12 }}
+              onPress={() => {
+                setLanguage("en");
+                setLanguageMenuOpen(false);
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 16 }}>
+                {strings.Settings.English}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* MUUT */}
+        <Text style={SettingsStyles.sectionHeader}>
+          {strings.Settings.OtherSettings}
+        </Text>
+        <View style={SettingsStyles.row}>
+          <TouchableOpacity style={{ flex: 1 }} onPress={handleLogout}>
+            <Text
+              style={[
+                SettingsStyles.rowText,
+                { color: "#d00", textAlign: "center" },
+              ]}
+            >
+              {strings.Settings.Logout}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

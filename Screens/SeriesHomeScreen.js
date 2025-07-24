@@ -28,11 +28,7 @@ function SeriesHomeScreen({ route }) {
   const [popular, setPopular] = useState([]);
   const [isGuest, setIsGuest] = useState(false);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setSelectedTab("series");
-    }, []),
-  );
+  useFocusEffect(React.useCallback(() => {}, []));
   useEffect(() => {
     if (route?.params?.isGuest) {
       setIsGuest(true);

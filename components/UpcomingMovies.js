@@ -9,6 +9,7 @@ import React, { useCallback, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 import { UpcomingStyles } from "../Styles/UpcomingStyles";
+import { useLanguage } from "../localication/LanguageContext";
 
 /**
  * UpcomingMovies component that displays a horizontal list of upcoming movies.
@@ -19,6 +20,7 @@ import { UpcomingStyles } from "../Styles/UpcomingStyles";
 export default function UpcomingMovies({ data }) {
   const navigation = useNavigation();
   const [loadingImages, setLoadingImages] = useState({});
+  const { strings } = useLanguage();
 
   const handleClick = useCallback(
     (item) => {
@@ -29,7 +31,7 @@ export default function UpcomingMovies({ data }) {
 
   return (
     <View>
-      <Text style={UpcomingStyles.text}>Upcoming Movies</Text>
+      <Text style={UpcomingStyles.text}>{strings.Movies.UpcomingMovies}</Text>
       <FlatList
         layout="default"
         data={data}

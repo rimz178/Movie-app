@@ -1,44 +1,47 @@
 {
   "Header": {
     "Welcome": "Tervetuloa",
-    "Home": "Etusivu"
+    "Home": "Etusivu",
+    "WelcomeGuestLog": "Tervetuloa, vierailija! Kirjaudu sisään käyttääksesi lisäominaisuuksia, kuten suosikkeja"
   },
   "Auth": {
-    "Log In": "Kirjaudu Sisään",
     "Login": "Kirjaudu sisään",
-    "Guest User": "Vieras tila",
-    "No account? Create a new account ": "Ei tiliä? Luo uusi tili"
+    "GuestUser": "Vieras tila",
+    "Username": "Käyttäjätunnus",
+    "Password": "Salasana",
+    "NoAccount": "Ei tiliä? Luo uusi tili"
   },
   "Navigation": {
     "Search": "Hae",
     "Settings": "Asetukset",
-    "Favorites & Rated": "Suosikit & Arvostellut",
-    "Movies": "Elokuvat",
-    "Series": "Sarjat"
+    "FavoritesRated": "Suosikit & Arvostellut",
+    "Movies1": "Elokuvat",
+    "Series1": "Sarjat"
   },
   "Movies": {
-    "Upcoming Movies": "Tulevat Elokuvat",
-    "Now Playing": "Tällä Hetkella Elokuvateattereissa",
-    "Trending Movies": "Trendaavat Elokuvat",
-    "Top Rated ": "Korkeimmin Arvostellut Elokuvat"
+    "UpcomingMovies": "Tulevat Elokuvat",
+    "NowPlaying": "Tällä Hetkellä Elokuvateattereissa",
+    "TrendingMovies": "Trendaavat Elokuvat",
+    "TopRated": "Korkeimmin Arvostellut Elokuvat"
   },
   "Series": {
     "Trending Series": "Trendaavat Sarjat",
-    "On the Air": "Parhaillaan esitettävät sarjat",
-    "Top Rated series": "Korkeimmin Arvostellut Sarjat",
-    "Popular Series": "Suositut Sarjat"
+    "OntheAir": "Parhaillaan esitettävät sarjat",
+    "TopRatedseries": "Korkeimmin Arvostellut Sarjat",
+    "PopularSeries": "Suositut Sarjat"
   },
-  "Favorites and Rated":{
-    "Movie Favorites": "Elokuvien Suosikit",
-    "Series Favorites": "Sarjojen Suosikit",
-    "Rated Movies": "Arvostellut Elokuvat",
-    "Rated Series": "Arvostellut Sarjat"
+  "Favorites and Rated": {
+    "MovieFavorites": "Elokuvien Suosikit",
+    "SeriesFavorites": "Sarjojen Suosikit",
+    "RatedMovies": "Arvostellut Elokuvat",
+    "RatedSeries": "Arvostellut Sarjat"
   },
-  "Settings":{
+  "Settings": {
     "Logout": "Kirjaudu ulos",
-    "Change Language": "Vaihda Kieli"
-
+    "ChangeLanguage": "Vaihda Kieli",
+    "Language": "Kieli",
+    "OtherSettings": "Muut Asetukset",
+    "English": "Englanti",
+    "Finnish": "Suomi"
   }
-
-
 }

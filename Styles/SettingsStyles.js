@@ -4,24 +4,23 @@ import Colors from "./Colors";
 export const SettingsStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.backcolor,
+    backgroundColor: "#18171c", // tumma tausta
   },
   content: {
     flex: 1,
-    justifyContent: "space-between", // This will push logo to bottom
-    padding: 20,
+    paddingTop: 24,
+    paddingHorizontal: 0,
   },
   button: {
-    backgroundColor: Colors.buttonColor,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    alignItems: "center",
+    backgroundColor: "#d00",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
   },
   buttonText: {
-    color: Colors.white,
-    fontSize: 16,
+    color: "#fff",
     fontWeight: "bold",
+    fontSize: 16,
   },
   tmdbContainer: {
     alignItems: "center",
@@ -40,5 +39,42 @@ export const SettingsStyles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: 8,
     padding: 10,
+  },
+  sectionHeader: {
+    backgroundColor: "#18171c",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 13,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginTop: 18,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#232228",
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#222",
+    marginBottom: 0,
+    borderRadius: 8,
+    minHeight: 48,
+  },
+  rowText: {
+    fontSize: 16,
+    color: "#fff",
+    flex: 1,
+  },
+  actionButton: {
+    backgroundColor: "#d00",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+  },
+  actionButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });

@@ -1,41 +1,47 @@
 {
   "Header": {
     "Welcome": "Welcome",
-    "Home": "Home"
+    "Home": "Home",
+    "WelcomeGuestLog": "Welcome, Guest! Log in to use additional features like favorites"
   },
   "Auth": {
-    "Log In": "Log In",
     "Login": "login",
-    "Guest User": "Guest User",
-    "No account? Create a new account ": "No account? Create a new account "
+    "Username": "Username",
+    "Password": "Password",
+    "GuestUser": "Guest User",
+    "NoAccount": "No account? Create a new account "
   },
   "Navigation": {
     "Search": "Search",
     "Settings": "Settings",
-    "Favorites & Rated": "Favorites & Rated",
-    "Movies": "Movies",
-    "Series": "Series"
+    "FavoritesRated": "Favorites & Rated",
+    "Movies1": "Movies",
+    "Series1": "Series"
   },
   "Movies": {
-    "Upcoming Movies": "Upcoming Movies",
-    "Now Playing": "Now Playing Cinemas",
-    "Trending Movies": "Trending Movies",
-    "Top Rated ": "Top Rated Movies"
+    "UpcomingMovies": "Upcoming Movies",
+    "NowPlaying": "Now Playing Cinemas",
+    "TrendingMovies": "Trending Movies",
+    "TopRated": "Top Rated Movies"
   },
   "Series": {
-    "Trending Series": "Trending Series",
-    "On the Air": "On the Air Series",
-    "Top Rated series": "Top Rated Series",
-    "Popular Series": "Popular Series"
+    "TrendingSeries": "Trending Series",
+    "OntheAir": "On the Air Series",
+    "TopRatedSeries": "Top Rated Series",
+    "PopularSeries": "Popular Series"
   },
   "Favorites and Rated": {
-    "Movie Favorites": "Movie Favorites",
-    "Series Favorites": "Series Favorites",
-    "Rated Movies": "Rated Movies",
-    "Rated Series": "Rated Series"
+    "MovieFavorites": "Movie Favorites",
+    "SeriesFavorites": "Series Favorites",
+    "RatedMovies": "Rated Movies",
+    "RatedSeries": "Rated Series"
   },
   "Settings": {
     "Logout": "Logout",
-    "Change Language": "Change Language"
+    "ChangeLanguage": "Change Language",
+    "Language": "Language",
+    "OtherSettings": "Other Settings",
+    "English": "English",
+    "Finnish": "Finnish"
   }
 }

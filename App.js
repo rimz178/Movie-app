@@ -7,6 +7,7 @@ import { enableScreens } from "react-native-screens";
 enableScreens();
 
 import MainStack from "./stack/MainStack";
+import { LanguageProvider } from "./localication/LanguageContext";
 /**
  * App component that initializes the application and renders the main navigation stack.
  *
@@ -15,7 +16,9 @@ import MainStack from "./stack/MainStack";
 function App() {
   return (
     <SafeAreaProvider>
-      <MainStack />
+      <LanguageProvider>
+        <MainStack />
+      </LanguageProvider>
     </SafeAreaProvider>
   );
 }
