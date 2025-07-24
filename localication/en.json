@@ -2,8 +2,10 @@
   "Header": {
     "Welcome": "Welcome",
     "Home": "Home",
-    "WelcomeGuestLog": "Welcome, Guest! Log in to use additional features like favorites"
+    "WelcomeGuestLog": "Welcome, Guest! Log in to use additional features like favorites",
+    "GuestHome": "Guest Home"
   },
+
   "Auth": {
     "Login": "login",
     "Username": "Username",
@@ -16,7 +18,9 @@
     "Settings": "Settings",
     "FavoritesRated": "Favorites & Rated",
     "Movies1": "Movies",
-    "Series1": "Series"
+    "Series1": "Series",
+    "Person": "Person",
+    "Seriesdetails": "Series Details"
   },
   "Movies": {
     "UpcomingMovies": "Upcoming Movies",

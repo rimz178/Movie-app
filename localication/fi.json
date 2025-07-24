@@ -2,7 +2,8 @@
   "Header": {
     "Welcome": "Tervetuloa",
     "Home": "Etusivu",
-    "WelcomeGuestLog": "Tervetuloa, vierailija! Kirjaudu sisään käyttääksesi lisäominaisuuksia, kuten suosikkeja"
+    "WelcomeGuestLog": "Tervetuloa, vierailija! Kirjaudu sisään käyttääksesi lisäominaisuuksia, kuten suosikkeja",
+    "GuestHome": "Vierailija Etusivu"
   },
   "Auth": {
     "Login": "Kirjaudu sisään",
@@ -11,12 +12,15 @@
     "Password": "Salasana",
     "NoAccount": "Ei tiliä? Luo uusi tili"
   },
+
   "Navigation": {
     "Search": "Hae",
     "Settings": "Asetukset",
-    "FavoritesRated": "Suosikit & Arvostellut",
+    "FavoritesRated": "Suosikit & Arvostelut",
     "Movies1": "Elokuvat",
-    "Series1": "Sarjat"
+    "Series1": "Sarjat",
+    "Person": "Henkilö",
+    "Seriesdetails": "Sarjan tiedot"
   },
   "Movies": {
     "UpcomingMovies": "Tulevat Elokuvat",

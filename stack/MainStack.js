@@ -12,7 +12,7 @@ import SeriesHomeScreen from "../Screens/SeriesHomeScreen";
 import Colors from "../Styles/Colors";
 import SeriesDetailScreen from "../Screens/SeriesDetailScreen";
 const Stack = createStackNavigator();
-
+import { useLanguage } from "../localication/LanguageContext";
 /**
  * MainStack component for managing the app's navigation.
  *
@@ -26,6 +26,7 @@ const Stack = createStackNavigator();
 function MainStack() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { strings } = useLanguage();
 
   useEffect(() => {
     const checkSession = async () => {
@@ -70,7 +71,7 @@ function MainStack() {
             name="GuestHome"
             component={GuestHome}
             options={{
-              title: "Guest Home",
+              title: strings.Header.GuestHome,
             }}
           />
           <Stack.Screen
@@ -83,7 +84,7 @@ function MainStack() {
             component={MovieScreen}
             options={{
               headerBackTitle: "Back",
-              title: "Movie",
+              title: strings.Navigation.Movies1,
               headerShown: true,
             }}
           />
@@ -93,7 +94,7 @@ function MainStack() {
             component={PersonScreen}
             options={{
               headerBackTitle: "Back",
-              title: "Person",
+              title: strings.Navigation.Person,
               headerShown: true,
             }}
           />
@@ -102,7 +103,7 @@ function MainStack() {
             component={SeriesHomeScreen}
             options={{
               headerBackTitle: "Back",
-              title: "TV Series",
+              title: strings.Navigation.Series1,
               headerShown: true,
             }}
           />
@@ -111,7 +112,7 @@ function MainStack() {
             component={SeriesDetailScreen}
             options={{
               headerBackTitle: "Back",
-              title: "TV Series Details",
+              title: strings.Navigation.SeriesDetails,
               headerShown: true,
             }}
           />
