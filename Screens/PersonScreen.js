@@ -135,7 +135,7 @@ export default function PersonScreen() {
                   {strings.Persons.Biography}
                 </Text>
                 <Text style={PersonStyles.bioGraphyText}>
-                  {person?.biography || "N/A"}
+                  {person?.biography || strings.Other.NoInfo}
                 </Text>
               </View>
               {

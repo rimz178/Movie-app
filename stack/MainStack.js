@@ -83,7 +83,7 @@ function MainStack() {
             name="Movie"
             component={MovieScreen}
             options={{
-              headerBackTitle: "Back",
+              headerBackTitle: strings.Navigation.Back,
               title: strings.Navigation.MoviesDetails,
               headerShown: true,
             }}
@@ -93,7 +93,7 @@ function MainStack() {
             name="Person"
             component={PersonScreen}
             options={{
-              headerBackTitle: "Back",
+              headerBackTitle: strings.Navigation.Back,
               title: strings.Navigation.Person,
               headerShown: true,
             }}
@@ -102,7 +102,7 @@ function MainStack() {
             name="Series"
             component={SeriesHomeScreen}
             options={{
-              headerBackTitle: "Back",
+              headerBackTitle: strings.Navigation.Back,
               title: strings.Navigation.Series1,
               headerShown: true,
             }}
@@ -111,7 +111,7 @@ function MainStack() {
             name="SeriesDetails"
             component={SeriesDetailScreen}
             options={{
-              headerBackTitle: "Back",
+              headerBackTitle: strings.Navigation.Back,
               title: strings.Navigation.SeriesDetails,
               headerShown: true,
             }}

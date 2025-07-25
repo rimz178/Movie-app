@@ -22,7 +22,8 @@
     "Series1": "Sarjat",
     "Person": "Henkilö",
     "SeriesDetails": "Sarjan tiedot",
-    "Result": "Tulokset"
+    "Result": "Tulokset",
+    "Back": "Takaisin"
   },
   "Movies": {
     "UpcomingMovies": "Tulevat Elokuvat",
@@ -79,6 +80,7 @@
   },
   "Other": {
     "TopCast": "Pääroolit",
-    "WatchProviders": "Suoratoistopalvelut"
+    "WatchProviders": "Suoratoistopalvelut",
+    "NoInfo": "Tietoja ei löydy tällä kielellä"
   }
 }

@@ -22,7 +22,8 @@
     "Series1": "Series",
     "Person": "Person",
     "SeriesDetails": "Series Details",
-    "Result": "Result"
+    "Result": "Result",
+    "Back": "Back"
   },
   "Movies": {
     "UpcomingMovies": "Upcoming Movies",
@@ -77,6 +78,7 @@
   },
   "Other": {
     "TopCast": "Top Cast",
-    "WatchProviders": "Watch Providers"
+    "WatchProviders": "Watch Providers",
+    "NoInfo": "N/A"
   }
 }

@@ -195,7 +195,7 @@ export default function MovieScreen() {
               </View>
 
               <Text style={SharedStyles.descriptionText}>
-                {movie?.overview}
+                {movie?.overview ? movie.overview : strings.Other.NoInfo}
               </Text>
 
               <Cast navigation={navigation} cast={cast} />
