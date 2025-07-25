@@ -12,7 +12,7 @@ import {
   fetchRated,
   fetchNowPlaying,
 } from "../Api/ApiParsing";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * HomeScreen component that displays movie data.
  *

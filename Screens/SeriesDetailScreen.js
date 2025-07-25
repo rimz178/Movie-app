@@ -25,7 +25,7 @@ import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
 import { SharedStyles } from "../Styles/SharedStyles";
 import { logger } from "../utils/logger";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *

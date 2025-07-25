@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 import { GuestHomeStyles } from "../Styles/GuestHomeStyles";
 /**
  * GuestHome component for non-logged-in users.

@@ -11,7 +11,7 @@ import { fetchFavorites } from "../Api/Favorites";
 import { useNavigation } from "@react-navigation/native";
 import { FavoriteStyles } from "../Styles/FavoriteStyles";
 import { logger } from "../utils/logger";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 
 /**
  * This component fetches and displays a list of favorite movies and TV shows.

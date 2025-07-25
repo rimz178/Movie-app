@@ -3,7 +3,7 @@ import { TouchableOpacity, SafeAreaView, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 
 /**
  * SettingsScreen component for managing user settings.

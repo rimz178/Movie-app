@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import HomeScreen from "../Screens/HomeScreen";
 import SeriesHomeScreen from "../Screens/SeriesHomeScreen";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 
 const TopTab = createMaterialTopTabNavigator();
 

@@ -14,7 +14,7 @@ import {
 } from "../Api/ApiParsing";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginStyles } from "../Styles/LoginStyles";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * LoginScreen component for user authentication.
  *

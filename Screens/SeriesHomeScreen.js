@@ -11,7 +11,7 @@ import {
   fetchTrendingSeries,
   fetchAiringTodaySeries,
 } from "../Api/ApiParsing";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * SeriesHomeScreen component that displays a list of trending series.
  *

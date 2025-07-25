@@ -9,7 +9,7 @@ import React, { useCallback, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { image500, fallbackMoviePoster } from "../Api/ApiParsing";
 import { UpcomingStyles } from "../Styles/UpcomingStyles";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 
 /**
  * UpcomingMovies component that displays a horizontal list of upcoming movies.

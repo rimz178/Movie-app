@@ -12,7 +12,7 @@ import SeriesHomeScreen from "../Screens/SeriesHomeScreen";
 import Colors from "../Styles/Colors";
 import SeriesDetailScreen from "../Screens/SeriesDetailScreen";
 const Stack = createStackNavigator();
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * MainStack component for managing the app's navigation.
  *

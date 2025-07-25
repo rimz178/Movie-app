@@ -11,7 +11,7 @@ import { BottomTabsStyles } from "../Styles/BottomTabsStyles";
 import { logger } from "../utils/logger";
 const Tab = createBottomTabNavigator();
 import SegmentedTabs from "./SegmentedTabs";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * BottomTabs component that creates a tab navigator for the app.
  *

@@ -7,7 +7,7 @@ import { enableScreens } from "react-native-screens";
 enableScreens();
 
 import MainStack from "./stack/MainStack";
-import { LanguageProvider } from "./localication/LanguageContext";
+import { LanguageProvider } from "./localization/LanguageContext";
 /**
  * App component that initializes the application and renders the main navigation stack.
  *

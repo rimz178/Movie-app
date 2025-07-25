@@ -13,7 +13,7 @@ import {
   image342,
 } from "../Api/ApiParsing";
 import { PersonStyles } from "../Styles/PersonStyles";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * PersonScreen component that displays details about a person, including their biography and movies.
  *

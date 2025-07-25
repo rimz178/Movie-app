@@ -21,7 +21,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { SearchStyles } from "../Styles/SearchStyles";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * SearchBars component for searching movies, series and actors.
  *

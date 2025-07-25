@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
 import React, { useState } from "react";
 import { image185, fallbackProviderLogo } from "../Api/ApiParsing";
 import { WatchProviderStyles } from "../Styles/WatchProviderStyles";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * WatchProviders component that displays a list of watch providers.
  *

@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
 import { useState } from "react";
 import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 import { CastStyles } from "../Styles/CastStyles";
-import { useLanguage } from "../localication/LanguageContext";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * Cast component that displays a list of cast members.
  *
