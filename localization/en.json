@@ -1,0 +1,82 @@
+{
+  "Header": {
+    "Welcome": "Welcome",
+    "Home": "Home",
+    "WelcomeGuestLog": "Welcome, Guest! Log in to use additional features like favorites",
+    "GuestHome": "Guest Home"
+  },
+
+  "Auth": {
+    "Login": "login",
+    "Username": "Username",
+    "Password": "Password",
+    "GuestUser": "Guest User",
+    "NoAccount": "No account? Create a new account"
+  },
+  "Navigation": {
+    "Search": "Search",
+    "Settings": "Settings",
+    "FavoritesRated": "Favorites & Rated",
+    "Movies1": "Movies",
+    "MoviesDetails": "Movie Details",
+    "Series1": "Series",
+    "Person": "Person",
+    "SeriesDetails": "Series Details",
+    "Result": "Result"
+  },
+  "Movies": {
+    "UpcomingMovies": "Upcoming Movies",
+    "NowPlaying": "Now Playing Cinemas",
+    "TrendingMovies": "Trending Movies",
+    "TopRated": "Top Rated Movies"
+  },
+  "Series": {
+    "TrendingSeries": "Trending Series",
+    "OnTheAir": "On the Air Series",
+    "TopRatedSeries": "Top Rated Series",
+    "PopularSeries": "Popular Series",
+    "Seasons": "Seasons",
+    "Episodes": "Episodes"
+  },
+  "Settings": {
+    "Logout": "Logout",
+    "ChangeLanguage": "Change Language",
+    "Language": "Language",
+    "OtherSettings": "Other Settings",
+    "English": "English",
+    "Finnish": "Finnish"
+  },
+  "Persons": {
+    "Gender": "Gender",
+    "Birthday": "Birthday",
+    "KnowFor": "Known For ",
+    "Popularity": "Popularity",
+    "Biography": "Biography",
+    "GenderMale": "Male",
+    "GenderFemale": "Female",
+    "GenderOther": "Other"
+  },
+  "GuestHome": {
+    "WelcomeGuest": "Welcome Guest!",
+    "FullAcces": "Explore movies and series with limited features. Log in for full access.",
+    "GoTo": "Go to Guest home screen"
+  },
+  "Favorites": {
+    "MovieFavorites": "Movie Favorites",
+    "SeriesFavorites": "Series Favorites",
+    "RatedMovies": "Rated Movies",
+    "RatedSeries": "Rated Series"
+  },
+  "ErrorMessage": {
+    "LoadingFavorites": "Loading Favorites...",
+    "NoFavorites": "No Favorites Yet",
+    "NoRatedMovies": "No Rated Movies Yet",
+    "NoRatedSeries": "No Rated Series Yet",
+    "NoCast": "No Cast Available",
+    "NoProviders": "No Providers Available"
+  },
+  "Other": {
+    "TopCast": "Top Cast",
+    "WatchProviders": "Watch Providers"
+  }
+}

@@ -24,8 +24,8 @@ import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import { SharedStyles } from "../Styles/SharedStyles";
-import { CommonStyles } from "../Styles/CommonStyles";
 import { logger } from "../utils/logger";
+import { useLanguage } from "../localization/LanguageContext";
 
 /**
  * Displays detailed information about a movie, including its cast, genres, and watch providers.
@@ -44,6 +44,7 @@ export default function MovieScreen() {
   const [watchProviders, setWatchProviders] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [userSessionId, setUserSessionId] = useState(null);
+  const { strings } = useLanguage();
 
   useEffect(() => {
     setLoading(true);

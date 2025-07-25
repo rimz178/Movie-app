@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
 import { useState } from "react";
 import { fallbackPersonImage, image185 } from "../Api/ApiParsing";
 import { CastStyles } from "../Styles/CastStyles";
-import * as FileSystem from "expo-file-system";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * Cast component that displays a list of cast members.
  *
@@ -11,17 +11,17 @@ import * as FileSystem from "expo-file-system";
  */
 export default function Cast({ cast, navigation }) {
   const [loadingImages, setLoadingImages] = useState({});
-
+  const { strings } = useLanguage();
   if (!cast || cast.length === 0) {
     return (
       <View style={CastStyles.container}>
-        <Text style={CastStyles.titleText}>No Cast Available</Text>
+        <Text style={CastStyles.titleText}>{strings.ErrorMessage.NoCast}</Text>
       </View>
     );
   }
   return (
     <View style={CastStyles.container}>
-      <Text style={CastStyles.titleText}>Top Cast</Text>
+      <Text style={CastStyles.titleText}>{strings.Other.TopCast}</Text>
       <FlatList
         data={cast}
         keyExtractor={(item, index) => index.toString()}

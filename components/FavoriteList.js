@@ -11,6 +11,7 @@ import { fetchFavorites } from "../Api/Favorites";
 import { useNavigation } from "@react-navigation/native";
 import { FavoriteStyles } from "../Styles/FavoriteStyles";
 import { logger } from "../utils/logger";
+import { useLanguage } from "../localization/LanguageContext";
 
 /**
  * This component fetches and displays a list of favorite movies and TV shows.
@@ -22,6 +23,7 @@ const FavoriteList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
+  const { strings } = useLanguage();
 
   useEffect(() => {
     const loadFavorites = async () => {
@@ -33,7 +35,6 @@ const FavoriteList = () => {
         });
         setIsLoading(false);
       } catch (error) {
-        logger.error("Error loading favorites:", error);
         setIsLoading(false);
       }
     };
@@ -52,7 +53,9 @@ const FavoriteList = () => {
   if (isLoading) {
     return (
       <View style={FavoriteStyles.emptyContainer}>
-        <Text style={FavoriteStyles.emptyText}>Loading favorites...</Text>
+        <Text style={FavoriteStyles.emptyText}>
+          {strings.ErrorMessage.LoadingFavorites}
+        </Text>
       </View>
     );
   }
@@ -63,7 +66,9 @@ const FavoriteList = () => {
   ) {
     return (
       <View style={FavoriteStyles.emptyContainer}>
-        <Text style={FavoriteStyles.emptyText}>No favorites yet</Text>
+        <Text style={FavoriteStyles.emptyText}>
+          {strings.ErrorMessage.NoFavorites}
+        </Text>
       </View>
     );
   }
@@ -72,7 +77,9 @@ const FavoriteList = () => {
     <View>
       {favorites.movies.length > 0 && (
         <>
-          <Text style={FavoriteStyles.titleText}>Movie Favorites</Text>
+          <Text style={FavoriteStyles.titleText}>
+            {strings.Favorites.MovieFavorites}
+          </Text>
           <FlatList
             data={favorites.movies}
             horizontal
@@ -118,7 +125,9 @@ const FavoriteList = () => {
 
       {favorites.tvShows.length > 0 && (
         <>
-          <Text style={FavoriteStyles.titleText}>TV Show Favorites</Text>
+          <Text style={FavoriteStyles.titleText}>
+            {strings.Favorites.SeriesFavorites}
+          </Text>
           <FlatList
             data={favorites.tvShows}
             horizontal

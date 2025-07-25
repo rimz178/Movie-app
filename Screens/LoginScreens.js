@@ -14,6 +14,7 @@ import {
 } from "../Api/ApiParsing";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginStyles } from "../Styles/LoginStyles";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * LoginScreen component for user authentication.
  *
@@ -23,6 +24,7 @@ import { LoginStyles } from "../Styles/LoginStyles";
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { strings } = useLanguage();
 
   const handleLogin = async () => {
     try {
@@ -65,33 +67,31 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={LoginStyles.container}>
-      <Text style={LoginStyles.title}> Welcome </Text>
-      <Text style={LoginStyles.login}>Log in</Text>
+      <Text style={LoginStyles.title}>{strings.Header.Welcome} </Text>
+      <Text style={LoginStyles.login}>{strings.Auth.Login}</Text>
       <TextInput
         style={LoginStyles.input}
-        placeholder="Username"
+        placeholder={strings.Auth.Username}
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={LoginStyles.input}
-        placeholder="Password"
+        placeholder={strings.Auth.Password}
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
       <View style={LoginStyles.buttonRow}>
         <TouchableOpacity style={LoginStyles.button} onPress={handleLogin}>
-          <Text style={LoginStyles.buttonText}>Log in</Text>
+          <Text style={LoginStyles.buttonText}>{strings.Auth.Login}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={LoginStyles.button} onPress={handleSkipLogin}>
-          <Text style={LoginStyles.buttonText}>Guest user</Text>
+          <Text style={LoginStyles.buttonText}>{strings.Auth.GuestUser}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={handleGoToRegister}>
-        <Text style={LoginStyles.registerText}>
-          No account? Create a new account
-        </Text>
+        <Text style={LoginStyles.registerText}>{strings.Auth.NoAccount}</Text>
       </TouchableOpacity>
     </View>
   );

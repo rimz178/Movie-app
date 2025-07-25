@@ -13,6 +13,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { RatingStyles } from "../Styles/RatingStyles";
 import Colors from "../Styles/Colors";
 import { logger } from "../utils/logger";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * CustomRating component allows users to rate movies or TV shows.
  * It fetches the current rating from the API and allows users to submit or remove their rating.
@@ -24,6 +25,7 @@ import { logger } from "../utils/logger";
  */
 export default function CustomRating({ id, sessionId, type = "movie" }) {
   const [rating, setRating] = useState(0);
+  const { strings } = useLanguage();
 
   useEffect(() => {
     if (!id) {

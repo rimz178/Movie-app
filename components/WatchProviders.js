@@ -1,18 +1,8 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
 import React, { useState } from "react";
-import Colors from "../Styles/Colors";
 import { image185, fallbackProviderLogo } from "../Api/ApiParsing";
 import { WatchProviderStyles } from "../Styles/WatchProviderStyles";
-import { CommonStyles } from "../Styles/CommonStyles";
-
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * WatchProviders component that displays a list of watch providers.
  *
@@ -21,12 +11,13 @@ import { CommonStyles } from "../Styles/CommonStyles";
  */
 export default function WatchProviders({ providers }) {
   const [loadingImages, setLoadingImages] = useState({});
+  const { strings } = useLanguage();
 
   if (!providers || providers.length === 0) {
     return (
       <View style={WatchProviderStyles.container}>
         <Text style={WatchProviderStyles.titleText}>
-          No Providers Available
+          {strings.ErrorMessage.NoProviders}
         </Text>
       </View>
     );
@@ -38,7 +29,9 @@ export default function WatchProviders({ providers }) {
 
   return (
     <View style={WatchProviderStyles.container}>
-      <Text style={WatchProviderStyles.titleText}>Watch Providers</Text>
+      <Text style={WatchProviderStyles.titleText}>
+        {strings.Other.WatchProviders}
+      </Text>
       <FlatList
         data={uniqueProviders}
         keyExtractor={(item, index) =>
@@ -56,13 +49,6 @@ export default function WatchProviders({ providers }) {
         renderItem={({ item }) => (
           <TouchableOpacity style={WatchProviderStyles.items}>
             <View style={WatchProviderStyles.imageCircle}>
-              {loadingImages[item?.provider_id] && (
-                <ActivityIndicator
-                  style={CommonStyles.loading}
-                  size="small"
-                  color="#E21818"
-                />
-              )}
               <Image
                 style={WatchProviderStyles.image}
                 source={{

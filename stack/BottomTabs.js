@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import HomeScreen from "../Screens/HomeScreen";
 import ListScreens from "../Screens/ListScreens";
 import SearchBars from "../components/SearchBars";
 import SettingsScreen from "../Screens/SettingsScreen";
@@ -12,6 +11,7 @@ import { BottomTabsStyles } from "../Styles/BottomTabsStyles";
 import { logger } from "../utils/logger";
 const Tab = createBottomTabNavigator();
 import SegmentedTabs from "./SegmentedTabs";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * BottomTabs component that creates a tab navigator for the app.
  *
@@ -19,6 +19,7 @@ import SegmentedTabs from "./SegmentedTabs";
  */
 export default function BottomTabs(route) {
   const [isGuest, setIsGuest] = useState(false);
+  const { strings } = useLanguage();
 
   useEffect(() => {
     if (route?.params?.isGuest) {
@@ -71,14 +72,14 @@ export default function BottomTabs(route) {
         component={SegmentedTabs}
         initialParams={{ isGuest }}
         options={{
-          title: "Home",
+          title: strings.Header.Home,
         }}
       />
       <Tab.Screen
         name="SearchTab"
         component={SearchBars}
         options={{
-          title: "Search",
+          title: strings.Navigation.Search,
         }}
       />
       {!isGuest && (
@@ -86,7 +87,7 @@ export default function BottomTabs(route) {
           name="MyListsTab"
           component={ListScreens}
           options={{
-            title: "Favorites & Rated",
+            title: strings.Navigation.FavoritesRated,
           }}
         />
       )}
@@ -94,7 +95,7 @@ export default function BottomTabs(route) {
         name={isGuest ? "LoginTab" : "SettingsTab"}
         component={isGuest ? LoginScreen : SettingsScreen}
         options={{
-          title: isGuest ? "Login" : "Settings",
+          title: isGuest ? strings.Auth.Login : strings.Navigation.Settings,
           headerShown: !isGuest,
         }}
       />

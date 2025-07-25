@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   Image,
   FlatList,
   SafeAreaView,
   Alert,
   TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {
@@ -18,7 +16,6 @@ import {
   image500,
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
-import Colors from "../Styles/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
@@ -27,8 +24,8 @@ import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
 import { SharedStyles } from "../Styles/SharedStyles";
-import { CommonStyles } from "../Styles/CommonStyles"; // Lisätty
 import { logger } from "../utils/logger";
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *
@@ -44,6 +41,7 @@ export default function SeriesDetailScreen() {
   const [watchProviders, setWatchProviders] = useState([]);
   const [userSessionId, setUserSessionId] = useState(null);
   const [loadingImage, setLoadingImage] = useState(false);
+  const { strings } = useLanguage();
 
   useEffect(() => {
     setLoading(true);
@@ -175,8 +173,9 @@ export default function SeriesDetailScreen() {
                   <Text style={SharedStyles.textStatus}>
                     {seriesDetails?.status} •{" "}
                     {seriesDetails?.first_air_date?.split("-")[0]} •
-                    {seriesDetails?.number_of_seasons} Seasons •{" "}
-                    {seriesDetails?.number_of_episodes} Episodes
+                    {seriesDetails?.number_of_seasons} {strings.Series.Seasons}{" "}
+                    • {seriesDetails?.number_of_episodes}{" "}
+                    {strings.Series.Episodes}
                   </Text>
                 ) : null}
               </View>

@@ -1,0 +1,84 @@
+{
+  "Header": {
+    "Welcome": "Tervetuloa",
+    "Home": "Etusivu",
+    "WelcomeGuestLog": "Tervetuloa, vierailija! Kirjaudu sisään käyttääksesi lisäominaisuuksia, kuten suosikkeja",
+    "GuestHome": "Vierailija Etusivu"
+  },
+  "Auth": {
+    "Login": "Kirjaudu sisään",
+    "GuestUser": "Vieras tila",
+    "Username": "Käyttäjätunnus",
+    "Password": "Salasana",
+    "NoAccount": "Ei tiliä? Luo uusi tili"
+  },
+
+  "Navigation": {
+    "Search": "Hae",
+    "Settings": "Asetukset",
+    "FavoritesRated": "Suosikit & Arvostelut",
+    "Movies1": "Elokuvat",
+    "MoviesDetails": "Elokuvan tiedot",
+    "Series1": "Sarjat",
+    "Person": "Henkilö",
+    "SeriesDetails": "Sarjan tiedot",
+    "Result": "Tulokset"
+  },
+  "Movies": {
+    "UpcomingMovies": "Tulevat Elokuvat",
+    "NowPlaying": "Tällä Hetkellä Elokuvateattereissa",
+    "TrendingMovies": "Trendaavat Elokuvat",
+    "TopRated": "Korkeimmin Arvostellut Elokuvat"
+  },
+  "Series": {
+    "TrendingSeries": "Trendaavat Sarjat",
+    "OnTheAir": "Parhaillaan esitettävät sarjat",
+    "TopRatedSeries": "Korkeimmin Arvostellut Sarjat",
+    "PopularSeries": "Suositut Sarjat",
+    "Seasons": "Kautta",
+    "Episodes": "Jaksoa"
+  },
+
+  "Settings": {
+    "Logout": "Kirjaudu ulos",
+    "ChangeLanguage": "Vaihda Kieli",
+    "Language": "Kieli",
+    "OtherSettings": "Muut Asetukset",
+    "English": "Englanti",
+    "Finnish": "Suomi"
+  },
+  "Persons": {
+    "Gender": "Sukupuoli",
+    "Birthday": "Syntymäaika",
+    "KnowFor": "Tunnetaan parhaiten",
+    "Popularity": "Suosio",
+    "Biography": "Elämäkerta",
+    "GenderMale": "Mies",
+    "GenderFemale": "Nainen",
+    "GenderOther": "Muu"
+  },
+
+  "GuestHome": {
+    "WelcomeGuest": "Tervetuloa Vieras tilaan!",
+    "FullAcces": "Tutki elokuvia ja sarjoja rajoitetuilla ominaisuuksilla. Kirjaudu sisään saadaksesi täyden käyttöoikeuden",
+    "GoTo": "Siirry Vierailija kotinäkymään"
+  },
+  "Favorites": {
+    "MovieFavorites": "Suosikki Elokuvat",
+    "SeriesFavorites": "Suosikki Sarjat",
+    "RatedMovies": "Arvostellut Elokuvat",
+    "RatedSeries": "Arvostellut Sarjat"
+  },
+  "ErrorMessage": {
+    "LoadingFavorites": "Ladataan suosikkeja...",
+    "NoFavorites": "Ei suosikkeja vielä",
+    "NoRatedMovies": "Ei arvosteltuja elokuvia vielä",
+    "NoRatedSeries": "Ei arvosteltuja sarjoja vielä",
+    "NoCast": "Näyttelijätiedot ei ole saatavilla",
+    "NoProviders": "Ei saatavilla suoratoistopalveluissa"
+  },
+  "Other": {
+    "TopCast": "Pääroolit",
+    "WatchProviders": "Suoratoistopalvelut"
+  }
+}

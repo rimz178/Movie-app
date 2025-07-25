@@ -12,7 +12,7 @@ import {
   fetchRated,
   fetchNowPlaying,
 } from "../Api/ApiParsing";
-
+import { useLanguage } from "../localization/LanguageContext";
 /**
  * HomeScreen component that displays movie data.
  *
@@ -27,10 +27,7 @@ function HomeScreen({ route }) {
   const [nowPlaying, setPlaying] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
-  useFocusEffect(
-    React.useCallback(() => {
-    }, []),
-  );
+  const { strings } = useLanguage();
 
   useEffect(() => {
     if (route?.params?.isGuest) {
@@ -76,7 +73,7 @@ function HomeScreen({ route }) {
         <>
           {isGuest && (
             <Text style={GlobalStyles.guestText}>
-              Welcome, Guest! Log in to access more features like favorites.
+              {strings.Header.WelcomeGuestLog}
             </Text>
           )}
           <FlatList
@@ -87,11 +84,19 @@ function HomeScreen({ route }) {
               { key: "upcoming", data: upcoming },
               {
                 key: "Now Playing cinemas",
-                title: "Now playing cinemas",
+                title: strings.Movies.NowPlaying,
                 data: nowPlaying,
               },
-              { key: "trending", title: "Trending Movies", data: trending },
-              { key: "topRated", title: "Top rated", data: topRated },
+              {
+                key: "trending",
+                title: strings.Movies.TrendingMovies,
+                data: trending,
+              },
+              {
+                key: "topRated",
+                title: strings.Movies.TopRated,
+                data: topRated,
+              },
             ]}
             keyExtractor={(item) => item.key}
             renderItem={({ item }) =>
