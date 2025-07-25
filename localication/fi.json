@@ -61,7 +61,7 @@
   "GuestHome": {
     "WelcomeGuest": "Tervetuloa Vieras tilaan!",
     "FullAcces": "Tutki elokuvia ja sarjoja rajoitetuilla ominaisuuksilla. Kirjaudu sisään saadaksesi täyden käyttöoikeuden",
-    "GoTo": "Siirry Vieralija kotinäkymään"
+    "GoTo": "Siirry Vierailija kotinäkymään"
   },
   "Favorites": {
     "MovieFavorites": "Suosikki Elokuvat",
@@ -71,7 +71,6 @@
   },
   "ErrorMessage": {
     "LoadingFavorites": "Ladataan suosikkeja...",
-    "ErrorFavorites": " Virhe ladattaessa suosikkeja",
     "NoFavorites": "Ei suosikkeja vielä",
     "NoRatedMovies": "Ei arvosteltuja elokuvia vielä",
     "NoRatedSeries": "Ei arvosteltuja sarjoja vielä",

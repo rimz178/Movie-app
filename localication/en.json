@@ -69,12 +69,11 @@
   },
   "ErrorMessage": {
     "LoadingFavorites": "Loading Favorites...",
-    "ErrorFavorites": "Error Loading Favorites:",
     "NoFavorites": "No Favorites Yet",
     "NoRatedMovies": "No Rated Movies Yet",
     "NoRatedSeries": "No Rated Series Yet",
     "NoCast": "No Cast Available",
-    "NoProviders": "No Providers Availabe "
+    "NoProviders": "No Providers Available"
   },
   "Other": {
     "TopCast": "Top Cast",

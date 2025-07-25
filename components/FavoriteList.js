@@ -35,13 +35,12 @@ const FavoriteList = () => {
         });
         setIsLoading(false);
       } catch (error) {
-        logger.error(strings.ErrorMessage.ErrorFavorites, error);
         setIsLoading(false);
       }
     };
 
     loadFavorites();
-  }, [strings]);
+  }, []);
 
   const handleMoviePress = (movie) => {
     navigation.navigate("Movie", movie);

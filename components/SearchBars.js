@@ -130,7 +130,7 @@ export default function SearchBars() {
           onChangeText={handleTextDebounce}
           placeholderTextColor="white"
         />
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate("HomeTab")}>
           <MaterialIcons style={SearchStyles.icon} size={38} name="close" />
         </TouchableOpacity>
       </View>
