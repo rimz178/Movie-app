@@ -21,7 +21,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { SearchStyles } from "../Styles/SearchStyles";
-
+import { useLanguage } from "../localication/LanguageContext";
 /**
  * SearchBars component for searching movies, series and actors.
  *
@@ -32,6 +32,7 @@ export default function SearchBars() {
   const [results, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingImages, setLoadingImages] = useState({});
+  const { strings } = useLanguage();
 
   const handleSearch = async (value) => {
     if (value && value.length > 2) {
@@ -125,11 +126,11 @@ export default function SearchBars() {
       <View style={SearchStyles.search}>
         <TextInput
           style={SearchStyles.textinput}
-          placeholder="Search"
+          placeholder={strings.Navigation.Search}
           onChangeText={handleTextDebounce}
           placeholderTextColor="white"
         />
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons style={SearchStyles.icon} size={38} name="close" />
         </TouchableOpacity>
       </View>
@@ -188,7 +189,7 @@ export default function SearchBars() {
           )}
           ListHeaderComponent={() => (
             <Text style={SearchStyles.resultText}>
-              Result ({results.length})
+              {strings.Navigation.Result} ({results.length})
             </Text>
           )}
           contentContainerStyle={SearchStyles.searchImage}

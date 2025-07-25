@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, SafeAreaView, Image, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
@@ -20,8 +13,7 @@ import {
   image342,
 } from "../Api/ApiParsing";
 import { PersonStyles } from "../Styles/PersonStyles";
-import { CommonStyles } from "../Styles/CommonStyles";
-
+import { useLanguage } from "../localication/LanguageContext";
 /**
  * PersonScreen component that displays details about a person, including their biography and movies.
  *
@@ -34,6 +26,7 @@ export default function PersonScreen() {
   const [person, setPerson] = useState({});
   const [loading, setLoading] = useState(false);
   const [loadingProfileImage, setLoadingProfileImage] = useState(false);
+  const { strings } = useLanguage();
 
   useEffect(() => {
     setLoading(true);
@@ -77,13 +70,6 @@ export default function PersonScreen() {
             <View>
               <View style={PersonStyles.person}>
                 <View style={PersonStyles.imageCircle}>
-                  {loadingProfileImage && (
-                    <ActivityIndicator
-                      style={CommonStyles.loading}
-                      size="large"
-                      color="#E21818"
-                    />
-                  )}
                   <Image
                     style={PersonStyles.image}
                     source={{
@@ -103,43 +89,66 @@ export default function PersonScreen() {
                 </Text>
               </View>
               <View style={PersonStyles.centerContainer}>
-                <View style={PersonStyles.textContainer}>
-                  <Text style={PersonStyles.centreText}>Gender</Text>
-                  <Text style={PersonStyles.centres}>
-                    {person?.gender === 1 ? "female" : "Male"}
-                  </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={PersonStyles.textContainer}>
+                    <Text style={PersonStyles.centreText}>
+                      {strings.Persons.Gender}
+                    </Text>
+                    <Text style={PersonStyles.centres}>
+                      {person?.gender === 1
+                        ? strings.Persons.GenderFemale
+                        : person?.gender === 2
+                          ? strings.Persons.GenderMale
+                          : strings.Persons.GenderOther}
+                    </Text>
+                  </View>
+                  <View style={PersonStyles.textContainer}>
+                    <Text style={PersonStyles.centreText}>
+                      {strings.Persons.Birthday}
+                    </Text>
+                    <Text style={PersonStyles.centres}>{person?.birthday}</Text>
+                  </View>
                 </View>
-
                 <Divider style={PersonStyles.divider} />
-                <View style={PersonStyles.textContainer}>
-                  <Text style={PersonStyles.centreText}>Birthday</Text>
-                  <Text style={PersonStyles.centres}>{person?.birthday}</Text>
-                </View>
-                <Divider style={PersonStyles.divider} />
-                <View style={PersonStyles.textContainer}>
-                  <Text style={PersonStyles.centreText}>Known for</Text>
-                  <Text style={PersonStyles.centres}>
-                    {person?.known_for_department}
-                  </Text>
-                </View>
-                <Divider style={PersonStyles.divider} />
-                <View style={PersonStyles.textContainer}>
-                  <Text style={PersonStyles.centreText}>Popularity</Text>
-                  <Text style={PersonStyles.centres}>
-                    {person?.popularity?.toFixed(2)}%
-                  </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={PersonStyles.textContainer}>
+                    <Text style={PersonStyles.centreText}>
+                      {strings.Persons.KnowFor}
+                    </Text>
+                    <Text style={PersonStyles.centres}>
+                      {person?.known_for_department}
+                    </Text>
+                  </View>
+                  <View style={PersonStyles.textContainer}>
+                    <Text style={PersonStyles.centreText}>
+                      {strings.Persons.Popularity}
+                    </Text>
+                    <Text style={PersonStyles.centres}>
+                      {person?.popularity?.toFixed(2)}%
+                    </Text>
+                  </View>
                 </View>
                 <Divider style={PersonStyles.divider} />
               </View>
               <View style={PersonStyles.bioGraphyContainter}>
-                <Text style={PersonStyles.bioGraphyTitle}>Biography</Text>
+                <Text style={PersonStyles.bioGraphyTitle}>
+                  {strings.Persons.Biography}
+                </Text>
                 <Text style={PersonStyles.bioGraphyText}>
                   {person?.biography || "N/A"}
                 </Text>
               </View>
-              {<MovieList title={"Movies"} data={personMovies} />}
+              {
+                <MovieList
+                  title={strings.Navigation.Movies1}
+                  data={personMovies}
+                />
+              }
               {personSeries.length > 0 && (
-                <SeriesList title={"TV Shows"} data={personSeries} />
+                <SeriesList
+                  title={strings.Navigation.Series1}
+                  data={personSeries}
+                />
               )}
             </View>
           )}

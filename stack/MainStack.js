@@ -84,7 +84,7 @@ function MainStack() {
             component={MovieScreen}
             options={{
               headerBackTitle: "Back",
-              title: strings.Navigation.Movies1,
+              title: strings.Navigation.MoviesDetails,
               headerShown: true,
             }}
           />

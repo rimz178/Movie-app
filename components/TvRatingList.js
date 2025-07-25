@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
 import { logger } from "../utils/logger";
+import { useLanguage } from "../localication/LanguageContext";
 
 /**
  * TvRatingList component fetches and displays a list of rated TV shows.
@@ -25,6 +26,7 @@ const TvRatingList = () => {
   const [sessionId, setSessionId] = useState(null);
   const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
+  const { strings } = useLanguage();
 
   useEffect(() => {
     const fetchUserSessionId = async () => {
@@ -75,14 +77,18 @@ const TvRatingList = () => {
   if (ratedTvShows.length === 0) {
     return (
       <View style={RatingListStyles.emptyContainer}>
-        <Text style={RatingListStyles.emptyText}>No rated TV shows</Text>
+        <Text style={RatingListStyles.emptyText}>
+          {strings.ErrorMessage.NoRatedSeries}
+        </Text>
       </View>
     );
   }
 
   return (
     <View>
-      <Text style={RatingListStyles.titleText}>Rated Tv-series</Text>
+      <Text style={RatingListStyles.titleText}>
+        {strings.Favorites.RatedSeries}
+      </Text>
       <FlatList
         data={ratedTvShows}
         horizontal

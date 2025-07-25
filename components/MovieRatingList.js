@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
 import { logger } from "../utils/logger";
+import { useLanguage } from "../localication/LanguageContext";
 /**
  * MovieRatingList component fetches and displays a list of rated movies.
  *
@@ -23,6 +24,7 @@ const MovieRatingList = () => {
   const [sessionId, setSessionId] = useState(null);
   const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
+  const { strings } = useLanguage();
 
   useEffect(() => {
     const fetchUserSessionId = async () => {
@@ -73,14 +75,18 @@ const MovieRatingList = () => {
   if (ratedMovies.length === 0) {
     return (
       <View style={RatingListStyles.emptyContainer}>
-        <Text style={RatingListStyles.emptyText}>No rated movies</Text>
+        <Text style={RatingListStyles.emptyText}>
+          {strings.ErrorMessage.NoRatedMovies}
+        </Text>
       </View>
     );
   }
 
   return (
     <View>
-      <Text style={RatingListStyles.titleText}>Rated Movies</Text>
+      <Text style={RatingListStyles.titleText}>
+        {strings.Favorites.RatedMovies}
+      </Text>
       <FlatList
         data={ratedMovies}
         horizontal
@@ -95,7 +101,6 @@ const MovieRatingList = () => {
         renderItem={({ item }) => (
           <TouchableWithoutFeedback onPress={() => handleMoviePress(item)}>
             <View style={RatingListStyles.card}>
-              {/* Poistettu latausanimaatio */}
               <Image
                 source={{
                   uri: image185(item.poster_path) || fallbackMoviePoster,

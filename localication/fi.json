@@ -18,9 +18,11 @@
     "Settings": "Asetukset",
     "FavoritesRated": "Suosikit & Arvostelut",
     "Movies1": "Elokuvat",
+    "MoviesDetails": "Elokuvan tiedot",
     "Series1": "Sarjat",
     "Person": "Henkilö",
-    "Seriesdetails": "Sarjan tiedot"
+    "SeriesDetails": "Sarjan tiedot",
+    "Result": "Tulokset"
   },
   "Movies": {
     "UpcomingMovies": "Tulevat Elokuvat",
@@ -32,14 +34,11 @@
     "TrendingSeries": "Trendaavat Sarjat",
     "OnTheAir": "Parhaillaan esitettävät sarjat",
     "TopRatedSeries": "Korkeimmin Arvostellut Sarjat",
-    "PopularSeries": "Suositut Sarjat"
+    "PopularSeries": "Suositut Sarjat",
+    "Seasons": "Kautta",
+    "Episodes": "Jaksoa"
   },
-  "Favorites and Rated": {
-    "MovieFavorites": "Elokuvien Suosikit",
-    "SeriesFavorites": "Sarjojen Suosikit",
-    "RatedMovies": "Arvostellut Elokuvat",
-    "RatedSeries": "Arvostellut Sarjat"
-  },
+
   "Settings": {
     "Logout": "Kirjaudu ulos",
     "ChangeLanguage": "Vaihda Kieli",
@@ -47,5 +46,40 @@
     "OtherSettings": "Muut Asetukset",
     "English": "Englanti",
     "Finnish": "Suomi"
+  },
+  "Persons": {
+    "Gender": "Sukupuoli",
+    "Birthday": "Syntymäaika",
+    "KnowFor": "Tunnetaan parhaiten",
+    "Popularity": "Suosio",
+    "Biography": "Elämäkerta",
+    "GenderMale": "Mies",
+    "GenderFemale": "Nainen",
+    "GenderOther": "Muu"
+  },
+
+  "GuestHome": {
+    "WelcomeGuest": "Tervetuloa Vieras tilaan!",
+    "FullAcces": "Tutki elokuvia ja sarjoja rajoitetuilla ominaisuuksilla. Kirjaudu sisään saadaksesi täyden käyttöoikeuden",
+    "GoTo": "Siirry Vieralija kotinäkymään"
+  },
+  "Favorites": {
+    "MovieFavorites": "Suosikki Elokuvat",
+    "SeriesFavorites": "Suosikki Sarjat",
+    "RatedMovies": "Arvostellut Elokuvat",
+    "RatedSeries": "Arvostellut Sarjat"
+  },
+  "ErrorMessage": {
+    "LoadingFavorites": "Ladataan suosikkeja...",
+    "ErrorFavorites": " Virhe ladattaessa suosikkeja",
+    "NoFavorites": "Ei suosikkeja vielä",
+    "NoRatedMovies": "Ei arvosteltuja elokuvia vielä",
+    "NoRatedSeries": "Ei arvosteltuja sarjoja vielä",
+    "NoCast": "Näyttelijätiedot ei ole saatavilla",
+    "NoProviders": "Ei saatavilla suoratoistopalveluissa"
+  },
+  "Other": {
+    "TopCast": "Pääroolit",
+    "WatchProviders": "Suoratoistopalvelut"
   }
 }

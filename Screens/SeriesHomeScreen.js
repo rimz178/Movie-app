@@ -102,7 +102,7 @@ function SeriesHomeScreen({ route }) {
               },
               {
                 key: "Popular Series",
-                title: "Popular Series",
+                title: strings.Series.PopularSeries,
                 data: popular,
               },
             ]}

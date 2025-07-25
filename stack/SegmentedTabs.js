@@ -2,10 +2,13 @@ import { View } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import HomeScreen from "../Screens/HomeScreen";
 import SeriesHomeScreen from "../Screens/SeriesHomeScreen";
+import { useLanguage } from "../localication/LanguageContext";
 
 const TopTab = createMaterialTopTabNavigator();
 
 export default function SegmentedTabs() {
+  const { strings } = useLanguage();
+
   return (
     <TopTab.Navigator
       initialRouteName="MoviesTab"
@@ -20,12 +23,12 @@ export default function SegmentedTabs() {
       <TopTab.Screen
         name="MoviesTab"
         component={HomeScreen}
-        options={{ tabBarLabel: "Movies" }}
+        options={{ tabBarLabel: strings.Navigation.Movies1 }}
       />
       <TopTab.Screen
         name="SeriesTab"
         component={SeriesHomeScreen}
-        options={{ tabBarLabel: "Series" }}
+        options={{ tabBarLabel: strings.Navigation.Series1 }}
       />
     </TopTab.Navigator>
   );
