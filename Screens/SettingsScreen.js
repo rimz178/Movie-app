@@ -26,9 +26,6 @@ export default function SettingsScreen() {
   return (
     <SafeAreaView style={SettingsStyles.container}>
       <View style={SettingsStyles.content}>
-        {/* YLEISET */}
-
-        {/* KIELI */}
         <Text style={SettingsStyles.sectionHeader}>
           {strings.Settings.Language}
         </Text>
@@ -47,8 +44,16 @@ export default function SettingsScreen() {
           <View style={{ backgroundColor: "#232228", borderRadius: 8 }}>
             <TouchableOpacity
               style={{ padding: 12 }}
-              onPress={() => {
+              onPress={async () => {
                 setLanguage("fi");
+                try {
+                  await AsyncStorage.setItem("app_language", "fi");
+                } catch (error) {
+                  console.error(
+                    "Failed to set app language to Finnish:",
+                    error,
+                  );
+                }
                 setLanguageMenuOpen(false);
               }}
             >
@@ -58,8 +63,16 @@ export default function SettingsScreen() {
             </TouchableOpacity>
             <TouchableOpacity
               style={{ padding: 12 }}
-              onPress={() => {
+              onPress={async () => {
                 setLanguage("en");
+                try {
+                  await AsyncStorage.setItem("app_language", "en");
+                } catch (error) {
+                  console.error(
+                    "Failed to set app language to English:",
+                    error,
+                  );
+                }
                 setLanguageMenuOpen(false);
               }}
             >
@@ -69,8 +82,6 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </View>
         )}
-
-        {/* MUUT */}
         <Text style={SettingsStyles.sectionHeader}>
           {strings.Settings.OtherSettings}
         </Text>

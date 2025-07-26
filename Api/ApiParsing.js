@@ -2,6 +2,7 @@ import axios from "axios";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 import Constants from "expo-constants";
 import { logger } from "../utils/logger";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const apiKey =
   Constants.extra?.TMDB_BEARER_TOKEN ||
@@ -17,17 +18,17 @@ const axiosInstance = axios.create({
   timeout: 10000,
 });
 
-const upcoming = "/movie/upcoming?language=en-US&region=FI";
-const trendingMovie = "/trending/movie/day?language=en-US&region=FI";
-const topRated = "/movie/top_rated?language=en-US&region=FI";
-const nowPlaying = "/movie/now_playing?language=en-US&region=FI";
-const trendingSeries = "/trending/tv/day?language=en-US&region=FI";
-const topRatedSeries = "/tv/top_rated?language=en-US&region=FI";
-const airingTodaySeries = "/tv/on_the_air?language=en-US&region=FI";
+const upcoming = "/movie/upcoming?region=FI";
+const trendingMovie = "/trending/movie/day?region=FI";
+const topRated = "/movie/top_rated?region=FI";
+const nowPlaying = "/movie/now_playing?region=FI";
+const trendingSeries = "/trending/tv/day?region=FI";
+const topRatedSeries = "/tv/top_rated?region=FI";
+const airingTodaySeries = "/tv/on_the_air?region=FI";
 const searchMoviesEndpoint = "/search/movie";
 const searchSeriesEndpoint = "/search/tv";
 const searchPeopleEndpoint = "/search/person";
-const popularSeriesEndpoint = "/tv/popular?language=en-US&region=FI";
+const popularSeriesEndpoint = "/tv/popular?region=FI";
 
 const movieDetailsEndpoint = (id) => `/movie/${id}`;
 const movieCreditsEndpoint = (id) => `/movie/${id}/credits`;
@@ -50,11 +51,14 @@ export const image342 = (posterPath) =>
 export const image185 = (posterPath) =>
   posterPath ? `https://image.tmdb.org/t/p/w185${posterPath}` : null;
 
-const apiCall = async (endpoint, params) => {
+const apiCall = async (endpoint, params = {}) => {
+  if (!params.language) {
+    params.language = await getLanguageCode();
+  }
   const options = {
     method: "GET",
     url: endpoint,
-    params: params ? params : {},
+    params,
   };
 
   try {
@@ -102,14 +106,24 @@ export const createSession = async (requestToken) => {
   }
 };
 
-export const fetchUpcoming = () => apiCall(upcoming);
-export const fetchTrending = () => apiCall(trendingMovie);
-export const fetchRated = () => apiCall(topRated);
-export const fetchNowPlaying = () => apiCall(nowPlaying);
-export const fetchMovieDetails = (id) => apiCall(movieDetailsEndpoint(id));
-export const searchMovies = (params) => apiCall(searchMoviesEndpoint, params);
-export const searchSeries = (params) => apiCall(searchSeriesEndpoint, params);
-export const searchPeople = (params) => apiCall(searchPeopleEndpoint, params);
+export const fetchUpcoming = (language) => apiCall(upcoming, { language });
+export const fetchTrending = (language) => apiCall(trendingMovie, { language });
+export const fetchRated = (language) => apiCall(topRated, { language });
+export const fetchNowPlaying = (language) => apiCall(nowPlaying, { language });
+export const fetchMovieDetails = (id, language) =>
+  apiCall(movieDetailsEndpoint(id), { language });
+export const searchMovies = async (params) => {
+  if (!params.language) params.language = await getLanguageCode();
+  return apiCall(searchMoviesEndpoint, params);
+};
+export const searchSeries = async (params) => {
+  if (!params.language) params.language = await getLanguageCode();
+  return apiCall(searchSeriesEndpoint, params);
+};
+export const searchPeople = async (params) => {
+  if (!params.language) params.language = await getLanguageCode();
+  return apiCall(searchPeopleEndpoint, params);
+};
 export const fetchMovieCredits = (id) => apiCall(movieCreditsEndpoint(id));
 export const fetchPersonDetails = (id) => apiCall(personDetailsEndpoints(id));
 export const fetchPersonMovies = (personId) =>
@@ -132,3 +146,8 @@ export const fallbackPersonImage =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmUiF-YGjavA63_Au8jQj7zxnFxS_Ay9xc6pxleMqCxH92SzeNSjBTwZ0l61E4B3KTS7o&usqp=CAU";
 export const fallbackProviderLogo =
   "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
+
+const getLanguageCode = async () => {
+  const lang = await AsyncStorage.getItem("app_language");
+  return lang === "fi" ? "fi-FI" : "en-US";
+};

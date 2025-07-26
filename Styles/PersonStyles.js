@@ -47,14 +47,13 @@ export const PersonStyles = StyleSheet.create({
     color: Colors.status,
     textAlign: "center",
   },
-  centerContainer: {
+  infoBox: {
     marginVertical: 8,
     backgroundColor: "#56555aff",
     borderRadius: 12,
     paddingVertical: 12,
     paddingHorizontal: 8,
   },
-
   divider: {
     backgroundColor: "#444",
     height: 1,
@@ -67,7 +66,7 @@ export const PersonStyles = StyleSheet.create({
   },
   centreText: {
     color: "#fff",
-    fontSize: 13,
+    fontSize: 14,
     textAlign: "center",
   },
 

@@ -188,7 +188,9 @@ export default function SeriesDetailScreen() {
               </View>
               <View>
                 <Text style={SharedStyles.descriptionText}>
-                  {seriesDetails?.overview}
+                  {seriesDetails?.overview
+                    ? seriesDetails.overview
+                    : strings.Other.NoInfo}
                 </Text>
                 <Cast navigation={navigation} cast={cast} />
                 <WatchProviders providers={watchProviders} />

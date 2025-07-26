@@ -88,54 +88,55 @@ export default function PersonScreen() {
                   {person?.place_of_birth}
                 </Text>
               </View>
-              <View style={PersonStyles.centerContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={PersonStyles.textContainer}>
-                    <Text style={PersonStyles.centreText}>
-                      {strings.Persons.Gender}
-                    </Text>
-                    <Text style={PersonStyles.centres}>
-                      {person?.gender === 1
-                        ? strings.Persons.GenderFemale
-                        : person?.gender === 2
-                          ? strings.Persons.GenderMale
-                          : strings.Persons.GenderOther}
-                    </Text>
-                  </View>
-                  <View style={PersonStyles.textContainer}>
-                    <Text style={PersonStyles.centreText}>
-                      {strings.Persons.Birthday}
-                    </Text>
-                    <Text style={PersonStyles.centres}>{person?.birthday}</Text>
-                  </View>
+              <View style={{ flexDirection: "row", gap: 8, marginTop: 8 }}>
+                <View style={[PersonStyles.infoBox, { flex: 1 }]}>
+                  <Text style={PersonStyles.centreText}>
+                    {strings.Persons.Gender}
+                  </Text>
+                  <Text style={PersonStyles.centres}>
+                    {person?.gender === 1
+                      ? strings.Persons.GenderFemale
+                      : person?.gender === 2
+                        ? strings.Persons.GenderMale
+                        : strings.Persons.GenderOther}
+                  </Text>
                 </View>
-                <Divider style={PersonStyles.divider} />
-                <View style={{ flexDirection: "row" }}>
-                  <View style={PersonStyles.textContainer}>
-                    <Text style={PersonStyles.centreText}>
-                      {strings.Persons.KnowFor}
-                    </Text>
-                    <Text style={PersonStyles.centres}>
-                      {person?.known_for_department}
-                    </Text>
-                  </View>
-                  <View style={PersonStyles.textContainer}>
-                    <Text style={PersonStyles.centreText}>
-                      {strings.Persons.Popularity}
-                    </Text>
-                    <Text style={PersonStyles.centres}>
-                      {person?.popularity?.toFixed(2)}%
-                    </Text>
-                  </View>
+                <View style={[PersonStyles.infoBox, { flex: 1 }]}>
+                  <Text style={PersonStyles.centreText}>
+                    {strings.Persons.Birthday}
+                  </Text>
+                  <Text style={PersonStyles.centres}>
+                    {person?.birthday || strings.Other.NoInfo}
+                  </Text>
                 </View>
-                <Divider style={PersonStyles.divider} />
               </View>
+              <View style={{ flexDirection: "row", gap: 8, marginTop: 8 }}>
+                <View style={[PersonStyles.infoBox, { flex: 1 }]}>
+                  <Text style={PersonStyles.centreText}>
+                    {strings.Persons.KnowFor}
+                  </Text>
+                  <Text style={PersonStyles.centres}>
+                    {person?.known_for_department || strings.Other.NoInfo}
+                  </Text>
+                </View>
+                <View style={[PersonStyles.infoBox, { flex: 1 }]}>
+                  <Text style={PersonStyles.centreText}>
+                    {strings.Persons.Popularity}
+                  </Text>
+                  <Text style={PersonStyles.centres}>
+                    {person?.popularity
+                      ? `${person.popularity.toFixed(2)}%`
+                      : strings.Other.NoInfo}
+                  </Text>
+                </View>
+              </View>
+              <Divider style={PersonStyles.divider} />
               <View style={PersonStyles.bioGraphyContainter}>
                 <Text style={PersonStyles.bioGraphyTitle}>
                   {strings.Persons.Biography}
                 </Text>
                 <Text style={PersonStyles.bioGraphyText}>
-                  {person?.biography || "N/A"}
+                  {person?.biography || strings.Other.NoInfo}
                 </Text>
               </View>
               {
