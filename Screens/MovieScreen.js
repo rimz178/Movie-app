@@ -181,6 +181,11 @@ export default function MovieScreen() {
                     {movie?.runtime} min
                   </Text>
                 ) : null}
+                {movie?.vote_average && (
+                  <Text style={SharedStyles.textStatus}>
+                    {strings.Other.Rating}: {movie.vote_average.toFixed(1)}/10
+                  </Text>
+                )}
               </View>
 
               <View style={SharedStyles.genre}>

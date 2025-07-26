@@ -178,6 +178,12 @@ export default function SeriesDetailScreen() {
                     {strings.Series.Episodes}
                   </Text>
                 ) : null}
+                {seriesDetails?.vote_average && (
+                  <Text style={SharedStyles.textStatus}>
+                    {strings.Other.Rating}:{" "}
+                    {seriesDetails.vote_average.toFixed(1)}/10
+                  </Text>
+                )}
               </View>
               <View style={SharedStyles.genre}>
                 {seriesDetails?.genres?.map((genre) => (
