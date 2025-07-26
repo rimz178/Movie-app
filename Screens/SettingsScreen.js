@@ -46,7 +46,14 @@ export default function SettingsScreen() {
               style={{ padding: 12 }}
               onPress={async () => {
                 setLanguage("fi");
-                await AsyncStorage.setItem("app_language", "fi");
+                try {
+                  await AsyncStorage.setItem("app_language", "fi");
+                } catch (error) {
+                  console.error(
+                    "Failed to set app language to Finnish:",
+                    error,
+                  );
+                }
                 setLanguageMenuOpen(false);
               }}
             >
@@ -58,7 +65,14 @@ export default function SettingsScreen() {
               style={{ padding: 12 }}
               onPress={async () => {
                 setLanguage("en");
-                await AsyncStorage.setItem("app_language", "en");
+                try {
+                  await AsyncStorage.setItem("app_language", "en");
+                } catch (error) {
+                  console.error(
+                    "Failed to set app language to English:",
+                    error,
+                  );
+                }
                 setLanguageMenuOpen(false);
               }}
             >

@@ -112,16 +112,16 @@ export const fetchRated = (language) => apiCall(topRated, { language });
 export const fetchNowPlaying = (language) => apiCall(nowPlaying, { language });
 export const fetchMovieDetails = (id, language) =>
   apiCall(movieDetailsEndpoint(id), { language });
-export const searchMovies = (params) => {
-  if (!params.language) params.language = "en-US";
+export const searchMovies = async (params) => {
+  if (!params.language) params.language = await getLanguageCode();
   return apiCall(searchMoviesEndpoint, params);
 };
-export const searchSeries = (params) => {
-  if (!params.language) params.language = "en-US";
+export const searchSeries = async (params) => {
+  if (!params.language) params.language = await getLanguageCode();
   return apiCall(searchSeriesEndpoint, params);
 };
-export const searchPeople = (params) => {
-  if (!params.language) params.language = "en-US";
+export const searchPeople = async (params) => {
+  if (!params.language) params.language = await getLanguageCode();
   return apiCall(searchPeopleEndpoint, params);
 };
 export const fetchMovieCredits = (id) => apiCall(movieCreditsEndpoint(id));
