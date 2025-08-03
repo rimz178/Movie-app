@@ -178,6 +178,19 @@ export default function SeriesDetailScreen() {
                     {strings.Series.Episodes}
                   </Text>
                 ) : null}
+                {series?.id ? (
+                  <Text style={SharedStyles.textStatus}>
+                    {strings.Series.ReleasedSeasons}:{" "}
+                    {seriesDetails?.seasons
+                      ? seriesDetails.seasons.filter(
+                          (s) =>
+                            s.season_number > 0 &&
+                            s.air_date &&
+                            new Date(s.air_date) <= new Date(),
+                        ).length
+                      : "-"}
+                  </Text>
+                ) : null}
                 {seriesDetails?.vote_average && (
                   <Text style={SharedStyles.textStatus}>
                     {strings.Other.Rating}:{" "}

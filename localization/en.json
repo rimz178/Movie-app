@@ -37,7 +37,8 @@
     "TopRatedSeries": "Top Rated Series",
     "PopularSeries": "Popular Series",
     "Seasons": "Seasons",
-    "Episodes": "Episodes"
+    "Episodes": "Episodes",
+    "ReleasedSeasons": "Released seasons"
   },
   "Settings": {
     "Logout": "Logout",

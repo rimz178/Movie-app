@@ -37,7 +37,8 @@
     "TopRatedSeries": "Korkeimmin Arvostellut Sarjat",
     "PopularSeries": "Suositut Sarjat",
     "Seasons": "Kautta",
-    "Episodes": "Jaksoa"
+    "Episodes": "Jaksoa",
+    "ReleasedSeasons": "Julkaistuja kausia"
   },
 
   "Settings": {
