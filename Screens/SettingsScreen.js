@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { TouchableOpacity, SafeAreaView, Text, View } from "react-native";
+import {
+  TouchableOpacity,
+  SafeAreaView,
+  Text,
+  View,
+  Alert,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";
@@ -15,13 +21,30 @@ export default function SettingsScreen() {
   const { language, setLanguage, strings } = useLanguage();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
 
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem("session_id");
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Login" }],
-    });
+  const handleLanguageChange = async (lang) => {
+    setLanguage(lang);
+    try {
+      await AsyncStorage.setItem("app_language", lang);
+      Alert.alert(
+        strings.Settings.LanguageChanged,
+        lang === "fi"
+          ? strings.Settings.LanguageChangedMessage
+          : strings.Settings.LanguageChangedMessageEn,
+      );
+    } catch (error) {
+      console.error("Failed to set app language:", error);
+    }
+    setLanguageMenuOpen(false);
   };
+
+  const languages = [
+    { code: "fi", label: strings.Settings.Finnish },
+    { code: "en", label: strings.Settings.English },
+  ];
+  const sortedLanguages = [
+    languages.find((l) => l.code === language),
+    ...languages.filter((l) => l.code !== language),
+  ];
 
   return (
     <SafeAreaView style={SettingsStyles.container}>
@@ -42,51 +65,40 @@ export default function SettingsScreen() {
         </TouchableOpacity>
         {languageMenuOpen && (
           <View style={{ backgroundColor: "#232228", borderRadius: 8 }}>
-            <TouchableOpacity
-              style={{ padding: 12 }}
-              onPress={async () => {
-                setLanguage("fi");
-                try {
-                  await AsyncStorage.setItem("app_language", "fi");
-                } catch (error) {
-                  console.error(
-                    "Failed to set app language to Finnish:",
-                    error,
-                  );
-                }
-                setLanguageMenuOpen(false);
-              }}
-            >
-              <Text style={{ color: "#fff", fontSize: 16 }}>
-                {strings.Settings.Finnish}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ padding: 12 }}
-              onPress={async () => {
-                setLanguage("en");
-                try {
-                  await AsyncStorage.setItem("app_language", "en");
-                } catch (error) {
-                  console.error(
-                    "Failed to set app language to English:",
-                    error,
-                  );
-                }
-                setLanguageMenuOpen(false);
-              }}
-            >
-              <Text style={{ color: "#fff", fontSize: 16 }}>
-                {strings.Settings.English}
-              </Text>
-            </TouchableOpacity>
+            {sortedLanguages.map((lang) => (
+              <TouchableOpacity
+                key={lang.code}
+                style={{ padding: 12 }}
+                onPress={() => handleLanguageChange(lang.code)}
+              >
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontSize: 16,
+                    fontWeight: lang.code === language ? "bold" : "normal",
+                  }}
+                >
+                  {lang.label}
+                  {lang.code === language ? " ✓" : ""}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
         )}
         <Text style={SettingsStyles.sectionHeader}>
           {strings.Settings.OtherSettings}
         </Text>
         <View style={SettingsStyles.row}>
-          <TouchableOpacity style={{ flex: 1 }} onPress={handleLogout}>
+          <TouchableOpacity
+            style={{ flex: 1 }}
+            onPress={async () => {
+              await AsyncStorage.removeItem("session_id");
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "Login" }],
+              });
+            }}
+          >
             <Text
               style={[
                 SettingsStyles.rowText,

@@ -2,6 +2,7 @@ import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 import { logger } from "../utils/logger";
+import LANGUAGE_CODES from "../localization/languageCodes";
 
 const API_TOKEN =
   Constants.extra?.TMDB_BEARER_TOKEN ||
@@ -9,11 +10,13 @@ const API_TOKEN =
   Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
 const BASE_URL = "https://api.themoviedb.org/3";
 
+const getLanguageCode = async (language) => {
+  const lang = language || (await AsyncStorage.getItem("app_language")) || "en";
+  return LANGUAGE_CODES[lang] || LANGUAGE_CODES.en;
+};
+
 /**
  * Helper function to get the session ID from AsyncStorage.
- *
- * @returns {Promise<string>} - The session ID.
- * @throws {Error} - If the session ID is not found.
  */
 async function getSessionId() {
   const sessionId = await AsyncStorage.getItem("session_id");
@@ -25,11 +28,6 @@ async function getSessionId() {
 
 /**
  * Toggles a media item as a favorite on TMDb.
- *
- * @param {number} mediaId - The ID of the media item.
- * @param {boolean} favorite - Whether to add or remove the media item from favorites.
- * @param {string} mediaType - The type of media ("movie" or "tv").
- * @returns {Promise<object>} - The response from the TMDb API.
  */
 export async function toggleFavorite(mediaId, favorite, mediaType = "movie") {
   try {
@@ -84,13 +82,13 @@ export async function toggleFavorite(mediaId, favorite, mediaType = "movie") {
 }
 
 /**
- * Fetches the user's favorite movies from TMDb.
- *
- * @returns {Promise<object>} - The response from the TMDb API.
+ * Fetches the user's favorite movies and TV shows from TMDb.
+ * @param {string} language - Optional language code ("fi-FI", "en-US", etc.)
  */
-export async function fetchFavorites() {
+export async function fetchFavorites(language) {
   try {
     const sessionId = await getSessionId();
+    const langCode = await getLanguageCode(language);
 
     const accountResponse = await fetch(
       `${BASE_URL}/account?session_id=${sessionId}`,
@@ -110,7 +108,7 @@ export async function fetchFavorites() {
     const accountId = accountData.id;
 
     const moviesResponse = await fetch(
-      `${BASE_URL}/account/${accountId}/favorite/movies?session_id=${sessionId}`,
+      `${BASE_URL}/account/${accountId}/favorite/movies?session_id=${sessionId}&language=${langCode}`,
       {
         headers: {
           Authorization: `Bearer ${API_TOKEN}`,
@@ -125,7 +123,7 @@ export async function fetchFavorites() {
     const moviesData = await moviesResponse.json();
 
     const tvResponse = await fetch(
-      `${BASE_URL}/account/${accountId}/favorite/tv?session_id=${sessionId}`,
+      `${BASE_URL}/account/${accountId}/favorite/tv?session_id=${sessionId}&language=${langCode}`,
       {
         headers: {
           Authorization: `Bearer ${API_TOKEN}`,

@@ -24,7 +24,7 @@ const MovieRatingList = () => {
   const [sessionId, setSessionId] = useState(null);
   const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
 
   useEffect(() => {
     const fetchUserSessionId = async () => {
@@ -42,7 +42,7 @@ const MovieRatingList = () => {
     };
 
     fetchUserSessionId();
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -58,7 +58,7 @@ const MovieRatingList = () => {
     };
 
     fetchRatedMovies();
-  }, [sessionId]);
+  }, [sessionId, language]);
 
   const handleMoviePress = (movie) => {
     navigation.navigate("Movie", movie);

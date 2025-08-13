@@ -26,7 +26,7 @@ const TvRatingList = () => {
   const [sessionId, setSessionId] = useState(null);
   const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
 
   useEffect(() => {
     const fetchUserSessionId = async () => {
@@ -44,7 +44,7 @@ const TvRatingList = () => {
     };
 
     fetchUserSessionId();
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -60,7 +60,7 @@ const TvRatingList = () => {
     };
 
     fetchRatedTvShows();
-  }, [sessionId]);
+  }, [sessionId, language]);
 
   const handleTvPress = (tvShow) => {
     navigation.navigate("SeriesDetails", tvShow);

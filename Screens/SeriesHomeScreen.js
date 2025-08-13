@@ -38,10 +38,10 @@ function SeriesHomeScreen({ route }) {
         }
       });
     }
-    getTrendingSeries(language );
-    getTopRatedSeries(language );
-    getOnTheAirSeries(language );
-    getPopularSeries(language );
+    getTrendingSeries(language);
+    getTopRatedSeries(language);
+    getOnTheAirSeries(language);
+    getPopularSeries(language);
   }, [route, language]);
 
   const getTrendingSeries = async () => {

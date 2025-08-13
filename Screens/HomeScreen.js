@@ -63,7 +63,7 @@ function HomeScreen({ route }) {
     };
 
     fetchAllData();
-  }, [route,language]);
+  }, [route, language]);
 
   return (
     <SafeAreaView style={GlobalStyles.container}>

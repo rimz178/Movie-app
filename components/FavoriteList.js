@@ -23,7 +23,7 @@ const FavoriteList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
 
   useEffect(() => {
     const loadFavorites = async () => {
@@ -40,7 +40,7 @@ const FavoriteList = () => {
     };
 
     loadFavorites();
-  }, []);
+  }, [language]);
 
   const handleMoviePress = (movie) => {
     navigation.navigate("Movie", movie);
