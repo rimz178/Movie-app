@@ -22,6 +22,7 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { SearchStyles } from "../Styles/SearchStyles";
 import { useLanguage } from "../localization/LanguageContext";
+import LANGUAGE_CODES from "../localization/languageCodes";
 /**
  * SearchBars component for searching movies, series and actors.
  *
@@ -32,40 +33,40 @@ export default function SearchBars() {
   const [results, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingImages, setLoadingImages] = useState({});
-  const { strings } = useLanguage();
+  const [searchText, setSearchText] = useState(""); // <-- uusi tila
+  const { strings, language } = useLanguage();
+  const langCode = LANGUAGE_CODES[language] || LANGUAGE_CODES.en;
 
   const handleSearch = async (value) => {
     if (value && value.length > 2) {
       setLoading(true);
-
       requestAnimationFrame(async () => {
         try {
           const pageSize = "5";
-
           const [moviesData, seriesData, peopleData] = await Promise.all([
             searchMovies({
               query: value,
               include_adult: "false",
-              language: "en-US",
+              language: langCode,
               page: "1",
               per_page: pageSize,
             }),
             searchSeries({
               query: value,
               include_adult: "false",
-              language: "en-US",
+              language: langCode,
               page: "1",
               per_page: pageSize,
             }),
             searchPeople({
               query: value,
               include_adult: "false",
-              language: "en-US",
+              language: langCode,
               page: "1",
               per_page: pageSize,
             }),
           ]);
-
+          // ...result handling...
           const results = [
             ...(moviesData?.results || []).map((item) => ({
               ...item,
@@ -80,17 +81,14 @@ export default function SearchBars() {
               media_type: "person",
             })),
           ];
-
           const searchValueLower = value.toLowerCase();
           const sortedResults = results.sort((a, b) => {
             const aTitle = (a.title || a.name || "").toLowerCase();
             const bTitle = (b.title || b.name || "").toLowerCase();
-
             if (aTitle === searchValueLower && bTitle !== searchValueLower)
               return -1;
             if (bTitle === searchValueLower && aTitle !== searchValueLower)
               return 1;
-
             if (
               aTitle.includes(searchValueLower) &&
               !bTitle.includes(searchValueLower)
@@ -101,10 +99,8 @@ export default function SearchBars() {
               !aTitle.includes(searchValueLower)
             )
               return 1;
-
             return (b.popularity || 0) - (a.popularity || 0);
           });
-
           const maxResults = 50;
           setResult(sortedResults.slice(0, maxResults));
         } catch (error) {
@@ -114,23 +110,37 @@ export default function SearchBars() {
           setLoading(false);
         }
       });
-    } else if (value.length === 0) {
+    } else if (!value || value.length === 0) {
       setResult([]);
       setLoading(false);
     }
   };
 
-  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
+  const handleTextDebounce = useCallback(debounce(handleSearch, 400), [
+    langCode,
+  ]);
+
   return (
     <View style={SearchStyles.container}>
       <View style={SearchStyles.search}>
         <TextInput
           style={SearchStyles.textinput}
           placeholder={strings.Navigation.Search}
-          onChangeText={handleTextDebounce}
+          value={searchText}
+          onChangeText={(text) => {
+            setSearchText(text);
+            handleTextDebounce(text);
+          }}
           placeholderTextColor="white"
         />
-        <TouchableOpacity onPress={() => navigation.navigate("HomeTab")}>
+        <TouchableOpacity
+          onPress={() => {
+            setSearchText("");
+            setResult([]);
+            setLoading(false);
+            navigation.navigate("HomeTab");
+          }}
+        >
           <MaterialIcons style={SearchStyles.icon} size={38} name="close" />
         </TouchableOpacity>
       </View>

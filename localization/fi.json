@@ -47,7 +47,11 @@
     "Language": "Kieli",
     "OtherSettings": "Muut Asetukset",
     "English": "Englanti",
-    "Finnish": "Suomi"
+    "Finnish": "Suomi",
+    "LanguageChanged": "Kieli vaihdettu",
+    "LanguageChangedMessage": "Sovelluksen kieli on nyt suomi.",
+    "LanguageChangedMessageEn": "Sovelluksen kieli on nyt englanti.",
+    "Selected": " (valittu)"
   },
   "Persons": {
     "Gender": "Sukupuoli",

@@ -27,7 +27,7 @@ function HomeScreen({ route }) {
   const [nowPlaying, setPlaying] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
 
   useEffect(() => {
     if (route?.params?.isGuest) {
@@ -44,10 +44,10 @@ function HomeScreen({ route }) {
         setLoading(true);
         const [upcomingData, trendingData, ratedData, nowPlayingData] =
           await Promise.all([
-            fetchUpcoming(),
-            fetchTrending(),
-            fetchRated(),
-            fetchNowPlaying(),
+            fetchUpcoming(language),
+            fetchTrending(language),
+            fetchRated(language),
+            fetchNowPlaying(language),
           ]);
 
         if (upcomingData?.results) setUpcoming(upcomingData.results);
@@ -63,7 +63,7 @@ function HomeScreen({ route }) {
     };
 
     fetchAllData();
-  }, [route]);
+  }, [route, language]);
 
   return (
     <SafeAreaView style={GlobalStyles.container}>

@@ -23,7 +23,7 @@ function SeriesHomeScreen({ route }) {
   const [loading, setLoading] = useState(true);
   const [trending, setTrending] = useState([]);
   const [topRated, setTopRated] = useState([]);
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
   const [onTheAir, setOnTheAir] = useState([]);
   const [popular, setPopular] = useState([]);
   const [isGuest, setIsGuest] = useState(false);
@@ -38,11 +38,11 @@ function SeriesHomeScreen({ route }) {
         }
       });
     }
-    getTrendingSeries();
-    getTopRatedSeries();
-    getOnTheAirSeries();
-    getPopularSeries();
-  }, [route]);
+    getTrendingSeries(language);
+    getTopRatedSeries(language);
+    getOnTheAirSeries(language);
+    getPopularSeries(language);
+  }, [route, language]);
 
   const getTrendingSeries = async () => {
     const data = await fetchTrendingSeries();

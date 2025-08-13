@@ -46,7 +46,11 @@
     "Language": "Language",
     "OtherSettings": "Other Settings",
     "English": "English",
-    "Finnish": "Finnish"
+    "Finnish": "Finnish",
+    "LanguageChanged": "Language changed",
+    "LanguageChangedMessage": "App language is now Finnish.",
+    "LanguageChangedMessageEn": "App language is now English.",
+    "Selected": " (selected)"
   },
   "Persons": {
     "Gender": "Gender",

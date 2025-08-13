@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 import { logger } from "../utils/logger";
 const apiToken =
@@ -204,17 +205,25 @@ export const getTvRating = async (tvId, sessionId, isGuest = false) => {
   }
 };
 
-export const getRatedMovies = async (sessionId, isGuest = false) => {
+// Apufunktio kielen hakemiseen
+const getLanguageCode = async (language) => {
+  if (language) return language === "fi" ? "fi-FI" : "en-US";
+  const lang = await AsyncStorage.getItem("app_language");
+  return lang === "fi" ? "fi-FI" : "en-US";
+};
+
+export const getRatedMovies = async (sessionId, isGuest = false, language) => {
   if (!sessionId) {
     logger.error("Error: Session ID is missing!");
     throw new Error("Session ID is required to fetch rated movies.");
   }
 
   try {
+    const langCode = await getLanguageCode(language);
     const sessionParam = isGuest
       ? `guest_session_id=${sessionId}`
       : `session_id=${sessionId}`;
-    const url = `${apiBaseUrl}/account/me/rated/movies?${sessionParam}`;
+    const url = `${apiBaseUrl}/account/me/rated/movies?${sessionParam}&language=${langCode}`;
 
     const response = await fetch(url, {
       headers: {
@@ -235,17 +244,18 @@ export const getRatedMovies = async (sessionId, isGuest = false) => {
   }
 };
 
-export const getRatedTvShows = async (sessionId, isGuest = false) => {
+export const getRatedTvShows = async (sessionId, isGuest = false, language) => {
   if (!sessionId) {
     logger.error("Error: Session ID is missing!");
     throw new Error("Session ID is required to fetch rated TV shows.");
   }
 
   try {
+    const langCode = await getLanguageCode(language);
     const sessionParam = isGuest
       ? `guest_session_id=${sessionId}`
       : `session_id=${sessionId}`;
-    const url = `${apiBaseUrl}/account/me/rated/tv?${sessionParam}`;
+    const url = `${apiBaseUrl}/account/me/rated/tv?${sessionParam}&language=${langCode}`;
 
     const response = await fetch(url, {
       headers: {
