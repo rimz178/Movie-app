@@ -5,22 +5,19 @@ import {
   Text,
   View,
   Alert,
-  Linking,
+  Modal,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";
 import { useLanguage } from "../localization/LanguageContext";
+import { WebView } from "react-native-webview";
 
-/**
- * SettingsScreen component for managing user settings.
- *
- * @returns {JSX.Element} - The settings screen with a logout button and text.
- */
 export default function SettingsScreen() {
   const navigation = useNavigation();
   const { language, setLanguage, strings } = useLanguage();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [showWebView, setShowWebView] = useState(false);
 
   const handleLanguageChange = async (lang) => {
     setLanguage(lang);
@@ -50,6 +47,7 @@ export default function SettingsScreen() {
   return (
     <SafeAreaView style={SettingsStyles.container}>
       <View style={SettingsStyles.content}>
+        {/* Kieli-asetukset */}
         <Text style={SettingsStyles.sectionHeader}>
           {strings.Settings.Language}
         </Text>
@@ -110,37 +108,19 @@ export default function SettingsScreen() {
             </Text>
           </TouchableOpacity>
         </View>
+        <Text style={SettingsStyles.sectionHeader}>
+          {strings.Settings.AccountManagement || "Tilin hallinta"}
+        </Text>
         <View style={SettingsStyles.row}>
           <TouchableOpacity
             style={{ flex: 1 }}
-            onPress={() => {
-              import("react-native-safari-view")
-                .then((SafariView) => {
-                  SafariView.default
-                    .isAvailable()
-                    .then(() => {
-                      SafariView.default.show({
-                        url: "https://www.themoviedb.org/settings/delete-account",
-                      });
-                    })
-                    .catch(() => {
-                      Linking.openURL(
-                        "https://www.themoviedb.org/settings/delete-account",
-                      );
-                    });
-                })
-                .catch(() => {
-                  Linking.openURL(
-                    "https://www.themoviedb.org/settings/delete-account",
-                  );
-                });
-            }}
+            onPress={() => setShowWebView(true)}
           >
             <Text
               style={[
                 SettingsStyles.rowText,
                 {
-                  color: "#fff",
+                  color: "#d00",
                   textAlign: "center",
                   textDecorationLine: "underline",
                 },
@@ -150,6 +130,47 @@ export default function SettingsScreen() {
             </Text>
           </TouchableOpacity>
         </View>
+        <Text
+          style={{
+            color: "#aaa",
+            fontSize: 13,
+            textAlign: "center",
+            marginBottom: 10,
+          }}
+        >
+          {strings.Settings.DeleteTMDbAccountDesc}
+        </Text>
+        <Modal visible={showWebView} animationType="slide">
+          <SafeAreaView style={{ flex: 1, backgroundColor: "#18171c" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                padding: 10,
+                backgroundColor: "#18171c",
+              }}
+            >
+              <TouchableOpacity onPress={() => setShowWebView(false)}>
+                <Text style={{ color: "#d00", fontSize: 18 }}>Sulje</Text>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  color: "#fff",
+                  fontSize: 16,
+                  marginLeft: 20,
+                }}
+              >
+                {strings.Settings.DeleteTMDbAccount}
+              </Text>
+            </View>
+            <WebView
+              source={{
+                uri: "https://www.themoviedb.org/settings/delete-account",
+              }}
+              style={{ flex: 1 }}
+              startInLoadingState
+            />
+          </SafeAreaView>
+        </Modal>
       </View>
     </SafeAreaView>
   );

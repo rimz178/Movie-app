@@ -52,7 +52,8 @@
     "LanguageChangedMessage": "Sovelluksen kieli on nyt suomi.",
     "LanguageChangedMessageEn": "Sovelluksen kieli on nyt englanti.",
     "Selected": " (valittu)",
-    "DeleteTMDbAccount": "Poista TMDB Tili"
+    "DeleteTMDbAccount": "Poista TMDB Tili",
+    "AccountManagement": "Tilin hallinta"
   },
   "Persons": {
     "Gender": "Sukupuoli",

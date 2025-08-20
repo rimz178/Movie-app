@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Linking,
   Alert,
+  Modal,
+  SafeAreaView,
 } from "react-native";
 import {
   fetchRequestToken,
@@ -15,7 +17,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginStyles } from "../Styles/LoginStyles";
 import { useLanguage } from "../localization/LanguageContext";
-import SafariView from "react-native-safari-view";
+import { WebView } from "react-native-webview";
 /**
  * LoginScreen component for user authentication.
  *
@@ -26,6 +28,7 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { strings } = useLanguage();
+  const [showWebView, setShowWebView] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -60,15 +63,7 @@ export default function LoginScreen({ navigation }) {
   };
 
   const handleGoToRegister = () => {
-    SafariView.isAvailable()
-      .then(() => {
-        SafariView.show({
-          url: "https://www.themoviedb.org/signup",
-        });
-      })
-      .catch(() => {
-        Linking.openURL("https://www.themoviedb.org/signup");
-      });
+    setShowWebView(true);
   };
   const handleSkipLogin = () => {
     navigation.navigate("GuestHome");
@@ -102,6 +97,29 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity onPress={handleGoToRegister}>
         <Text style={LoginStyles.registerText}>{strings.Auth.NoAccount}</Text>
       </TouchableOpacity>
+      <Modal visible={showWebView} animationType="slide">
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#18171c" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              padding: 10,
+              backgroundColor: "#18171c",
+            }}
+          >
+            <TouchableOpacity onPress={() => setShowWebView(false)}>
+              <Text style={{ color: "#d00", fontSize: 18 }}>Sulje</Text>
+            </TouchableOpacity>
+            <Text style={{ color: "#fff", fontSize: 16, marginLeft: 20 }}>
+              {strings.Auth.NoAccount}
+            </Text>
+          </View>
+          <WebView
+            source={{ uri: "https://www.themoviedb.org/signup" }}
+            style={{ flex: 1 }}
+            startInLoadingState
+          />
+        </SafeAreaView>
+      </Modal>
     </View>
   );
 }
