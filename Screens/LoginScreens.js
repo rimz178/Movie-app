@@ -107,7 +107,9 @@ export default function LoginScreen({ navigation }) {
             }}
           >
             <TouchableOpacity onPress={() => setShowWebView(false)}>
-              <Text style={{ color: "#d00", fontSize: 18 }}>Sulje</Text>
+              <Text style={{ color: "#d00", fontSize: 18 }}>
+                {strings.Settings.Close}
+              </Text>
             </TouchableOpacity>
             <Text style={{ color: "#fff", fontSize: 16, marginLeft: 20 }}>
               {strings.Auth.NoAccount}

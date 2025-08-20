@@ -47,7 +47,6 @@ export default function SettingsScreen() {
   return (
     <SafeAreaView style={SettingsStyles.container}>
       <View style={SettingsStyles.content}>
-        {/* Kieli-asetukset */}
         <Text style={SettingsStyles.sectionHeader}>
           {strings.Settings.Language}
         </Text>
@@ -150,7 +149,9 @@ export default function SettingsScreen() {
               }}
             >
               <TouchableOpacity onPress={() => setShowWebView(false)}>
-                <Text style={{ color: "#d00", fontSize: 18 }}>Sulje</Text>
+                <Text style={{ color: "#d00", fontSize: 18 }}>
+                  {strings.Settings.Close}
+                </Text>
               </TouchableOpacity>
               <Text
                 style={{
