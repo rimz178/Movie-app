@@ -15,6 +15,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginStyles } from "../Styles/LoginStyles";
 import { useLanguage } from "../localization/LanguageContext";
+import SafariView from "react-native-safari-view";
 /**
  * LoginScreen component for user authentication.
  *
@@ -59,7 +60,15 @@ export default function LoginScreen({ navigation }) {
   };
 
   const handleGoToRegister = () => {
-    Linking.openURL("https://www.themoviedb.org/signup");
+    SafariView.isAvailable()
+      .then(() => {
+        SafariView.show({
+          url: "https://www.themoviedb.org/signup",
+        });
+      })
+      .catch(() => {
+        Linking.openURL("https://www.themoviedb.org/signup");
+      });
   };
   const handleSkipLogin = () => {
     navigation.navigate("GuestHome");

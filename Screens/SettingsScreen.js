@@ -5,6 +5,7 @@ import {
   Text,
   View,
   Alert,
+  Linking,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
@@ -106,6 +107,46 @@ export default function SettingsScreen() {
               ]}
             >
               {strings.Settings.Logout}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={SettingsStyles.row}>
+          <TouchableOpacity
+            style={{ flex: 1 }}
+            onPress={() => {
+              import("react-native-safari-view")
+                .then((SafariView) => {
+                  SafariView.default
+                    .isAvailable()
+                    .then(() => {
+                      SafariView.default.show({
+                        url: "https://www.themoviedb.org/settings/delete-account",
+                      });
+                    })
+                    .catch(() => {
+                      Linking.openURL(
+                        "https://www.themoviedb.org/settings/delete-account",
+                      );
+                    });
+                })
+                .catch(() => {
+                  Linking.openURL(
+                    "https://www.themoviedb.org/settings/delete-account",
+                  );
+                });
+            }}
+          >
+            <Text
+              style={[
+                SettingsStyles.rowText,
+                {
+                  color: "#fff",
+                  textAlign: "center",
+                  textDecorationLine: "underline",
+                },
+              ]}
+            >
+              {strings.Settings.DeleteTMDbAccount}
             </Text>
           </TouchableOpacity>
         </View>

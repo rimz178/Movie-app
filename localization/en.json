@@ -50,7 +50,8 @@
     "LanguageChanged": "Language changed",
     "LanguageChangedMessage": "App language is now Finnish.",
     "LanguageChangedMessageEn": "App language is now English.",
-    "Selected": " (selected)"
+    "Selected": " (selected)",
+    "DeleteTMDbAccount": "Delete TMDB Account"
   },
   "Persons": {
     "Gender": "Gender",
