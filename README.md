@@ -16,10 +16,10 @@ Movie-app on React Native -sovellus, joka tarjoaa käyttäjille mahdollisuuden:
 - **Suosikit ja arviot**: Käyttäjät voivat lisätä elokuvia suosikkilistoihin ja antaa niille arvioita.
 - **Käyttäjätilit**: Vieraskäyttäjät voivat kirjautua sisään saadakseen lisää ominaisuuksia, kuten listojen hallinnan.
 
-## Lataa sovellus 
-## iOS
+## Lataa sovellus:
+ ## iOS
 https://apps.apple.com/fi/app/movieapp/id6744970048?l=fi 
-## Android
+ ## Android
 tulossa myöhemmin. 
 ## API
 Sovellus hyödyntää [The Movie Database (TMDb)](https://www.themoviedb.org/) -rajapintaa elokuvien tietojen hakemiseen.
