@@ -26,6 +26,7 @@ import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import { SharedStyles } from "../Styles/SharedStyles";
 import { logger } from "../utils/logger";
 import { useLanguage } from "../localization/LanguageContext";
+import LANGUAGE_CODES from "../localization/languageCodes";
 
 /**
  * Displays detailed information about a movie, including its cast, genres, and watch providers.
@@ -44,7 +45,7 @@ export default function MovieScreen() {
   const [watchProviders, setWatchProviders] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [userSessionId, setUserSessionId] = useState(null);
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
 
   useEffect(() => {
     setLoading(true);
@@ -204,7 +205,12 @@ export default function MovieScreen() {
               </Text>
 
               <Cast navigation={navigation} cast={cast} />
-              <WatchProviders providers={watchProviders} />
+              <WatchProviders
+                providers={watchProviders}
+                tmdbId={movie.id}
+                type="movie"
+                countryCode={LANGUAGE_CODES[language]}
+              />
             </View>
           )}
         />

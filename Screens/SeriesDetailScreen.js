@@ -25,6 +25,7 @@ import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
 import { SharedStyles } from "../Styles/SharedStyles";
 import { logger } from "../utils/logger";
+import LANGUAGE_CODES from "../localization/languageCodes";
 import { useLanguage } from "../localization/LanguageContext";
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
@@ -41,7 +42,7 @@ export default function SeriesDetailScreen() {
   const [watchProviders, setWatchProviders] = useState([]);
   const [userSessionId, setUserSessionId] = useState(null);
   const [loadingImage, setLoadingImage] = useState(false);
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
 
   useEffect(() => {
     setLoading(true);
@@ -212,7 +213,12 @@ export default function SeriesDetailScreen() {
                     : strings.Other.NoInfo}
                 </Text>
                 <Cast navigation={navigation} cast={cast} />
-                <WatchProviders providers={watchProviders} />
+                <WatchProviders
+                  providers={watchProviders}
+                  tmdbId={seriesDetails.id}
+                  type="tv"
+                  countryCode={LANGUAGE_CODES[language]}
+                />
               </View>
             </View>
           )}
