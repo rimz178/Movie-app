@@ -19,8 +19,8 @@ export default {
       jsEngine: "jsc",
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
+        CFBundleLocalizations: ["en", "fi"]
       },
-      CFBundleLocalizations: ["en", "fi"],
     },
     android: {
       adaptiveIcon: {
