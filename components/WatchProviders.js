@@ -141,8 +141,7 @@ export default function WatchProviders({
               }}
             >
               <Text style={{ color: "#fff", fontSize: 16, marginBottom: 20 }}>
-                {strings?.Other?.WebViewError ||
-                  "Failed to load content. Please try again later."}
+                {strings?.Other?.WebViewErrorFallback}
               </Text>
               <TouchableOpacity
                 onPress={() => {

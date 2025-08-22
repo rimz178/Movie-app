@@ -90,6 +90,7 @@
     "TopCast": "Pääroolit",
     "WatchProviders": "Suoratoistopalvelut",
     "Rating": "Arvostelut",
-    "NoInfo": "Tietoja ei löydy tällä kielellä"
+    "NoInfo": "Tietoja ei löydy tällä kielellä",
+    "WebViewErrorFallback": "Verkkosivu ei ole saatavilla"
   }
 }

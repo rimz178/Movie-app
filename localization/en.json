@@ -88,6 +88,7 @@
     "TopCast": "Top Cast",
     "WatchProviders": "Watch Providers",
     "Rating": "Rating",
-    "NoInfo": "N/A"
+    "NoInfo": "N/A",
+    "WebViewErrorFallback": "Failed to load content. Please try again later"
   }
 }
