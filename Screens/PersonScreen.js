@@ -37,7 +37,7 @@ export default function PersonScreen() {
   }, [item]);
 
   const getPersonDetails = async (id) => {
-    const data = await fetchPersonDetails(id, LANGUAGE_CODES[strings.language]);
+    const data = await fetchPersonDetails(id, LANGUAGE_CODES[language]);
     if (data) setPerson(data);
     setLoading(false);
   };
