@@ -27,7 +27,7 @@ export default function PersonScreen() {
   const [person, setPerson] = useState({});
   const [loading, setLoading] = useState(false);
   const [loadingProfileImage, setLoadingProfileImage] = useState(false);
-  const { strings } = useLanguage();
+  const { strings, language } = useLanguage();
 
   useEffect(() => {
     setLoading(true);
