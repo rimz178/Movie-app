@@ -39,7 +39,7 @@ export default function WatchProviders({
     );
   }
 
-  const uniqueProviders = providers.filter(
+  const uniqueProviders = providers?.filter(
     (v, i, a) => a.findIndex((t) => t.provider_id === v.provider_id) === i,
   );
 
@@ -141,7 +141,7 @@ export default function WatchProviders({
               }}
             >
               <Text style={{ color: "#fff", fontSize: 16, marginBottom: 20 }}>
-                {strings?.Other?.WebViewErrorFallback}
+                {strings?.Other.WebViewErrorFallback}
               </Text>
               <TouchableOpacity
                 onPress={() => {
