@@ -20,6 +20,7 @@ export default {
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
       },
+      CFBundleLocalizations: ["en", "fi"],
     },
     android: {
       adaptiveIcon: {
