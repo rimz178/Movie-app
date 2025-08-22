@@ -23,9 +23,9 @@ export default function WatchProviders({
   const [loadingImages, setLoadingImages] = useState({});
   const [showWebView, setShowWebView] = useState(false);
   const [webUrl, setWebUrl] = useState("");
+  const [webViewError, setWebViewError] = useState(false);
   const { strings, language } = useLanguage();
 
-  // Jos countryCode-proppia ei anneta, käytä kielestä johdettua koodia
   const locale =
     countryCode || (LANGUAGE_CODES[language] ? LANGUAGE_CODES[language] : "FI");
 
@@ -46,7 +46,12 @@ export default function WatchProviders({
   const handleProviderPress = () => {
     const url = `https://www.themoviedb.org/${type}/${tmdbId}/watch?locale=${locale}`;
     setWebUrl(url);
+    setWebViewError(false);
     setShowWebView(true);
+  };
+
+  const onWebViewError = () => {
+    setWebViewError(true);
   };
 
   return (
@@ -113,7 +118,12 @@ export default function WatchProviders({
               backgroundColor: "#18171c",
             }}
           >
-            <TouchableOpacity onPress={() => setShowWebView(false)}>
+            <TouchableOpacity
+              onPress={() => {
+                setShowWebView(false);
+                setWebViewError(false);
+              }}
+            >
               <Text style={{ color: "#d00", fontSize: 18 }}>
                 {strings.Settings.Close}
               </Text>
@@ -122,11 +132,37 @@ export default function WatchProviders({
               TMDb
             </Text>
           </View>
-          <WebView
-            source={{ uri: webUrl }}
-            style={{ flex: 1 }}
-            startInLoadingState
-          />
+          {webViewError ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 16, marginBottom: 20 }}>
+                {strings?.Other?.WebViewError ||
+                  "Failed to load content. Please try again later."}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowWebView(false);
+                  setWebViewError(false);
+                }}
+              >
+                <Text style={{ color: "#d00", fontSize: 18 }}>
+                  {strings.Settings.Close}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <WebView
+              source={{ uri: webUrl }}
+              style={{ flex: 1 }}
+              startInLoadingState
+              onError={onWebViewError}
+            />
+          )}
         </SafeAreaView>
       </Modal>
     </View>
