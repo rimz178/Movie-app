@@ -14,6 +14,7 @@ import {
 } from "../Api/ApiParsing";
 import { PersonStyles } from "../Styles/PersonStyles";
 import { useLanguage } from "../localization/LanguageContext";
+import LANGUAGE_CODES from "../localization/languageCodes";
 /**
  * PersonScreen component that displays details about a person, including their biography and movies.
  *
@@ -36,7 +37,7 @@ export default function PersonScreen() {
   }, [item]);
 
   const getPersonDetails = async (id) => {
-    const data = await fetchPersonDetails(id);
+    const data = await fetchPersonDetails(id, LANGUAGE_CODES[language]);
     if (data) setPerson(data);
     setLoading(false);
   };

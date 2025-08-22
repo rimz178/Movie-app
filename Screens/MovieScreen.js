@@ -67,7 +67,7 @@ export default function MovieScreen() {
     }
   };
   const getMovieDetails = async (id) => {
-    const data = await fetchMovieDetails(id);
+    const data = await fetchMovieDetails(id, LANGUAGE_CODES[language]);
     if (data) {
       setMovie(data);
     }

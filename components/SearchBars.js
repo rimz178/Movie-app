@@ -37,88 +37,89 @@ export default function SearchBars() {
   const { strings, language } = useLanguage();
   const langCode = LANGUAGE_CODES[language] || LANGUAGE_CODES.en;
 
-  const handleSearch = async (value) => {
-    if (value && value.length > 2) {
-      setLoading(true);
-      requestAnimationFrame(async () => {
-        try {
-          const pageSize = "5";
-          const [moviesData, seriesData, peopleData] = await Promise.all([
-            searchMovies({
-              query: value,
-              include_adult: "false",
-              language: langCode,
-              page: "1",
-              per_page: pageSize,
-            }),
-            searchSeries({
-              query: value,
-              include_adult: "false",
-              language: langCode,
-              page: "1",
-              per_page: pageSize,
-            }),
-            searchPeople({
-              query: value,
-              include_adult: "false",
-              language: langCode,
-              page: "1",
-              per_page: pageSize,
-            }),
-          ]);
-          // ...result handling...
-          const results = [
-            ...(moviesData?.results || []).map((item) => ({
-              ...item,
-              media_type: "movie",
-            })),
-            ...(seriesData?.results || []).map((item) => ({
-              ...item,
-              media_type: "tv",
-            })),
-            ...(peopleData?.results || []).map((item) => ({
-              ...item,
-              media_type: "person",
-            })),
-          ];
-          const searchValueLower = value.toLowerCase();
-          const sortedResults = results.sort((a, b) => {
-            const aTitle = (a.title || a.name || "").toLowerCase();
-            const bTitle = (b.title || b.name || "").toLowerCase();
-            if (aTitle === searchValueLower && bTitle !== searchValueLower)
-              return -1;
-            if (bTitle === searchValueLower && aTitle !== searchValueLower)
-              return 1;
-            if (
-              aTitle.includes(searchValueLower) &&
-              !bTitle.includes(searchValueLower)
-            )
-              return -1;
-            if (
-              bTitle.includes(searchValueLower) &&
-              !aTitle.includes(searchValueLower)
-            )
-              return 1;
-            return (b.popularity || 0) - (a.popularity || 0);
-          });
-          const maxResults = 50;
-          setResult(sortedResults.slice(0, maxResults));
-        } catch (error) {
-          logger.error("Error fetching search results:", error);
-          setResult([]);
-        } finally {
-          setLoading(false);
-        }
-      });
-    } else if (!value || value.length === 0) {
-      setResult([]);
-      setLoading(false);
-    }
-  };
+  const handleSearch = useCallback(
+    async (value) => {
+      if (value && value.length > 2) {
+        setLoading(true);
+        requestAnimationFrame(async () => {
+          try {
+            const pageSize = "5";
+            const [moviesData, seriesData, peopleData] = await Promise.all([
+              searchMovies({
+                query: value,
+                include_adult: "false",
+                language: langCode,
+                page: "1",
+                per_page: pageSize,
+              }),
+              searchSeries({
+                query: value,
+                include_adult: "false",
+                language: langCode,
+                page: "1",
+                per_page: pageSize,
+              }),
+              searchPeople({
+                query: value,
+                include_adult: "false",
+                language: langCode,
+                page: "1",
+                per_page: pageSize,
+              }),
+            ]);
+            // ...result handling...
+            const results = [
+              ...(moviesData?.results || []).map((item) => ({
+                ...item,
+                media_type: "movie",
+              })),
+              ...(seriesData?.results || []).map((item) => ({
+                ...item,
+                media_type: "tv",
+              })),
+              ...(peopleData?.results || []).map((item) => ({
+                ...item,
+                media_type: "person",
+              })),
+            ];
+            const searchValueLower = value.toLowerCase();
+            const sortedResults = results.sort((a, b) => {
+              const aTitle = (a.title || a.name || "").toLowerCase();
+              const bTitle = (b.title || b.name || "").toLowerCase();
+              if (aTitle === searchValueLower && bTitle !== searchValueLower)
+                return -1;
+              if (bTitle === searchValueLower && aTitle !== searchValueLower)
+                return 1;
+              if (
+                aTitle.includes(searchValueLower) &&
+                !bTitle.includes(searchValueLower)
+              )
+                return -1;
+              if (
+                bTitle.includes(searchValueLower) &&
+                !aTitle.includes(searchValueLower)
+              )
+                return 1;
+              return (b.popularity || 0) - (a.popularity || 0);
+            });
+            const maxResults = 50;
+            setResult(sortedResults.slice(0, maxResults));
+          } catch (error) {
+            logger.error("Error fetching search results:", error);
+            setResult([]);
+          } finally {
+            setLoading(false);
+          }
+        });
+      } else if (!value || value.length === 0) {
+        setResult([]);
+        setLoading(false);
+      }
+    },
+    [langCode],
+  );
 
-  const handleTextDebounce = useCallback(debounce(handleSearch, 400), [
-    langCode,
-  ]);
+  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
 
   return (
     <View style={SearchStyles.container}>
