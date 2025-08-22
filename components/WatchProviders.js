@@ -1,17 +1,33 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  Modal,
+  SafeAreaView,
+} from "react-native";
 import React, { useState } from "react";
 import { image185, fallbackProviderLogo } from "../Api/ApiParsing";
 import { WatchProviderStyles } from "../Styles/WatchProviderStyles";
 import { useLanguage } from "../localization/LanguageContext";
-/**
- * WatchProviders component that displays a list of watch providers.
- *
- * @param {Array} providers - Array of watch provider objects.
- * @returns {JSX.Element} - The watch providers list.
- */
-export default function WatchProviders({ providers }) {
+import LANGUAGE_CODES from "../localization/languageCodes";
+import { WebView } from "react-native-webview";
+
+export default function WatchProviders({
+  providers,
+  tmdbId,
+  type = "movie",
+  countryCode,
+}) {
   const [loadingImages, setLoadingImages] = useState({});
-  const { strings } = useLanguage();
+  const [showWebView, setShowWebView] = useState(false);
+  const [webUrl, setWebUrl] = useState("");
+  const { strings, language } = useLanguage();
+
+  // Jos countryCode-proppia ei anneta, käytä kielestä johdettua koodia
+  const locale =
+    countryCode || (LANGUAGE_CODES[language] ? LANGUAGE_CODES[language] : "FI");
 
   if (!providers || providers.length === 0) {
     return (
@@ -23,9 +39,15 @@ export default function WatchProviders({ providers }) {
     );
   }
 
-  const uniqueProviders = providers?.filter(
+  const uniqueProviders = providers.filter(
     (v, i, a) => a.findIndex((t) => t.provider_id === v.provider_id) === i,
   );
+
+  const handleProviderPress = () => {
+    const url = `https://www.themoviedb.org/${type}/${tmdbId}/watch?locale=${locale}`;
+    setWebUrl(url);
+    setShowWebView(true);
+  };
 
   return (
     <View style={WatchProviderStyles.container}>
@@ -47,7 +69,10 @@ export default function WatchProviders({ providers }) {
         windowSize={5}
         removeClippedSubviews={true}
         renderItem={({ item }) => (
-          <TouchableOpacity style={WatchProviderStyles.items}>
+          <TouchableOpacity
+            style={WatchProviderStyles.items}
+            onPress={handleProviderPress}
+          >
             <View style={WatchProviderStyles.imageCircle}>
               <Image
                 style={WatchProviderStyles.image}
@@ -79,6 +104,31 @@ export default function WatchProviders({ providers }) {
           </TouchableOpacity>
         )}
       />
+      <Modal visible={showWebView} animationType="slide">
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#18171c" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              padding: 10,
+              backgroundColor: "#18171c",
+            }}
+          >
+            <TouchableOpacity onPress={() => setShowWebView(false)}>
+              <Text style={{ color: "#d00", fontSize: 18 }}>
+                {strings.Settings.Close}
+              </Text>
+            </TouchableOpacity>
+            <Text style={{ color: "#fff", fontSize: 16, marginLeft: 20 }}>
+              TMDb
+            </Text>
+          </View>
+          <WebView
+            source={{ uri: webUrl }}
+            style={{ flex: 1 }}
+            startInLoadingState
+          />
+        </SafeAreaView>
+      </Modal>
     </View>
   );
 }
