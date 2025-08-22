@@ -65,7 +65,7 @@ export default function SeriesDetailScreen() {
   };
 
   const getSeriesDetails = async (id) => {
-    const data = await fetchSeriesDetails(id);
+    const data = await fetchSeriesDetails(id, LANGUAGE_CODES[language]);
     if (data) setSeriesDetails(data);
     setLoading(false);
   };
