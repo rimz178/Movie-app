@@ -22,7 +22,7 @@ function App() {
       try {
         const LAUNCH_COUNT_KEY = "app_launch_count";
         const REVIEW_SHOWN_KEY = "review_shown";
-        let count = Number.parseInt(
+        let count = Number(
           (await AsyncStorage.getItem(LAUNCH_COUNT_KEY)) || "0",
           10,
         );
