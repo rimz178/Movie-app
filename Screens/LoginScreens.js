@@ -16,8 +16,10 @@ import {
 } from "../Api/ApiParsing";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginStyles } from "../Styles/LoginStyles";
+import { SettingsStyles } from "../Styles/SettingsStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import { WebView } from "react-native-webview";
+import Ionicons from "react-native-vector-icons/Ionicons";
 /**
  * LoginScreen component for user authentication.
  *
@@ -99,21 +101,33 @@ export default function LoginScreen({ navigation }) {
       </TouchableOpacity>
       <Modal visible={showWebView} animationType="slide">
         <SafeAreaView style={{ flex: 1, backgroundColor: "#18171c" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              padding: 10,
-              backgroundColor: "#18171c",
-            }}
-          >
-            <TouchableOpacity onPress={() => setShowWebView(false)}>
-              <Text style={{ color: "#d00", fontSize: 18 }}>
+          <View style={SettingsStyles.webViewHeader}>
+            <TouchableOpacity
+              style={SettingsStyles.webViewHeaderLeft}
+              onPress={() =>
+                Linking.openURL("https://www.themoviedb.org/signup")
+              }
+              accessibilityLabel={strings.Settings.OpenInBrowser}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="open-outline" size={24} color="#0af" />
+            </TouchableOpacity>
+            <Text
+              style={SettingsStyles.webViewHeaderTitle}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {strings.Auth.NoAccount}
+            </Text>
+            <TouchableOpacity
+              style={SettingsStyles.webViewHeaderRight}
+              onPress={() => setShowWebView(false)}
+              activeOpacity={0.7}
+            >
+              <Text style={SettingsStyles.webViewHeaderClose}>
                 {strings.Settings.Close}
               </Text>
             </TouchableOpacity>
-            <Text style={{ color: "#fff", fontSize: 16, marginLeft: 20 }}>
-              {strings.Auth.NoAccount}
-            </Text>
           </View>
           <WebView
             source={{ uri: "https://www.themoviedb.org/signup" }}
