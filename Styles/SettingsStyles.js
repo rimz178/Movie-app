@@ -77,4 +77,44 @@ export const SettingsStyles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  languageDropdown: {
+    backgroundColor: "#232228",
+    borderRadius: 8,
+  },
+  languageOption: {
+    padding: 12,
+  },
+  languageOptionText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  languageOptionTextSelected: {
+    fontWeight: "bold",
+  },
+  deleteDesc: {
+    color: "#aaa",
+    fontSize: 13,
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  webViewHeader: {
+    flexDirection: "row",
+    padding: 10,
+    backgroundColor: "#18171c",
+    alignItems: "center",
+  },
+  webViewHeaderClose: {
+    color: "#d00",
+    fontSize: 18,
+  },
+  webViewHeaderTitle: {
+    color: "#fff",
+    fontSize: 16,
+    flex: 1,
+    textAlign: "center",
+  },
+  webViewHeaderIcon: {
+    width: 40,
+    alignItems: "flex-end",
+  },
 });

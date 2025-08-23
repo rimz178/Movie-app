@@ -6,6 +6,7 @@ import {
   FlatList,
   Modal,
   SafeAreaView,
+  Linking,
 } from "react-native";
 import React, { useState } from "react";
 import { image185, fallbackProviderLogo } from "../Api/ApiParsing";
@@ -13,6 +14,8 @@ import { WatchProviderStyles } from "../Styles/WatchProviderStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
 import { WebView } from "react-native-webview";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { SettingsStyles } from "../Styles/SettingsStyles";
 
 export default function WatchProviders({
   providers,
@@ -111,26 +114,34 @@ export default function WatchProviders({
       />
       <Modal visible={showWebView} animationType="slide">
         <SafeAreaView style={{ flex: 1, backgroundColor: "#18171c" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              padding: 10,
-              backgroundColor: "#18171c",
-            }}
-          >
+          <View style={SettingsStyles.webViewHeader}>
             <TouchableOpacity
+              style={SettingsStyles.webViewHeaderIcon}
+              onPress={() => Linking.openURL(webUrl)}
+              accessibilityLabel="Avaa TMDb selaimessa"
+              activeOpacity={0.7}
+            >
+              <Ionicons name="open-outline" size={24} color="#0af" />
+            </TouchableOpacity>
+            <Text
+              style={SettingsStyles.webViewHeaderTitle}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              TMDb
+            </Text>
+            <TouchableOpacity
+              style={SettingsStyles.webViewHeaderCloseBtn}
               onPress={() => {
                 setShowWebView(false);
                 setWebViewError(false);
               }}
+              activeOpacity={0.7}
             >
-              <Text style={{ color: "#d00", fontSize: 18 }}>
+              <Text style={SettingsStyles.webViewHeaderClose}>
                 {strings.Settings.Close}
               </Text>
             </TouchableOpacity>
-            <Text style={{ color: "#fff", fontSize: 16, marginLeft: 20 }}>
-              TMDb
-            </Text>
           </View>
           {webViewError ? (
             <View

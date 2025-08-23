@@ -53,7 +53,8 @@
     "Selected": " (selected)",
     "DeleteTMDbAccount": "Delete TMDb Account",
     "AccountManagement": "Account Management",
-    "Close": "Close"
+    "Close": "Close",
+    "OpenInBrowser": "Open in Browser"
   },
   "Persons": {
     "Gender": "Gender",
