@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, SafeAreaView } from "react-native";
+import * as StoreReview from "expo-store-review";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GlobalStyles } from "../Styles/GlobalStyles";
 import UpcomingMovies from "../components/UpcomingMovies";
@@ -64,6 +65,31 @@ function HomeScreen({ route }) {
 
     fetchAllData();
   }, [route, language]);
+
+  useEffect(() => {
+    const checkAndAskForReview = async () => {
+      try {
+        const LAUNCH_COUNT_KEY = "app_launch_count";
+        const REVIEW_SHOWN_KEY = "review_shown";
+        let count = Number(
+          (await AsyncStorage.getItem(LAUNCH_COUNT_KEY)) || "0",
+          10,
+        );
+        const reviewShown = await AsyncStorage.getItem(REVIEW_SHOWN_KEY);
+
+        if (!reviewShown) {
+          count += 1;
+          await AsyncStorage.setItem(LAUNCH_COUNT_KEY, count.toString());
+
+          if (count === 5 && (await StoreReview.isAvailableAsync())) {
+            StoreReview.requestReview();
+            await AsyncStorage.setItem(REVIEW_SHOWN_KEY, "true");
+          }
+        }
+      } catch (e) {}
+    };
+    checkAndAskForReview();
+  }, []);
 
   return (
     <SafeAreaView style={GlobalStyles.container}>
