@@ -3,7 +3,7 @@ import "react-native-gesture-handler";
 import "react-native-url-polyfill/auto";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
-i
+
 enableScreens();
 
 import MainStack from "./stack/MainStack";
