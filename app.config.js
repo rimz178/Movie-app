@@ -2,7 +2,7 @@ export default {
   expo: {
     name: "Movie-App",
     slug: "movie-app",
-    version: "1.1.0",
+    version: "1.2.0",
     orientation: "portrait",
     icon: "./assets/movieicon.png",
     jsEngine: "hermes",
@@ -19,7 +19,7 @@ export default {
       jsEngine: "jsc",
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
-        CFBundleLocalizations: ["en", "fi"]
+        CFBundleLocalizations: ["en", "fi"],
       },
     },
     android: {
