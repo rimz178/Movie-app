@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {
   TouchableOpacity,
-  SafeAreaView,
   Text,
   View,
   Alert,
   Modal,
   Linking,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";

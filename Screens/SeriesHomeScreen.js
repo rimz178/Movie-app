@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, FlatList } from "react-native";
+import { Text, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
 import { GlobalStyles } from "../Styles/GlobalStyles";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
   fetchPopularSeries,
   fetchTopRatedSeries,

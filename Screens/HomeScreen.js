@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, SafeAreaView } from "react-native";
+import { FlatList, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import * as StoreReview from "expo-store-review";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GlobalStyles } from "../Styles/GlobalStyles";

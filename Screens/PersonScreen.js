@@ -1,4 +1,5 @@
-import { View, Text, SafeAreaView, Image, FlatList } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";

@@ -6,8 +6,8 @@ import {
   Image,
   FlatList,
   Alert,
-  SafeAreaView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomRating from "../components/CustomRating";
@@ -129,6 +129,7 @@ export default function MovieScreen() {
       logger.error("Error toggling favorite:", error);
     }
   };
+
   return (
     <SafeAreaView style={SharedStyles.container}>
       {loading ? (

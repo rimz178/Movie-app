@@ -5,9 +5,9 @@ import {
   Image,
   FlatList,
   Modal,
-  SafeAreaView,
   Linking,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState } from "react";
 import { image185, fallbackProviderLogo } from "../Api/ApiParsing";
 import { WatchProviderStyles } from "../Styles/WatchProviderStyles";

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { View, SafeAreaView, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import FavoritesList from "../components/FavoriteList";
 import { useFocusEffect } from "@react-navigation/native";
 import MovieRatingList from "../components/MovieRatingList";

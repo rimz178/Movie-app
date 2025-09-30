@@ -5,7 +5,6 @@ export const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backcolor,
-    paddingBottom: 60,
   },
   titleText: {
     fontSize: 20,
@@ -28,8 +27,7 @@ export const GlobalStyles = StyleSheet.create({
     padding: 10,
     backgroundColor: Colors.segmentedBackground,
     borderRadius: 10,
-    marginHorizontal: 15,
-    marginBottom: 10,
+    marginHorizontal: 0,
   },
   buttonText: {
     color: Colors.white,

@@ -4,11 +4,11 @@ import Colors from "./Colors";
 export const SettingsStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#18171c", // tumma tausta
+    backgroundColor: "#18171c",
   },
   content: {
     flex: 1,
-    paddingTop: 24,
+    paddingTop: 8,
     paddingHorizontal: 0,
   },
   button: {
@@ -47,7 +47,6 @@ export const SettingsStyles = StyleSheet.create({
     fontSize: 13,
     paddingVertical: 8,
     paddingHorizontal: 16,
-    marginTop: 18,
   },
   row: {
     flexDirection: "row",
