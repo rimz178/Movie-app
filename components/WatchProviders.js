@@ -14,7 +14,7 @@ import { WatchProviderStyles } from "../Styles/WatchProviderStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
 import { WebView } from "react-native-webview";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { SettingsStyles } from "../Styles/SettingsStyles";
 
 export default function WatchProviders({
@@ -121,7 +121,7 @@ export default function WatchProviders({
               accessibilityLabel="Avaa TMDb selaimessa"
               activeOpacity={0.7}
             >
-              <Ionicons name="open-outline" size={24} color="#0af" />
+              <MaterialIcons name="open-in-browser" size={24} color="#fff" />
             </TouchableOpacity>
             <Text
               style={SettingsStyles.webViewHeaderTitle}
