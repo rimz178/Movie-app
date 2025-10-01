@@ -28,7 +28,7 @@ export default {
         backgroundColor: "#ffffff",
       },
       package: "com.edie17.MovieApp",
-       jsEngine: "hermes"
+      jsEngine: "hermes"
     },
     web: {
       favicon: "./assets/favicon.png",

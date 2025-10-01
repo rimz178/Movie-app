@@ -13,20 +13,12 @@
       "distribution": "internal",
       "channel": "preview",
       "android": {
-        "buildType": "apk",
-        "env": {
-          "EXPO_NO_PREBUILD_MODIFY": "1"
-        }
+        "buildType": "apk"
       }
     },
     "production": {
       "autoIncrement": true,
-      "channel": "production",
-      "android": {
-        "env": {
-          "EXPO_NO_PREBUILD_MODIFY": "1"
-        }
-      }
+      "channel": "production"
     }
   },
   "submit": {
