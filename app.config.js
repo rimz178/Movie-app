@@ -28,7 +28,8 @@ export default {
         backgroundColor: "#ffffff",
       },
       package: "com.edie17.MovieApp",
-      jsEngine: "hermes"
+      jsEngine: "hermes" ,
+      predictiveBackGestureEnabled: false 
     },
     web: {
       favicon: "./assets/favicon.png",
@@ -45,7 +46,5 @@ export default {
       checkAutomatically: "ON_ERROR_RECOVERY",
       fallbackToCacheTimeout: 0,
     },
-    runtimeVersion: {
-      policy: "sdkVersion",
-    }
+    runtimeVersion: "1.2.1",
 };
