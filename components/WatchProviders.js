@@ -5,7 +5,6 @@ import {
   Image,
   FlatList,
   Modal,
-  SafeAreaView,
   Linking,
 } from "react-native";
 import React, { useState } from "react";
@@ -16,7 +15,7 @@ import LANGUAGE_CODES from "../localization/languageCodes";
 import { WebView } from "react-native-webview";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SettingsStyles } from "../Styles/SettingsStyles";
-
+import { SafeAreaProvider } from "react-native-safe-area-context";
 export default function WatchProviders({
   providers,
   tmdbId,
@@ -113,7 +112,7 @@ export default function WatchProviders({
         )}
       />
       <Modal visible={showWebView} animationType="slide">
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#18171c" }}>
+        <SafeAreaProvider style={{ flex: 1, backgroundColor: "#18171c" }}>
           <View style={SettingsStyles.webViewHeader}>
             <TouchableOpacity
               style={SettingsStyles.webViewHeaderIcon}
@@ -128,7 +127,7 @@ export default function WatchProviders({
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              TMDb
+              TMDB
             </Text>
             <TouchableOpacity
               style={SettingsStyles.webViewHeaderCloseBtn}
@@ -173,7 +172,7 @@ export default function WatchProviders({
               onError={onWebViewError}
             />
           )}
-        </SafeAreaView>
+        </SafeAreaProvider>
       </Modal>
     </View>
   );

@@ -65,6 +65,7 @@ export default function BottomTabs(route) {
         tabBarStyle: BottomTabsStyles.tabBar,
         headerStyle: BottomTabsStyles.header,
         headerTintColor: Colors.white,
+        headerTitleAlign: "center",
       })}
     >
       <Tab.Screen

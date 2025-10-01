@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, FlatList } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
@@ -15,6 +15,7 @@ import {
 import { PersonStyles } from "../Styles/PersonStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 /**
  * PersonScreen component that displays details about a person, including their biography and movies.
  *
@@ -53,7 +54,7 @@ export default function PersonScreen() {
   };
 
   return (
-    <SafeAreaView style={PersonStyles.container}>
+    <SafeAreaProvider style={PersonStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -156,6 +157,6 @@ export default function PersonScreen() {
           )}
         />
       )}
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

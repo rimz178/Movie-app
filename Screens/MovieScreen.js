@@ -6,7 +6,6 @@ import {
   Image,
   FlatList,
   Alert,
-  SafeAreaView,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -27,6 +26,7 @@ import { SharedStyles } from "../Styles/SharedStyles";
 import { logger } from "../utils/logger";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 /**
  * Displays detailed information about a movie, including its cast, genres, and watch providers.
@@ -130,7 +130,7 @@ export default function MovieScreen() {
     }
   };
   return (
-    <SafeAreaView style={SharedStyles.container}>
+    <SafeAreaProvider style={SharedStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -215,6 +215,6 @@ export default function MovieScreen() {
           )}
         />
       )}
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
