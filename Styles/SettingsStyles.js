@@ -4,7 +4,7 @@ import Colors from "./Colors";
 export const SettingsStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#18171c", // tumma tausta
+    backgroundColor: "#18171c", 
   },
   content: {
     flex: 1,
@@ -100,6 +100,7 @@ export const SettingsStyles = StyleSheet.create({
   webViewHeader: {
     flexDirection: "row",
     padding: 10,
+    paddingTop: 50,
     backgroundColor: "#18171c",
     alignItems: "center",
   },
@@ -121,4 +122,5 @@ export const SettingsStyles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "center",
   },
+
 });

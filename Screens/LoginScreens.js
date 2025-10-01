@@ -103,7 +103,7 @@ export default function LoginScreen({ navigation }) {
         <SafeAreaProvider style={{ flex: 1, backgroundColor: "#18171c" }}>
           <View style={SettingsStyles.webViewHeader}>
             <TouchableOpacity
-              style={SettingsStyles.webViewHeaderLeft}
+              style={SettingsStyles.webViewHeaderIcon}
               onPress={() =>
                 Linking.openURL("https://www.themoviedb.org/signup")
               }

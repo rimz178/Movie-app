@@ -1,5 +1,4 @@
 export default {
-  expo: {
     name: "Movie-App",
     slug: "movie-app",
     version: "1.2.1",
@@ -10,8 +9,9 @@ export default {
     splash: {
       image: "./assets/splash.png",
       resizeMode: "contain",
-      backgroundColor: "#ffffff",
-    },
+      backgroundColor: "#ffffff"
+    }, 
+    
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: true,
@@ -28,6 +28,7 @@ export default {
         backgroundColor: "#ffffff",
       },
       package: "com.edie17.MovieApp",
+       jsEngine: "hermes"
     },
     web: {
       favicon: "./assets/favicon.png",
@@ -46,6 +47,5 @@ export default {
     },
     runtimeVersion: {
       policy: "sdkVersion",
-    },
-  },
+    }
 };
