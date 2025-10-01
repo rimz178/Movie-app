@@ -4,7 +4,6 @@ import {
   Text,
   Image,
   FlatList,
-  SafeAreaView,
   Alert,
   TouchableOpacity,
 } from "react-native";
@@ -27,6 +26,7 @@ import { SharedStyles } from "../Styles/SharedStyles";
 import { logger } from "../utils/logger";
 import LANGUAGE_CODES from "../localization/languageCodes";
 import { useLanguage } from "../localization/LanguageContext";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *
@@ -124,7 +124,7 @@ export default function SeriesDetailScreen() {
   };
 
   return (
-    <SafeAreaView style={SharedStyles.container}>
+    <SafeAreaProvider style={SharedStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -224,6 +224,6 @@ export default function SeriesDetailScreen() {
           )}
         />
       )}
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

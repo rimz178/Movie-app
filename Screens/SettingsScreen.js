@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   TouchableOpacity,
-  SafeAreaView,
   Text,
   View,
   Alert,
@@ -14,6 +13,7 @@ import { SettingsStyles } from "../Styles/SettingsStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import { WebView } from "react-native-webview";
 import { MaterialIcons } from "@expo/vector-icons";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -47,7 +47,7 @@ export default function SettingsScreen() {
   ];
 
   return (
-    <SafeAreaView style={SettingsStyles.container}>
+    <SafeAreaProvider style={SettingsStyles.container}>
       <View style={SettingsStyles.content}>
         <Text style={SettingsStyles.sectionHeader}>
           {strings.Settings.Language}
@@ -135,7 +135,7 @@ export default function SettingsScreen() {
           {strings.Settings.DeleteTMDbAccountDesc}
         </Text>
         <Modal visible={showWebView} animationType="slide">
-          <SafeAreaView style={{ flex: 1, backgroundColor: "#18171c" }}>
+          <SafeAreaProvider style={{ flex: 1, backgroundColor: "#18171c" }}>
             <View style={SettingsStyles.webViewHeader}>
               <TouchableOpacity
                 style={SettingsStyles.webViewHeaderIcon}
@@ -173,9 +173,9 @@ export default function SettingsScreen() {
               style={{ flex: 1 }}
               startInLoadingState
             />
-          </SafeAreaView>
+          </SafeAreaProvider>
         </Modal>
       </View>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

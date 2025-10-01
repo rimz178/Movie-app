@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, SafeAreaView } from "react-native";
+import { FlatList, Text } from "react-native";
 import * as StoreReview from "expo-store-review";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GlobalStyles } from "../Styles/GlobalStyles";
@@ -14,6 +14,7 @@ import {
   fetchNowPlaying,
 } from "../Api/ApiParsing";
 import { useLanguage } from "../localization/LanguageContext";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 /**
  * HomeScreen component that displays movie data.
  *
@@ -92,7 +93,7 @@ function HomeScreen({ route }) {
   }, []);
 
   return (
-    <SafeAreaView style={GlobalStyles.container}>
+    <SafeAreaProvider style={GlobalStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -135,7 +136,7 @@ function HomeScreen({ route }) {
           />
         </>
       )}
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

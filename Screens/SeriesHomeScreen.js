@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, FlatList } from "react-native";
+import { Text, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
@@ -12,6 +12,7 @@ import {
   fetchAiringTodaySeries,
 } from "../Api/ApiParsing";
 import { useLanguage } from "../localization/LanguageContext";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 /**
  * SeriesHomeScreen component that displays a list of trending series.
  *
@@ -64,7 +65,7 @@ function SeriesHomeScreen({ route }) {
   };
 
   return (
-    <SafeAreaView style={GlobalStyles.container}>
+    <SafeAreaProvider style={GlobalStyles.container}>
       {loading ? (
         <Loading />
       ) : (
@@ -116,7 +117,7 @@ function SeriesHomeScreen({ route }) {
           />
         </>
       )}
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

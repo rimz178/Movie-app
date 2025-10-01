@@ -7,7 +7,6 @@ import {
   Linking,
   Alert,
   Modal,
-  SafeAreaView,
 } from "react-native";
 import {
   fetchRequestToken,
@@ -20,6 +19,7 @@ import { SettingsStyles } from "../Styles/SettingsStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import { WebView } from "react-native-webview";
 import { MaterialIcons } from "@expo/vector-icons";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 /**
  * LoginScreen component for user authentication.
  *
@@ -100,7 +100,7 @@ export default function LoginScreen({ navigation }) {
         <Text style={LoginStyles.registerText}>{strings.Auth.NoAccount}</Text>
       </TouchableOpacity>
       <Modal visible={showWebView} animationType="slide">
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#18171c" }}>
+        <SafeAreaProvider style={{ flex: 1, backgroundColor: "#18171c" }}>
           <View style={SettingsStyles.webViewHeader}>
             <TouchableOpacity
               style={SettingsStyles.webViewHeaderLeft}
@@ -134,7 +134,7 @@ export default function LoginScreen({ navigation }) {
             style={{ flex: 1 }}
             startInLoadingState
           />
-        </SafeAreaView>
+        </SafeAreaProvider>
       </Modal>
     </View>
   );

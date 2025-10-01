@@ -7,7 +7,7 @@
   },
   "Auth": {
     "Login": "Kirjaudu sisään",
-    "GuestUser": "Vieras tila",
+    "GuestUser": "Vierastila",
     "Username": "Käyttäjätunnus",
     "Password": "Salasana",
     "NoAccount": "Ei tiliä? Luo uusi tili"
