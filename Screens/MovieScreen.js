@@ -7,7 +7,7 @@ import {
   FlatList,
   Alert,
 } from "react-native";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomRating from "../components/CustomRating";
 import AsyncStorage from "@react-native-async-storage/async-storage";
