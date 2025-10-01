@@ -19,7 +19,7 @@ import {
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
 import { useNavigation } from "@react-navigation/native";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { SearchStyles } from "../Styles/SearchStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";

@@ -117,4 +117,8 @@ export const SettingsStyles = StyleSheet.create({
     width: 40,
     alignItems: "flex-end",
   },
+  webViewHeaderCloseBtn: {
+    alignItems: "flex-end",
+    justifyContent: "center",
+  },
 });

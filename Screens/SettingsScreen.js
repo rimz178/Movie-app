@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SettingsStyles } from "../Styles/SettingsStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import { WebView } from "react-native-webview";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -147,7 +147,7 @@ export default function SettingsScreen() {
                 accessibilityLabel={strings.Settings.OpenInBrowser}
                 activeOpacity={0.7}
               >
-                <Ionicons name="open-outline" size={24} color="#0af" />
+                <MaterialIcons name="open-in-browser" size={24} color="#fff" />
               </TouchableOpacity>
               <Text
                 style={SettingsStyles.webViewHeaderTitle}
