@@ -187,7 +187,7 @@ export default function MovieScreen() {
                 ) : null}
                 {movie?.vote_average ? (
                   <Text style={SharedStyles.textStatus}>
-                    {strings?.Other?.Rating}:{movie.vote_average.toFixed(1)}
+                    {strings?.Other?.Rating}: {movie.vote_average.toFixed(1)}
                     /10
                   </Text>
                 ) : null}
