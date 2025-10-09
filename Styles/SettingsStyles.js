@@ -4,7 +4,7 @@ import Colors from "./Colors";
 export const SettingsStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#18171c", 
+    backgroundColor: "#18171c",
   },
   content: {
     flex: 1,
@@ -122,5 +122,4 @@ export const SettingsStyles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "center",
   },
-
 });

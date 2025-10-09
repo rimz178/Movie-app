@@ -168,40 +168,48 @@ export default function MovieScreen() {
                 </TouchableOpacity>
               </View>
               <View style={{ marginTop: 10 }}>
-                {movie?.id && (
+                {movie?.id ? (
                   <CustomRating
                     id={movie.id}
                     sessionId={userSessionId}
                     type="movie"
                   />
-                )}
-                <Text style={SharedStyles.titletext}>{movie?.title}</Text>
-                {movie?.id ? (
+                ) : null}
+                <Text style={SharedStyles.titletext}>{movie?.title || ""}</Text>
+                {movie?.status ? (
                   <Text style={SharedStyles.textStatus}>
-                    {movie?.status} • {movie?.release_date?.split("-")[0]} •
-                    {movie?.runtime} min
+                    {movie.status}
+                    {movie?.release_date
+                      ? ` • ${movie.release_date.split("-")[0]}`
+                      : ""}
+                    {movie?.runtime ? ` • ${movie.runtime} min` : ""}
                   </Text>
                 ) : null}
-                {movie?.vote_average && (
+                {movie?.vote_average ? (
                   <Text style={SharedStyles.textStatus}>
-                    {strings.Other.Rating}: {movie.vote_average.toFixed(1)}/10
+                    {strings?.Other?.Rating}: {movie.vote_average.toFixed(1)}
+                    /10
                   </Text>
-                )}
+                ) : null}
               </View>
 
               <View style={SharedStyles.genre}>
-                {movie?.genres?.map((genre, index) => {
-                  const dot = index + 1 !== movie.genres.length;
-                  return (
-                    <Text key={genre.id} style={SharedStyles.textStatus}>
-                      {genre?.name} {dot ? "•" : null}
-                    </Text>
-                  );
-                })}
+                {movie?.genres
+                  ? movie.genres.map((genre) => (
+                      <Text
+                        key={genre.id}
+                        style={SharedStyles.genreTag}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {genre?.name || ""}
+                      </Text>
+                    ))
+                  : null}
               </View>
 
               <Text style={SharedStyles.descriptionText}>
-                {movie?.overview ? movie.overview : strings.Other.NoInfo}
+                {movie?.overview || strings.Other.NoInfo}
               </Text>
 
               <Cast navigation={navigation} cast={cast} />
