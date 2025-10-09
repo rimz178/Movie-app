@@ -140,6 +140,19 @@ export const fetchSeriesWatchProviders = (id) =>
 export const fetchPopularSeries = () => apiCall(popularSeriesEndpoint);
 export const fetchAiringTodaySeries = () => apiCall(airingTodaySeries);
 
+const discoverMoviesEndpoint = "/discover/movie";
+const discoverSeriesEndpoint = "/discover/tv";
+
+export const discoverMovies = async (params) => {
+  if (!params.language) params.language = await getLanguageCode();
+  return apiCall(discoverMoviesEndpoint, params);
+};
+
+export const discoverSeries = async (params) => {
+  if (!params.language) params.language = await getLanguageCode();
+  return apiCall(discoverSeriesEndpoint, params);
+};
+
 export const fallbackMoviePoster =
   "https://img.myloview.com/stickers/white-laptop-screen-with-hd-video-technology-icon-isolated-on-grey-background-abstract-circle-random-dots-vector-illustration-400-176057922.jpg";
 export const fallbackPersonImage =

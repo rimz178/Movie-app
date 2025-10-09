@@ -16,6 +16,8 @@ import {
   searchMovies,
   searchSeries,
   searchPeople,
+  discoverMovies,
+  discoverSeries,
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
 import { useNavigation } from "@react-navigation/native";
@@ -23,6 +25,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { SearchStyles } from "../Styles/SearchStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
+import { detectGenreFromText } from "../utils/genreKeywords";
+
 /**
  * SearchBars component for searching movies, series and actors.
  *
@@ -33,7 +37,7 @@ export default function SearchBars() {
   const [results, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingImages, setLoadingImages] = useState({});
-  const [searchText, setSearchText] = useState(""); // <-- uusi tila
+  const [searchText, setSearchText] = useState("");
   const { strings, language } = useLanguage();
   const langCode = LANGUAGE_CODES[language] || LANGUAGE_CODES.en;
 
@@ -41,69 +45,103 @@ export default function SearchBars() {
     async (value) => {
       if (value && value.length > 2) {
         setLoading(true);
+
+        const detectedGenre = detectGenreFromText(value);
+
         requestAnimationFrame(async () => {
           try {
-            const pageSize = "5";
-            const [moviesData, seriesData, peopleData] = await Promise.all([
-              searchMovies({
-                query: value,
-                include_adult: "false",
-                language: langCode,
-                page: "1",
-                per_page: pageSize,
-              }),
-              searchSeries({
-                query: value,
-                include_adult: "false",
-                language: langCode,
-                page: "1",
-                per_page: pageSize,
-              }),
-              searchPeople({
-                query: value,
-                include_adult: "false",
-                language: langCode,
-                page: "1",
-                per_page: pageSize,
-              }),
-            ]);
-            // ...result handling...
-            const results = [
-              ...(moviesData?.results || []).map((item) => ({
-                ...item,
-                media_type: "movie",
-              })),
-              ...(seriesData?.results || []).map((item) => ({
-                ...item,
-                media_type: "tv",
-              })),
-              ...(peopleData?.results || []).map((item) => ({
-                ...item,
-                media_type: "person",
-              })),
-            ];
-            const searchValueLower = value.toLowerCase();
-            const sortedResults = results.sort((a, b) => {
-              const aTitle = (a.title || a.name || "").toLowerCase();
-              const bTitle = (b.title || b.name || "").toLowerCase();
-              if (aTitle === searchValueLower && bTitle !== searchValueLower)
-                return -1;
-              if (bTitle === searchValueLower && aTitle !== searchValueLower)
-                return 1;
-              if (
-                aTitle.includes(searchValueLower) &&
-                !bTitle.includes(searchValueLower)
-              )
-                return -1;
-              if (
-                bTitle.includes(searchValueLower) &&
-                !aTitle.includes(searchValueLower)
-              )
-                return 1;
-              return (b.popularity || 0) - (a.popularity || 0);
-            });
-            const maxResults = 50;
-            setResult(sortedResults.slice(0, maxResults));
+            if (detectedGenre) {
+              const [moviesData, seriesData] = await Promise.all([
+                discoverMovies({
+                  with_genres: detectedGenre,
+                  language: langCode,
+                  page: "1",
+                  sort_by: "popularity.desc",
+                }),
+                discoverSeries({
+                  with_genres: detectedGenre,
+                  language: langCode,
+                  page: "1",
+                  sort_by: "popularity.desc",
+                }),
+              ]);
+
+              const results = [
+                ...(moviesData?.results || []).slice(0, 25).map((item) => ({
+                  ...item,
+                  media_type: "movie",
+                })),
+                ...(seriesData?.results || []).slice(0, 25).map((item) => ({
+                  ...item,
+                  media_type: "tv",
+                })),
+              ];
+
+              setResult(results);
+            } else {
+              const [moviesData, seriesData, peopleData] = await Promise.all([
+                searchMovies({
+                  query: value,
+                  include_adult: "false",
+                  language: langCode,
+                  page: "1",
+                  per_page: "5",
+                }),
+                searchSeries({
+                  query: value,
+                  include_adult: "false",
+                  language: langCode,
+                  page: "1",
+                  per_page: "5",
+                }),
+                searchPeople({
+                  query: value,
+                  include_adult: "false",
+                  language: langCode,
+                  page: "1",
+                  per_page: "5",
+                }),
+              ]);
+
+              const results = [
+                ...(moviesData?.results || []).map((item) => ({
+                  ...item,
+                  media_type: "movie",
+                })),
+                ...(seriesData?.results || []).map((item) => ({
+                  ...item,
+                  media_type: "tv",
+                })),
+                ...(peopleData?.results || []).map((item) => ({
+                  ...item,
+                  media_type: "person",
+                })),
+              ];
+
+              const searchValueLower = value.toLowerCase();
+              const sortedResults = results.sort((a, b) => {
+                const aTitle = (a.title || a.name || "").toLowerCase();
+                const bTitle = (b.title || b.name || "").toLowerCase();
+                if (aTitle === searchValueLower && bTitle !== searchValueLower)
+                  return -1;
+                if (bTitle === searchValueLower && aTitle !== searchValueLower)
+                  return 1;
+                if (
+                  aTitle.includes(searchValueLower) &&
+                  !bTitle.includes(searchValueLower)
+                )
+                  return -1;
+                if (
+                  bTitle.includes(searchValueLower) &&
+                  !aTitle.includes(searchValueLower)
+                )
+                  return 1;
+                return (b.popularity || 0) - (a.popularity || 0);
+              });
+
+              const maxResults = 50;
+              setResult(sortedResults.slice(0, maxResults));
+            }
           } catch (error) {
             logger.error("Error fetching search results:", error);
             setResult([]);
