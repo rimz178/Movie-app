@@ -1,7 +1,7 @@
 export default {
   name: "Movie-App",
   slug: "movie-app",
-  version: "1.2.1",
+  version: "1.3.0",
   orientation: "portrait",
   icon: "./assets/movieicon.png",
   jsEngine: "hermes",
@@ -46,5 +46,5 @@ export default {
     checkAutomatically: "ON_ERROR_RECOVERY",
     fallbackToCacheTimeout: 0,
   },
-  runtimeVersion: "1.2.1",
+  runtimeVersion: "1.3.0",
 };
