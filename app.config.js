@@ -24,7 +24,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
+        foregroundImage: "./assets/movieicon.png",
         backgroundColor: "#ffffff",
       },
       package: "com.edie17.MovieApp",
