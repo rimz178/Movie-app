@@ -192,19 +192,26 @@ export default function SeriesDetailScreen() {
                       : "-"}
                   </Text>
                 ) : null}
-                {seriesDetails?.vote_average && (
+                {seriesDetails?.vote_average ? (
                   <Text style={SharedStyles.textStatus}>
                     {strings.Other.Rating}:{" "}
                     {seriesDetails.vote_average.toFixed(1)}/10
                   </Text>
-                )}
+                ) : null}
               </View>
               <View style={SharedStyles.genre}>
-                {seriesDetails?.genres?.map((genre) => (
-                  <Text key={genre.id} style={SharedStyles.textStatus}>
-                    {genre?.name}
-                  </Text>
-                ))}
+                {seriesDetails?.genres
+                  ? seriesDetails.genres.map((genre) => (
+                      <Text
+                        key={genre.id}
+                        style={SharedStyles.genreTag}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {genre?.name}
+                      </Text>
+                    ))
+                  : null}
               </View>
               <View>
                 <Text style={SharedStyles.descriptionText}>

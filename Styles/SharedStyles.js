@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, Platform } from "react-native";
 import Colors from "./Colors";
 const { width, height } = Dimensions.get("window");
 
@@ -39,6 +39,19 @@ export const SharedStyles = StyleSheet.create({
     marginTop: 5,
     flexDirection: "row",
     justifyContent: "center",
+    flexWrap: "wrap", // Tämä auttaa tekstien rivittymisessä
+    alignItems: "center",
+    width: "100%",
+  },
+  genreTag: {
+    margin: 3,
+    fontSize: 15,
+    color: Colors.status,
+    textAlign: "center",
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 10,
+    backgroundColor: "rgba(255,255,255,0.1)",
   },
 
   descriptionText: {
