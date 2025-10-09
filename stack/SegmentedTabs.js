@@ -18,6 +18,7 @@ export default function SegmentedTabs() {
         tabBarIndicatorStyle: { backgroundColor: "#E60505" },
         tabBarActiveTintColor: "#FFD700",
         tabBarInactiveTintColor: "#fff",
+        swipeEnabled: false,
       }}
     >
       <TopTab.Screen
