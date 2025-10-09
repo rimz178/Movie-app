@@ -67,11 +67,11 @@ export default function SearchBars() {
               ]);
 
               const results = [
-                ...(moviesData?.results || []).slice(0, 25).map((item) => ({
+                ...(moviesData?.results || []).slice(0, 5).map((item) => ({
                   ...item,
                   media_type: "movie",
                 })),
-                ...(seriesData?.results || []).slice(0, 25).map((item) => ({
+                ...(seriesData?.results || []).slice(0, 5).map((item) => ({
                   ...item,
                   media_type: "tv",
                 })),

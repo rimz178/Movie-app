@@ -187,8 +187,8 @@ export default function MovieScreen() {
                 ) : null}
                 {movie?.vote_average ? (
                   <Text style={SharedStyles.textStatus}>
-                    {strings?.Other?.Rating || "Rating"}:{" "}
-                    {movie.vote_average.toFixed(1)}/10
+                    {strings?.Other?.Rating}: : {movie.vote_average.toFixed(1)}
+                    /10
                   </Text>
                 ) : null}
               </View>
@@ -211,7 +211,9 @@ export default function MovieScreen() {
               <Text style={SharedStyles.descriptionText}>
                 {movie?.overview
                   ? movie.overview
-                  : strings.Other.NoInfo || "No information available"}
+                  : movie?.overview
+                    ? movie.overview
+                    : strings.Other.NoInfo}
               </Text>
 
               <Cast navigation={navigation} cast={cast} />

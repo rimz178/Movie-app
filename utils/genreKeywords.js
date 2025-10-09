@@ -16,11 +16,17 @@ export const detectGenreFromText = (searchText) => {
 
   for (const [genreId, keywords] of Object.entries(GENRE_KEYWORDS)) {
     if (
-      keywords.some(
-        (keyword) => lowerText === keyword || lowerText.includes(keyword),
-      )
+      keywords.some((keyword) => {
+        if (lowerText === keyword) return true;
+        const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const isSingleWord = !/\s/.test(keyword);
+        const regex = isSingleWord
+          ? new RegExp(`\\b${escapedKeyword}\\b`, "i")
+          : new RegExp(`${escapedKeyword}`, "i");
+        return regex.test(lowerText);
+      })
     ) {
-      return parseInt(genreId);
+      return parseInt(genreId, 10);
     }
   }
 
