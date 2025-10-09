@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions, Platform } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import Colors from "./Colors";
 const { width, height } = Dimensions.get("window");
 
@@ -39,7 +39,7 @@ export const SharedStyles = StyleSheet.create({
     marginTop: 5,
     flexDirection: "row",
     justifyContent: "center",
-    flexWrap: "wrap", // Tämä auttaa tekstien rivittymisessä
+    flexWrap: "wrap",
     alignItems: "center",
     width: "100%",
   },
