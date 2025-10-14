@@ -15,15 +15,8 @@ const Stack = createStackNavigator();
 import { useLanguage } from "../localization/LanguageContext";
 /**
  * MainStack component for managing the app's navigation.
- *
- * Handles:
- * - Checking login status via AsyncStorage.
- * - Setting the initial screen (Login or Home).
- * - Navigating between screens like Home, Search, Movie, and Person.
- *
- * @returns {JSX.Element} - The main navigation stack.
  */
-function MainStack() {
+function MainStack({ navigationRef }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { strings } = useLanguage();
@@ -49,7 +42,7 @@ function MainStack() {
   }
   return (
     <PaperProvider>
-      <NavigationContainer independent={false}>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
           initialRouteName={isLoggedIn ? "MainTabs" : "Login"}
           screenOptions={{

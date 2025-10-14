@@ -1,7 +1,7 @@
 export default {
   name: "Movie-App",
   slug: "movie-app",
-  version: "1.3.0",
+  version: "1.4.0",
   orientation: "portrait",
   icon: "./assets/movieicon.png",
   jsEngine: "hermes",
@@ -42,9 +42,19 @@ export default {
     },
   },
   updates: {
-    enabled: false,
-    checkAutomatically: "ON_ERROR_RECOVERY",
-    fallbackToCacheTimeout: 0,
+    enabled: true,
+    checkAutomatically: "ON_LOAD",
+    fallbackToCacheTimeout: 5000,
   },
-  runtimeVersion: "1.3.0",
+  runtimeVersion: "1.4.0",
+  plugins: [
+    [
+      "expo-notifications",
+      {
+        icon: "./assets/notification-icon.png",
+        color: "#ffffff",
+        sounds: ["./assets/notification-sound.wav"],
+      },
+    ],
+  ],
 };
