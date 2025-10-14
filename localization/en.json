@@ -54,7 +54,13 @@
     "DeleteTMDbAccount": "Delete TMDb Account",
     "AccountManagement": "Account Management",
     "Close": "Close",
-    "OpenInBrowser": "Open in Browser"
+    "OpenInBrowser": "Open in Browser",
+    "Notifications": "Notifications",
+    "UpcomingMovieNotifications": " Upcoming movies notifications",
+    "NotificationsEnabled": "Notifications Enabled!",
+    "NotificationsEnabledMessage": "Notifications for Upcominc movies",
+    "NotificationsEnabledMessageTv": "Notifications for Upcoming series",
+    "NotificationsDisabled": "Notifications Disabled"
   },
   "Persons": {
     "Gender": "Gender",
@@ -91,5 +97,10 @@
     "Rating": "Rating",
     "NoInfo": "N/A",
     "WebViewErrorFallback": "Failed to load content. Please try again later"
+  },
+  "NotificationsTitle": {
+    "NotificationsMovie": "New Movie Coming!",
+    "NotificationsSeries": "New series coming!",
+    "NotificationsTime": "Releasing Tomorrow!"
   }
 }

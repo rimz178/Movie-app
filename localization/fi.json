@@ -55,7 +55,13 @@
     "DeleteTMDbAccount": "Poista TMDb Tili",
     "AccountManagement": "Tilin hallinta",
     "Close": "Sulje",
-    "OpenInBrowser": "Avaa selaimessa"
+    "OpenInBrowser": "Avaa selaimessa",
+    "Notifications": "Ilmoitukset",
+    "UpcomingMovieNotifications": "Tulevien elokuvien ilmoitukset",
+    "NotificationsEnabled": "Ilmoitukset käytössä!",
+    "NotificationsDisabled": "Ilmoitukset pois käytöstä",
+    "NotificationsEnabledMessage": "Saat Ilmoitukset tulevista Elokuvista",
+    "NotificationsEnabledMessageTv": "Saat Ilmoitukset tulevista Sarjoista"
   },
   "Persons": {
     "Gender": "Sukupuoli",
@@ -93,5 +99,10 @@
     "Rating": "Arvostelut",
     "NoInfo": "Tietoja ei löydy tällä kielellä",
     "WebViewErrorFallback": "Verkkosivu ei ole saatavilla"
+  },
+  "NotificationsTitle": {
+    "NotificationsMovie": "Uusi elokuva tulossa!",
+    "NotificationsSeries": "Uusi sarja tulossa!",
+    "NotificationsTime": "Julkaistaan Huomenna!"
   }
 }

@@ -47,4 +47,14 @@ export default {
     fallbackToCacheTimeout: 0,
   },
   runtimeVersion: "1.3.0",
+  plugins: [
+    [
+      "expo-notifications",
+      {
+        icon: "./assets/notification-icon.png",
+        color: "#ffffff",
+        sounds: ["./assets/notification-sound.wav"],
+      },
+    ],
+  ],
 };

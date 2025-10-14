@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -9,17 +9,45 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import * as Notifications from "expo-notifications";
 import { SettingsStyles } from "../Styles/SettingsStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import { WebView } from "react-native-webview";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+  scheduleUpcomingMovieNotifications,
+  scheduleUpcomingSeriesNotifications,
+  registerForPushNotificationsAsync,
+} from "../utils/notifications";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
   const { language, setLanguage, strings } = useLanguage();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [showWebView, setShowWebView] = useState(false);
+  const [movieNotificationsEnabled, setMovieNotificationsEnabled] =
+    useState(false);
+  const [seriesNotificationsEnabled, setSeriesNotificationsEnabled] =
+    useState(false);
+
+  useEffect(() => {
+    const checkNotificationStatus = async () => {
+      try {
+        const movieEnabled = await AsyncStorage.getItem(
+          "movie_notifications_enabled",
+        );
+        const seriesEnabled = await AsyncStorage.getItem(
+          "series_notifications_enabled",
+        );
+        setMovieNotificationsEnabled(movieEnabled === "true");
+        setSeriesNotificationsEnabled(seriesEnabled === "true");
+      } catch (error) {
+        console.error("Error checking notification status:", error);
+      }
+    };
+    checkNotificationStatus();
+  }, []);
 
   const handleLanguageChange = async (lang) => {
     setLanguage(lang);
@@ -35,6 +63,51 @@ export default function SettingsScreen() {
       console.error("Failed to set app language:", error);
     }
     setLanguageMenuOpen(false);
+  };
+  const handleMovieNotificationToggle = async () => {
+    if (!movieNotificationsEnabled) {
+      const token = await registerForPushNotificationsAsync();
+      if (token) {
+        await scheduleUpcomingMovieNotifications();
+        await AsyncStorage.setItem("movie_notifications_enabled", "true");
+        setMovieNotificationsEnabled(true);
+        Alert.alert(
+          strings.Settings.NotificationsEnabled,
+          strings.Settings.NotificationsEnabledMessage,
+        );
+      }
+    } else {
+      await Notifications.cancelAllScheduledNotificationsAsync();
+      if (seriesNotificationsEnabled) {
+        await scheduleUpcomingSeriesNotifications();
+      }
+      await AsyncStorage.setItem("movie_notifications_enabled", "false");
+      setMovieNotificationsEnabled(false);
+      Alert.alert(strings.Settings.NotificationsDisabled);
+    }
+  };
+
+  const handleSeriesNotificationToggle = async () => {
+    if (!seriesNotificationsEnabled) {
+      const token = await registerForPushNotificationsAsync();
+      if (token) {
+        await scheduleUpcomingSeriesNotifications();
+        await AsyncStorage.setItem("series_notifications_enabled", "true");
+        setSeriesNotificationsEnabled(true);
+        Alert.alert(
+          strings.Settings.NotificationsEnabled,
+          strings.Settings.NotificationsEnabledMessageTv,
+        );
+      }
+    } else {
+      await Notifications.cancelAllScheduledNotificationsAsync();
+      if (movieNotificationsEnabled) {
+        await scheduleUpcomingMovieNotifications();
+      }
+      await AsyncStorage.setItem("series_notifications_enabled", "false");
+      setSeriesNotificationsEnabled(false);
+      Alert.alert(strings.Settings.NotificationsDisabled);
+    }
   };
 
   const languages = [
@@ -86,6 +159,44 @@ export default function SettingsScreen() {
           </View>
         )}
         <Text style={SettingsStyles.sectionHeader}>
+          {strings.Settings.Notifications}
+        </Text>
+
+        <TouchableOpacity
+          style={SettingsStyles.row}
+          onPress={handleMovieNotificationToggle}
+        >
+          <Text style={SettingsStyles.rowText}>
+            🎬 {strings.Movies?.UpcomingMovies}
+          </Text>
+          <Text
+            style={{
+              color: movieNotificationsEnabled ? "#00ff00" : "#fff",
+              fontSize: 16,
+            }}
+          >
+            {movieNotificationsEnabled ? "✓" : "○"}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={SettingsStyles.row}
+          onPress={handleSeriesNotificationToggle}
+        >
+          <Text style={SettingsStyles.rowText}>
+            📺 {strings.Series?.TrendingSeries}
+          </Text>
+          <Text
+            style={{
+              color: seriesNotificationsEnabled ? "#00ff00" : "#fff",
+              fontSize: 16,
+            }}
+          >
+            {seriesNotificationsEnabled ? "✓" : "○"}
+          </Text>
+        </TouchableOpacity>
+
+        <Text style={SettingsStyles.sectionHeader}>
           {strings.Settings.OtherSettings}
         </Text>
         <View style={SettingsStyles.row}>
@@ -109,6 +220,7 @@ export default function SettingsScreen() {
             </Text>
           </TouchableOpacity>
         </View>
+
         <Text style={SettingsStyles.sectionHeader}>
           {strings.Settings.AccountManagement || "Tilin hallinta"}
         </Text>
@@ -134,6 +246,7 @@ export default function SettingsScreen() {
         <Text style={SettingsStyles.deleteDesc}>
           {strings.Settings.DeleteTMDbAccountDesc}
         </Text>
+
         <Modal visible={showWebView} animationType="slide">
           <SafeAreaProvider style={{ flex: 1, backgroundColor: "#18171c" }}>
             <View style={SettingsStyles.webViewHeader}>
