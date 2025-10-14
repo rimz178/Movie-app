@@ -30,6 +30,7 @@ export default {
     package: "com.edie17.MovieApp",
     jsEngine: "hermes",
     predictiveBackGestureEnabled: false,
+    permissions: ["android.permission.POST_NOTIFICATIONS"],
   },
   web: {
     favicon: "./assets/favicon.png",
