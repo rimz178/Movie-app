@@ -80,7 +80,11 @@ export async function scheduleUpcomingMovieNotifications() {
           content: {
             title: `🎬 ${strings.NotificationsTitle.NotificationsMovie}`,
             body: `"${movie.title}" ${strings.NotificationsTitle.NotificationsTime}`,
-            data: { movieId: movie.id, type: "upcoming_movie" },
+            data: {
+              movieId: movie.id,
+              type: "upcoming_movie",
+              title: movie.title,
+            },
           },
           trigger: {
             type: "date",
@@ -115,7 +119,11 @@ export async function scheduleUpcomingSeriesNotifications() {
           content: {
             title: `📺 ${strings.NotificationsTitle.NotificationsSeries}`,
             body: `"${show.name}" ${strings.NotificationsTitle.NotificationsTime}`,
-            data: { seriesId: show.id, type: "trending_series" },
+            data: {
+              seriesId: show.id,
+              type: "trending_series",
+              title: show.name,
+            },
           },
           trigger: {
             type: "date",

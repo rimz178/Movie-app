@@ -4,6 +4,7 @@ import "react-native-url-polyfill/auto";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 import { useEffect, useRef } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 
 enableScreens();
 
@@ -18,6 +19,7 @@ import { LanguageProvider } from "./localization/LanguageContext";
 function App() {
   const notificationListener = useRef();
   const responseListener = useRef();
+  const navigationRef = useRef();
 
   useEffect(() => {
     notificationListener.current =
@@ -25,8 +27,13 @@ function App() {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        const movieId = response.notification.request.content.data?.movieId;
-        if (movieId) {
+        const { movieId, seriesId, type } =
+          response.notification.request.content.data || {};
+
+        if (movieId && type === "upcoming_movie") {
+          navigationRef.current?.navigate("Movie", { id: movieId });
+        } else if (seriesId && type === "trending_series") {
+          navigationRef.current?.navigate("SeriesDetails", { id: seriesId });
         }
       });
 
@@ -43,7 +50,7 @@ function App() {
   return (
     <SafeAreaProvider>
       <LanguageProvider>
-        <MainStack />
+        <MainStack navigationRef={navigationRef} />
       </LanguageProvider>
     </SafeAreaProvider>
   );
