@@ -104,5 +104,15 @@
     "NotificationsMovie": "Uusi elokuva tulossa!",
     "NotificationsSeries": "Uusi sarja tulossa!",
     "NotificationsTime": "Julkaistaan Huomenna!"
+  },
+  "Updates": {
+    "UpdateAvailable": "📱 Päivitys saatavilla",
+    "UpdateMessage": "Uusi versio sovelluksesta on saatavilla. Haluatko päivittää nyt?",
+    "Later": "Myöhemmin",
+    "Update": "Päivitä",
+    "Updating": "⏳ Päivitetään...",
+    "UpdatingMessage": "Sovellus päivitetään. Älä sulje sovellusta.",
+    "UpdateFailed": "❌ Päivitys epäonnistui",
+    "UpdateFailedMessage": "Päivitys epäonnistui. Yritä myöhemmin uudelleen."
   }
 }

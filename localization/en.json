@@ -102,5 +102,15 @@
     "NotificationsMovie": "New Movie Coming!",
     "NotificationsSeries": "New series coming!",
     "NotificationsTime": "Releasing Tomorrow!"
+  },
+  "Updates": {
+    "UpdateAvailable": "📱 Update Available",
+    "UpdateMessage": "A new version of the app is available. Would you like to update now?",
+    "Later": "Later",
+    "Update": "Update",
+    "Updating": "⏳ Updating...",
+    "UpdatingMessage": "The app is updating. Please don't close the app.",
+    "UpdateFailed": "❌ Update Failed",
+    "UpdateFailedMessage": "Update failed. Please try again later."
   }
 }

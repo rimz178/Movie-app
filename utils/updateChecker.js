@@ -1,52 +1,58 @@
 import { Alert } from "react-native";
 import * as Updates from "expo-updates";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import fiStrings from "../localization/fi.json";
+import enStrings from "../localization/en.json";
 
 /**
- * Check updat  es and prompt user to update if available
+ * Get strings based on current language
+ */
+const getStrings = async () => {
+  try {
+    const language = await AsyncStorage.getItem("app_language");
+    const lang = language || "fi";
+    return lang === "en" ? enStrings : fiStrings;
+  } catch (error) {
+    console.error("Error getting language:", error);
+    return fiStrings;
+  }
+};
+
+/**
+ * Check updates and prompt user to update if available
  */
 export const checkForUpdates = async () => {
   try {
+    const strings = await getStrings();
 
-    const language = (await AsyncStorage.getItem("app_language")) || "fi";
-
-   
     if (!__DEV__) {
       const update = await Updates.checkForUpdateAsync();
 
       if (update.isAvailable) {
         Alert.alert(
-          language === "fi" ? "📱 Päivitys saatavilla" : "📱 Update Available",
-          language === "fi"
-            ? "Uusi versio sovelluksesta on saatavilla. Haluatko päivittää nyt?"
-            : "A new version of the app is available. Would you like to update now?",
+          strings.Updates.UpdateAvailable,
+          strings.Updates.UpdateMessage,
           [
             {
-              text: language === "fi" ? "Myöhemmin" : "Later",
+              text: strings.Updates.Later,
               style: "cancel",
             },
             {
-              text: language === "fi" ? "Päivitä" : "Update",
+              text: strings.Updates.Update,
               onPress: async () => {
                 try {
                   Alert.alert(
-                    language === "fi" ? "⏳ Päivitetään..." : "⏳ Updating...",
-                    language === "fi"
-                      ? "Sovellus päivitetään. Älä sulje sovellusta."
-                      : "The app is updating. Please don't close the app.",
+                    strings.Updates.Updating,
+                    strings.Updates.UpdatingMessage,
                   );
 
                   await Updates.fetchUpdateAsync();
-                  await Updates.reloadAsync(); 
+                  await Updates.reloadAsync();
                 } catch (error) {
                   console.error("Update failed:", error);
                   Alert.alert(
-                    language === "fi"
-                      ? "❌ Päivitys epäonnistui"
-                      : "❌ Update Failed",
-                    language === "fi"
-                      ? "Päivitys epäonnistui. Yritä myöhemmin uudelleen."
-                      : "Update failed. Please try again later.",
+                    strings.Updates.UpdateFailed,
+                    strings.Updates.UpdateFailedMessage,
                   );
                 }
               },
@@ -57,18 +63,17 @@ export const checkForUpdates = async () => {
     }
   } catch (error) {
     console.error("Error checking for updates:", error);
-
   }
 };
 
 /**
- * 
- * @param {number} delay - Viive millisekunneissa (oletus: 2000ms)
+ * Start update check with delay
+ * @param {number} delay - Delay in milliseconds (default: 2000ms)
  */
 export const startUpdateCheck = (delay = 2000) => {
   const timer = setTimeout(() => {
     checkForUpdates();
   }, delay);
 
-  return timer; 
+  return timer;
 };
