@@ -3,14 +3,14 @@ import * as Updates from "expo-updates";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
- * Tarkistaa sovelluksen päivitykset ja näyttää käyttäjälle ilmoituksen tarvittaessa
+ * Check updat  es and prompt user to update if available
  */
 export const checkForUpdates = async () => {
   try {
-    // Hae sovelluksen kieli käyttöliittymää varten
+
     const language = (await AsyncStorage.getItem("app_language")) || "fi";
 
-    // Tarkista Expo Updates (toimii vain production buildissa)
+   
     if (!__DEV__) {
       const update = await Updates.checkForUpdateAsync();
 
@@ -37,7 +37,7 @@ export const checkForUpdates = async () => {
                   );
 
                   await Updates.fetchUpdateAsync();
-                  await Updates.reloadAsync(); // Käynnistää sovelluksen uudelleen
+                  await Updates.reloadAsync(); 
                 } catch (error) {
                   console.error("Update failed:", error);
                   Alert.alert(
@@ -57,12 +57,12 @@ export const checkForUpdates = async () => {
     }
   } catch (error) {
     console.error("Error checking for updates:", error);
-    // Hiljaa epäonnistua - ei häiritse käyttäjää
+
   }
 };
 
 /**
- * Käynnistä päivitystarkistus viiveellä
+ * 
  * @param {number} delay - Viive millisekunneissa (oletus: 2000ms)
  */
 export const startUpdateCheck = (delay = 2000) => {
@@ -70,5 +70,5 @@ export const startUpdateCheck = (delay = 2000) => {
     checkForUpdates();
   }, delay);
 
-  return timer; // Palauta timer cleanup varten
+  return timer; 
 };
