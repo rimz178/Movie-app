@@ -107,7 +107,7 @@ export async function scheduleUpcomingSeriesNotifications() {
         ? new Date(show.first_air_date)
         : new Date();
       const notificationDate = new Date(
-        airDate.getTime() + 24 * 60 * 60 * 1000,
+        airDate.getTime() - 24 * 60 * 60 * 1000,
       );
 
       if (notificationDate > new Date()) {
