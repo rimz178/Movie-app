@@ -37,8 +37,7 @@ function App() {
         }
       });
 
-
-    const updateTimer = startUpdateCheck(2000); 
+    const updateTimer = startUpdateCheck(2000);
 
     return () => {
       if (notificationListener.current) {
@@ -47,7 +46,7 @@ function App() {
       if (responseListener.current) {
         responseListener.current.remove();
       }
-      clearTimeout(updateTimer); 
+      clearTimeout(updateTimer);
     };
   }, []);
 
