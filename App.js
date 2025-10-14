@@ -4,7 +4,7 @@ import "react-native-url-polyfill/auto";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 import { useEffect, useRef } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { startUpdateCheck } from "./utils/updateChecker";
 
 enableScreens();
 
@@ -37,6 +37,9 @@ function App() {
         }
       });
 
+
+    const updateTimer = startUpdateCheck(2000); 
+
     return () => {
       if (notificationListener.current) {
         notificationListener.current.remove();
@@ -44,6 +47,7 @@ function App() {
       if (responseListener.current) {
         responseListener.current.remove();
       }
+      clearTimeout(updateTimer); 
     };
   }, []);
 

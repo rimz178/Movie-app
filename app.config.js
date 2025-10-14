@@ -42,9 +42,9 @@ export default {
     },
   },
   updates: {
-    enabled: false,
-    checkAutomatically: "ON_ERROR_RECOVERY",
-    fallbackToCacheTimeout: 0,
+    enabled: true,
+    checkAutomatically: "ON_LOAD",
+    fallbackToCacheTimeout: 5000,
   },
   runtimeVersion: "1.3.0",
   plugins: [
