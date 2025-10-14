@@ -167,7 +167,7 @@ export default function SettingsScreen() {
           onPress={handleMovieNotificationToggle}
         >
           <Text style={SettingsStyles.rowText}>
-            🎬 {strings.Movies?.UpcomingMovies}
+            🎬 {strings.Movies.UpcomingMovies}
           </Text>
           <Text
             style={{
@@ -184,7 +184,10 @@ export default function SettingsScreen() {
           onPress={handleSeriesNotificationToggle}
         >
           <Text style={SettingsStyles.rowText}>
-            📺 {strings.Series?.TrendingSeries}
+            📺{" "}
+            {strings.Series?.TrendingSeries
+              ? strings.Series.TrendingSeries
+              : "Trending Series"}
           </Text>
           <Text
             style={{
