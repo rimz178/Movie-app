@@ -1,4 +1,4 @@
-import { Platform } from "react-native";
+import { Platform, Alert } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -28,8 +28,6 @@ const getStrings = async () => {
 };
 
 export async function registerForPushNotificationsAsync() {
-  let token;
-
   if (Platform.OS === "android") {
     await Notifications.setNotificationChannelAsync("default", {
       name: "default",
@@ -50,16 +48,32 @@ export async function registerForPushNotificationsAsync() {
     }
 
     if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
-      return;
+      const language = (await AsyncStorage.getItem("app_language")) || "fi";
+      const errorMsg =
+        language === "fi"
+          ? "Salli ilmoitukset sovelluksen asetuksista käyttääksesi tätä toimintoa."
+          : "Allow notifications in app settings to use this feature.";
+
+      Alert.alert("❌", errorMsg);
+      return null;
     }
 
-    token = (await Notifications.getExpoPushTokenAsync()).data;
+    try {
+      if (Platform.OS === "ios") {
+        const token = (await Notifications.getExpoPushTokenAsync()).data;
+        return token;
+      } else {
+        await Notifications.getExpoPushTokenAsync();
+        return true;
+      }
+    } catch (error) {
+      console.error("Error getting push token:", error);
+      return Platform.OS === "ios" ? null : true; // Android jatkaa ilman tokenia
+    }
   } else {
-    alert("Must use physical device for Push Notifications");
+    Alert.alert("ℹ️", "Push notifications require a physical device");
+    return null;
   }
-
-  return token;
 }
 
 export async function scheduleUpcomingMovieNotifications() {
@@ -101,7 +115,6 @@ export async function scheduleUpcomingMovieNotifications() {
 export async function scheduleUpcomingSeriesNotifications() {
   try {
     const language = (await AsyncStorage.getItem("app_language")) || "fi";
-
     const seriesData = await fetchTrendingSeries(LANGUAGE_CODES[language]);
     const series = seriesData?.results || [];
     const strings = await getStrings();
@@ -140,11 +153,8 @@ export async function scheduleUpcomingSeriesNotifications() {
 export async function scheduleAllUpcomingNotifications() {
   try {
     await Notifications.cancelAllScheduledNotificationsAsync();
-
     await scheduleUpcomingMovieNotifications();
     await scheduleUpcomingSeriesNotifications();
-
-    console.log("📅 Scheduled notifications for movies and series");
   } catch (error) {
     console.error("Error scheduling all notifications:", error);
   }
