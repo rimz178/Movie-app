@@ -20,7 +20,7 @@ Movie-app on React Native -sovellus, joka tarjoaa käyttäjille mahdollisuuden:
  ## iOS
 https://apps.apple.com/fi/app/movieapp/id6744970048?l=fi 
  ## Android
-tulossa myöhemmin. 
+https://play.google.com/store/apps/details?id=com.edie17.MovieApp
 ## API
 Sovellus hyödyntää [The Movie Database (TMDb)](https://www.themoviedb.org/) -rajapintaa elokuvien tietojen hakemiseen.
 
