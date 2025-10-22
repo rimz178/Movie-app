@@ -68,7 +68,7 @@ export async function registerForPushNotificationsAsync() {
       }
     } catch (error) {
       console.error("Error getting push token:", error);
-      return Platform.OS === "ios" ? null : true; // Android jatkaa ilman tokenia
+      return Platform.OS === "ios" ? null : true; 
     }
   } else {
     Alert.alert("ℹ️", "Push notifications require a physical device");
