@@ -81,7 +81,10 @@
     "MovieFavorites": "Movie Favorites",
     "SeriesFavorites": "Series Favorites",
     "RatedMovies": "Rated Movies",
-    "RatedSeries": "Rated Series"
+    "RatedSeries": "Rated Series",
+    "AddFavorite": "{title} has been added to your favorites!",
+    "RemoveFavorite": "{title} has been removed from your favorites!",
+    "Title": "Favorites"
   },
   "ErrorMessage": {
     "LoadingFavorites": "Loading Favorites...",
@@ -98,10 +101,13 @@
     "NoInfo": "N/A",
     "WebViewErrorFallback": "Failed to load content. Please try again later"
   },
-  "NotificationsTitle": {
-    "NotificationsMovie": "New Movie Coming!",
-    "NotificationsSeries": "New series coming!",
-    "NotificationsTime": "Releasing Tomorrow!"
+  "Notifications": {
+    "MovieSoon": "🎬 New movie coming!",
+    "MovieNow": "🎬 Movie released!",
+    "SeriesSoon": "📺 New series coming!",
+    "SeriesNow": "📺 Series released!",
+    "TimeSoon": "releasing tomorrow!",
+    "TimeNow": "is available now!"
   },
   "Updates": {
     "UpdateAvailable": "📱 Update Available",

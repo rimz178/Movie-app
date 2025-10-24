@@ -108,10 +108,20 @@ export default function SeriesDetailScreen() {
       const newFavoriteStatus = !isFavorite;
       const response = await toggleFavorite(series.id, newFavoriteStatus, "tv");
       Alert.alert(
-        "Favorites",
+        strings.Favorites?.Title,
         newFavoriteStatus
-          ? `${seriesDetails.name} has been added to your favorites!`
-          : `${seriesDetails.name} has been removed from your favorites!`,
+          ? strings.Favorites?.AddFavorite
+            ? strings.Favorites.AddFavorite.replace(
+                "{title}",
+                seriesDetails.name,
+              )
+            : `${seriesDetails.name}`
+          : strings.Favorites?.RemoveFavorite
+            ? strings.Favorites.RemoveFavorite.replace(
+                "{title}",
+                seriesDetails.name,
+              )
+            : `${seriesDetails.name} `,
       );
       if (response.success) {
         setIsFavorite(newFavoriteStatus);

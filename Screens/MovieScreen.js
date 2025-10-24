@@ -115,10 +115,14 @@ export default function MovieScreen() {
         "movie",
       );
       Alert.alert(
-        "Favorites",
+        strings.Favorites?.Title,
         newFavoriteStatus
-          ? `${movie.title} has been added to your favorites!`
-          : `${movie.title} has been removed from your favorites!`,
+          ? strings.Favorites?.AddFavorite
+            ? strings.Favorites.AddFavorite.replace("{title}", movie?.title)
+            : `${movie.title}`
+          : strings.Favorites?.RemoveFavorite
+            ? strings.Favorites.RemoveFavorite.replace("{title}", movie?.title)
+            : `${movie.title} `,
       );
       if (response.success) {
         setIsFavorite(newFavoriteStatus);
