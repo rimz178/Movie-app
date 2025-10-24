@@ -68,7 +68,7 @@ export async function registerForPushNotificationsAsync() {
       }
     } catch (error) {
       console.error("Error getting push token:", error);
-      return Platform.OS === "ios" ? null : true; 
+      return Platform.OS === "ios" ? null : true;
     }
   } else {
     Alert.alert("ℹ️", "Push notifications require a physical device");
@@ -83,27 +83,54 @@ export async function scheduleUpcomingMovieNotifications() {
     const movies = upcomingData?.results || [];
     const strings = await getStrings();
 
+    if (!strings?.Notifications) {
+      console.warn(
+        "Missing Notifications translations for scheduleUpcomingMovieNotifications",
+      );
+      return;
+    }
+
+    const titleSoon = strings.Notifications.MovieSoon;
+    const bodySoon = strings.Notifications.TimeSoon;
+    const titleNow = strings.Notifications.MovieNow;
+    const bodyNow = strings.Notifications.TimeNow;
+
     for (const movie of movies.slice(0, 5)) {
       const releaseDate = new Date(movie.release_date);
-      const notificationDate = new Date(
-        releaseDate.getTime() - 24 * 60 * 60 * 1000,
-      );
+      const notify24h = new Date(releaseDate.getTime() - 24 * 60 * 60 * 1000);
+      const releaseNotify = releaseDate;
 
-      if (notificationDate > new Date()) {
+      if (notify24h > new Date()) {
         await Notifications.scheduleNotificationAsync({
           content: {
-            title: `🎬 ${strings.NotificationsTitle.NotificationsMovie}`,
-            body: `"${movie.title}" ${strings.NotificationsTitle.NotificationsTime}`,
+            title: titleSoon,
+            body: `"${movie.title}" ${bodySoon}`,
             data: {
               movieId: movie.id,
-              type: "upcoming_movie",
+              type: "movie",
+              when: "soon",
               title: movie.title,
             },
+            sound: "default",
           },
-          trigger: {
-            type: "date",
-            date: notificationDate,
+          trigger: { type: "date", date: notify24h },
+        });
+      }
+
+      if (releaseNotify > new Date()) {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: titleNow,
+            body: `"${movie.title}" ${bodyNow}`,
+            data: {
+              movieId: movie.id,
+              type: "movie",
+              when: "now",
+              title: movie.title,
+            },
+            sound: "default",
           },
+          trigger: { type: "date", date: releaseNotify },
         });
       }
     }
@@ -119,29 +146,55 @@ export async function scheduleUpcomingSeriesNotifications() {
     const series = seriesData?.results || [];
     const strings = await getStrings();
 
-    for (const show of series.slice(0, 5)) {
-      const airDate = show.first_air_date
-        ? new Date(show.first_air_date)
-        : new Date();
-      const notificationDate = new Date(
-        airDate.getTime() - 24 * 60 * 60 * 1000,
+    if (!strings?.Notifications) {
+      console.warn(
+        "Missing Notifications translations for scheduleUpcomingSeriesNotifications",
       );
+      return;
+    }
 
-      if (notificationDate > new Date()) {
+    const titleSoon = strings.Notifications.SeriesSoon;
+    const bodySoon = strings.Notifications.TimeSoon;
+    const titleNow = strings.Notifications.SeriesNow;
+    const bodyNow = strings.Notifications.TimeNow;
+
+    for (const show of series.slice(0, 5)) {
+      if (!show.first_air_date) continue;
+      const airDate = new Date(show.first_air_date);
+      const notify24h = new Date(airDate.getTime() - 24 * 60 * 60 * 1000);
+      const releaseNotify = airDate;
+
+      if (notify24h > new Date()) {
         await Notifications.scheduleNotificationAsync({
           content: {
-            title: `📺 ${strings.NotificationsTitle.NotificationsSeries}`,
-            body: `"${show.name}" ${strings.NotificationsTitle.NotificationsTime}`,
+            title: titleSoon,
+            body: `"${show.name}" ${bodySoon}`,
             data: {
               seriesId: show.id,
-              type: "trending_series",
+              type: "series",
+              when: "soon",
               title: show.name,
             },
+            sound: "default",
           },
-          trigger: {
-            type: "date",
-            date: notificationDate,
+          trigger: { type: "date", date: notify24h },
+        });
+      }
+
+      if (releaseNotify > new Date()) {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: titleNow,
+            body: `"${show.name}" ${bodyNow}`,
+            data: {
+              seriesId: show.id,
+              type: "series",
+              when: "now",
+              title: show.name,
+            },
+            sound: "default",
           },
+          trigger: { type: "date", date: releaseNotify },
         });
       }
     }

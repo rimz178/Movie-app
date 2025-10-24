@@ -100,10 +100,13 @@
     "NoInfo": "Tietoja ei löydy tällä kielellä",
     "WebViewErrorFallback": "Verkkosivu ei ole saatavilla"
   },
-  "NotificationsTitle": {
-    "NotificationsMovie": "Uusi elokuva tulossa!",
-    "NotificationsSeries": "Uusi sarja tulossa!",
-    "NotificationsTime": "Julkaistaan Huomenna!"
+  "Notifications": {
+    "MovieSoon": "🎬 Uusi elokuva tulossa!",
+    "MovieNow": "🎬 Elokuva julkaistu!",
+    "SeriesSoon": "📺 Uusi sarja tulossa!",
+    "SeriesNow": "📺 Sarja julkaistu!",
+    "TimeSoon": "julkaistaan huomenna!",
+    "TimeNow": "on nyt saatavilla!"
   },
   "Updates": {
     "UpdateAvailable": "📱 Päivitys saatavilla",
