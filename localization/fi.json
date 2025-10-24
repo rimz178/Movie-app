@@ -83,7 +83,10 @@
     "MovieFavorites": "Suosikki Elokuvat",
     "SeriesFavorites": "Suosikki Sarjat",
     "RatedMovies": "Arvostellut Elokuvat",
-    "RatedSeries": "Arvostellut Sarjat"
+    "RatedSeries": "Arvostellut Sarjat",
+    "AddFavorite": "{title} on lisätty suosikkeihin!",
+    "RemoveFavorite": "{title} on poistettu suosikeista!",
+    "Title": "Suosikit"
   },
   "ErrorMessage": {
     "LoadingFavorites": "Ladataan suosikkeja...",

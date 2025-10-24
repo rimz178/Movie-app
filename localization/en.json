@@ -81,7 +81,10 @@
     "MovieFavorites": "Movie Favorites",
     "SeriesFavorites": "Series Favorites",
     "RatedMovies": "Rated Movies",
-    "RatedSeries": "Rated Series"
+    "RatedSeries": "Rated Series",
+    "AddFavorite": "{title} has been added to your favorites!",
+    "RemoveFavorite": "{title} has been removed from your favorites!",
+    "Title": "Favorites"
   },
   "ErrorMessage": {
     "LoadingFavorites": "Loading Favorites...",
