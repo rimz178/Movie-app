@@ -37,7 +37,7 @@ export default {
   },
   owner: "edie17",
   extra: {
-    TMDB_BEARER_TOKEN: process.env.TMDB_BEARER_TOKEN || "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NjNlNTU4NDNlZjg3MzRiYzMxZmFiODg2NjgyMjI2YyIsIm5iZiI6MTcwMzA2NDEyNi4wMTUsInN1YiI6IjY1ODJiMjNlY2E4MzU0NDFmNmQ2ZDdjYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y8BhFNCbXWWSD93ES2bXCIhD124C_9Gl-h0z4YcxFEE",
+    TMDB_BEARER_TOKEN: process.env.TMDB_BEARER_TOKEN || "",
     eas: {
       projectId: "714a627c-2519-4b13-acaf-3dfc48f8158a",
     },
