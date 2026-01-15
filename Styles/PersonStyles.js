@@ -16,6 +16,12 @@ export const PersonStyles = StyleSheet.create({
     padding: 15,
   },
 
+  ShowEngilshButton:: {
+    backgroundColor: Colors.buttonColor,
+    padding: 10,
+    borderRadius: 5,
+  },
+
   imageCircle: {
     justifyContent: "center",
     alignItems: "center",

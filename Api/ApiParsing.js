@@ -125,7 +125,8 @@ export const searchPeople = async (params) => {
   return apiCall(searchPeopleEndpoint, params);
 };
 export const fetchMovieCredits = (id) => apiCall(movieCreditsEndpoint(id));
-export const fetchPersonDetails = (id) => apiCall(personDetailsEndpoints(id));
+export const fetchPersonDetails = (id, language) =>
+  apiCall(personDetailsEndpoints(id), { language });
 export const fetchPersonMovies = (personId) =>
   apiCall(personMoviesEndpoint(personId));
 export const fetchPersonSeries = (personId) =>
@@ -133,7 +134,8 @@ export const fetchPersonSeries = (personId) =>
 export const fetchWatchProviders = (id) => apiCall(watchProvidersEndpoint(id));
 export const fetchTrendingSeries = () => apiCall(trendingSeries);
 export const fetchTopRatedSeries = () => apiCall(topRatedSeries);
-export const fetchSeriesDetails = (id) => apiCall(seriesDetailsEndpoint(id));
+export const fetchSeriesDetails = (id, language) =>
+  apiCall(seriesDetailsEndpoint(id), { language });
 export const fetchSeriesCredits = (id) => apiCall(seriesCreditsEndpoint(id));
 export const fetchSeriesWatchProviders = (id) =>
   apiCall(seriesWatchProvidersEndpoint(id));

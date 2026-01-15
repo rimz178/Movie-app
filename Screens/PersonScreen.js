@@ -1,4 +1,4 @@
-import { View, Text, Image, FlatList } from "react-native";
+import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
@@ -16,6 +16,7 @@ import { PersonStyles } from "../Styles/PersonStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+
 /**
  * PersonScreen component that displays details about a person, including their biography and movies.
  *
@@ -37,8 +38,8 @@ export default function PersonScreen() {
     getPersonSeries(item.id);
   }, [item]);
 
-  const getPersonDetails = async (id) => {
-    const data = await fetchPersonDetails(id, LANGUAGE_CODES[language]);
+  const getPersonDetails = async (id, lang = language) => {
+    const data = await fetchPersonDetails(id, LANGUAGE_CODES[lang]);
     if (data) setPerson(data);
     setLoading(false);
   };
@@ -140,6 +141,20 @@ export default function PersonScreen() {
                 <Text style={PersonStyles.bioGraphyText}>
                   {person?.biography || strings.Other.NoInfo}
                 </Text>
+                {!person?.biography && (
+                  <View style={{ marginTop: 10, alignItems: "center" }}>
+                    <TouchableOpacity
+                      onPress={() => getPersonDetails(item.id, "en")}
+                      style={{
+                        ...PersonStyles.ShowEngilshButton:,
+                      }}
+                    >
+                      <Text style={{ color: "white", fontWeight: "bold" }}>
+                        {strings.Other.ShowEnglish}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
               {
                 <MovieList

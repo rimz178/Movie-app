@@ -99,7 +99,8 @@
     "WatchProviders": "Watch Providers",
     "Rating": "Rating",
     "NoInfo": "N/A",
-    "WebViewErrorFallback": "Failed to load content. Please try again later"
+    "WebViewErrorFallback": "Failed to load content. Please try again later",
+    "ShowEnglish": "Show in English"
   },
   "Notifications": {
     "MovieSoon": "🎬 New movie coming!",
