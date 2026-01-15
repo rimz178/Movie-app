@@ -235,7 +235,7 @@ export default function SeriesDetailScreen() {
                     <TouchableOpacity
                       onPress={() => getSeriesDetails(series.id, "en")}
                       style={{
-                        ...PersonStyles.ShowEngilshButton:,
+                        ...PersonStyles.ShowEngilshButton,
                       }}
                     >
                       <Text style={{ color: "white", fontWeight: "bold" }}>
