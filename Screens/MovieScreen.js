@@ -23,6 +23,7 @@ import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import { SharedStyles } from "../Styles/SharedStyles";
+import { PersonStyles } from "../Styles/PersonStyles";
 import { logger } from "../utils/logger";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
@@ -66,8 +67,8 @@ export default function MovieScreen() {
       logger.error("Error fetching session ID:", error);
     }
   };
-  const getMovieDetails = async (id) => {
-    const data = await fetchMovieDetails(id, LANGUAGE_CODES[language]);
+  const getMovieDetails = async (id, lang = language) => {
+    const data = await fetchMovieDetails(id, LANGUAGE_CODES[lang]);
     if (data) {
       setMovie(data);
     }
@@ -215,6 +216,20 @@ export default function MovieScreen() {
               <Text style={SharedStyles.descriptionText}>
                 {movie?.overview || strings.Other.NoInfo}
               </Text>
+              {!movie?.overview && (
+                <View style={{ marginTop: 10, alignItems: "center" }}>
+                  <TouchableOpacity
+                    onPress={() => getMovieDetails(item.id, "en")}
+                    style={{
+                      ...PersonStyles.ShowEngilshButton,
+                    }}
+                  >
+                    <Text style={{ color: "white", fontWeight: "bold" }}>
+                      {strings.Other.ShowEnglish}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
 
               <Cast navigation={navigation} cast={cast} />
               <WatchProviders

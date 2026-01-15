@@ -23,6 +23,7 @@ import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
 import { SharedStyles } from "../Styles/SharedStyles";
+import { PersonStyles } from "../Styles/PersonStyles";
 import { logger } from "../utils/logger";
 import LANGUAGE_CODES from "../localization/languageCodes";
 import { useLanguage } from "../localization/LanguageContext";
@@ -64,8 +65,8 @@ export default function SeriesDetailScreen() {
     }
   };
 
-  const getSeriesDetails = async (id) => {
-    const data = await fetchSeriesDetails(id, LANGUAGE_CODES[language]);
+  const getSeriesDetails = async (id, lang = language) => {
+    const data = await fetchSeriesDetails(id, LANGUAGE_CODES[lang]);
     if (data) setSeriesDetails(data);
     setLoading(false);
   };
@@ -229,6 +230,20 @@ export default function SeriesDetailScreen() {
                     ? seriesDetails.overview
                     : strings.Other.NoInfo}
                 </Text>
+                {!seriesDetails?.overview && (
+                  <View style={{ marginTop: 10, alignItems: "center" }}>
+                    <TouchableOpacity
+                      onPress={() => getSeriesDetails(series.id, "en")}
+                      style={{
+                        ...PersonStyles.ShowEngilshButton,
+                      }}
+                    >
+                      <Text style={{ color: "white", fontWeight: "bold" }}>
+                        {strings.Other.ShowEnglish}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
                 <Cast navigation={navigation} cast={cast} />
                 <WatchProviders
                   providers={watchProviders}
