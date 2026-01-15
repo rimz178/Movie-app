@@ -101,7 +101,8 @@
     "WatchProviders": "Suoratoistopalvelut",
     "Rating": "Arvostelut",
     "NoInfo": "Tietoja ei löydy tällä kielellä",
-    "WebViewErrorFallback": "Verkkosivu ei ole saatavilla"
+    "WebViewErrorFallback": "Verkkosivu ei ole saatavilla",
+    "ShowEnglish": "Näytä englanniksi"
   },
   "Notifications": {
     "MovieSoon": "🎬 Uusi elokuva tulossa!",
