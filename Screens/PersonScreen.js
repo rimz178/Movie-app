@@ -16,7 +16,7 @@ import { PersonStyles } from "../Styles/PersonStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import Colors from "../Styles/Colors";
+
 /**
  * PersonScreen component that displays details about a person, including their biography and movies.
  *
@@ -146,7 +146,7 @@ export default function PersonScreen() {
                     <TouchableOpacity
                       onPress={() => getPersonDetails(item.id, "en")}
                       style={{
-                        ...PersonStyles.ShowEngilshButton,
+                        ...PersonStyles.ShowEngilshButton:,
                       }}
                     >
                       <Text style={{ color: "white", fontWeight: "bold" }}>
