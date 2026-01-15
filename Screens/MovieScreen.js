@@ -221,7 +221,7 @@ export default function MovieScreen() {
                   <TouchableOpacity
                     onPress={() => getMovieDetails(item.id, "en")}
                     style={{
-                      ...PersonStyles.ShowEngilshButton:,
+                      ...PersonStyles.ShowEngilshButton,
                     }}
                   >
                     <Text style={{ color: "white", fontWeight: "bold" }}>

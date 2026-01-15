@@ -146,7 +146,7 @@ export default function PersonScreen() {
                     <TouchableOpacity
                       onPress={() => getPersonDetails(item.id, "en")}
                       style={{
-                        ...PersonStyles.ShowEngilshButton:,
+                        ...PersonStyles.ShowEngilshButton,
                       }}
                     >
                       <Text style={{ color: "white", fontWeight: "bold" }}>
