@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   TextInput,
   View,
   FlatList,
+  ScrollView,
   TouchableOpacity,
   Text,
   TouchableWithoutFeedback,
@@ -32,6 +33,21 @@ import { detectGenreFromText } from "../utils/genreKeywords";
  *
  * @returns {JSX.Element} - The search bar and results list.
  */
+const GENRES = [
+  { id: 28, label: "Toiminta" },
+  { id: 12, label: "Seikkailu" },
+  { id: 16, label: "Animaatio" },
+  { id: 35, label: "Komedia" },
+  { id: 80, label: "Rikos" },
+  { id: 18, label: "Draama" },
+  { id: 27, label: "Kauhu" },
+  { id: 10749, label: "Romantiikka" },
+  { id: 878, label: "Sci-Fi" },
+  { id: 53, label: "Thrilleri" },
+  { id: 99, label: "Dokumentti" },
+  { id: 14, label: "Fantasia" },
+];
+
 export default function SearchBars() {
   const navigation = useNavigation();
   const [results, setResult] = useState([]);
@@ -40,6 +56,8 @@ export default function SearchBars() {
   const [searchText, setSearchText] = useState("");
   const { strings, language } = useLanguage();
   const langCode = LANGUAGE_CODES[language] || LANGUAGE_CODES.en;
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [mediaFilter, setMediaFilter] = useState("both");
 
   const handleSearch = useCallback(
     async (value) => {
@@ -159,6 +177,55 @@ export default function SearchBars() {
 
   const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
 
+  const fetchByGenre = useCallback(
+    async (genreId, filter) => {
+      setLoading(true);
+      try {
+        const params = {
+          with_genres: genreId,
+          language: langCode,
+          page: "1",
+          sort_by: "popularity.desc",
+        };
+        let items = [];
+        if (filter === "both" || filter === "movie") {
+          const moviesData = await discoverMovies(params);
+          items = [
+            ...items,
+            ...(moviesData?.results || []).map((item) => ({
+              ...item,
+              media_type: "movie",
+            })),
+          ];
+        }
+        if (filter === "both" || filter === "tv") {
+          const seriesData = await discoverSeries(params);
+          items = [
+            ...items,
+            ...(seriesData?.results || []).map((item) => ({
+              ...item,
+              media_type: "tv",
+            })),
+          ];
+        }
+        items.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+        setResult(items.slice(0, 40));
+      } catch (error) {
+        logger.error("Error fetching genre results:", error);
+        setResult([]);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [langCode],
+  );
+
+  useEffect(() => {
+    if (selectedGenre && !searchText) {
+      fetchByGenre(selectedGenre, mediaFilter);
+    }
+  }, [selectedGenre, mediaFilter, fetchByGenre, searchText]);
+
   return (
     <View style={SearchStyles.container}>
       <View style={SearchStyles.search}>
@@ -168,6 +235,7 @@ export default function SearchBars() {
           value={searchText}
           onChangeText={(text) => {
             setSearchText(text);
+            if (text) setSelectedGenre(null);
             handleTextDebounce(text);
           }}
           placeholderTextColor="white"
@@ -175,6 +243,7 @@ export default function SearchBars() {
         <TouchableOpacity
           onPress={() => {
             setSearchText("");
+            setSelectedGenre(null);
             setResult([]);
             setLoading(false);
             navigation.navigate("HomeTab");
@@ -183,6 +252,69 @@ export default function SearchBars() {
           <MaterialIcons style={SearchStyles.icon} size={38} name="close" />
         </TouchableOpacity>
       </View>
+
+      {!searchText && (
+        <View>
+          <View style={SearchStyles.toggleRow}>
+            {["both", "movie", "tv"].map((filter) => (
+              <TouchableOpacity
+                key={filter}
+                style={[
+                  SearchStyles.toggleBtn,
+                  mediaFilter === filter && SearchStyles.toggleBtnActive,
+                ]}
+                onPress={() => {
+                  setMediaFilter(filter);
+                  if (selectedGenre) fetchByGenre(selectedGenre, filter);
+                }}
+              >
+                <Text
+                  style={[
+                    SearchStyles.toggleText,
+                    mediaFilter === filter && SearchStyles.toggleTextActive,
+                  ]}
+                >
+                  {filter === "both"
+                    ? "Kaikki"
+                    : filter === "movie"
+                      ? "Leffat"
+                      : "Sarjat"}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={SearchStyles.chipsRow}
+            contentContainerStyle={SearchStyles.chipsContent}
+          >
+            {GENRES.map((genre) => (
+              <TouchableOpacity
+                key={genre.id}
+                style={[
+                  SearchStyles.chip,
+                  selectedGenre === genre.id && SearchStyles.chipActive,
+                ]}
+                onPress={() => {
+                  const newGenre = selectedGenre === genre.id ? null : genre.id;
+                  setSelectedGenre(newGenre);
+                  if (!newGenre) setResult([]);
+                }}
+              >
+                <Text
+                  style={[
+                    SearchStyles.chipText,
+                    selectedGenre === genre.id && SearchStyles.chipTextActive,
+                  ]}
+                >
+                  {genre.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      )}
 
       {loading ? (
         <Loading />

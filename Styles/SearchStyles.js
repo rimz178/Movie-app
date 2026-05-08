@@ -56,4 +56,58 @@ export const SearchStyles = StyleSheet.create({
   searchImage: {
     paddingHorizontal: 10,
   },
+  toggleRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 8,
+    marginTop: 4,
+    marginBottom: 10,
+    paddingHorizontal: 16,
+  },
+  toggleBtn: {
+    paddingVertical: 6,
+    paddingHorizontal: 18,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.searchColor,
+  },
+  toggleBtnActive: {
+    backgroundColor: Colors.buttonColor,
+    borderColor: Colors.buttonColor,
+  },
+  toggleText: {
+    color: Colors.status,
+    fontSize: 13,
+    fontWeight: "600",
+  },
+  toggleTextActive: {
+    color: Colors.white,
+  },
+  chipsRow: {
+    marginBottom: 12,
+  },
+  chipsContent: {
+    paddingHorizontal: 16,
+    gap: 8,
+  },
+  chip: {
+    paddingVertical: 7,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.searchColor,
+    marginRight: 8,
+  },
+  chipActive: {
+    backgroundColor: Colors.buttonColor,
+    borderColor: Colors.buttonColor,
+  },
+  chipText: {
+    color: Colors.status,
+    fontSize: 13,
+  },
+  chipTextActive: {
+    color: Colors.white,
+    fontWeight: "600",
+  },
 });
