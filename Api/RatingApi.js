@@ -2,10 +2,26 @@ import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 import { logger } from "../utils/logger";
+const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
 const apiToken =
   Constants.extra?.TMDB_BEARER_TOKEN ||
   Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
   Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
+
+const isTmdbAuthError = (payload) => {
+  const statusCode = payload?.status_code;
+  const statusMessage = payload?.status_message || "";
+  return (
+    statusCode === 3 ||
+    /authentication failed|do not have permissions/i.test(statusMessage)
+  );
+};
+
+const throwIfAuthFailed = async (payload) => {
+  if (!isTmdbAuthError(payload)) return;
+  await AsyncStorage.removeItem("session_id");
+  throw new Error(SESSION_EXPIRED_MESSAGE);
+};
 
 export const submitRating = async (
   movieId,
@@ -36,6 +52,7 @@ export const submitRating = async (
     const responseData = await response.json();
 
     if (!response.ok) {
+      await throwIfAuthFailed(responseData);
       logger.error("Failed to submit rating:", responseData);
       throw new Error(
         responseData.status_message || "Failed to submit rating.",
@@ -78,6 +95,7 @@ export const submitTvRating = async (
     const responseData = await response.json();
 
     if (!response.ok) {
+      await throwIfAuthFailed(responseData);
       logger.error("Failed to submit TV rating:", responseData);
       throw new Error(
         responseData.status_message || "Failed to submit TV rating.",
@@ -107,6 +125,8 @@ export const deleteRating = async (movieId, sessionId, isGuest = false) => {
     });
 
     if (!response.ok) {
+      const responseData = await response.json().catch(() => ({}));
+      await throwIfAuthFailed(responseData);
       throw new Error("Failed to remove rating");
     }
 
@@ -133,6 +153,8 @@ export const deleteTvRating = async (tvId, sessionId, isGuest = false) => {
     });
 
     if (!response.ok) {
+      const responseData = await response.json().catch(() => ({}));
+      await throwIfAuthFailed(responseData);
       throw new Error("Failed to remove TV rating");
     }
 
@@ -163,6 +185,7 @@ export const getRating = async (movieId, sessionId, isGuest = false) => {
     const data = await response.json();
 
     if (!response.ok) {
+      await throwIfAuthFailed(data);
       logger.error("Failed to fetch movie rating:", data);
       throw new Error(data.status_message || "Failed to fetch movie rating.");
     }
@@ -194,6 +217,7 @@ export const getTvRating = async (tvId, sessionId, isGuest = false) => {
     const data = await response.json();
 
     if (!response.ok) {
+      await throwIfAuthFailed(data);
       logger.error("Failed to fetch TV rating:", data);
       throw new Error(data.status_message || "Failed to fetch TV rating.");
     }
@@ -233,6 +257,7 @@ export const getRatedMovies = async (sessionId, isGuest = false, language) => {
     const data = await response.json();
 
     if (!response.ok) {
+      await throwIfAuthFailed(data);
       logger.error("Failed to fetch rated movies:", data);
       throw new Error(data.status_message || "Failed to fetch rated movies.");
     }
@@ -265,6 +290,7 @@ export const getRatedTvShows = async (sessionId, isGuest = false, language) => {
     const data = await response.json();
 
     if (!response.ok) {
+      await throwIfAuthFailed(data);
       logger.error("Failed to fetch rated TV shows:", data);
       throw new Error(data.status_message || "Failed to fetch rated TV shows.");
     }

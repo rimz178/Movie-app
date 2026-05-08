@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, Alert, TouchableOpacity } from "react-native";
 import { Rating } from "react-native-ratings";
 import {
@@ -13,7 +13,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { RatingStyles } from "../Styles/RatingStyles";
 import Colors from "../Styles/Colors";
 import { logger } from "../utils/logger";
-import { useLanguage } from "../localization/LanguageContext";
 /**
  * CustomRating component allows users to rate movies or TV shows.
  * It fetches the current rating from the API and allows users to submit or remove their rating.
@@ -25,7 +24,6 @@ import { useLanguage } from "../localization/LanguageContext";
  */
 export default function CustomRating({ id, sessionId, type = "movie" }) {
   const [rating, setRating] = useState(0);
-  const { strings } = useLanguage();
 
   useEffect(() => {
     if (!id) {
@@ -35,11 +33,19 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
 
     const fetchRating = async () => {
       if (sessionId && id) {
-        const savedRating =
-          type === "movie"
-            ? await getRating(id, sessionId)
-            : await getTvRating(id, sessionId);
-        setRating(savedRating / 2);
+        try {
+          const savedRating =
+            type === "movie"
+              ? await getRating(id, sessionId)
+              : await getTvRating(id, sessionId);
+          setRating(savedRating / 2);
+        } catch (error) {
+          if (error?.message === "Session expired. Please log in again.") {
+            Alert.alert("Session expired", "Please log in again.");
+            return;
+          }
+          logger.error("Error fetching rating:", error);
+        }
       }
     };
 
@@ -68,6 +74,10 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
         setRating(value);
       }
     } catch (error) {
+      if (error?.message === "Session expired. Please log in again.") {
+        Alert.alert("Session expired", "Please log in again.");
+        return;
+      }
       logger.error("Error:", error);
     }
   };
@@ -85,6 +95,10 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
         setRating(0);
       }
     } catch (error) {
+      if (error?.message === "Session expired. Please log in again.") {
+        Alert.alert("Session expired", "Please log in again.");
+        return;
+      }
       logger.error("Error:", error);
     }
   };
