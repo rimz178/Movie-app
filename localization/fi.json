@@ -25,6 +25,27 @@
     "Result": "Tulokset",
     "Back": "Takaisin"
   },
+  "SearchView": {
+    "BrowseByCategory": "Selaa kategorioittain",
+    "SelectTypeAndGenre": "Valitse ensin tyyppi ja sitten genre.",
+    "FilterAll": "Kaikki",
+    "FilterMovies": "Leffat",
+    "FilterSeries": "Sarjat",
+    "Genres": {
+      "Action": "Toiminta",
+      "Adventure": "Seikkailu",
+      "Animation": "Animaatio",
+      "Comedy": "Komedia",
+      "Crime": "Rikos",
+      "Drama": "Draama",
+      "Horror": "Kauhu",
+      "Romance": "Romantiikka",
+      "SciFi": "Sci-Fi",
+      "Thriller": "Thrilleri",
+      "Documentary": "Dokumentti",
+      "Fantasy": "Fantasia"
+    }
+  },
   "Movies": {
     "UpcomingMovies": "Tulevat Elokuvat",
     "NowPlaying": "Tällä Hetkellä Elokuvateattereissa",

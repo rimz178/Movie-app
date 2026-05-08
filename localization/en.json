@@ -25,6 +25,27 @@
     "Result": "Result",
     "Back": "Back"
   },
+  "SearchView": {
+    "BrowseByCategory": "Browse by category",
+    "SelectTypeAndGenre": "Choose a type first and then a genre.",
+    "FilterAll": "All",
+    "FilterMovies": "Movies",
+    "FilterSeries": "Series",
+    "Genres": {
+      "Action": "Action",
+      "Adventure": "Adventure",
+      "Animation": "Animation",
+      "Comedy": "Comedy",
+      "Crime": "Crime",
+      "Drama": "Drama",
+      "Horror": "Horror",
+      "Romance": "Romance",
+      "SciFi": "Sci-Fi",
+      "Thriller": "Thriller",
+      "Documentary": "Documentary",
+      "Fantasy": "Fantasy"
+    }
+  },
   "Movies": {
     "UpcomingMovies": "Upcoming Movies",
     "NowPlaying": "Now Playing Cinemas",

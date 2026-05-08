@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   TextInput,
   View,
   FlatList,
+  ScrollView,
   TouchableOpacity,
   Text,
   TouchableWithoutFeedback,
@@ -32,6 +33,24 @@ import { detectGenreFromText } from "../utils/genreKeywords";
  *
  * @returns {JSX.Element} - The search bar and results list.
  */
+const GENRES = [
+  { movieId: 28, tvId: 10759, key: "Action" },
+  { movieId: 12, tvId: 10759, key: "Adventure" },
+  { movieId: 16, tvId: 16, key: "Animation" },
+  { movieId: 35, tvId: 35, key: "Comedy" },
+  { movieId: 80, tvId: 80, key: "Crime" },
+  { movieId: 18, tvId: 18, key: "Drama" },
+  { movieId: 27, tvId: 9648, key: "Horror" },
+  { movieId: 10749, tvId: 18, key: "Romance" },
+  { movieId: 878, tvId: 10765, key: "SciFi" },
+  { movieId: 53, tvId: 9648, key: "Thriller" },
+  { movieId: 99, tvId: 99, key: "Documentary" },
+  { movieId: 14, tvId: 10765, key: "Fantasy" },
+];
+
+const getGenreConfig = (genreId) =>
+  GENRES.find((genre) => genre.movieId === genreId || genre.tvId === genreId);
+
 export default function SearchBars() {
   const navigation = useNavigation();
   const [results, setResult] = useState([]);
@@ -40,6 +59,10 @@ export default function SearchBars() {
   const [searchText, setSearchText] = useState("");
   const { strings, language } = useLanguage();
   const langCode = LANGUAGE_CODES[language] || LANGUAGE_CODES.en;
+  const searchViewStrings = strings.SearchView;
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [mediaFilter, setMediaFilter] = useState("both");
+  const [isGenreSectionOpen, setIsGenreSectionOpen] = useState(false);
 
   const handleSearch = useCallback(
     async (value) => {
@@ -51,22 +74,25 @@ export default function SearchBars() {
         requestAnimationFrame(async () => {
           try {
             if (detectedGenre) {
+              const genreConfig = getGenreConfig(detectedGenre);
+              const movieGenreId = genreConfig?.movieId || detectedGenre;
+              const tvGenreId = genreConfig?.tvId || detectedGenre;
               const [moviesData, seriesData] = await Promise.all([
                 discoverMovies({
-                  with_genres: detectedGenre,
+                  with_genres: movieGenreId,
                   language: langCode,
                   page: "1",
                   sort_by: "popularity.desc",
                 }),
                 discoverSeries({
-                  with_genres: detectedGenre,
+                  with_genres: tvGenreId,
                   language: langCode,
                   page: "1",
                   sort_by: "popularity.desc",
                 }),
               ]);
 
-              const results = [
+              const genreResults = [
                 ...(moviesData?.results || []).slice(0, 5).map((item) => ({
                   ...item,
                   media_type: "movie",
@@ -77,7 +103,7 @@ export default function SearchBars() {
                 })),
               ];
 
-              setResult(results);
+              setResult(genreResults);
             } else {
               const [moviesData, seriesData, peopleData] = await Promise.all([
                 searchMovies({
@@ -103,7 +129,7 @@ export default function SearchBars() {
                 }),
               ]);
 
-              const results = [
+              const searchResults = [
                 ...(moviesData?.results || []).map((item) => ({
                   ...item,
                   media_type: "movie",
@@ -119,7 +145,7 @@ export default function SearchBars() {
               ];
 
               const searchValueLower = value.toLowerCase();
-              const sortedResults = results.sort((a, b) => {
+              const sortedResults = searchResults.sort((a, b) => {
                 const aTitle = (a.title || a.name || "").toLowerCase();
                 const bTitle = (b.title || b.name || "").toLowerCase();
                 if (aTitle === searchValueLower && bTitle !== searchValueLower)
@@ -139,8 +165,7 @@ export default function SearchBars() {
                 return (b.popularity || 0) - (a.popularity || 0);
               });
 
-              const maxResults = 50;
-              setResult(sortedResults.slice(0, maxResults));
+              setResult(sortedResults.slice(0, 50));
             }
           } catch (error) {
             logger.error("Error fetching search results:", error);
@@ -157,7 +182,70 @@ export default function SearchBars() {
     [langCode],
   );
 
-  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
+  const handleTextDebounce = useMemo(
+    () => debounce(handleSearch, 400),
+    [handleSearch],
+  );
+
+  useEffect(() => {
+    return () => {
+      handleTextDebounce.cancel();
+    };
+  }, [handleTextDebounce]);
+
+  const fetchByGenre = useCallback(
+    async (genreId, filter) => {
+      setLoading(true);
+      try {
+        const genreConfig = getGenreConfig(genreId);
+        let items = [];
+        if (filter === "both" || filter === "movie") {
+          const moviesData = await discoverMovies({
+            with_genres: genreConfig?.movieId || genreId,
+            language: langCode,
+            page: "1",
+            sort_by: "popularity.desc",
+          });
+          items = [
+            ...items,
+            ...(moviesData?.results || []).map((item) => ({
+              ...item,
+              media_type: "movie",
+            })),
+          ];
+        }
+        if (filter === "both" || filter === "tv") {
+          const seriesData = await discoverSeries({
+            with_genres: genreConfig?.tvId || genreId,
+            language: langCode,
+            page: "1",
+            sort_by: "popularity.desc",
+          });
+          items = [
+            ...items,
+            ...(seriesData?.results || []).map((item) => ({
+              ...item,
+              media_type: "tv",
+            })),
+          ];
+        }
+        items.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+        setResult(items.slice(0, 40));
+      } catch (error) {
+        logger.error("Error fetching genre results:", error);
+        setResult([]);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [langCode],
+  );
+
+  useEffect(() => {
+    if (selectedGenre && !searchText) {
+      fetchByGenre(selectedGenre, mediaFilter);
+    }
+  }, [selectedGenre, mediaFilter, fetchByGenre, searchText]);
 
   return (
     <View style={SearchStyles.container}>
@@ -168,6 +256,7 @@ export default function SearchBars() {
           value={searchText}
           onChangeText={(text) => {
             setSearchText(text);
+            if (text) setSelectedGenre(null);
             handleTextDebounce(text);
           }}
           placeholderTextColor="white"
@@ -175,6 +264,7 @@ export default function SearchBars() {
         <TouchableOpacity
           onPress={() => {
             setSearchText("");
+            setSelectedGenre(null);
             setResult([]);
             setLoading(false);
             navigation.navigate("HomeTab");
@@ -183,6 +273,97 @@ export default function SearchBars() {
           <MaterialIcons style={SearchStyles.icon} size={38} name="close" />
         </TouchableOpacity>
       </View>
+
+      {!searchText && (
+        <View style={SearchStyles.genreSection}>
+          <TouchableOpacity
+            style={SearchStyles.genreHeader}
+            onPress={() => setIsGenreSectionOpen((prev) => !prev)}
+            activeOpacity={0.8}
+          >
+            <View>
+              <Text style={SearchStyles.genreTitle}>
+                {searchViewStrings.BrowseByCategory}
+              </Text>
+              <Text style={SearchStyles.genreSubtitle}>
+                {searchViewStrings.SelectTypeAndGenre}
+              </Text>
+            </View>
+            <MaterialIcons
+              name={
+                isGenreSectionOpen ? "keyboard-arrow-up" : "keyboard-arrow-down"
+              }
+              size={26}
+              style={SearchStyles.genreHeaderIcon}
+            />
+          </TouchableOpacity>
+
+          {isGenreSectionOpen && (
+            <>
+              <View style={SearchStyles.toggleRow}>
+                {["both", "movie", "tv"].map((filter) => (
+                  <TouchableOpacity
+                    key={filter}
+                    style={[
+                      SearchStyles.toggleBtn,
+                      mediaFilter === filter && SearchStyles.toggleBtnActive,
+                    ]}
+                    onPress={() => {
+                      setMediaFilter(filter);
+                    }}
+                  >
+                    <Text
+                      style={[
+                        SearchStyles.toggleText,
+                        mediaFilter === filter && SearchStyles.toggleTextActive,
+                      ]}
+                    >
+                      {filter === "both"
+                        ? searchViewStrings.FilterAll
+                        : filter === "movie"
+                          ? searchViewStrings.FilterMovies
+                          : searchViewStrings.FilterSeries}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={SearchStyles.chipsRow}
+                contentContainerStyle={SearchStyles.chipsContent}
+              >
+                {GENRES.map((genre) => (
+                  <TouchableOpacity
+                    key={genre.key}
+                    style={[
+                      SearchStyles.chip,
+                      selectedGenre === genre.movieId &&
+                        SearchStyles.chipActive,
+                    ]}
+                    onPress={() => {
+                      const newGenre =
+                        selectedGenre === genre.movieId ? null : genre.movieId;
+                      setSelectedGenre(newGenre);
+                      if (!newGenre) setResult([]);
+                    }}
+                  >
+                    <Text
+                      style={[
+                        SearchStyles.chipText,
+                        selectedGenre === genre.movieId &&
+                          SearchStyles.chipTextActive,
+                      ]}
+                    >
+                      {searchViewStrings.Genres[genre.key]}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </>
+          )}
+        </View>
+      )}
 
       {loading ? (
         <Loading />

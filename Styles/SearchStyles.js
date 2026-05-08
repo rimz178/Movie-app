@@ -56,4 +56,83 @@ export const SearchStyles = StyleSheet.create({
   searchImage: {
     paddingHorizontal: 10,
   },
+  genreSection: {
+    marginTop: -20,
+    marginBottom: 10,
+  },
+  genreHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+  },
+  genreTitle: {
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: "700",
+    marginBottom: 2,
+  },
+  genreSubtitle: {
+    color: Colors.status,
+    fontSize: 13,
+  },
+  genreHeaderIcon: {
+    color: Colors.status,
+  },
+  toggleRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 8,
+    marginBottom: 12,
+    paddingHorizontal: 16,
+  },
+  toggleBtn: {
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.searchColor,
+    backgroundColor: "#2A2A2A",
+  },
+  toggleBtnActive: {
+    backgroundColor: Colors.buttonColor,
+    borderColor: Colors.buttonColor,
+  },
+  toggleText: {
+    color: Colors.status,
+    fontSize: 13,
+    fontWeight: "600",
+  },
+  toggleTextActive: {
+    color: Colors.white,
+  },
+  chipsRow: {
+    marginBottom: 12,
+  },
+  chipsContent: {
+    paddingHorizontal: 16,
+    paddingRight: 24,
+  },
+  chip: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.searchColor,
+    marginRight: 8,
+    backgroundColor: "#2A2A2A",
+  },
+  chipActive: {
+    backgroundColor: Colors.buttonColor,
+    borderColor: Colors.buttonColor,
+  },
+  chipText: {
+    color: Colors.status,
+    fontSize: 13,
+  },
+  chipTextActive: {
+    color: Colors.white,
+    fontWeight: "600",
+  },
 });
