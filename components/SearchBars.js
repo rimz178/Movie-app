@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   TextInput,
   View,
@@ -182,7 +182,16 @@ export default function SearchBars() {
     [langCode],
   );
 
-  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
+  const handleTextDebounce = useMemo(
+    () => debounce(handleSearch, 400),
+    [handleSearch],
+  );
+
+  useEffect(() => {
+    return () => {
+      handleTextDebounce.cancel();
+    };
+  }, [handleTextDebounce]);
 
   const fetchByGenre = useCallback(
     async (genreId, filter) => {
@@ -301,7 +310,6 @@ export default function SearchBars() {
                     ]}
                     onPress={() => {
                       setMediaFilter(filter);
-                      if (selectedGenre) fetchByGenre(selectedGenre, filter);
                     }}
                   >
                     <Text
