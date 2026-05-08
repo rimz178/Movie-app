@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,8 @@ import { RatingListStyles } from "../Styles/RatingListStyles";
 import { logger } from "../utils/logger";
 import { useLanguage } from "../localization/LanguageContext";
 
+const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
+
 /**
  * TvRatingList component fetches and displays a list of rated TV shows.
  *
@@ -27,6 +29,15 @@ const TvRatingList = () => {
   const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
   const { strings, language } = useLanguage();
+
+  const redirectToLogin = () => {
+    const parentNavigation = navigation.getParent();
+    if (parentNavigation) {
+      parentNavigation.navigate("Login");
+      return;
+    }
+    navigation.navigate("Login");
+  };
 
   useEffect(() => {
     const fetchUserSessionId = async () => {
@@ -54,6 +65,11 @@ const TvRatingList = () => {
         const tvShows = await getRatedTvShows(sessionId);
         setRatedTvShows(tvShows || []);
       } catch (err) {
+        if (err?.message === SESSION_EXPIRED_MESSAGE) {
+          setError(null);
+          redirectToLogin();
+          return;
+        }
         logger.error("Error fetching rated TV shows:", err);
         setError("Failed to fetch rated TV shows. Please try again later.");
       }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,6 +13,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RatingListStyles } from "../Styles/RatingListStyles";
 import { logger } from "../utils/logger";
 import { useLanguage } from "../localization/LanguageContext";
+
+const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
 /**
  * MovieRatingList component fetches and displays a list of rated movies.
  *
@@ -25,6 +27,15 @@ const MovieRatingList = () => {
   const [loadingImages, setLoadingImages] = useState({});
   const navigation = useNavigation();
   const { strings, language } = useLanguage();
+
+  const redirectToLogin = () => {
+    const parentNavigation = navigation.getParent();
+    if (parentNavigation) {
+      parentNavigation.navigate("Login");
+      return;
+    }
+    navigation.navigate("Login");
+  };
 
   useEffect(() => {
     const fetchUserSessionId = async () => {
@@ -52,6 +63,11 @@ const MovieRatingList = () => {
         const movies = await getRatedMovies(sessionId);
         setRatedMovies(movies || []);
       } catch (err) {
+        if (err?.message === SESSION_EXPIRED_MESSAGE) {
+          setError(null);
+          redirectToLogin();
+          return;
+        }
         logger.error("Error fetching movie ratings:", err);
         setError("Failed to fetch movie ratings. Please try again later.");
       }

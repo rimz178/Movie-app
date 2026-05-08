@@ -10,8 +10,9 @@ import { fallbackMoviePoster, image185 } from "../Api/ApiParsing";
 import { fetchFavorites } from "../Api/Favorites";
 import { useNavigation } from "@react-navigation/native";
 import { FavoriteStyles } from "../Styles/FavoriteStyles";
-import { logger } from "../utils/logger";
 import { useLanguage } from "../localization/LanguageContext";
+
+const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
 
 /**
  * This component fetches and displays a list of favorite movies and TV shows.
@@ -25,6 +26,15 @@ const FavoriteList = () => {
   const navigation = useNavigation();
   const { strings, language } = useLanguage();
 
+  const redirectToLogin = () => {
+    const parentNavigation = navigation.getParent();
+    if (parentNavigation) {
+      parentNavigation.navigate("Login");
+      return;
+    }
+    navigation.navigate("Login");
+  };
+
   useEffect(() => {
     const loadFavorites = async () => {
       try {
@@ -35,6 +45,9 @@ const FavoriteList = () => {
         });
         setIsLoading(false);
       } catch (error) {
+        if (error?.message === SESSION_EXPIRED_MESSAGE) {
+          redirectToLogin();
+        }
         setIsLoading(false);
       }
     };

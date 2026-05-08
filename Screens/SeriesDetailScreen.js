@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -28,6 +28,8 @@ import { logger } from "../utils/logger";
 import LANGUAGE_CODES from "../localization/languageCodes";
 import { useLanguage } from "../localization/LanguageContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+
+const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
 /**
  * Displays detailed information about a series, including its cast, genres, and watch providers.
  *
@@ -42,8 +44,16 @@ export default function SeriesDetailScreen() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [watchProviders, setWatchProviders] = useState([]);
   const [userSessionId, setUserSessionId] = useState(null);
-  const [loadingImage, setLoadingImage] = useState(false);
   const { strings, language } = useLanguage();
+
+  const redirectToLogin = () => {
+    const parentNavigation = navigation.getParent();
+    if (parentNavigation) {
+      parentNavigation.navigate("Login");
+      return;
+    }
+    navigation.navigate("Login");
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -100,6 +110,10 @@ export default function SeriesDetailScreen() {
         false;
       setIsFavorite(isSeriesFavorite);
     } catch (error) {
+      if (error?.message === SESSION_EXPIRED_MESSAGE) {
+        redirectToLogin();
+        return;
+      }
       logger.error("Error fetching favorite status:", error);
     }
   };
@@ -130,6 +144,10 @@ export default function SeriesDetailScreen() {
         logger.error("Failed to toggle favorite:", response);
       }
     } catch (error) {
+      if (error?.message === SESSION_EXPIRED_MESSAGE) {
+        redirectToLogin();
+        return;
+      }
       logger.error("Error toggling favorite:", error);
     }
   };
@@ -159,8 +177,6 @@ export default function SeriesDetailScreen() {
                       image500(seriesDetails?.backdrop_path) ||
                       fallbackMoviePoster,
                   }}
-                  onLoadStart={() => setLoadingImage(true)}
-                  onLoadEnd={() => setLoadingImage(false)}
                   progressiveRenderingEnabled={true}
                 />
                 <TouchableOpacity

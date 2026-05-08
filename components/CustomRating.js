@@ -10,9 +10,12 @@ import {
   getTvRating,
 } from "../Api/RatingApi";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { RatingStyles } from "../Styles/RatingStyles";
 import Colors from "../Styles/Colors";
 import { logger } from "../utils/logger";
+
+const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
 /**
  * CustomRating component allows users to rate movies or TV shows.
  * It fetches the current rating from the API and allows users to submit or remove their rating.
@@ -24,6 +27,16 @@ import { logger } from "../utils/logger";
  */
 export default function CustomRating({ id, sessionId, type = "movie" }) {
   const [rating, setRating] = useState(0);
+  const navigation = useNavigation();
+
+  const redirectToLogin = () => {
+    const parentNavigation = navigation.getParent();
+    if (parentNavigation) {
+      parentNavigation.navigate("Login");
+      return;
+    }
+    navigation.navigate("Login");
+  };
 
   useEffect(() => {
     if (!id) {
@@ -40,8 +53,10 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
               : await getTvRating(id, sessionId);
           setRating(savedRating / 2);
         } catch (error) {
-          if (error?.message === "Session expired. Please log in again.") {
-            Alert.alert("Session expired", "Please log in again.");
+          if (error?.message === SESSION_EXPIRED_MESSAGE) {
+            Alert.alert("Session expired", "Please log in again.", [
+              { text: "OK", onPress: redirectToLogin },
+            ]);
             return;
           }
           logger.error("Error fetching rating:", error);
@@ -74,8 +89,10 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
         setRating(value);
       }
     } catch (error) {
-      if (error?.message === "Session expired. Please log in again.") {
-        Alert.alert("Session expired", "Please log in again.");
+      if (error?.message === SESSION_EXPIRED_MESSAGE) {
+        Alert.alert("Session expired", "Please log in again.", [
+          { text: "OK", onPress: redirectToLogin },
+        ]);
         return;
       }
       logger.error("Error:", error);
@@ -95,8 +112,10 @@ export default function CustomRating({ id, sessionId, type = "movie" }) {
         setRating(0);
       }
     } catch (error) {
-      if (error?.message === "Session expired. Please log in again.") {
-        Alert.alert("Session expired", "Please log in again.");
+      if (error?.message === SESSION_EXPIRED_MESSAGE) {
+        Alert.alert("Session expired", "Please log in again.", [
+          { text: "OK", onPress: redirectToLogin },
+        ]);
         return;
       }
       logger.error("Error:", error);
