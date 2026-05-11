@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, Text } from "react-native";
+import { useEffect, useState } from "react";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import * as StoreReview from "expo-store-review";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GlobalStyles } from "../Styles/GlobalStyles";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import {
   fetchTrending,
   fetchUpcoming,
@@ -15,6 +15,7 @@ import {
 } from "../Api/ApiParsing";
 import { useLanguage } from "../localization/LanguageContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { logger } from "../utils/logger";
 /**
  * HomeScreen component that displays movie data.
  *
@@ -58,9 +59,9 @@ function HomeScreen({ route }) {
         if (nowPlayingData?.results) setPlaying(nowPlayingData.results);
 
         setLoading(false);
-      } catch (error) {
+      } catch {
         setLoading(false);
-        setErrorMessage("Failed to load data. Please try again later.");
+        logger.error("Failed to load movie home data.");
       }
     };
 
@@ -87,7 +88,7 @@ function HomeScreen({ route }) {
             await AsyncStorage.setItem(REVIEW_SHOWN_KEY, "true");
           }
         }
-      } catch (e) {}
+      } catch {}
     };
     checkAndAskForReview();
   }, []);
@@ -133,6 +134,29 @@ function HomeScreen({ route }) {
                 <MovieList title={item.title} data={item.data} />
               )
             }
+            ListFooterComponent={() => (
+              <View style={GlobalStyles.recommendationTeaserWrap}>
+                <View style={GlobalStyles.recommendationTeaserCard}>
+                  <Text style={GlobalStyles.recommendationTeaserEyebrow}>
+                    {strings.WhatToWatch.QuickPick}
+                  </Text>
+                  <Text style={GlobalStyles.recommendationTeaserTitle}>
+                    {strings.WhatToWatch.Title}
+                  </Text>
+                  <Text style={GlobalStyles.recommendationTeaserText}>
+                    {strings.WhatToWatch.SearchCardText}
+                  </Text>
+                  <TouchableOpacity
+                    style={GlobalStyles.recommendationTeaserButton}
+                    onPress={() => navigation.navigate("WhatToWatch")}
+                  >
+                    <Text style={GlobalStyles.recommendationTeaserButtonText}>
+                      {strings.WhatToWatch.OpenButton}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
           />
         </>
       )}

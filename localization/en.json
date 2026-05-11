@@ -28,6 +28,8 @@
   "SearchView": {
     "BrowseByCategory": "Browse by category",
     "SelectTypeAndGenre": "Choose a type first and then a genre.",
+    "ShowDiscoverPanel": "Show recommendations and categories",
+    "HideDiscoverPanel": "Hide recommendations and categories",
     "FilterAll": "All",
     "FilterMovies": "Movies",
     "FilterSeries": "Series",

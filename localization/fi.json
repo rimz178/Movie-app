@@ -28,6 +28,8 @@
   "SearchView": {
     "BrowseByCategory": "Selaa kategorioittain",
     "SelectTypeAndGenre": "Valitse ensin tyyppi ja sitten genre.",
+    "ShowDiscoverPanel": "Näytä suositukset ja kategoriat",
+    "HideDiscoverPanel": "Piilota suositukset ja kategoriat",
     "FilterAll": "Kaikki",
     "FilterMovies": "Leffat",
     "FilterSeries": "Sarjat",

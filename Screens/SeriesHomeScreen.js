@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Text, FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import { Text, FlatList, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
 import { GlobalStyles } from "../Styles/GlobalStyles";
@@ -113,6 +113,29 @@ function SeriesHomeScreen({ route }) {
                 data={item.data}
                 listIndex={index}
               />
+            )}
+            ListFooterComponent={() => (
+              <View style={GlobalStyles.recommendationTeaserWrap}>
+                <View style={GlobalStyles.recommendationTeaserCard}>
+                  <Text style={GlobalStyles.recommendationTeaserEyebrow}>
+                    {strings.WhatToWatch.QuickPick}
+                  </Text>
+                  <Text style={GlobalStyles.recommendationTeaserTitle}>
+                    {strings.WhatToWatch.Title}
+                  </Text>
+                  <Text style={GlobalStyles.recommendationTeaserText}>
+                    {strings.WhatToWatch.SearchCardText}
+                  </Text>
+                  <TouchableOpacity
+                    style={GlobalStyles.recommendationTeaserButton}
+                    onPress={() => navigation.navigate("WhatToWatch")}
+                  >
+                    <Text style={GlobalStyles.recommendationTeaserButtonText}>
+                      {strings.WhatToWatch.OpenButton}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             )}
           />
         </>

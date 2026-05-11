@@ -42,4 +42,48 @@ export const GlobalStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  recommendationTeaserWrap: {
+    paddingHorizontal: 16,
+    paddingBottom: 24,
+    paddingTop: 6,
+  },
+  recommendationTeaserCard: {
+    backgroundColor: "#1F1F1F",
+    borderRadius: 20,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: "#353535",
+  },
+  recommendationTeaserEyebrow: {
+    color: Colors.buttonColor,
+    fontSize: 12,
+    fontWeight: "700",
+    textTransform: "uppercase",
+    letterSpacing: 0.8,
+    marginBottom: 8,
+  },
+  recommendationTeaserTitle: {
+    color: Colors.white,
+    fontSize: 22,
+    fontWeight: "800",
+    marginBottom: 8,
+  },
+  recommendationTeaserText: {
+    color: Colors.status,
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  recommendationTeaserButton: {
+    alignSelf: "flex-start",
+    backgroundColor: Colors.buttonColor,
+    borderRadius: 999,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  recommendationTeaserButtonText: {
+    color: Colors.white,
+    fontSize: 14,
+    fontWeight: "700",
+  },
 });
