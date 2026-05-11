@@ -9,6 +9,12 @@ const apiKey =
   Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
   Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
 
+if (!apiKey) {
+  logger.error(
+    "TMDB_BEARER_TOKEN is missing. Set it in environment before starting Expo.",
+  );
+}
+
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,
   headers: {
