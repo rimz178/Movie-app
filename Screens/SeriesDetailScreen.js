@@ -11,6 +11,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import {
   fetchSeriesDetails,
   fetchSeriesCredits,
+  fetchSeriesRecommendations,
   fetchSeriesWatchProviders,
   image500,
   fallbackMoviePoster,
@@ -22,6 +23,7 @@ import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import CustomRating from "../components/CustomRating";
+import SeriesList from "../components/SeriesList";
 import { SharedStyles } from "../Styles/SharedStyles";
 import { PersonStyles } from "../Styles/PersonStyles";
 import { logger } from "../utils/logger";
@@ -41,6 +43,7 @@ export default function SeriesDetailScreen() {
   const [loading, setLoading] = useState(true);
   const [seriesDetails, setSeriesDetails] = useState({});
   const [cast, setCast] = useState([]);
+  const [recommendedSeries, setRecommendedSeries] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [watchProviders, setWatchProviders] = useState([]);
   const [userSessionId, setUserSessionId] = useState(null);
@@ -57,12 +60,14 @@ export default function SeriesDetailScreen() {
 
   useEffect(() => {
     setLoading(true);
+    setRecommendedSeries([]);
     getSeriesDetails(series.id);
     getSeriesCredits(series.id);
+    getSeriesRecommendations(series.id);
     getSeriesWatchProviders(series.id);
     fetchFavoriteStatus(series.id);
     fetchUserSessionId();
-  }, [series.id]);
+  }, [series.id, language]);
 
   const fetchUserSessionId = async () => {
     try {
@@ -84,6 +89,16 @@ export default function SeriesDetailScreen() {
   const getSeriesCredits = async (id) => {
     const data = await fetchSeriesCredits(id);
     if (data?.cast) setCast(data.cast);
+  };
+
+  const getSeriesRecommendations = async (id) => {
+    setRecommendedSeries([]);
+    const data = await fetchSeriesRecommendations(id, LANGUAGE_CODES[language]);
+    if (Array.isArray(data?.results)) {
+      setRecommendedSeries(data.results.slice(0, 10));
+    } else {
+      setRecommendedSeries([]);
+    }
   };
 
   const getSeriesWatchProviders = async (id) => {
@@ -267,6 +282,13 @@ export default function SeriesDetailScreen() {
                   type="tv"
                   countryCode={LANGUAGE_CODES[language]}
                 />
+                {recommendedSeries.length > 0 ? (
+                  <SeriesList
+                    title={strings?.Series?.SimilarSeries || "Similar Series"}
+                    data={recommendedSeries}
+                    listIndex={0}
+                  />
+                ) : null}
               </View>
             </View>
           )}

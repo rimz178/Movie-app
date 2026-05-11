@@ -50,13 +50,15 @@
     "UpcomingMovies": "Tulevat Elokuvat",
     "NowPlaying": "Tällä Hetkellä Elokuvateattereissa",
     "TrendingMovies": "Trendaavat Elokuvat",
-    "TopRated": "Korkeimmin Arvostellut Elokuvat"
+    "TopRated": "Korkeimmin Arvostellut Elokuvat",
+    "SimilarMovies": "Samantyyliset Elokuvat"
   },
   "Series": {
     "TrendingSeries": "Trendaavat Sarjat",
     "OnTheAir": "Parhaillaan esitettävät sarjat",
     "TopRatedSeries": "Korkeimmin Arvostellut Sarjat",
     "PopularSeries": "Suositut Sarjat",
+    "SimilarSeries": "Samantyyliset Sarjat",
     "Seasons": "Kautta",
     "Episodes": "Jaksoa",
     "ReleasedSeasons": "Julkaistuja kausia"

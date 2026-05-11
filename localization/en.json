@@ -50,13 +50,15 @@
     "UpcomingMovies": "Upcoming Movies",
     "NowPlaying": "Now Playing Cinemas",
     "TrendingMovies": "Trending Movies",
-    "TopRated": "Top Rated Movies"
+    "TopRated": "Top Rated Movies",
+    "SimilarMovies": "Similar Movies"
   },
   "Series": {
     "TrendingSeries": "Trending Series",
     "OnTheAir": "On the Air Series",
     "TopRatedSeries": "Top Rated Series",
     "PopularSeries": "Popular Series",
+    "SimilarSeries": "Similar Series",
     "Seasons": "Seasons",
     "Episodes": "Episodes",
     "ReleasedSeasons": "Released seasons"
