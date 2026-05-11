@@ -32,12 +32,14 @@ const popularSeriesEndpoint = "/tv/popular?region=FI";
 
 const movieDetailsEndpoint = (id) => `/movie/${id}`;
 const movieCreditsEndpoint = (id) => `/movie/${id}/credits`;
+const movieRecommendationsEndpoint = (id) => `/movie/${id}/recommendations`;
 const personDetailsEndpoints = (id) => `/person/${id}`;
 const personMoviesEndpoint = (id) => `/person/${id}/movie_credits`;
 const personSeriesEndpoint = (id) => `/person/${id}/tv_credits`;
 const watchProvidersEndpoint = (id) => `/movie/${id}/watch/providers`;
 const seriesDetailsEndpoint = (id) => `/tv/${id}`;
 const seriesCreditsEndpoint = (id) => `/tv/${id}/credits`;
+const seriesRecommendationsEndpoint = (id) => `/tv/${id}/recommendations`;
 const seriesWatchProvidersEndpoint = (id) => `/tv/${id}/watch/providers`;
 
 const requestTokenEndpoint = "/authentication/token/new";
@@ -125,6 +127,8 @@ export const searchPeople = async (params) => {
   return apiCall(searchPeopleEndpoint, params);
 };
 export const fetchMovieCredits = (id) => apiCall(movieCreditsEndpoint(id));
+export const fetchMovieRecommendations = (id, language) =>
+  apiCall(movieRecommendationsEndpoint(id), { language });
 export const fetchPersonDetails = (id, language) =>
   apiCall(personDetailsEndpoints(id), { language });
 export const fetchPersonMovies = (personId) =>
@@ -137,6 +141,8 @@ export const fetchTopRatedSeries = () => apiCall(topRatedSeries);
 export const fetchSeriesDetails = (id, language) =>
   apiCall(seriesDetailsEndpoint(id), { language });
 export const fetchSeriesCredits = (id) => apiCall(seriesCreditsEndpoint(id));
+export const fetchSeriesRecommendations = (id, language) =>
+  apiCall(seriesRecommendationsEndpoint(id), { language });
 export const fetchSeriesWatchProviders = (id) =>
   apiCall(seriesWatchProvidersEndpoint(id));
 export const fetchPopularSeries = () => apiCall(popularSeriesEndpoint);

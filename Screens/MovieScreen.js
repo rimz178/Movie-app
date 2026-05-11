@@ -15,12 +15,14 @@ import Loading from "../components/Loading";
 import {
   fetchMovieCredits,
   fetchMovieDetails,
+  fetchMovieRecommendations,
   fetchWatchProviders,
   image185,
   fallbackMoviePoster,
 } from "../Api/ApiParsing";
 import Cast from "../components/Cast";
 import WatchProviders from "../components/WatchProviders";
+import MovieList from "../components/MovieList";
 import { toggleFavorite, fetchFavorites } from "../Api/Favorites";
 import { SharedStyles } from "../Styles/SharedStyles";
 import { PersonStyles } from "../Styles/PersonStyles";
@@ -44,6 +46,7 @@ export default function MovieScreen() {
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({});
   const [cast, setCast] = useState([]);
+  const [recommendedMovies, setRecommendedMovies] = useState([]);
   const [watchProviders, setWatchProviders] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [userSessionId, setUserSessionId] = useState(null);
@@ -62,6 +65,7 @@ export default function MovieScreen() {
     setLoading(true);
     getMovieDetails(item.id);
     getMovieCredits(item.id);
+    getMovieRecommendations(item.id);
     getWatchProviders(item.id);
     fetchFavoriteStatus(item.id);
     fetchUserSessionId();
@@ -88,6 +92,13 @@ export default function MovieScreen() {
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
     if (data?.cast) setCast(data.cast);
+  };
+
+  const getMovieRecommendations = async (id) => {
+    const data = await fetchMovieRecommendations(id, LANGUAGE_CODES[language]);
+    if (data?.results) {
+      setRecommendedMovies(data.results.slice(0, 10));
+    }
   };
 
   const getWatchProviders = async (id) => {
@@ -254,6 +265,12 @@ export default function MovieScreen() {
                 type="movie"
                 countryCode={LANGUAGE_CODES[language]}
               />
+              {recommendedMovies.length > 0 ? (
+                <MovieList
+                  title={strings?.Movies?.SimilarMovies || "Similar Movies"}
+                  data={recommendedMovies}
+                />
+              ) : null}
             </View>
           )}
         />
