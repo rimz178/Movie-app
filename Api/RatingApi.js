@@ -1,15 +1,9 @@
-import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 import { logger } from "../utils/logger";
+import { getTmdbBearerToken } from "../utils/tmdbToken";
 const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
-const rawApiToken =
-  Constants.extra?.TMDB_BEARER_TOKEN ||
-  Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
-  Constants.manifest?.extra?.TMDB_BEARER_TOKEN ||
-  "";
-
-const apiToken = rawApiToken.trim().replace(/^"|"$/g, "");
+const apiToken = getTmdbBearerToken();
 
 const isTmdbAuthError = (payload) => {
   const statusCode = payload?.status_code;

@@ -1,16 +1,10 @@
 import axios from "axios";
 const apiBaseUrl = "https://api.themoviedb.org/3";
-import Constants from "expo-constants";
 import { logger } from "../utils/logger";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getTmdbBearerToken } from "../utils/tmdbToken";
 
-const rawApiKey =
-  Constants.extra?.TMDB_BEARER_TOKEN ||
-  Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
-  Constants.manifest?.extra?.TMDB_BEARER_TOKEN ||
-  "";
-
-const apiKey = rawApiKey.trim().replace(/^"|"$/g, "");
+const apiKey = getTmdbBearerToken();
 
 if (!apiKey) {
   logger.error(
