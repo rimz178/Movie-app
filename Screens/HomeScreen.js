@@ -59,9 +59,9 @@ function HomeScreen({ route }) {
         if (nowPlayingData?.results) setPlaying(nowPlayingData.results);
 
         setLoading(false);
-      } catch {
+      } catch (error) {
         setLoading(false);
-        logger.error("Failed to load movie home data.");
+        logger.error("Failed to load movie home data.", error);
       }
     };
 

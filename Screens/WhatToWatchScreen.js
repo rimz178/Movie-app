@@ -27,9 +27,17 @@ const VIBE_OPTIONS = [
   { key: "Horror", movieId: 27, tvId: 9648 },
 ];
 
-const pickRandomItem = (items, excludedId) => {
+const pickRandomItem = (items, excludedItem) => {
   const candidatePool =
-    excludedId == null ? items : items.filter((item) => item.id !== excludedId);
+    excludedItem == null
+      ? items
+      : items.filter(
+          (item) =>
+            !(
+              item.id === excludedItem.id &&
+              item.media_type === excludedItem.media_type
+            ),
+        );
   const pool = candidatePool.length > 0 ? candidatePool : items;
 
   if (!pool.length) return null;
@@ -180,7 +188,7 @@ export default function WhatToWatchScreen() {
 
   const handleReshuffle = () => {
     setSuggestion((currentSuggestion) =>
-      pickRandomItem(resultPool, currentSuggestion?.id),
+      pickRandomItem(resultPool, currentSuggestion),
     );
   };
 
