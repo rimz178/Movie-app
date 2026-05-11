@@ -46,6 +46,29 @@
       "Fantasy": "Fantasia"
     }
   },
+  "WhatToWatch": {
+    "NavigationTitle": "Mitä katsoisin?",
+    "QuickPick": "Nopea valinta",
+    "Title": "Etkö tiedä mitä katsoisit?",
+    "Subtitle": "Vastaa muutamaan nopeaan valintaan ja sovellus arpoo sinulle sopivan leffan tai sarjan.",
+    "SearchCardText": "Avaa nopea kysely ja anna sovelluksen ehdottaa jotain katsottavaa tämän hetken fiilikseen.",
+    "OpenButton": "Aloita kysely",
+    "TypeTitle": "Haluatko katsoa",
+    "TypeMovie": "Leffan",
+    "TypeSeries": "Sarjan",
+    "TypeBoth": "Kumman vain",
+    "VibeTitle": "Millainen fiilis?",
+    "GenreTitle": "Tai valitse genre",
+    "SortTitle": "Millaista etsit",
+    "SortPopular": "Suosittua",
+    "SortTopRated": "Korkealle arvosteltua",
+    "SortNewer": "Uudempaa",
+    "Generate": "Anna suositus",
+    "OpenDetails": "Avaa tiedot",
+    "Reshuffle": "Arvo uudelleen",
+    "NoResultsTitle": "Ei osumaa tällä yhdistelmällä",
+    "NoResultsText": "Kokeile toista genreä, eri tyyppiä tai löysempää suodatusta."
+  },
   "Movies": {
     "UpcomingMovies": "Tulevat Elokuvat",
     "NowPlaying": "Tällä Hetkellä Elokuvateattereissa",
