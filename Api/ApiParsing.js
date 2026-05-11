@@ -4,10 +4,13 @@ import Constants from "expo-constants";
 import { logger } from "../utils/logger";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const apiKey =
+const rawApiKey =
   Constants.extra?.TMDB_BEARER_TOKEN ||
   Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
-  Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
+  Constants.manifest?.extra?.TMDB_BEARER_TOKEN ||
+  "";
+
+const apiKey = rawApiKey.trim().replace(/^"|"$/g, "");
 
 if (!apiKey) {
   logger.error(

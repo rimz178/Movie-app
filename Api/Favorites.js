@@ -4,10 +4,13 @@ import { Alert } from "react-native";
 import { logger } from "../utils/logger";
 import LANGUAGE_CODES from "../localization/languageCodes";
 
-const API_TOKEN =
+const rawApiToken =
   Constants.extra?.TMDB_BEARER_TOKEN ||
   Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
-  Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
+  Constants.manifest?.extra?.TMDB_BEARER_TOKEN ||
+  "";
+
+const API_TOKEN = rawApiToken.trim().replace(/^"|"$/g, "");
 const BASE_URL = "https://api.themoviedb.org/3";
 const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
 

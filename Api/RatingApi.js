@@ -3,10 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const apiBaseUrl = "https://api.themoviedb.org/3";
 import { logger } from "../utils/logger";
 const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
-const apiToken =
+const rawApiToken =
   Constants.extra?.TMDB_BEARER_TOKEN ||
   Constants.expoConfig?.extra?.TMDB_BEARER_TOKEN ||
-  Constants.manifest?.extra?.TMDB_BEARER_TOKEN;
+  Constants.manifest?.extra?.TMDB_BEARER_TOKEN ||
+  "";
+
+const apiToken = rawApiToken.trim().replace(/^"|"$/g, "");
 
 const isTmdbAuthError = (payload) => {
   const statusCode = payload?.status_code;
