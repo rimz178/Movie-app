@@ -63,13 +63,14 @@ export default function MovieScreen() {
 
   useEffect(() => {
     setLoading(true);
+    setRecommendedMovies([]);
     getMovieDetails(item.id);
     getMovieCredits(item.id);
     getMovieRecommendations(item.id);
     getWatchProviders(item.id);
     fetchFavoriteStatus(item.id);
     fetchUserSessionId();
-  }, [item]);
+  }, [item.id, language]);
 
   const fetchUserSessionId = async () => {
     try {
@@ -95,9 +96,12 @@ export default function MovieScreen() {
   };
 
   const getMovieRecommendations = async (id) => {
+    setRecommendedMovies([]);
     const data = await fetchMovieRecommendations(id, LANGUAGE_CODES[language]);
-    if (data?.results) {
+    if (Array.isArray(data?.results)) {
       setRecommendedMovies(data.results.slice(0, 10));
+    } else {
+      setRecommendedMovies([]);
     }
   };
 

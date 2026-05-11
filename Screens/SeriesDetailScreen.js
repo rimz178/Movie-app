@@ -60,13 +60,14 @@ export default function SeriesDetailScreen() {
 
   useEffect(() => {
     setLoading(true);
+    setRecommendedSeries([]);
     getSeriesDetails(series.id);
     getSeriesCredits(series.id);
     getSeriesRecommendations(series.id);
     getSeriesWatchProviders(series.id);
     fetchFavoriteStatus(series.id);
     fetchUserSessionId();
-  }, [series.id]);
+  }, [series.id, language]);
 
   const fetchUserSessionId = async () => {
     try {
@@ -91,9 +92,12 @@ export default function SeriesDetailScreen() {
   };
 
   const getSeriesRecommendations = async (id) => {
+    setRecommendedSeries([]);
     const data = await fetchSeriesRecommendations(id, LANGUAGE_CODES[language]);
-    if (data?.results) {
+    if (Array.isArray(data?.results)) {
       setRecommendedSeries(data.results.slice(0, 10));
+    } else {
+      setRecommendedSeries([]);
     }
   };
 
