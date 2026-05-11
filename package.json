@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
+    "baseline-browser-mapping": "^2.10.29",
     "fs-extra": "^11.3.5"
   }
 }
