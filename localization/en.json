@@ -28,6 +28,8 @@
   "SearchView": {
     "BrowseByCategory": "Browse by category",
     "SelectTypeAndGenre": "Choose a type first and then a genre.",
+    "ShowDiscoverPanel": "Show recommendations and categories",
+    "HideDiscoverPanel": "Hide recommendations and categories",
     "FilterAll": "All",
     "FilterMovies": "Movies",
     "FilterSeries": "Series",
@@ -45,6 +47,29 @@
       "Documentary": "Documentary",
       "Fantasy": "Fantasy"
     }
+  },
+  "WhatToWatch": {
+    "NavigationTitle": "What to Watch",
+    "QuickPick": "Quick pick",
+    "Title": "Not sure what to watch?",
+    "Subtitle": "Answer a few quick prompts and the app will pick a movie or series that fits the moment.",
+    "SearchCardText": "Open a short recommendation flow and let the app suggest something to watch right now.",
+    "OpenButton": "Start quiz",
+    "TypeTitle": "What do you want to watch",
+    "TypeMovie": "Movie",
+    "TypeSeries": "Series",
+    "TypeBoth": "Either",
+    "VibeTitle": "What is the vibe?",
+    "GenreTitle": "Or choose a genre",
+    "SortTitle": "What kind of pick",
+    "SortPopular": "Popular",
+    "SortTopRated": "Top rated",
+    "SortNewer": "Newer",
+    "Generate": "Give me a pick",
+    "OpenDetails": "Open details",
+    "Reshuffle": "Pick again",
+    "NoResultsTitle": "No match with these filters",
+    "NoResultsText": "Try another genre, a different type, or looser filters."
   },
   "Movies": {
     "UpcomingMovies": "Upcoming Movies",

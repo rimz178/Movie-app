@@ -27,30 +27,16 @@ import { SearchStyles } from "../Styles/SearchStyles";
 import { useLanguage } from "../localization/LanguageContext";
 import LANGUAGE_CODES from "../localization/languageCodes";
 import { detectGenreFromText } from "../utils/genreKeywords";
+import {
+  DISCOVERY_GENRES,
+  getDiscoveryGenreConfig,
+} from "../utils/discoveryGenres";
 
 /**
  * SearchBars component for searching movies, series and actors.
  *
  * @returns {JSX.Element} - The search bar and results list.
  */
-const GENRES = [
-  { movieId: 28, tvId: 10759, key: "Action" },
-  { movieId: 12, tvId: 10759, key: "Adventure" },
-  { movieId: 16, tvId: 16, key: "Animation" },
-  { movieId: 35, tvId: 35, key: "Comedy" },
-  { movieId: 80, tvId: 80, key: "Crime" },
-  { movieId: 18, tvId: 18, key: "Drama" },
-  { movieId: 27, tvId: 9648, key: "Horror" },
-  { movieId: 10749, tvId: 18, key: "Romance" },
-  { movieId: 878, tvId: 10765, key: "SciFi" },
-  { movieId: 53, tvId: 9648, key: "Thriller" },
-  { movieId: 99, tvId: 99, key: "Documentary" },
-  { movieId: 14, tvId: 10765, key: "Fantasy" },
-];
-
-const getGenreConfig = (genreId) =>
-  GENRES.find((genre) => genre.movieId === genreId || genre.tvId === genreId);
-
 export default function SearchBars() {
   const navigation = useNavigation();
   const [results, setResult] = useState([]);
@@ -60,9 +46,12 @@ export default function SearchBars() {
   const { strings, language } = useLanguage();
   const langCode = LANGUAGE_CODES[language] || LANGUAGE_CODES.en;
   const searchViewStrings = strings.SearchView;
+  const recommendationStrings = strings.WhatToWatch;
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [mediaFilter, setMediaFilter] = useState("both");
   const [isGenreSectionOpen, setIsGenreSectionOpen] = useState(false);
+  const [isDiscoverPanelCollapsed, setIsDiscoverPanelCollapsed] =
+    useState(false);
 
   const handleSearch = useCallback(
     async (value) => {
@@ -74,7 +63,7 @@ export default function SearchBars() {
         requestAnimationFrame(async () => {
           try {
             if (detectedGenre) {
-              const genreConfig = getGenreConfig(detectedGenre);
+              const genreConfig = getDiscoveryGenreConfig(detectedGenre);
               const movieGenreId = genreConfig?.movieId || detectedGenre;
               const tvGenreId = genreConfig?.tvId || detectedGenre;
               const [moviesData, seriesData] = await Promise.all([
@@ -197,7 +186,7 @@ export default function SearchBars() {
     async (genreId, filter) => {
       setLoading(true);
       try {
-        const genreConfig = getGenreConfig(genreId);
+        const genreConfig = getDiscoveryGenreConfig(genreId);
         let items = [];
         if (filter === "both" || filter === "movie") {
           const moviesData = await discoverMovies({
@@ -275,94 +264,167 @@ export default function SearchBars() {
       </View>
 
       {!searchText && (
-        <View style={SearchStyles.genreSection}>
-          <TouchableOpacity
-            style={SearchStyles.genreHeader}
-            onPress={() => setIsGenreSectionOpen((prev) => !prev)}
-            activeOpacity={0.8}
-          >
-            <View>
-              <Text style={SearchStyles.genreTitle}>
-                {searchViewStrings.BrowseByCategory}
+        <>
+          {!isDiscoverPanelCollapsed && (
+            <TouchableOpacity
+              style={SearchStyles.recommendationCard}
+              onPress={() => navigation.navigate("WhatToWatch")}
+              activeOpacity={0.9}
+            >
+              <Text style={SearchStyles.recommendationEyebrow}>
+                {recommendationStrings.QuickPick}
               </Text>
-              <Text style={SearchStyles.genreSubtitle}>
-                {searchViewStrings.SelectTypeAndGenre}
+              <Text style={SearchStyles.recommendationTitle}>
+                {recommendationStrings.Title}
               </Text>
-            </View>
-            <MaterialIcons
-              name={
-                isGenreSectionOpen ? "keyboard-arrow-up" : "keyboard-arrow-down"
-              }
-              size={26}
-              style={SearchStyles.genreHeaderIcon}
-            />
-          </TouchableOpacity>
-
-          {isGenreSectionOpen && (
-            <>
-              <View style={SearchStyles.toggleRow}>
-                {["both", "movie", "tv"].map((filter) => (
-                  <TouchableOpacity
-                    key={filter}
-                    style={[
-                      SearchStyles.toggleBtn,
-                      mediaFilter === filter && SearchStyles.toggleBtnActive,
-                    ]}
-                    onPress={() => {
-                      setMediaFilter(filter);
-                    }}
-                  >
-                    <Text
-                      style={[
-                        SearchStyles.toggleText,
-                        mediaFilter === filter && SearchStyles.toggleTextActive,
-                      ]}
-                    >
-                      {filter === "both"
-                        ? searchViewStrings.FilterAll
-                        : filter === "movie"
-                          ? searchViewStrings.FilterMovies
-                          : searchViewStrings.FilterSeries}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+              <Text style={SearchStyles.recommendationText}>
+                {recommendationStrings.SearchCardText}
+              </Text>
+              <View style={SearchStyles.recommendationButton}>
+                <Text style={SearchStyles.recommendationButtonText}>
+                  {recommendationStrings.OpenButton}
+                </Text>
               </View>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                style={SearchStyles.chipsRow}
-                contentContainerStyle={SearchStyles.chipsContent}
-              >
-                {GENRES.map((genre) => (
-                  <TouchableOpacity
-                    key={genre.key}
-                    style={[
-                      SearchStyles.chip,
-                      selectedGenre === genre.movieId &&
-                        SearchStyles.chipActive,
-                    ]}
-                    onPress={() => {
-                      const newGenre =
-                        selectedGenre === genre.movieId ? null : genre.movieId;
-                      setSelectedGenre(newGenre);
-                      if (!newGenre) setResult([]);
-                    }}
-                  >
-                    <Text
-                      style={[
-                        SearchStyles.chipText,
-                        selectedGenre === genre.movieId &&
-                          SearchStyles.chipTextActive,
-                      ]}
-                    >
-                      {searchViewStrings.Genres[genre.key]}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-            </>
+            </TouchableOpacity>
           )}
-        </View>
+
+          <View style={SearchStyles.discoverToggleWrap}>
+            <TouchableOpacity
+              style={[
+                SearchStyles.discoverToggleButton,
+                isDiscoverPanelCollapsed
+                  ? SearchStyles.discoverToggleButtonCollapsed
+                  : SearchStyles.discoverToggleButtonExpanded,
+              ]}
+              onPress={() => setIsDiscoverPanelCollapsed((prev) => !prev)}
+              activeOpacity={0.8}
+            >
+              <Text
+                style={[
+                  SearchStyles.discoverToggleText,
+                  isDiscoverPanelCollapsed
+                    ? SearchStyles.discoverToggleTextCollapsed
+                    : SearchStyles.discoverToggleTextExpanded,
+                ]}
+              >
+                {isDiscoverPanelCollapsed
+                  ? searchViewStrings.ShowDiscoverPanel
+                  : searchViewStrings.HideDiscoverPanel}
+              </Text>
+              <MaterialIcons
+                name={
+                  isDiscoverPanelCollapsed
+                    ? "keyboard-arrow-down"
+                    : "keyboard-arrow-up"
+                }
+                size={22}
+                style={[
+                  SearchStyles.discoverToggleIcon,
+                  isDiscoverPanelCollapsed
+                    ? SearchStyles.discoverToggleIconCollapsed
+                    : SearchStyles.discoverToggleIconExpanded,
+                ]}
+              />
+            </TouchableOpacity>
+          </View>
+
+          {!isDiscoverPanelCollapsed && (
+            <View style={SearchStyles.genreSection}>
+              <TouchableOpacity
+                style={SearchStyles.genreHeader}
+                onPress={() => setIsGenreSectionOpen((prev) => !prev)}
+                activeOpacity={0.8}
+              >
+                <View>
+                  <Text style={SearchStyles.genreTitle}>
+                    {searchViewStrings.BrowseByCategory}
+                  </Text>
+                  <Text style={SearchStyles.genreSubtitle}>
+                    {searchViewStrings.SelectTypeAndGenre}
+                  </Text>
+                </View>
+                <MaterialIcons
+                  name={
+                    isGenreSectionOpen
+                      ? "keyboard-arrow-up"
+                      : "keyboard-arrow-down"
+                  }
+                  size={26}
+                  style={SearchStyles.genreHeaderIcon}
+                />
+              </TouchableOpacity>
+
+              {isGenreSectionOpen && (
+                <>
+                  <View style={SearchStyles.toggleRow}>
+                    {["both", "movie", "tv"].map((filter) => (
+                      <TouchableOpacity
+                        key={filter}
+                        style={[
+                          SearchStyles.toggleBtn,
+                          mediaFilter === filter &&
+                            SearchStyles.toggleBtnActive,
+                        ]}
+                        onPress={() => {
+                          setMediaFilter(filter);
+                        }}
+                      >
+                        <Text
+                          style={[
+                            SearchStyles.toggleText,
+                            mediaFilter === filter &&
+                              SearchStyles.toggleTextActive,
+                          ]}
+                        >
+                          {filter === "both"
+                            ? searchViewStrings.FilterAll
+                            : filter === "movie"
+                              ? searchViewStrings.FilterMovies
+                              : searchViewStrings.FilterSeries}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={SearchStyles.chipsRow}
+                    contentContainerStyle={SearchStyles.chipsContent}
+                  >
+                    {DISCOVERY_GENRES.map((genre) => (
+                      <TouchableOpacity
+                        key={genre.key}
+                        style={[
+                          SearchStyles.chip,
+                          selectedGenre === genre.movieId &&
+                            SearchStyles.chipActive,
+                        ]}
+                        onPress={() => {
+                          const newGenre =
+                            selectedGenre === genre.movieId
+                              ? null
+                              : genre.movieId;
+                          setSelectedGenre(newGenre);
+                          if (!newGenre) setResult([]);
+                        }}
+                      >
+                        <Text
+                          style={[
+                            SearchStyles.chipText,
+                            selectedGenre === genre.movieId &&
+                              SearchStyles.chipTextActive,
+                          ]}
+                        >
+                          {searchViewStrings.Genres[genre.key]}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                </>
+              )}
+            </View>
+          )}
+        </>
       )}
 
       {loading ? (

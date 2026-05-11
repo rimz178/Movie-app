@@ -11,6 +11,8 @@ import BottomTabs from "./BottomTabs";
 import SeriesHomeScreen from "../Screens/SeriesHomeScreen";
 import Colors from "../Styles/Colors";
 import SeriesDetailScreen from "../Screens/SeriesDetailScreen";
+import WhatToWatchScreen from "../Screens/WhatToWatchScreen";
+import { logger } from "../utils/logger";
 const Stack = createStackNavigator();
 import { useLanguage } from "../localization/LanguageContext";
 /**
@@ -106,6 +108,18 @@ function MainStack({ navigationRef }) {
             options={{
               headerBackTitle: strings.Navigation.Back,
               title: strings.Navigation.SeriesDetails,
+              headerShown: true,
+            }}
+          />
+          <Stack.Screen
+            name="WhatToWatch"
+            component={WhatToWatchScreen}
+            options={{
+              headerBackTitle: strings.Navigation.Back,
+              title:
+                strings.WhatToWatch?.NavigationTitle ||
+                strings.WhatToWatch?.Title ||
+                "What to Watch",
               headerShown: true,
             }}
           />

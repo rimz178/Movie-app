@@ -57,8 +57,93 @@ export const SearchStyles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   genreSection: {
-    marginTop: -20,
+    marginTop: -4,
     marginBottom: 10,
+  },
+  discoverToggleWrap: {
+    alignItems: "center",
+    marginTop: 4,
+    marginBottom: 10,
+  },
+  discoverToggleButton: {
+    minHeight: 38,
+    borderRadius: 19,
+    paddingHorizontal: 14,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 6,
+    borderWidth: 1,
+    elevation: 3,
+  },
+  discoverToggleButtonCollapsed: {
+    backgroundColor: Colors.buttonColor,
+    borderColor: Colors.buttonColor,
+  },
+  discoverToggleButtonExpanded: {
+    backgroundColor: "#2A2A2A",
+    borderColor: Colors.searchColor,
+  },
+  discoverToggleText: {
+    fontSize: 12,
+    fontWeight: "700",
+  },
+  discoverToggleTextCollapsed: {
+    color: Colors.white,
+  },
+  discoverToggleTextExpanded: {
+    color: Colors.white,
+  },
+  discoverToggleIcon: {
+    marginTop: 1,
+  },
+  discoverToggleIconCollapsed: {
+    color: Colors.white,
+  },
+  discoverToggleIconExpanded: {
+    color: Colors.status,
+  },
+  recommendationCard: {
+    marginHorizontal: 16,
+    marginTop: -22,
+    marginBottom: 14,
+    padding: 18,
+    borderRadius: 20,
+    backgroundColor: "#1F1F1F",
+    borderWidth: 1,
+    borderColor: "#353535",
+  },
+  recommendationEyebrow: {
+    color: Colors.buttonColor,
+    fontSize: 12,
+    fontWeight: "700",
+    textTransform: "uppercase",
+    letterSpacing: 0.8,
+    marginBottom: 8,
+  },
+  recommendationTitle: {
+    color: Colors.white,
+    fontSize: 22,
+    fontWeight: "800",
+    marginBottom: 8,
+  },
+  recommendationText: {
+    color: Colors.status,
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  recommendationButton: {
+    alignSelf: "flex-start",
+    backgroundColor: Colors.buttonColor,
+    borderRadius: 999,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  recommendationButtonText: {
+    color: Colors.white,
+    fontSize: 14,
+    fontWeight: "700",
   },
   genreHeader: {
     flexDirection: "row",
