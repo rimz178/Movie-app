@@ -1,7 +1,7 @@
 export default {
   name: "Movie-App",
   slug: "movie-app",
-  version: "1.6.0",
+  version: "1.6.1",
   orientation: "default",
   icon: "./assets/movieicon.png",
   jsEngine: "hermes",
