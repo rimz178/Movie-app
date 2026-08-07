@@ -62,6 +62,19 @@ export default {
     ],
     "expo-font",
     [
+      "expo-build-properties",
+      {
+        android: {
+          // react-native-google-mobile-ads pulls in
+          // play-services-ads 25.4.0, which is compiled with a newer
+          // Kotlin than RN 0.81's default (~2.1.x) can read
+          // ("incompatible version of Kotlin" build failure). Bump the
+          // Android Kotlin compiler to fix it.
+          kotlinVersion: "2.3.20",
+        },
+      },
+    ],
+    [
       "react-native-google-mobile-ads",
       {
         // Google's public test App IDs — swap to the real AdMob App IDs
