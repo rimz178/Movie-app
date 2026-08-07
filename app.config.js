@@ -38,6 +38,10 @@ export default {
   owner: "edie17",
   extra: {
     TMDB_BEARER_TOKEN: process.env.TMDB_BEARER_TOKEN || "",
+    // Real AdMob banner ad unit IDs (set these in .env before a production
+    // build). Left empty, the app falls back to Google's test ad unit.
+    ADMOB_BANNER_UNIT_ID_ANDROID: process.env.ADMOB_BANNER_UNIT_ID_ANDROID || "",
+    ADMOB_BANNER_UNIT_ID_IOS: process.env.ADMOB_BANNER_UNIT_ID_IOS || "",
     eas: {
       projectId: "714a627c-2519-4b13-acaf-3dfc48f8158a",
     },
@@ -57,5 +61,19 @@ export default {
       },
     ],
     "expo-font",
+    [
+      "react-native-google-mobile-ads",
+      {
+        // Google's public test App IDs — swap to the real AdMob App IDs
+        // (via ADMOB_ANDROID_APP_ID / ADMOB_IOS_APP_ID in .env) before a
+        // production build, otherwise no real ads will be requested.
+        androidAppId:
+          process.env.ADMOB_ANDROID_APP_ID ||
+          "ca-app-pub-3940256099942544~3347511713",
+        iosAppId:
+          process.env.ADMOB_IOS_APP_ID ||
+          "ca-app-pub-3940256099942544~1458002511",
+      },
+    ],
   ],
 };
