@@ -6,6 +6,7 @@ import { GlobalStyles } from "../Styles/GlobalStyles";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
+import AdBanner from "../components/AdBanner";
 import { useNavigation } from "@react-navigation/native";
 import {
   fetchTrending,
@@ -115,6 +116,7 @@ function HomeScreen({ route }) {
                 title: strings.Movies.NowPlaying,
                 data: nowPlaying,
               },
+              { key: "ad-1" },
               {
                 key: "trending",
                 title: strings.Movies.TrendingMovies,
@@ -125,15 +127,17 @@ function HomeScreen({ route }) {
                 title: strings.Movies.TopRated,
                 data: topRated,
               },
+              { key: "ad-2" },
             ]}
             keyExtractor={(item) => item.key}
-            renderItem={({ item }) =>
-              item.key === "upcoming" ? (
+            renderItem={({ item }) => {
+              if (item.key.startsWith("ad-")) return <AdBanner />;
+              return item.key === "upcoming" ? (
                 <UpcomingMovies data={item.data} />
               ) : (
                 <MovieList title={item.title} data={item.data} />
-              )
-            }
+              );
+            }}
             ListFooterComponent={() => (
               <View style={GlobalStyles.recommendationTeaserWrap}>
                 <View style={GlobalStyles.recommendationTeaserCard}>
