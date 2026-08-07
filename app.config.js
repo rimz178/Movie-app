@@ -1,7 +1,7 @@
 export default {
   name: "Movie-App",
   slug: "movie-app",
-  version: "1.6.1",
+  version: "1.7.0",
   orientation: "default",
   icon: "./assets/movieicon.png",
   jsEngine: "hermes",
@@ -51,7 +51,7 @@ export default {
     checkAutomatically: "ON_LOAD",
     fallbackToCacheTimeout: 5000,
   },
-  runtimeVersion: "1.6.1",
+  runtimeVersion: "1.7.0",
   plugins: [
     [
       "expo-notifications",
