@@ -61,19 +61,14 @@ export default {
       },
     ],
     "expo-font",
-    [
-      "expo-build-properties",
-      {
-        android: {
-          // react-native-google-mobile-ads pulls in
-          // play-services-ads 25.4.0, which is compiled with a newer
-          // Kotlin than RN 0.81's default (~2.1.x) can read
-          // ("incompatible version of Kotlin" build failure). Bump the
-          // Android Kotlin compiler to fix it.
-          kotlinVersion: "2.3.20",
-        },
-      },
-    ],
+    // NOTE: react-native-google-mobile-ads is pinned to 16.0.3 in
+    // package.json (not the latest). 16.1.0+ pulls in Google's
+    // play-services-ads 25.0.0+, which is compiled with a newer Kotlin
+    // than Expo SDK 54's toolchain can currently build against
+    // ("incompatible version of Kotlin" Gradle failure with no working
+    // kotlinVersion override — Expo's KSP table tops out at 2.2.20,
+    // still short of what 25.x needs). 16.0.3 uses play-services-ads
+    // 24.9.0, which only requires Kotlin 2.1.0 — RN 0.81's default.
     [
       "react-native-google-mobile-ads",
       {
