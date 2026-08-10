@@ -52,7 +52,7 @@ export default {
     checkAutomatically: "ON_LOAD",
     fallbackToCacheTimeout: 5000,
   },
-  runtimeVersion: "1.7.0",
+  runtimeVersion: "1.7.1",
   plugins: [
     [
       "expo-notifications",
