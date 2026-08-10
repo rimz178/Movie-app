@@ -1,7 +1,7 @@
 export default {
   name: "Movie-App",
   slug: "movie-app",
-  version: "1.7.0",
+  version: "1.7.1",
   orientation: "default",
   icon: "./assets/movieicon.png",
   jsEngine: "hermes",
@@ -40,7 +40,8 @@ export default {
     TMDB_BEARER_TOKEN: process.env.TMDB_BEARER_TOKEN || "",
     // Real AdMob banner ad unit IDs (set these in .env before a production
     // build). Left empty, the app falls back to Google's test ad unit.
-    ADMOB_BANNER_UNIT_ID_ANDROID: process.env.ADMOB_BANNER_UNIT_ID_ANDROID || "",
+    ADMOB_BANNER_UNIT_ID_ANDROID:
+      process.env.ADMOB_BANNER_UNIT_ID_ANDROID || "",
     ADMOB_BANNER_UNIT_ID_IOS: process.env.ADMOB_BANNER_UNIT_ID_IOS || "",
     eas: {
       projectId: "714a627c-2519-4b13-acaf-3dfc48f8158a",
