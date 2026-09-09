@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import SeriesList from "../components/SeriesList";
 import Loading from "../components/Loading";
+import AdBanner from "../components/AdBanner";
 import { GlobalStyles } from "../Styles/GlobalStyles";
 import {
   fetchPopularSeries,
@@ -95,6 +96,7 @@ function SeriesHomeScreen({ route }) {
                 title: strings.Series.OnTheAir,
                 data: onTheAir,
               },
+              { key: "ad-1" },
               {
                 key: "Top Rated Series",
                 title: strings.Series.TopRatedSeries,
@@ -105,15 +107,19 @@ function SeriesHomeScreen({ route }) {
                 title: strings.Series.PopularSeries,
                 data: popular,
               },
+              { key: "ad-2" },
             ]}
             keyExtractor={(item) => item.key}
-            renderItem={({ item, index }) => (
-              <SeriesList
-                title={item.title}
-                data={item.data}
-                listIndex={index}
-              />
-            )}
+            renderItem={({ item, index }) => {
+              if (item.key.startsWith("ad-")) return <AdBanner />;
+              return (
+                <SeriesList
+                  title={item.title}
+                  data={item.data}
+                  listIndex={index}
+                />
+              );
+            }}
             ListFooterComponent={() => (
               <View style={GlobalStyles.recommendationTeaserWrap}>
                 <View style={GlobalStyles.recommendationTeaserCard}>
